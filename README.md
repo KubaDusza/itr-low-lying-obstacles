@@ -118,6 +118,10 @@ loses accuracy on thin shapes.
 Training is cheap: YOLO 20 epochs in about 3 minutes on one RTX 3090, the two semantic
 models 15 epochs in about 5 minutes each.
 
+Longer training does not help: 80 epochs of YOLO gave test IoU 0.737 against 0.744 at 20
+epochs (recall up, precision down more). Training loss keeps falling but the validation
+score plateaus around epoch 12–15 for every model.
+
 ### Agreement between methods
 
 <img src="figures/agreement.png" width="420" alt="Agreement between methods">

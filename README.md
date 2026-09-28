@@ -74,11 +74,45 @@ Obstacle IoU, precision, recall, and the share of objects a method overlaps (det
 rate), plus FPS. Walls and furniture are ignored during scoring: they are labelled
 not-drivable but are not our objects, so predicting them is neither rewarded nor punished.
 
-## Results so far
+## Metrics
 
-| Method | Input | IoU | Precision | Recall | Objects found |
-|---|---|---|---|---|---|
-| Ground-plane segmentation (ISOD `mask/`) | depth | 0.031 | 0.132 | 0.039 | 0.4% |
+Everything is scored as mask overlap on the obstacle class, over the 300 test images:
 
-The depth-only method finds almost none of the 3,471 test objects, which is the premise of
-the project measured directly. Learned models are next.
+- **IoU** — overlap between predicted and true obstacle pixels, divided by their union. The headline number.
+- **Precision** — share of predicted obstacle pixels that are real obstacles.
+- **Recall** — share of real obstacle pixels that were predicted. For a robot a miss is
+  worse than an oversized mask, so recall matters more than precision.
+
+Walls and furniture are ignored: they are labelled not-drivable but are not our objects,
+so predicting them neither helps nor hurts. Test sites are never seen during training.
+
+## Results
+
+| Method | Input | IoU | Precision | Recall |
+|---|---|---|---|---|
+| Ground-plane segmentation (ISOD `mask/`) | depth | 0.031 | 0.132 | 0.039 |
+| YOLOv8n-seg | RGB | 0.744 | 0.883 | 0.826 |
+| **U-Net (MobileNetV2)** | RGB | **0.776** | 0.906 | 0.844 |
+| DeepLabV3+ (MobileNetV2) | RGB | 0.757 | 0.903 | 0.824 |
+
+The depth-only ground-plane method finds almost nothing: these objects are about 3 cm
+tall or less, which is below what the plane fit separates from the floor. Every RGB model
+lands near 0.75–0.78 IoU, and the three differ far less from each other than any of them
+differs from depth. U-Net is slightly ahead of YOLO, which has to go through polygons and
+loses accuracy on thin shapes.
+
+Training is cheap: YOLO 20 epochs in about 3 minutes on one RTX 3090, the two semantic
+models 15 epochs in about 5 minutes each.
+
+![Predictions per method](figures/methods_comparison.png)
+
+*Per method: green = correct, red = missed, blue = false positive. Depth (column 3) misses
+nearly everything; the RGB models catch most objects and disagree mainly on small distant
+ones and on reflections.*
+
+![Training curves](figures/training_curves.png)
+
+## Next
+
+RGB-D fusion (ESANet, or YOLO masks checked against depth), SAM pseudo-labels versus hand
+labels, and per-class numbers for cables, gloves and small solid objects.

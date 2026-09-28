@@ -79,35 +79,26 @@ def ignore_region(label, gt_mask):
     return ((label == 0) & (gt_mask == 0)).astype(np.uint8)
 
 
-def score(pred, gt_mask, gt_instances, ignore=None, hit_iou=0.25):
-    """Pixel IoU/precision/recall plus the share of objects found."""
+def score(pred, gt_mask, ignore=None):
+    """Pixel IoU, precision and recall for the obstacle class."""
     if ignore is not None:
         pred = (pred & ~ignore.astype(bool)).astype(np.uint8)
     inter = int((pred & gt_mask).sum())
     union = int((pred | gt_mask).sum())
-    found = sum(
-        1
-        for ins in gt_instances
-        if (pred & ins).sum() / max(1, (pred | ins).sum()) >= hit_iou
-    )
     return {
         "inter": inter,
         "union": union,
         "pred": int(pred.sum()),
         "gt": int(gt_mask.sum()),
-        "objects": len(gt_instances),
-        "found": found,
     }
 
 
 def totals(rows):
-    t = {k: sum(r[k] for r in rows) for k in ("inter", "union", "pred", "gt", "objects", "found")}
+    t = {k: sum(r[k] for r in rows) for k in ("inter", "union", "pred", "gt")}
     return {
         "IoU": t["inter"] / max(1, t["union"]),
         "precision": t["inter"] / max(1, t["pred"]),
         "recall": t["inter"] / max(1, t["gt"]),
-        "detection_rate": t["found"] / max(1, t["objects"]),
-        "objects": t["objects"],
         "frames": len(rows),
     }
 

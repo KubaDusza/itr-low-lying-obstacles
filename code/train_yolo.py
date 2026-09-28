@@ -8,6 +8,7 @@ import argparse
 import os
 import time
 
+import cv2
 import numpy as np
 from PIL import Image
 from ultralytics import YOLO
@@ -21,12 +22,15 @@ def main():
     ap.add_argument("--imgsz", type=int, default=640)
     ap.add_argument("--batch", type=int, default=16)
     ap.add_argument("--conf", type=float, default=0.25)
+    ap.add_argument("--weights", default=None, help="skip training, predict with these weights")
     a = ap.parse_args()
 
-    data = f"{a.root}/yolo/data.yaml"
-    model = YOLO(a.model)
-    model.train(data=data, epochs=a.epochs, imgsz=a.imgsz, batch=a.batch,
-                project=f"{a.root}/runs", name="yolov8n_seg", exist_ok=True)
+    if a.weights:
+        model = YOLO(a.weights)
+    else:
+        model = YOLO(a.model)
+        model.train(data=f"{a.root}/yolo/data.yaml", epochs=a.epochs, imgsz=a.imgsz,
+                    batch=a.batch, project=f"{a.root}/runs", name="yolov8n_seg", exist_ok=True)
 
     img_dir = f"{a.root}/yolo/images/test"
     files = sorted(os.listdir(img_dir))
@@ -35,11 +39,13 @@ def main():
         site, i = f[:-4].rsplit("_", 1)
         r = model.predict(f"{img_dir}/{f}", conf=a.conf, imgsz=a.imgsz, verbose=False)[0]
         h, w = r.orig_shape
+        # r.masks.xy is already in original-image coordinates; r.masks.data is not
+        # (it still carries the letterbox padding), so use the polygons.
         out = np.zeros((h, w), np.uint8)
         if r.masks is not None:
-            for m in r.masks.data.cpu().numpy():
-                mm = np.array(Image.fromarray((m * 255).astype(np.uint8)).resize((w, h)))
-                out[mm > 127] = 255
+            for poly in r.masks.xy:
+                if len(poly) >= 3:
+                    cv2.fillPoly(out, [poly.astype(np.int32)], 255)
         d = f"{a.root}/pred/yolo/{site}"
         os.makedirs(d, exist_ok=True)
         Image.fromarray(out).save(f"{d}/{i}.png")

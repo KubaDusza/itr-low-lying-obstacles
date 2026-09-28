@@ -14,8 +14,7 @@ import isod
 
 
 def gt(site, i):
-    m = np.array(Image.open(f"{isod.GT}/{site}/{i}.png")) > 0
-    return m.astype(np.uint8), isod.instances(m.astype(np.uint8))
+    return (np.array(Image.open(f"{isod.GT}/{site}/{i}.png")) > 0).astype(np.uint8)
 
 
 def run(method, split="test", pred_dir=None, n=100):
@@ -23,13 +22,13 @@ def run(method, split="test", pred_dir=None, n=100):
     rows = []
     for site in sites:
         for i in range(n):
-            g, ins = gt(site, i)
+            g = gt(site, i)
             _, _, label, mask = isod.frame(site, i)
             if method == "depth":
                 pred = isod.depth_baseline(mask, label)
             else:
                 pred = (np.array(Image.open(f"{pred_dir}/{site}/{i}.png")) > 0).astype(np.uint8)
-            rows.append(isod.score(pred, g, ins, ignore=isod.ignore_region(label, g)))
+            rows.append(isod.score(pred, g, ignore=isod.ignore_region(label, g)))
     return isod.totals(rows)
 
 

@@ -63,7 +63,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", default="/data/cs_courses/jdusza_itr")
     ap.add_argument("--arch", default="unet", choices=["unet", "deeplabv3plus"])
-    ap.add_argument("--encoder", default="mobilenet_v3_large")
+    ap.add_argument("--encoder", default="mobilenet_v2")
     ap.add_argument("--epochs", type=int, default=15)
     ap.add_argument("--batch", type=int, default=8)
     ap.add_argument("--lr", type=float, default=3e-4)
@@ -79,6 +79,11 @@ def main():
     sched = torch.optim.lr_scheduler.OneCycleLR(opt, a.lr, epochs=a.epochs, steps_per_epoch=len(tr))
     scaler = torch.amp.GradScaler()
 
+    name = f"{a.arch}_{a.encoder}"
+    os.makedirs(f"{a.root}/runs", exist_ok=True)
+    hist = open(f"{a.root}/runs/{name}_history.csv", "w")
+    hist.write("epoch,train_loss,val_IoU,seconds\n")
+    t_start = time.time()
     for ep in range(a.epochs):
         net.train()
         run = 0.0
@@ -101,8 +106,10 @@ def main():
                 union += ((p + y) > 0).float().sum().item()
         print(f"epoch {ep + 1}/{a.epochs} loss={run / len(tr):.4f} val_IoU={inter / max(1, union):.4f}",
               flush=True)
+        hist.write(f"{ep + 1},{run / len(tr):.5f},{inter / max(1, union):.5f},{time.time() - t_start:.1f}\n")
+        hist.flush()
 
-    name = f"{a.arch}_{a.encoder}"
+    hist.close()
     torch.save(net.state_dict(), f"{a.root}/runs/{name}.pt")
 
     # test-split masks at the original resolution, plus inference speed

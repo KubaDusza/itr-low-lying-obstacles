@@ -120,7 +120,7 @@ models 15 epochs in about 5 minutes each.
 
 ### Agreement between methods
 
-![Agreement between methods](figures/agreement.png)
+<img src="figures/agreement.png" width="420" alt="Agreement between methods">
 
 Pairwise IoU of the predicted masks — how much two models agree with each other, ignoring
 the ground truth (`agreement.py`; the depth baseline agrees with nothing and is left out).

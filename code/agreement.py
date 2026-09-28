@@ -30,21 +30,23 @@ def plot(iou, names, out=None):
 
     out = out or f"{isod.ROOT}/figures/agreement.png"
     n = len(names)
-    shown = np.array([[np.nan if a == b else iou[a, b] for b in range(n)] for a in range(n)])
-    fig, ax = plt.subplots(figsize=(5.4, 4.2), dpi=200)
+    # upper triangle only (the matrix is symmetric): rows drop the last name,
+    # columns drop the first, so no empty row or column is drawn
+    rows, cols = names[:-1], names[1:]
+    shown = np.array([[iou[a, b + 1] if b + 1 > a else np.nan for b in range(n - 1)]
+                      for a in range(n - 1)])
+    fig, ax = plt.subplots(figsize=(4.8, 3.2), dpi=200)
     fig.patch.set_facecolor("#fcfcfb")
-    # sequential: one hue, light -> dark; range chosen around the observed values
-    im = ax.imshow(shown, cmap="Blues", vmin=0.6, vmax=0.9)
-    for a in range(n):
-        for b in range(n):
-            if a == b:
-                ax.text(b, a, "—", ha="center", va="center", color="#8a8a8a", fontsize=13)
-            else:
-                v = iou[a, b]
-                ax.text(b, a, f"{v:.3f}", ha="center", va="center", fontsize=11,
-                        color="#ffffff" if v > 0.8 else "#1a1a1a")
-    ax.set_xticks(range(n), names, fontsize=9, color="#5c5c5c", rotation=20, ha="right")
-    ax.set_yticks(range(n), names, fontsize=9, color="#5c5c5c")
+    im = ax.imshow(shown, cmap="Blues", vmin=0.6, vmax=0.9)  # sequential: one hue
+    for a in range(n - 1):
+        for b in range(n - 1):
+            if np.isnan(shown[a, b]):
+                continue
+            v = shown[a, b]
+            ax.text(b, a, f"{v:.3f}", ha="center", va="center", fontsize=11,
+                    color="#ffffff" if v > 0.8 else "#1a1a1a")
+    ax.set_xticks(range(n - 1), cols, fontsize=9, color="#5c5c5c")
+    ax.set_yticks(range(n - 1), rows, fontsize=9, color="#5c5c5c")
     ax.set_title("Agreement between methods\nIoU of one model's mask against another's",
                  fontsize=10, color="#1a1a1a", pad=10, loc="left")
     for s_ in ax.spines.values():
@@ -87,7 +89,7 @@ def main(n=100):
         for b in range(len(names)):
             x, y = min(a, b), max(a, b)
             v = iou[x, y]
-            cells.append("—" if a == b else f"{v:.3f}")
+            cells.append("" if b <= a else f"{v:.3f}")
         print(f"| **{na}** | " + " | ".join(cells) + " |")
 
 

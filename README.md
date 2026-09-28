@@ -118,6 +118,23 @@ loses accuracy on thin shapes.
 Training is cheap: YOLO 20 epochs in about 3 minutes on one RTX 3090, the two semantic
 models 15 epochs in about 5 minutes each.
 
+### Agreement between methods
+
+Pairwise IoU of the predicted masks. Off-diagonal is how much two methods agree with each
+other; the diagonal (bold) is each method's IoU against the ground truth (`agreement.py`).
+
+| | Ground plane (depth) | YOLOv8n-seg | U-Net | DeepLabV3+ |
+|---|---|---|---|---|
+| **Ground plane (depth)** | **0.031** | 0.020 | 0.027 | 0.025 |
+| **YOLOv8n-seg** | 0.020 | **0.744** | 0.752 | 0.749 |
+| **U-Net** | 0.027 | 0.752 | **0.776** | 0.861 |
+| **DeepLabV3+** | 0.025 | 0.749 | 0.861 | **0.757** |
+
+The RGB models agree with each other more than any of them agrees with the ground truth
+(U-Net and DeepLabV3+ at 0.861), so they are failing on the same pixels — small distant
+objects, thin cables and reflections — rather than making independent mistakes. Depth
+agrees with nothing, including the ground truth.
+
 ![Predictions per method](figures/methods_comparison.png)
 
 *Per method: green = correct, red = missed, blue = false positive. Depth (column 3) misses

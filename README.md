@@ -70,12 +70,6 @@ By site, so test rooms are never seen in training: 14 sites train, 3 val, 3 test
 
 ## Metrics
 
-Obstacle IoU, precision, recall, and the share of objects a method overlaps (detection
-rate), plus FPS. Walls and furniture are ignored during scoring: they are labelled
-not-drivable but are not our objects, so predicting them is neither rewarded nor punished.
-
-## Metrics
-
 Everything is scored as mask overlap on the obstacle class, over the 300 test images:
 
 - **IoU** — overlap between predicted and true obstacle pixels, divided by their union. The headline number.

@@ -23,6 +23,7 @@ def main():
     ap.add_argument("--batch", type=int, default=16)
     ap.add_argument("--conf", type=float, default=0.25)
     ap.add_argument("--weights", default=None, help="skip training, predict with these weights")
+    ap.add_argument("--name", default="yolov8n_seg", help="run name under runs/ and pred/")
     a = ap.parse_args()
 
     if a.weights:
@@ -30,7 +31,7 @@ def main():
     else:
         model = YOLO(a.model)
         model.train(data=f"{a.root}/yolo/data.yaml", epochs=a.epochs, imgsz=a.imgsz,
-                    batch=a.batch, project=f"{a.root}/runs", name="yolov8n_seg", exist_ok=True)
+                    batch=a.batch, project=f"{a.root}/runs", name=a.name, exist_ok=True)
 
     img_dir = f"{a.root}/yolo/images/test"
     files = sorted(os.listdir(img_dir))
@@ -46,7 +47,7 @@ def main():
             for poly in r.masks.xy:
                 if len(poly) >= 3:
                     cv2.fillPoly(out, [poly.astype(np.int32)], 255)
-        d = f"{a.root}/pred/yolo/{site}"
+        d = f"{a.root}/pred/{a.name}/{site}"
         os.makedirs(d, exist_ok=True)
         Image.fromarray(out).save(f"{d}/{i}.png")
     dt = time.time() - t0

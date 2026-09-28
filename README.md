@@ -80,6 +80,26 @@ Everything is scored as mask overlap on the obstacle class, over the 300 test im
 Walls and furniture are ignored: they are labelled not-drivable but are not our objects,
 so predicting them neither helps nor hurts. Test sites are never seen during training.
 
+## Models
+
+All three are pretrained (COCO for YOLO, ImageNet for the encoders) and fine-tuned on the
+1,400 training images with one class, "obstacle".
+
+- **[YOLOv8n-seg](https://docs.ultralytics.com/tasks/segment/)** — instance segmentation:
+  one box plus one mask per object, in the smallest ("nano") size. Built for real-time use
+  on weak hardware, and the model the related work uses for the lightweight RGB method.
+  Trains on polygon outlines rather than mask images, so thin shapes lose some accuracy.
+- **[U-Net](https://arxiv.org/abs/1505.04597)** — semantic segmentation: mask in, mask out,
+  no objects. An encoder shrinks the image, a decoder grows it back, and skip connections
+  pass fine detail straight across, which is what keeps small objects sharp.
+- **[DeepLabV3+](https://arxiv.org/abs/1802.02611)** — also semantic. Instead of skip
+  connections it uses dilated convolutions at several rates, so each pixel is judged with
+  wide context. Strong on large regions, and here slightly behind U-Net on small ones.
+
+Both semantic models use a **[MobileNetV2](https://arxiv.org/abs/1801.04381)** encoder, a
+lightweight backbone meant for phones and embedded devices, via
+[segmentation_models_pytorch](https://github.com/qubvel-org/segmentation_models.pytorch).
+
 ## Results
 
 | Method | Input | IoU | Precision | Recall |

@@ -86,17 +86,6 @@ benchmark. Worth starting the recording early, since it needs lab access, not GP
 
 ---
 
-## Suggested split
-
-| | Jakub | Partner |
-|---|---|---|
-| Next | 1 and 2: depth-only baseline, RGB-D fusion | 3: SAM pseudo-labels, starting with label quality |
-| Then | 4: per-class tagging and results | 5: recording setup with the robot |
-| Finally | Both: cross-dataset test and write-up | |
-
-Training runs take minutes, so the GPU is not the bottleneck and both tracks can run in
-parallel. Book a 3090 row in the sheet before using one.
-
 ## How to run anything
 
 See [`README.md`](README.md). Short version: `prep_gt.py` builds the ground truth,

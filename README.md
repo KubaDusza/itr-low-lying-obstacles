@@ -143,5 +143,5 @@ ones and on reflections.*
 
 ## Next
 
-RGB-D fusion (ESANet, or YOLO masks checked against depth), SAM pseudo-labels versus hand
-labels, and per-class numbers for cables, gloves and small solid objects.
+See [`ROADMAP.md`](ROADMAP.md): a fair learned depth-only baseline, RGB-D fusion, SAM
+pseudo-labels versus hand labels, per-class numbers, and our own robot recordings.

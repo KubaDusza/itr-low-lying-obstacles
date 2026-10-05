@@ -1,0 +1,47 @@
+pixel IoU per test site (mean ± std over seeds)
+
+| Input | HDCL_HW_A | MEB_CM | MEB_HW_B |
+|---|---|---|---|
+| rgb | 0.767 ± 0.003 | 0.703 ± 0.005 | 0.818 ± 0.002 |
+| depth | 0.413 ± 0.008 | 0.292 ± 0.001 | 0.427 ± 0.004 |
+| rgbd | 0.767 ± 0.004 | 0.698 ± 0.006 | 0.822 ± 0.001 |
+| depth − rgb (paired) | -0.354 ± 0.010 | -0.410 ± 0.006 | -0.391 ± 0.005 |
+| rgbd − rgb (paired) | -0.000 ± 0.002 | -0.004 ± 0.005 | 0.004 ± 0.002 |
+
+object recall (fraction of objects with >= 50% of pixels predicted, averaged over seeds)
+
+by object size:
+
+| Objects | n | RGB | Depth | RGB-D | RGB-D − RGB (paired by seed) |
+|---|---|---|---|---|---|
+| area < 144 px | 1151 | 0.787 | 0.043 | 0.811 | +0.024 ± 0.004 (+0.019, +0.028, +0.024) |
+| 144–490 px | 1162 | 0.907 | 0.195 | 0.913 | +0.005 ± 0.004 (+0.003, +0.004, +0.009) |
+| area ≥ 490 px | 1158 | 0.958 | 0.549 | 0.959 | +0.001 ± 0.007 (-0.003, +0.009, -0.003) |
+| all | 3471 | 0.884 | 0.263 | 0.895 | +0.010 ± 0.004 (+0.006, +0.014, +0.010) |
+
+by distance to the camera (1 objects without valid depth: only in 'all'):
+
+| Objects | n | RGB | Depth | RGB-D | RGB-D − RGB (paired by seed) |
+|---|---|---|---|---|---|
+| dist < 1442 mm | 1157 | 0.961 | 0.541 | 0.956 | -0.005 ± 0.003 (-0.009, -0.003, -0.003) |
+| 1442–2900 mm | 1156 | 0.922 | 0.201 | 0.934 | +0.011 ± 0.006 (+0.004, +0.016, +0.014) |
+| dist ≥ 2900 mm | 1157 | 0.770 | 0.045 | 0.794 | +0.024 ± 0.004 (+0.023, +0.029, +0.021) |
+| all | 3471 | 0.884 | 0.263 | 0.895 | +0.010 ± 0.004 (+0.006, +0.014, +0.010) |
+
+RGB vs DEPTH (detected = in >= 2 of 3 seeds), 3471 objects:
+  both           883  (25.4%)
+  rgb only      2191  (63.1%)
+  depth only      15  (0.4%)
+  neither        382  (11.0%)
+
+RGB vs RGBD (detected = in >= 2 of 3 seeds), 3471 objects:
+  both          3030  (87.3%)
+  rgb only        44  (1.3%)
+  rgbd only       81  (2.3%)
+  neither        316  (9.1%)
+
+objects found by Depth but missed by RGB: 15
+  recovered by RGB-D:        2 / 15 (13.3%)
+  still missed by RGB-D:    13 / 15 (86.7%)
+
+wrote /home/GTL/jgomezel/datasets/isod_work/runs/objects_hit_0p5.csv

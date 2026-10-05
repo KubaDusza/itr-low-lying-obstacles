@@ -1,0 +1,41 @@
+{
+ "root": "/home/GTL/jgomezel/datasets/isod_work",
+ "arch": "unet",
+ "encoder": "mobilenet_v2",
+ "modality": "depth",
+ "seed": 2,
+ "epochs": 15,
+ "batch": 8,
+ "lr": 0.0003,
+ "overwrite": false,
+ "in_channels": 1,
+ "depth_stats": {
+  "near": 394.0,
+  "far": 7463.0,
+  "mean": 0.39331918954849243,
+  "std": 0.20101095736026764,
+  "train_sites": [
+   "ABEC_MM",
+   "ABEC_RM",
+   "BT_BM",
+   "BT_LM",
+   "FL_BM",
+   "FL_LM",
+   "HB_G",
+   "HB_LM",
+   "HB_MM",
+   "HDCL_HW_B",
+   "HDCL_RM_A",
+   "HDCL_RM_B",
+   "HL_LM",
+   "MEB_HW_C"
+  ],
+  "invalid_rate": {
+   "obstacle": 0.001443350746301183,
+   "floor": 0.004795948612127857,
+   "ignore": 0.008612356923363913
+  }
+ },
+ "smp": "0.5.0",
+ "torch": "2.14.0+cu130"
+}

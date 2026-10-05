@@ -1,0 +1,15 @@
+{
+ "root": "/home/GTL/jgomezel/datasets/isod_work",
+ "arch": "unet",
+ "encoder": "mobilenet_v2",
+ "modality": "rgb",
+ "seed": 2,
+ "epochs": 15,
+ "batch": 8,
+ "lr": 0.0003,
+ "overwrite": false,
+ "in_channels": 3,
+ "depth_stats": null,
+ "smp": "0.5.0",
+ "torch": "2.14.0+cu130"
+}

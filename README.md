@@ -141,6 +141,76 @@ ones and on reflections.*
 
 ![Training curves](figures/training_curves.png)
 
+
+## Our own recordings: does any of this transfer?
+
+A second dataset, recorded in one GTE lab room with an Intel RealSense D435: **64 runs, 320
+frames**, two camera heights, three distances, two backgrounds, seven object sets. Full
+description, grid and method: [`data_collection/DATASET.md`](data_collection/DATASET.md);
+capture protocol: [`data_collection/PLAN.md`](data_collection/PLAN.md); per-run index:
+[`data_collection/dataset_index.csv`](data_collection/dataset_index.csv).
+
+Ground truth is derived without hand labelling: every run in a group was shot from the same
+pose at the same tape line with a different set of objects, so the per-pixel median across the
+group is the empty scene, and differencing against it gives the obstacle mask. On the empty
+runs the method returns **0 objects, 0 px** — that is its noise floor. 51 of 64 runs pass the
+reliability check and are used below; the rest are kept but excluded from every metric.
+
+The three RGB models are the ISOD-trained checkpoints, **frozen**: no fine-tuning, same
+threshold.
+
+| Method | IoU | Precision | Recall | ISOD IoU |
+|---|---|---|---|---|
+| **YOLOv8n-seg** | **0.186** | 0.457 | 0.238 | 0.744 |
+| U-Net (MobileNetV2) | 0.149 | 0.217 | 0.322 | 0.776 |
+| DeepLabV3+ (MobileNetV2) | 0.172 | 0.319 | 0.273 | 0.757 |
+
+![Own-data results](figures/own_results.png)
+
+**The drop is the result.** Every model loses roughly three quarters of its IoU on a different
+camera in a different room. Nothing about 0.75 IoU on ISOD survives contact with new data, and
+the ranking inverts: YOLOv8n-seg, the weakest of the three on ISOD, is the strongest here.
+
+**Mounting height matters more than the model.** Averaged over the bare-floor runs:
+
+| | 0.87 m | 1.56 m | 2.60 m |
+|---|---|---|---|
+| YOLOv8n-seg, camera at 52 cm | 0.458 | 0.092 | 0.035 |
+| YOLOv8n-seg, camera at 25 cm | 0.425 | **0.444** | **0.391** |
+
+At 52 cm performance collapses beyond a metre. At 25 cm it is flat out to 2.6 m. Halving the
+camera height buys more than any architecture change we have measured — and the same ordering
+was predicted from the depth geometry (`SNR ∝ 1/(h·d)`) before the data was recorded.
+
+**Low contrast breaks everything.** On the white poster, where pale objects nearly vanish, IoU
+falls from 0.243 to 0.043 for YOLO. This is the condition ISOD does not contain.
+
+**False positives on an empty floor**, where every predicted pixel is wrong by construction:
+
+| Method | predicted px per frame | runs with any prediction |
+|---|---|---|
+| YOLOv8n-seg | **0** | 0/4 |
+| U-Net | 10,403 | 4/4 |
+| DeepLabV3+ | 5,638 | 4/4 |
+
+The semantic models hallucinate obstacles on bare floor; the instance model does not. For a
+robot that is the difference between a usable perception stack and one that stops constantly.
+It also explains the precision gap in the table above, and it is invisible on ISOD, which has
+no empty-floor frames.
+
+![Own-data examples](figures/own_examples.jpg)
+
+*Green = correctly found, red = missed, orange = false positive. Rows: tape rolls at 0.87 m
+(the easiest case), stretched cables at 25 cm, rags on the white poster (note the white rag,
+bottom left of its panel, which all three models miss), and an empty floor.*
+
+### What this does not yet show
+
+Depth and RGB-D are not in this table. Those checkpoints live in a collaborator's home
+directory on the GPU server and are not readable from this account, so the modality comparison
+on our own data needs them retrained first — the training script is on the `juan-rgbd` branch
+and the aligned depth is already in the dataset.
+
 ## Next
 
 See [`ROADMAP.md`](ROADMAP.md): a fair learned depth-only baseline, RGB-D fusion, SAM

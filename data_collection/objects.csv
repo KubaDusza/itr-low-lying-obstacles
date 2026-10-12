@@ -1,0 +1,15 @@
+object_id,class,description,height_mm,footprint_mm,brightness,specular,notes
+o01,C1,white USB cable,4,1500x4,bright,no,
+o02,C1,black power cable,5,2000x5,dark,no,matched pair with o01
+o03,C2,white paper strip,1,200x60,bright,no,
+o04,C2,dark card,1,200x60,dark,no,matched pair with o03
+o05,C2,pale glove or tissue,4,220x120,bright,no,
+o06,C2,dark rag,5,250x150,dark,no,matched pair with o05
+o07,C3,light bottle cap,8,30x30,bright,no,
+o08,C3,black screw,5,40x6,dark,no,matched pair with o07
+o09,C3,steel nuts x3,6,12x12,mid,yes,
+o10,C4,tape roll,45,80x80,mid,no,positive control: depth must detect
+o11,C4,drink can,120,66x66,mid,yes,positive control
+o12,C5,B/W print of a cable shape on A4 (lay on poster beside real cable o02),0,297x210,mixed,no,fake object: GT is the sheet outline; does RGB mask the printed shape instead?
+o13,C5,sheet of paper,0,297x210,bright,no,negative control
+o14,C3,kitchen foil piece,1,100x100,bright,yes,specular flag test

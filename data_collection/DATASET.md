@@ -81,6 +81,11 @@ cable and a thin white cable have the same contrast but different height and wid
 
 ![cables, predictions](../figures/dataset/pred_cables.jpg)
 
+*Every run of this set: both camera heights, both backgrounds where recorded, all three
+distances. Green = found, red = missed, orange = false positive. Where the derived mask did
+not pass the reliability check the ground-truth column says so and the predictions are shown
+in plain blue, since there is nothing trustworthy to compare them against.*
+
 ### 2. Tape rolls — raised, graded (C4)
 
 ![tapes](../figures/dataset/2_tapes.jpg)
@@ -256,10 +261,14 @@ exactly the four rags including the white one; on `chess`, exactly the four piec
 
 Registration fails on some runs of the 52 cm block, where people moving at the desk break the
 phase correlation. Each run therefore carries a flag: the share of the scored floor marked as
-obstacle, a few per cent for a sane scene. A run is **unreliable** when more than 12% of the
-floor is flagged (2% for an empty run).
+obstacle, a few per cent for a sane scene. Reliability is measured where nothing should have changed: the mean difference between a
+registered, gain-matched frame and its group background over the **static top band** — wall and
+furniture, never floor. That does not punish a run for containing a physically large object,
+which an earlier "share of floor flagged" criterion did. A run is **unreliable** above a
+residual of 14 levels (the distribution runs 2.6 at the 10th percentile to 30 at the 95th), or
+if it flags more than 35% of the floor, or 2% for an empty run.
 
-**50 of 64 runs pass.** The unreliable ones stay in the dataset — the RGB and depth frames are
+**51 of 64 runs pass.** The unreliable ones stay in the dataset — the RGB and depth frames are
 fine, only the automatic mask is suspect — but they are excluded from every metric. The flag is
 in `dataset_index.csv` and `data/OWN/gt_summary.json`.
 
@@ -271,9 +280,9 @@ The three ISOD-trained RGB models, frozen: no fine-tuning, same threshold.
 
 | Method | IoU | Precision | Recall | ISOD IoU |
 |---|---|---|---|---|
-| **YOLOv8n-seg** | **0.253** | 0.436 | 0.377 | 0.744 |
-| DeepLabV3+ (MobileNetV2) | 0.201 | 0.296 | 0.385 | 0.757 |
-| U-Net (MobileNetV2) | 0.158 | 0.204 | 0.411 | 0.776 |
+| **YOLOv8n-seg** | **0.267** | 0.535 | 0.347 | 0.744 |
+| DeepLabV3+ (MobileNetV2) | 0.208 | 0.344 | 0.345 | 0.757 |
+| U-Net (MobileNetV2) | 0.176 | 0.250 | 0.374 | 0.776 |
 
 ![results](../figures/own_results.png)
 
@@ -281,9 +290,9 @@ Three findings, each tied to a configuration above:
 
 - **Transfer is poor and the ranking inverts.** Every model loses two thirds to four fifths of
   its ISOD IoU, and YOLOv8n-seg — the weakest of the three on ISOD — is the strongest here.
-- **Mounting height beats architecture.** At 52 cm, YOLO scores 0.419 / 0.172 / 0.042 across
-  the three distances; at 25 cm, 0.474 / 0.464 / 0.419. Overall IoU roughly doubles for every
-  model. That is why both heights were shot, and the depth geometry predicted the direction
+- **Mounting height beats architecture.** On bare floor at 52 cm, YOLO scores
+  0.487 / 0.180 / 0.042 across the three distances; at 25 cm, 0.715 / 0.464 / 0.419. Overall
+  IoU rises by half or more for every model. That is why both heights were shot, and the depth geometry predicted the direction
   before any data existed.
 - **The semantic models hallucinate on bare floor.** On the empty runs U-Net predicts 8,999
   obstacle px per frame and DeepLabV3+ 4,657, while YOLO predicts **zero**. That is invisible

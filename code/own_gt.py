@@ -147,12 +147,20 @@ def main():
     rows = []
     for (block, dist), rs in sorted(groups.items()):
         bg, floor, per_run = build_group(rs)
+        top = slice(0, int(bg.shape[0] * TOP))
+        static = floor[top] == 0        # wall and furniture: identical in every run of a group
         print(f"[{block} {dist}] {len(rs)} runs, floor {float((floor > 0).mean()):.0%}")
         for r in rs:
             imgs, shifts = per_run[r]
             os.makedirs(f"{OWN}/{r}/gt", exist_ok=True)
             cv2.imwrite(f"{OWN}/{r}/floor.png", floor * 255)
             res = [obstacles(im, bg, floor) for im in imgs]
+            # how well this frame matches the background where nothing should have changed.
+            # This is the honest reliability signal: unlike the share of floor flagged, it does
+            # not punish a run just for containing a physically large object.
+            resid = float(np.mean([
+                np.abs(np.clip(im * (np.median(bg[floor > 0]) / max(1e-6, np.median(im[floor > 0]))),
+                               0, 255)[top] - bg[top]).max(2)[static].mean() for im in imgs]))
             for i, (m, _) in enumerate(res):
                 cv2.imwrite(f"{OWN}/{r}/gt/{i}.png", m)
             area = float(np.mean([(m > 0).sum() for m, _ in res]))
@@ -160,11 +168,12 @@ def main():
             row = dict(run=r, block=block, distance=dist,
                        objects=float(np.mean([o for _, o in res])), area_px=area,
                        shift_px=float(np.mean(shifts)), floor_frac=float((floor > 0).mean()),
-                       floor_flagged=flagged,
-                       reliable=bool(flagged < (0.02 if r.endswith("_empty") else 0.12)))
+                       floor_flagged=flagged, residual=resid,
+                       reliable=bool(resid < 14 and flagged < 0.35
+                                     and (flagged < 0.02 if r.endswith("_empty") else True)))
             rows.append(row)
             print(f"   {r:30s} objects {row['objects']:5.1f}  area {int(area):6d} px  "
-                  f"shift {row['shift_px']:5.1f} px  flagged {flagged:5.1%}"
+                  f"resid {resid:5.1f}  flagged {flagged:5.1%}"
                   f"{'' if row['reliable'] else '   <-- UNRELIABLE'}")
 
     seen = {}

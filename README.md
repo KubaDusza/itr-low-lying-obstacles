@@ -161,13 +161,13 @@ threshold.
 
 | Method | IoU | Precision | Recall | ISOD IoU |
 |---|---|---|---|---|
-| **YOLOv8n-seg** | **0.186** | 0.457 | 0.238 | 0.744 |
-| U-Net (MobileNetV2) | 0.149 | 0.217 | 0.322 | 0.776 |
-| DeepLabV3+ (MobileNetV2) | 0.172 | 0.319 | 0.273 | 0.757 |
+| **YOLOv8n-seg** | **0.253** | 0.436 | 0.377 | 0.744 |
+| U-Net (MobileNetV2) | 0.158 | 0.204 | 0.411 | 0.776 |
+| DeepLabV3+ (MobileNetV2) | 0.201 | 0.296 | 0.385 | 0.757 |
 
 ![Own-data results](figures/own_results.png)
 
-**The drop is the result.** Every model loses roughly three quarters of its IoU on a different
+**The drop is the result.** Every model loses two thirds to four fifths of its IoU on a different
 camera in a different room. Nothing about 0.75 IoU on ISOD survives contact with new data, and
 the ranking inverts: YOLOv8n-seg, the weakest of the three on ISOD, is the strongest here.
 
@@ -175,23 +175,28 @@ the ranking inverts: YOLOv8n-seg, the weakest of the three on ISOD, is the stron
 
 | | 0.87 m | 1.56 m | 2.60 m |
 |---|---|---|---|
-| YOLOv8n-seg, camera at 52 cm | 0.458 | 0.092 | 0.035 |
-| YOLOv8n-seg, camera at 25 cm | 0.425 | **0.444** | **0.391** |
+| YOLOv8n-seg, camera at 52 cm | 0.419 | 0.172 | 0.042 |
+| YOLOv8n-seg, camera at 25 cm | 0.474 | **0.464** | **0.419** |
+| DeepLabV3+, camera at 52 cm | 0.256 | 0.118 | 0.067 |
+| DeepLabV3+, camera at 25 cm | 0.489 | 0.348 | 0.243 |
 
-At 52 cm performance collapses beyond a metre. At 25 cm it is flat out to 2.6 m. Halving the
-camera height buys more than any architecture change we have measured — and the same ordering
+At 52 cm performance collapses beyond a metre. At 25 cm it is flat out to 2.6 m, and the
+effect holds for every model: overall IoU roughly doubles (YOLO 0.148 -> 0.396, DeepLabV3+
+0.120 -> 0.330, U-Net 0.108 -> 0.239). Halving the camera height buys more than any
+architecture change we have measured — and the same ordering
 was predicted from the depth geometry (`SNR ∝ 1/(h·d)`) before the data was recorded.
 
 **Low contrast breaks everything.** On the white poster, where pale objects nearly vanish, IoU
-falls from 0.243 to 0.043 for YOLO. This is the condition ISOD does not contain.
+falls from 0.344 to 0.147 for YOLO, and the hardest single object in the set — a white rag on
+the white poster — is missed by all three. This is the condition ISOD does not contain.
 
 **False positives on an empty floor**, where every predicted pixel is wrong by construction:
 
 | Method | predicted px per frame | runs with any prediction |
 |---|---|---|
 | YOLOv8n-seg | **0** | 0/4 |
-| U-Net | 10,403 | 4/4 |
-| DeepLabV3+ | 5,638 | 4/4 |
+| U-Net | 8,999 | 4/4 |
+| DeepLabV3+ | 4,657 | 4/4 |
 
 The semantic models hallucinate obstacles on bare floor; the instance model does not. For a
 robot that is the difference between a usable perception stack and one that stops constantly.

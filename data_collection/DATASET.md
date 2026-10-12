@@ -12,14 +12,19 @@ Frames live in `data/OWN/<run>/`, the per-run index is
 
 ```
 data/OWN/<run>/
-  rgb/<i>.png      640x422 colour, 8-bit BGR
-  depth/<i>.png    640x422 uint16, millimetres, 0 = no reading, aligned to the colour frame
-  gt/<i>.png       640x422 uint8, 255 = obstacle
-  floor.png        640x422 uint8, 255 = scored region (the fitted ground plane)
+  rgb/<i>.png      640x362 colour, 8-bit BGR
+  depth/<i>.png    640x362 uint16, millimetres, 0 = no reading, aligned to the colour frame
+  gt/<i>.png       640x362 uint8, 255 = obstacle
+  floor.png        640x362 uint8, 255 = scored region (the fitted ground plane)
   i = 0..4
 ```
 
-Same layout and frame size as ISOD, so `eval.py` and `analyze_objects.py` run on it unchanged.
+Same layout as ISOD. The frames are 640x362 rather than ISOD's 640x422: the full 848x480
+sensor output scaled uniformly, with no crop, so nothing is cut off the sides. An earlier
+version centre-cropped to ISOD's 1.517 aspect and lost **8.2% of the obstacle pixels**,
+because the D435's colour lens (70 degrees) is already much narrower than its depth lens
+(90 degrees). The uniform scale also lands closer to ISOD's angular resolution: 9.1 px per
+degree against ISOD's 7.1, where the crop gave 10.3.
 
 ## The grid
 
@@ -79,9 +84,10 @@ focal length and a bare forward map would leave a grid of holes. Verified: depth
 discontinuities land on 1.38× the mean colour gradient after alignment versus 1.14× before,
 spurious depth edges fall from 876 to 283, and valid coverage rises from 98.2% to 99.4%.
 
-The centre crop also removes the stereo shadow down the left edge (the first ~20 columns have
-no depth at all, since depth comes from the left IR imager). That takes the invalid-depth rate
-from 6.78% to **2.35%**, against ISOD's 1.3%.
+The stereo shadow down the left edge remains (the first ~20 columns have no depth at all,
+since depth comes from the left IR imager), which is most of the 6.8% invalid-depth rate
+against ISOD's 1.3%. Cropping it away would also have cut real obstacles, so it is kept and
+reported instead.
 
 ## How the ground truth was made
 

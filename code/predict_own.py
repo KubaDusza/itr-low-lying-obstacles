@@ -17,8 +17,8 @@ import torch
 
 MEAN = np.array([0.485, 0.456, 0.406], np.float32)
 STD = np.array([0.229, 0.224, 0.225], np.float32)
-SIZE = (640, 448)        # what train_seg.py used
-OUT = (640, 422)         # our frames, same as ISOD
+SIZE = (640, 384)        # multiple of 32, same 1.06 vertical stretch train_seg.py applied
+OUT = (640, 362)         # our frames
 
 
 def seg_models(root, device):

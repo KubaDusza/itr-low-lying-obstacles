@@ -21,7 +21,7 @@ import numpy as np
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW, OUT = f"{ROOT}/data/raw", f"{ROOT}/data/OWN"
 TMP = "/tmp/rs_grab/_convert"
-SIZE = (640, 422)
+SIZE = (640, 362)   # 848x480 scaled uniformly: the full colour field of view
 N_FRAMES = 5
 WINDOW = ("1.0", "1.6")          # seconds into the clip; the camera has settled by then
 
@@ -63,12 +63,13 @@ def align(depth_m):
 
 
 def to_isod(rgb, depth_mm):
-    """Centre-crop to ISOD's 640:422 aspect, then resize. Depth is never interpolated."""
-    h, w = depth_mm.shape
-    ar = SIZE[0] / SIZE[1]
-    cw = int(round(h * ar))
-    x0 = (w - cw) // 2
-    rgb, depth_mm = rgb[:, x0:x0 + cw], depth_mm[:, x0:x0 + cw]
+    """Scale 848x480 down to 640x362, keeping the whole frame.
+
+    An earlier version centre-cropped to ISOD's 1.517 aspect; that threw away 8.2% of the
+    obstacle pixels, because the D435's colour lens is already narrower than its depth lens.
+    A uniform scale keeps every object and lands at 9.1 px per degree, closer to ISOD's
+    7.1 px/deg than the crop was. Depth is never interpolated.
+    """
     return (cv2.resize(rgb, SIZE, interpolation=cv2.INTER_AREA),
             cv2.resize(depth_mm, SIZE, interpolation=cv2.INTER_NEAREST))
 

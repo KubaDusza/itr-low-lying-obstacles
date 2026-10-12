@@ -35,10 +35,10 @@ PLANE_K = 3 * 0.0045   # 3 sigma of stereo noise, which grows as z^2
 PLANE_TOL0 = 0.03
 TOP = 0.35             # fraction of the image used for registration: wall, never floor
 
-# intrinsics of the stored 640x422 frames: colour intrinsics, cropped by 60 px and scaled
-S = 640 / 728
+# intrinsics of the stored 640x362 frames: the colour intrinsics, uniformly scaled
+S = 640 / 848
 INTR = dict(fx=608.1510620117188 * S, fy=606.9262084960938 * S,
-            ppx=(432.7842102050781 - 60) * S, ppy=242.90274047851562 * S)
+            ppx=432.7842102050781 * S, ppy=242.90274047851562 * S)
 
 
 def frames(run, sub):

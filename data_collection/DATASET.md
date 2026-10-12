@@ -346,3 +346,81 @@ CUDA_VISIBLE_DEVICES=1 python predict_own.py --root /data/cs_courses/jdusza_itr
 rsync -az shire:/data/cs_courses/jdusza_itr/OWN_pred data/
 python code/eval_own.py && python code/plot_own.py
 ```
+
+## 9. Every run
+
+One row per recording: the columns of [`dataset_index.csv`](dataset_index.csv) with the scene
+it belongs to. GitHub renders a `.csv` as a table but shows HTML in a cell as literal text, so
+a thumbnail column only displays in Markdown — the CSV carries the image path instead, in its
+`thumbnail` column, so the two line up for any tooling. `GT objects` and
+`GT area px` are what the automatic ground truth found, averaged over the five frames;
+`floor flagged` is the share of the scored floor it marked as obstacle, and `reliable` is the
+registration-residual check from §5 — a `no` means the frames and predictions are fine but the
+derived mask is not trusted, so the run is excluded from every metric.
+
+| setup | run | height | background | set | classes | items | ground dist | slant | frames | GT objects | GT area px | floor frac | floor flagged | reliable |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| <img src="../figures/dataset/thumbs/h25_floor_cables_075.jpg" width="150"> | `h25_floor_cables_075` | 25 | floor | cables | C1 thin-linear | 4 cables: black thin, black thick, white thin, white thick | 0.75 | 0.87 | 5 | 9.2 | 15201 | 70% | 9.4% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_cables_150.jpg" width="150"> | `h25_floor_cables_150` | 25 | floor | cables | C1 thin-linear | 4 cables: black thin, black thick, white thin, white thick | 1.5 | 1.56 | 5 | 4.8 | 3472 | 71% | 2.1% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_cables_250.jpg" width="150"> | `h25_floor_cables_250` | 25 | floor | cables | C1 thin-linear | 4 cables: black thin, black thick, white thin, white thick | 2.5 | 2.6 | 5 | 3.0 | 877 | 71% | 0.5% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_chess_075.jpg" width="150"> | `h25_floor_chess_075` | 25 | floor | chess | C4 raised | white/black queen and pawn | 0.75 | 0.87 | 5 | 4.0 | 1118 | 70% | 0.7% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_chess_150.jpg" width="150"> | `h25_floor_chess_150` | 25 | floor | chess | C4 raised | white/black queen and pawn | 1.5 | 1.56 | 5 | 4.0 | 335 | 71% | 0.2% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_chess_250.jpg" width="150"> | `h25_floor_chess_250` | 25 | floor | chess | C4 raised | white/black queen and pawn | 2.5 | 2.6 | 5 | 4.0 | 128 | 71% | 0.1% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_empty.jpg" width="150"> | `h25_floor_empty` | 25 | floor | empty | (none) | nothing |  |  | 5 | 0.0 | 0 | 70% | 0.0% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_hexkeys_075.jpg" width="150"> | `h25_floor_hexkeys_075` | 25 | floor | hexkeys | C1/C3 thin metal | 5 hex keys of different size | 0.75 | 0.87 | 5 | 3.2 | 1867 | 70% | 1.2% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_hexkeys_150.jpg" width="150"> | `h25_floor_hexkeys_150` | 25 | floor | hexkeys | C1/C3 thin metal | 5 hex keys of different size | 1.5 | 1.56 | 5 | 2.0 | 191 | 71% | 0.1% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_hexkeys_250.jpg" width="150"> | `h25_floor_hexkeys_250` | 25 | floor | hexkeys | C1/C3 thin metal | 5 hex keys of different size | 2.5 | 2.6 | 5 | 0.0 | 0 | 71% | 0.0% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_rags_075.jpg" width="150"> | `h25_floor_rags_075` | 25 | floor | rags | C2 flat-soft | white flat, white crumpled, pink folded, purple bundled | 0.75 | 0.87 | 5 | 4.0 | 30143 | 70% | 18.6% | **no** |
+| <img src="../figures/dataset/thumbs/h25_floor_rags_150.jpg" width="150"> | `h25_floor_rags_150` | 25 | floor | rags | C2 flat-soft | white flat, white crumpled, pink folded, purple bundled | 1.5 | 1.56 | 5 | 4.0 | 4739 | 71% | 2.9% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_rags_250.jpg" width="150"> | `h25_floor_rags_250` | 25 | floor | rags | C2 flat-soft | white flat, white crumpled, pink folded, purple bundled | 2.5 | 2.6 | 5 | 4.0 | 1507 | 71% | 0.9% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_random_075.jpg" width="150"> | `h25_floor_random_075` | 25 | floor | random | C3/C4 mixed | screwdriver, Rubik's cube, pen, keycap remover | 0.75 | 0.87 | 5 | 4.0 | 3796 | 70% | 2.4% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_random_150.jpg" width="150"> | `h25_floor_random_150` | 25 | floor | random | C3/C4 mixed | screwdriver, Rubik's cube, pen, keycap remover | 1.5 | 1.56 | 5 | 4.0 | 1071 | 71% | 0.7% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_random_250.jpg" width="150"> | `h25_floor_random_250` | 25 | floor | random | C3/C4 mixed | screwdriver, Rubik's cube, pen, keycap remover | 2.5 | 2.6 | 5 | 2.0 | 264 | 71% | 0.2% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_screws_075.jpg" width="150"> | `h25_floor_screws_075` | 25 | floor | screws | C3 small-compact | 5 single screws + 1 pile | 0.75 | 0.87 | 5 | 3.0 | 490 | 70% | 0.3% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_screws_150.jpg" width="150"> | `h25_floor_screws_150` | 25 | floor | screws | C3 small-compact | 5 single screws + 1 pile | 1.5 | 1.56 | 5 | 0.4 | 18 | 71% | 0.0% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_screws_250.jpg" width="150"> | `h25_floor_screws_250` | 25 | floor | screws | C3 small-compact | 5 single screws + 1 pile | 2.5 | 2.6 | 5 | 0.0 | 0 | 71% | 0.0% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_tapes_075.jpg" width="150"> | `h25_floor_tapes_075` | 25 | floor | tapes | C4 raised | 5 tape rolls of different diameter | 0.75 | 0.87 | 5 | 5.0 | 10463 | 70% | 6.5% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_tapes_150.jpg" width="150"> | `h25_floor_tapes_150` | 25 | floor | tapes | C4 raised | 5 tape rolls of different diameter | 1.5 | 1.56 | 5 | 6.0 | 1982 | 71% | 1.2% | yes |
+| <img src="../figures/dataset/thumbs/h25_floor_tapes_250.jpg" width="150"> | `h25_floor_tapes_250` | 25 | floor | tapes | C4 raised | 5 tape rolls of different diameter | 2.5 | 2.6 | 5 | 5.2 | 994 | 71% | 0.6% | yes |
+| <img src="../figures/dataset/thumbs/h25_poster_cables_075.jpg" width="150"> | `h25_poster_cables_075` | 25 | poster | cables | C1 thin-linear | 4 cables: black thin, black thick, white thin, white thick | 0.75 | 0.87 | 5 | 7.4 | 15795 | 72% | 9.5% | yes |
+| <img src="../figures/dataset/thumbs/h25_poster_cables_150.jpg" width="150"> | `h25_poster_cables_150` | 25 | poster | cables | C1 thin-linear | 4 cables: black thin, black thick, white thin, white thick | 1.5 | 1.56 | 5 | 2.6 | 58202 | 74% | 34.2% | **no** |
+| <img src="../figures/dataset/thumbs/h25_poster_cables_250.jpg" width="150"> | `h25_poster_cables_250` | 25 | poster | cables | C1 thin-linear | 4 cables: black thin, black thick, white thin, white thick | 2.5 | 2.6 | 5 | 7.4 | 2318 | 73% | 1.4% | yes |
+| <img src="../figures/dataset/thumbs/h25_poster_chess_075.jpg" width="150"> | `h25_poster_chess_075` | 25 | poster | chess | C4 raised | white/black queen and pawn | 0.75 | 0.87 | 5 | 8.8 | 15522 | 72% | 9.3% | yes |
+| <img src="../figures/dataset/thumbs/h25_poster_chess_150.jpg" width="150"> | `h25_poster_chess_150` | 25 | poster | chess | C4 raised | white/black queen and pawn | 1.5 | 1.56 | 5 | 3.0 | 45570 | 74% | 26.8% | **no** |
+| <img src="../figures/dataset/thumbs/h25_poster_chess_250.jpg" width="150"> | `h25_poster_chess_250` | 25 | poster | chess | C4 raised | white/black queen and pawn | 2.5 | 2.6 | 5 | 4.4 | 4970 | 73% | 2.9% | yes |
+| <img src="../figures/dataset/thumbs/h25_poster_empty.jpg" width="150"> | `h25_poster_empty` | 25 | poster | empty | (none) | nothing |  |  | 5 | 3.0 | 50219 | 73% | 29.7% | **no** |
+| <img src="../figures/dataset/thumbs/h25_poster_rags_075.jpg" width="150"> | `h25_poster_rags_075` | 25 | poster | rags | C2 flat-soft | white flat, white crumpled, pink folded, purple bundled | 0.75 | 0.87 | 5 | 5.0 | 19035 | 72% | 11.4% | yes |
+| <img src="../figures/dataset/thumbs/h25_poster_rags_150.jpg" width="150"> | `h25_poster_rags_150` | 25 | poster | rags | C2 flat-soft | white flat, white crumpled, pink folded, purple bundled | 1.5 | 1.56 | 5 | 5.4 | 35654 | 74% | 20.9% | **no** |
+| <img src="../figures/dataset/thumbs/h25_poster_rags_250.jpg" width="150"> | `h25_poster_rags_250` | 25 | poster | rags | C2 flat-soft | white flat, white crumpled, pink folded, purple bundled | 2.5 | 2.6 | 5 | 8.0 | 2592 | 73% | 1.5% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_cables_075.jpg" width="150"> | `h52_floor_cables_075` | 52 | floor | cables | C1 thin-linear | 4 cables: black thin, black thick, white thin, white thick | 0.75 | 0.87 | 5 | 8.0 | 8910 | 93% | 4.1% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_cables_150.jpg" width="150"> | `h52_floor_cables_150` | 52 | floor | cables | C1 thin-linear | 4 cables: black thin, black thick, white thin, white thick | 1.5 | 1.56 | 5 | 18.4 | 13437 | 94% | 6.2% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_cables_250.jpg" width="150"> | `h52_floor_cables_250` | 52 | floor | cables | C1 thin-linear | 4 cables: black thin, black thick, white thin, white thick | 2.5 | 2.6 | 5 | 13.8 | 7470 | 94% | 3.4% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_chess_075.jpg" width="150"> | `h52_floor_chess_075` | 52 | floor | chess | C4 raised | white/black queen and pawn | 0.75 | 0.87 | 5 | 4.0 | 1067 | 93% | 0.5% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_chess_150.jpg" width="150"> | `h52_floor_chess_150` | 52 | floor | chess | C4 raised | white/black queen and pawn | 1.5 | 1.56 | 5 | 4.0 | 317 | 94% | 0.1% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_chess_250.jpg" width="150"> | `h52_floor_chess_250` | 52 | floor | chess | C4 raised | white/black queen and pawn | 2.5 | 2.6 | 5 | 10.2 | 1802 | 94% | 0.8% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_empty.jpg" width="150"> | `h52_floor_empty` | 52 | floor | empty | (none) | nothing |  |  | 5 | 7.4 | 19961 | 94% | 9.2% | **no** |
+| <img src="../figures/dataset/thumbs/h52_floor_hexkeys_075.jpg" width="150"> | `h52_floor_hexkeys_075` | 52 | floor | hexkeys | C1/C3 thin metal | 5 hex keys of different size | 0.75 | 0.87 | 5 | 3.0 | 3116 | 93% | 1.4% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_hexkeys_150.jpg" width="150"> | `h52_floor_hexkeys_150` | 52 | floor | hexkeys | C1/C3 thin metal | 5 hex keys of different size | 1.5 | 1.56 | 5 | 0.0 | 0 | 94% | 0.0% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_hexkeys_250.jpg" width="150"> | `h52_floor_hexkeys_250` | 52 | floor | hexkeys | C1/C3 thin metal | 5 hex keys of different size | 2.5 | 2.6 | 5 | 9.2 | 2678 | 94% | 1.2% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_rags_075.jpg" width="150"> | `h52_floor_rags_075` | 52 | floor | rags | C2 flat-soft | white flat, white crumpled, pink folded, purple bundled | 0.75 | 0.87 | 5 | 13.4 | 42149 | 93% | 19.5% | **no** |
+| <img src="../figures/dataset/thumbs/h52_floor_rags_150.jpg" width="150"> | `h52_floor_rags_150` | 52 | floor | rags | C2 flat-soft | white flat, white crumpled, pink folded, purple bundled | 1.5 | 1.56 | 5 | 3.2 | 31376 | 94% | 14.5% | **no** |
+| <img src="../figures/dataset/thumbs/h52_floor_rags_250.jpg" width="150"> | `h52_floor_rags_250` | 52 | floor | rags | C2 flat-soft | white flat, white crumpled, pink folded, purple bundled | 2.5 | 2.6 | 5 | 6.0 | 28635 | 94% | 13.2% | **no** |
+| <img src="../figures/dataset/thumbs/h52_floor_random_075.jpg" width="150"> | `h52_floor_random_075` | 52 | floor | random | C3/C4 mixed | screwdriver, Rubik's cube, pen, keycap remover | 0.75 | 0.87 | 5 | 4.0 | 2908 | 93% | 1.4% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_random_150.jpg" width="150"> | `h52_floor_random_150` | 52 | floor | random | C3/C4 mixed | screwdriver, Rubik's cube, pen, keycap remover | 1.5 | 1.56 | 5 | 3.4 | 857 | 94% | 0.4% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_random_250.jpg" width="150"> | `h52_floor_random_250` | 52 | floor | random | C3/C4 mixed | screwdriver, Rubik's cube, pen, keycap remover | 2.5 | 2.6 | 5 | 9.4 | 1951 | 94% | 0.9% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_screws_075.jpg" width="150"> | `h52_floor_screws_075` | 52 | floor | screws | C3 small-compact | 5 single screws + 1 pile | 0.75 | 0.87 | 5 | 2.0 | 660 | 93% | 0.3% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_screws_150.jpg" width="150"> | `h52_floor_screws_150` | 52 | floor | screws | C3 small-compact | 5 single screws + 1 pile | 1.5 | 1.56 | 5 | 0.0 | 0 | 94% | 0.0% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_screws_250.jpg" width="150"> | `h52_floor_screws_250` | 52 | floor | screws | C3 small-compact | 5 single screws + 1 pile | 2.5 | 2.6 | 5 | 10.0 | 2690 | 94% | 1.2% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_tapes_075.jpg" width="150"> | `h52_floor_tapes_075` | 52 | floor | tapes | C4 raised | 5 tape rolls of different diameter | 0.75 | 0.87 | 5 | 5.0 | 8212 | 93% | 3.8% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_tapes_150.jpg" width="150"> | `h52_floor_tapes_150` | 52 | floor | tapes | C4 raised | 5 tape rolls of different diameter | 1.5 | 1.56 | 5 | 5.0 | 2722 | 94% | 1.3% | yes |
+| <img src="../figures/dataset/thumbs/h52_floor_tapes_250.jpg" width="150"> | `h52_floor_tapes_250` | 52 | floor | tapes | C4 raised | 5 tape rolls of different diameter | 2.5 | 2.6 | 5 | 13.0 | 3415 | 94% | 1.6% | yes |
+| <img src="../figures/dataset/thumbs/h52_poster_cables_075.jpg" width="150"> | `h52_poster_cables_075` | 52 | poster | cables | C1 thin-linear | 4 cables: black thin, black thick, white thin, white thick | 0.75 | 0.87 | 5 | 9.2 | 41189 | 94% | 18.9% | **no** |
+| <img src="../figures/dataset/thumbs/h52_poster_cables_150.jpg" width="150"> | `h52_poster_cables_150` | 52 | poster | cables | C1 thin-linear | 4 cables: black thin, black thick, white thin, white thick | 1.5 | 1.56 | 5 | 13.2 | 38523 | 94% | 17.7% | **no** |
+| <img src="../figures/dataset/thumbs/h52_poster_cables_250.jpg" width="150"> | `h52_poster_cables_250` | 52 | poster | cables | C1 thin-linear | 4 cables: black thin, black thick, white thin, white thick | 2.5 | 2.6 | 5 | 10.0 | 13167 | 92% | 6.2% | yes |
+| <img src="../figures/dataset/thumbs/h52_poster_chess_075.jpg" width="150"> | `h52_poster_chess_075` | 52 | poster | chess | C4 raised | white/black queen and pawn | 0.75 | 0.87 | 5 | 3.2 | 21495 | 94% | 9.9% | yes |
+| <img src="../figures/dataset/thumbs/h52_poster_chess_150.jpg" width="150"> | `h52_poster_chess_150` | 52 | poster | chess | C4 raised | white/black queen and pawn | 1.5 | 1.56 | 5 | 3.4 | 3385 | 94% | 1.6% | yes |
+| <img src="../figures/dataset/thumbs/h52_poster_chess_250.jpg" width="150"> | `h52_poster_chess_250` | 52 | poster | chess | C4 raised | white/black queen and pawn | 2.5 | 2.6 | 5 | 3.2 | 28892 | 92% | 13.6% | **no** |
+| <img src="../figures/dataset/thumbs/h52_poster_empty.jpg" width="150"> | `h52_poster_empty` | 52 | poster | empty | (none) | nothing |  |  | 5 | 10.8 | 19250 | 94% | 8.9% | **no** |
+| <img src="../figures/dataset/thumbs/h52_poster_rags_075.jpg" width="150"> | `h52_poster_rags_075` | 52 | poster | rags | C2 flat-soft | white flat, white crumpled, pink folded, purple bundled | 0.75 | 0.87 | 5 | 0.0 | 0 | 94% | 0.0% | yes |
+| <img src="../figures/dataset/thumbs/h52_poster_rags_150.jpg" width="150"> | `h52_poster_rags_150` | 52 | poster | rags | C2 flat-soft | white flat, white crumpled, pink folded, purple bundled | 1.5 | 1.56 | 5 | 10.8 | 41686 | 94% | 19.2% | **no** |
+| <img src="../figures/dataset/thumbs/h52_poster_rags_250.jpg" width="150"> | `h52_poster_rags_250` | 52 | poster | rags | C2 flat-soft | white flat, white crumpled, pink folded, purple bundled | 2.5 | 2.6 | 5 | 9.4 | 20787 | 92% | 9.8% | yes |

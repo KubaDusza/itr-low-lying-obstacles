@@ -51,6 +51,16 @@ would measure nothing.
 *Chess pieces on the white poster at the 1.5 m line, 52 cm block. The yellow measuring tape
 runs along the floor with the three marks on it; the robot with the camera is bottom right.*
 
+Cardboard tubes were stood at the marks so the distances would be visible in depth as well as
+in colour — tape is invisible to a depth sensor. Two fell outside the colour camera's narrower
+70° view, but the one at the 1.5 m mark is in frame in both blocks and reads **1.47 m** at
+52 cm and **1.52 m** at 25 cm. A vertical tube spans from the floor's slant range at its base
+to the horizontal distance at camera height, so those values sit exactly where they should,
+and they confirm the distance marks and the depth alignment against an object you can point
+at rather than against the fitted ground plane. The tubes play no part in the ground truth:
+being static and present in every run of a group, the median background absorbs them like any
+other fixture.
+
 ### Backgrounds
 
 Two: the bare speckled lab floor, and a **white poster** laid over the same spot. The poster is

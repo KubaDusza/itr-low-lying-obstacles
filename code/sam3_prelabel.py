@@ -78,8 +78,11 @@ PROMPTS = {
     "chess": ["chess piece", "chess pawn", "chess queen"],
     # 7_rags.jpg: flat white paper towel, crumpled white tissue, folded pink microfibre cloth,
     # bundled purple microfibre cloth.
+    # The two white items are the point of the set and the hardest thing in it: white paper on
+    # a white poster. They need phrases of their own -- "cloth" alone finds only the coloured two.
     "rags": ["cloth", "microfiber cloth", "folded cloth", "crumpled cloth",
-             "paper towel", "crumpled tissue"],
+             "paper towel", "crumpled tissue", "white tissue", "crumpled white paper",
+             "wrinkled paper", "white rag"],
     # the noise floor: nothing was placed, so nothing should be found.
     "empty": [],
 }

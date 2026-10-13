@@ -103,7 +103,8 @@ PAGE = r"""<!doctype html>
     <span class="tool" id="smart" data-hint="Smart edge mode. On mouse-down the colour under the cursor is sampled, and the stroke then only affects pixels close to that colour — so a sloppy sweep along a cable paints the cable and stops at its edge. The eraser works the same way: click on floor and only floor-coloured mask is removed. Uses the tolerance setting.">smart<span class="k" data-k="smart"></span></span>
     <span class="tool" id="szbox" data-hint="Brush and eraser diameter, in image pixels.">size <b id="sz">6</b><span class="k" data-k="sizeDown"></span><span class="k" data-k="sizeUp"></span></span>
     <span class="tool" id="tolbox" data-hint="How different a pixel may be from the one you clicked before the wand stops. Raise it if the wand grabs too little, lower it if it bleeds onto the floor.">tol <b id="tol">14</b><span class="k" data-k="tolDown"></span><span class="k" data-k="tolUp"></span></span>
-    <span class="tool" id="loadauto" data-hint="Replace the mask with the automatic one from own_gt.py, discarding your edits to this frame.">load auto<span class="k" data-k="loadAuto"></span></span>
+    <span class="tool" id="loadsam" data-hint="Replace the mask with the SAM 3 pre-label from sam3_prelabel.py, discarding your edits to this frame. This is what a frame opens with when it exists: SAM 3 was prompted with the object set that was actually placed, so the edges are usually close and the work is removing what it invented and adding what it missed.">load sam<span class="k" data-k="loadSam"></span></span>
+    <span class="tool" id="loadauto" data-hint="Replace the mask with the background-subtraction mask from own_gt.py, discarding your edits to this frame. Worth a look when SAM 3 missed an object entirely: the two methods fail in different places.">load auto<span class="k" data-k="loadAuto"></span></span>
     <span class="tool" id="clear" data-hint="Empty the mask for this frame.">clear<span class="k" data-k="clear"></span></span>
     <span class="tool" id="carry" data-hint="Carry the mask to the next frame. Camera and objects do not move inside a run, so the five frames are nearly identical — with this on, moving to the next frame keeps what you drew instead of loading that frame's own mask.">carry<span class="k" data-k="carry"></span></span>
     <span class="tool" id="save" data-hint="Write the mask to data/OWN_manual/. Also happens automatically when you change frame.">save<span class="k">⌘s</span></span>
@@ -127,12 +128,14 @@ PAGE = r"""<!doctype html>
 <script>
 const $ = s => document.querySelector(s);
 const DEFAULTS = {brush:'w', eraser:'e', wand:'q', poly:'p', sizeDown:'[', sizeUp:']',
-                  tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a', clear:'x',
+                  tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a', loadSam:'g',
+                  clear:'x',
                   carry:'c', smart:'s', next:'n', prev:'N'};
 const LABEL = {brush:'brush', eraser:'eraser', wand:'wand', poly:'polygon',
                sizeDown:'smaller brush', sizeUp:'bigger brush', tolDown:'lower tolerance',
                tolUp:'raise tolerance', hide:'hide / show mask', fit:'fit to window',
-               loadAuto:'load automatic mask', clear:'clear mask',
+               loadAuto:'load automatic mask', loadSam:'load SAM 3 mask',
+               clear:'clear mask',
                carry:'toggle carry to next frame', smart:'toggle smart edges',
                next:'next frame', prev:'previous frame'};
 let KEYS = Object.assign({}, DEFAULTS);
@@ -224,6 +227,7 @@ async function load(i, keep) {
     mctx.putImageData(keepData, 0, 0); dirty = true; fit(); renderList(); return;
   }
   await loadMask(f.manual ? `/file/OWN_manual/${f.run}_${f.frame}.png`
+                 : f.sam  ? `/file/OWN/${f.run}/sam/${f.frame}.png`
                           : `/file/OWN/${f.run}/gt/${f.frame}.png`);
   dirty = false; fit(); renderList();
  } catch (err) { banner('load failed: ' + (err && err.message || err)); }
@@ -527,6 +531,9 @@ document.querySelectorAll('.tool[data-t]').forEach(el => el.onclick = () => setT
 $('#loadauto').onclick = () => {
   snap(); loadMask(`/file/OWN/${frames[cur].run}/gt/${frames[cur].frame}.png`); dirty = true;
 };
+$('#loadsam').onclick = () => {
+  snap(); loadMask(`/file/OWN/${frames[cur].run}/sam/${frames[cur].frame}.png`); dirty = true;
+};
 $('#clear').onclick = () => { snap(); mctx.clearRect(0, 0, mask.width, mask.height); dirty = true; draw(); };
 $('#save').onclick = () => save();
 $('#only').onchange = renderList;
@@ -593,6 +600,7 @@ window.addEventListener('keydown', e => {
   else if (act === 'hide') { hide = !hide; draw(); }
   else if (act === 'fit') fit();
   else if (act === 'loadAuto') $('#loadauto').click();
+  else if (act === 'loadSam') $('#loadsam').click();
   else if (act === 'clear') $('#clear').click();
   else if (act === 'carry') $('#carry').click();
   else if (act === 'smart') $('#smart').click();
@@ -639,7 +647,8 @@ def frame_list():
         for f in sorted(os.listdir(d), key=lambda x: int(x[:-4])):
             i = f[:-4]
             out.append(dict(run=run, frame=i, reliable=rel,
-                            manual=os.path.exists(f"{MAN}/{run}_{i}.png")))
+                            manual=os.path.exists(f"{MAN}/{run}_{i}.png"),
+                            sam=os.path.exists(f"{OWN}/{run}/sam/{i}.png")))
     out.sort(key=lambda r: (r["reliable"], r["run"], int(r["frame"])))   # needs-work first
     return out
 

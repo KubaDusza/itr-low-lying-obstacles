@@ -282,6 +282,48 @@ in `dataset_index.csv` and `data/OWN/gt_summary.json`.
 
 ---
 
+### Pre-labelling with SAM 3
+
+The background-median mask is cheap and needs no hand labelling, but it is derived, and §8 says
+why it degrades on the poster runs. The second route, `code/sam3_prelabel.py`, asks a model
+instead: SAM 3 does promptable concept segmentation, so it takes a short noun phrase and returns
+a mask for every instance of that concept. We always know what is lying on the floor — the set
+was chosen before the shutter opened and is recorded in `dataset_index.csv` — so the model is
+told, rather than being asked to invent a notion of "obstacle".
+
+Each object set gets a handful of phrases, written from the photographs in §2: `cables` gets
+*cable, power cord, white cable, black cable, electrical plug, extension cord*; `hexkeys` gets
+*hex key, allen key, metal rod, carpenter square, metal ruler*; and so on. The phrases are run
+**one at a time**, because PCS takes one concept per call, and the results are merged. That is
+also the better design: `cable` and `electrical plug` fire on different parts of the same lead
+and the union covers what either alone clips, naming the real object beats a generic prompt, and
+every surviving instance carries the phrase that produced it, so a phrase that misbehaves can be
+found and dropped instead of quietly polluting every mask. Phrases are batched across the five
+frames of a run, so one-at-a-time costs nothing.
+
+Text prompts alone would also return the measuring tape, the cardboard tubes and whoever was
+standing in shot, so three filters run over the raw instances:
+
+- a **negative phrase list** (*tape measure, shoe, foot, cardboard tube, trash can*) is segmented
+  too and its union vetoes any instance it covers. These are the fixtures that lie *on the
+  floor*, where geometry cannot help;
+- the **ground plane** from `floor.png` must contain at least a quarter of the instance, which
+  removes the wall, the desks and anything above knee height;
+- the same **area window** `own_gt.py` uses, which drops single-pixel noise and whole-floor blobs.
+
+Output goes to `data/OWN/<run>/sam/`: `<i>.png` is the union, `<i>_id.png` indexes the instances,
+`<i>.json` records each one's phrase, score, area and box, and `preview_<i>.jpg` draws them on
+the frame. None of it is ground truth. It is the mask `code/annotate.py` now opens with when it
+exists — the hand pass becomes deleting what SAM 3 invented and adding what it missed, rather
+than drawing from nothing — and `load auto` still pulls the background-subtraction mask back,
+which is worth a look when SAM 3 missed an object outright, since the two methods fail in
+different places.
+
+The checkpoint is gated on Hugging Face, so the first run needs a token with `facebook/sam3`
+access.
+
+---
+
 ## 6. What the models do on it
 
 The three ISOD-trained RGB models, frozen: no fine-tuning, same threshold.
@@ -395,6 +437,25 @@ rsync -az data/OWN shire:/data/cs_courses/jdusza_itr/
 CUDA_VISIBLE_DEVICES=1 python predict_own.py --root /data/cs_courses/jdusza_itr
 rsync -az shire:/data/cs_courses/jdusza_itr/OWN_pred data/
 python code/eval_own.py && python code/plot_own.py
+```
+
+The SAM 3 pre-labels are produced on the same server, since the checkpoint wants a GPU:
+
+```bash
+python code/sam3_prelabel.py --list              # the prompt table, locally, no model needed
+ssh shire
+export HF_TOKEN=<a token with facebook/sam3 access>
+export CUDA_VISIBLE_DEVICES=1
+/opt/venv/jdusza_venv/bin/python /data/cs_courses/jdusza_itr/code/sam3_prelabel.py \
+    --root /data/cs_courses/jdusza_itr
+```
+
+then bring them back and annotate:
+
+```bash
+rsync -az --include='*/' --include='sam/***' --exclude='*' \
+    shire:/data/cs_courses/jdusza_itr/OWN/ data/OWN/
+python code/annotate.py
 ```
 
 ## 10. Every run

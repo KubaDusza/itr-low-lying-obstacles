@@ -14,13 +14,11 @@ Capture protocol: [`PLAN.md`](PLAN.md) · run sheet: [`runs.xlsx`](runs.xlsx) ·
 
 ---
 
-## 1. The rig
+## 1. Setup
 
-The camera is the robot's camera: a RealSense D435 on a small tripod bolted to a TurtleBot
-(Kobuki base), so the viewpoint is the one a real robot would have rather than a convenient
-one.
+The camera is the robot's camera: a RealSense D435 on a small tripod put on a TurtleBot from the GTE lab to simulate an actual plausible viewpoint of the robot
 
-| camera at **52 cm** (the robot's own deck) | camera at **25 cm** (lower deck) |
+| camera at **52 cm** (robot's top deck), camera tilt 30° | camera at **25 cm** (robot's lower deck) 21° |
 |---|---|
 | <img src="../figures/dataset/52h_side_camera.jpg" width="360" alt="52 cm, side"> | <img src="../figures/dataset/25h_side_camera.jpg" width="360" alt="25 cm, side"> |
 | tilt 30°, bottom-centre of the depth frame reads 0.56–0.61 m | tilt 21°, bottom-centre reads 0.33 m |

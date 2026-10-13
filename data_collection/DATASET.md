@@ -22,7 +22,7 @@ one.
 
 | camera at **52 cm** (the robot's own deck) | camera at **25 cm** (lower deck) |
 |---|---|
-| ![52 cm, side](../figures/dataset/52h_side_camera.jpg) | ![25 cm, side](../figures/dataset/25h_side_camera.jpg) |
+| <img src="../figures/dataset/52h_side_camera.jpg" width="360" alt="52 cm, side"> | <img src="../figures/dataset/25h_side_camera.jpg" width="360" alt="25 cm, side"> |
 | tilt 30°, bottom-centre of the depth frame reads 0.56–0.61 m | tilt 21°, bottom-centre reads 0.33 m |
 | floor visible from 0.67 m to 3.3 m | floor visible from 0.37 m to the horizon |
 
@@ -46,7 +46,7 @@ camera reads as slant ranges of **0.87 / 1.56 / 2.60 m**. They were chosen so a 
 1.1 / 0.7 at 52 cm, double that at 25 cm. A ladder where the answer is obvious at both ends
 would measure nothing.
 
-![The setup](../figures/dataset/process_chess_52h_poster_1_5m.jpg)
+<img src="../figures/dataset/process_chess_52h_poster_1_5m.jpg" width="520" alt="The setup">
 
 *Chess pieces on the white poster at the 1.5 m line, 52 cm block. The yellow measuring tape
 runs along the floor with the three marks on it; the robot with the camera is bottom right.*

@@ -1,13 +1,13 @@
 # GTE-Floor: RGB-D recordings of low-lying floor obstacles
 
 64 runs, 320 annotated frames, one indoor lab room, an Intel RealSense D435 mounted on a
-TurtleBot. Recorded 2026-10-12 to answer two questions that
-[ISOD](https://www.kaggle.com/datasets/yuchen66/indoor-small-object-dataset) cannot:
+TurtleBot. Recorded 2026-10-12.
+
+Trying to answer questions:
 
 1. **Does anything learned on ISOD transfer** to a different camera, room and mounting height?
 2. **What happens when an obstacle is hard to see in RGB?** ISOD contains no controlled
-   variation of obstacle visibility, so it cannot separate "depth is useless" from "RGB
-   happened to be sufficient in every ISOD frame".
+   variation of obstacle visibility. Here, we vary the size, height and contrast to the background of the object.
 
 Capture protocol: [`PLAN.md`](PLAN.md) · run sheet: [`runs.xlsx`](runs.xlsx) · per-run index:
 [`dataset_index.csv`](dataset_index.csv) · results: [`../README.md`](../README.md).

@@ -92,6 +92,15 @@ PROMPTS = {
 NEGATIVE = ["tape measure", "measuring tape", "shoe", "foot", "cardboard tube",
             "cardboard roll", "trash can"]
 
+# A negative phrase that overlaps the set's own concept deletes the objects we came for. The
+# tapes set collides with two of them: prompted with "tape measure" or "cardboard roll" on a
+# tapes run, SAM 3 returns the tape rolls themselves -- each covers all five of them at ~100% --
+# and the veto then removes every one. The first full pass found 0.3 instances per frame on a
+# set with five rolls in it. The rolls are compact and the measuring tape is a long thin strip,
+# so the ground-plane and area filters still carry the load. "cardboard tube" is kept: it finds
+# the distance tubes and leaves the rolls alone.
+NEGATIVE_SKIP = {"tapes": {"tape measure", "measuring tape", "cardboard roll"}}
+
 MIN_AREA, MAX_AREA = 20, 60000      # the window own_gt.py scores with
 FLOOR_FRAC = 0.25                   # a kept instance must sit this far inside the ground plane
 VETO_FRAC = 0.5                     # covered this much by a negative instance -> drop
@@ -188,6 +197,8 @@ def main():
         for s, ps in PROMPTS.items():
             print(f"{s:8s} {', '.join(ps) if ps else '(nothing placed)'}")
         print(f"\nnegative {', '.join(NEGATIVE)}")
+        for st, skip in NEGATIVE_SKIP.items():
+            print(f"  minus {', '.join(sorted(skip))} for '{st}', which they would delete")
         return
 
     own = f"{a.root}/OWN"
@@ -223,7 +234,7 @@ def main():
 
         # the fixtures, so they can be subtracted from whatever the positive phrases return
         veto = [np.zeros(bgr[0].shape[:2], np.uint8) for _ in images]
-        for phrase in NEGATIVE:
+        for phrase in [n for n in NEGATIVE if n not in NEGATIVE_SKIP.get(oset, ())]:
             for i0 in range(0, len(images), a.batch):
                 chunk = images[i0:i0 + a.batch]
                 for j, insts in enumerate(segment(model, processor, chunk, phrase,

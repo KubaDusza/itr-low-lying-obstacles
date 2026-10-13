@@ -319,8 +319,37 @@ than drawing from nothing — and `load auto` still pulls the background-subtrac
 which is worth a look when SAM 3 missed an object outright, since the two methods fail in
 different places.
 
-The checkpoint is gated on Hugging Face, so the first run needs a token with `facebook/sam3`
-access.
+Across all 64 runs it returns **1,270 instances over 320 frames**, and the empty runs return
+nothing at all, which is the right answer:
+
+| set | runs | instances | per frame | placed |
+|---|---:|---:|---:|---|
+| cables | 12 | 356 | 5.9 | 4 cables |
+| chess | 12 | 260 | 4.3 | 4 pieces |
+| hexkeys | 6 | 148 | 4.9 | 5 hex keys |
+| tapes | 6 | 116 | 3.9 | 5 tape rolls |
+| rags | 12 | 213 | 3.5 | 4 rags |
+| random | 6 | 94 | 3.1 | 4 items |
+| screws | 6 | 83 | 2.8 | 5 screws + a pile |
+| empty | 4 | 0 | 0.0 | nothing |
+
+Counts above the number placed are the same object found by two phrases and by a part of itself
+— a lead and its plug — which the hand pass merges; counts below it are the far distances, where
+a screw is a few pixels. `h25_floor_rags_075` is worth singling out: it is one of the 13 runs the
+background median flags unreliable, and SAM 3 segments all four rags on it cleanly. The flag is a
+limit of the derived mask, not of the frames.
+
+**One trap, worth writing down.** A negative phrase that overlaps the set's own concept deletes
+exactly what you came for. Prompted with *tape measure* or *cardboard roll* on a tapes run, SAM 3
+returns the five tape rolls — each phrase covering all of them at ~100% — and the veto then
+removes every one. The first full pass found 0.3 instances per frame on a set with five rolls in
+it before this was caught. `NEGATIVE_SKIP` drops those two phrases for that set only; *cardboard
+tube* stays, because it finds the distance tubes and leaves the rolls alone.
+
+The official checkpoint is gated on Hugging Face and approval is manual, so `--model` takes a
+re-upload. The one used here is byte-identical to Meta's file: 3,439,938,512 bytes,
+sha256 `6d06f0a5f84e435071fe6603e61d0b4cc7b40e0d39d487cfd4d67d8cc11cc14a`, the same hash in two
+independently uploaded copies.
 
 ---
 
@@ -444,10 +473,10 @@ The SAM 3 pre-labels are produced on the same server, since the checkpoint wants
 ```bash
 python code/sam3_prelabel.py --list              # the prompt table, locally, no model needed
 ssh shire
-export HF_TOKEN=<a token with facebook/sam3 access>
-export CUDA_VISIBLE_DEVICES=1
+export HF_HOME=/data/cs_courses/jdusza_itr/hf_cache
+export CUDA_DEVICE_ORDER=PCI_BUS_ID CUDA_VISIBLE_DEVICES=1
 /opt/venv/jdusza_venv/bin/python /data/cs_courses/jdusza_itr/code/sam3_prelabel.py \
-    --root /data/cs_courses/jdusza_itr
+    --root /data/cs_courses/jdusza_itr --model bodhicitta/sam3
 ```
 
 then bring them back and annotate:

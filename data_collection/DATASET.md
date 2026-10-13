@@ -373,9 +373,11 @@ time: one large white surface — a roll of paper or a white sheet, wide enough 
 floor from the near mark past the far mark and the full width of the frame — taped down once
 and left alone for the whole block.
 
-**Smaller things.** The cardboard distance tubes should be weighted so they do not fall over
-(two of ours did, and ended up outside the colour FoV). A written frame-by-frame log of what
-was placed where would have saved reconstructing it afterwards from the photographs.
+**Smaller things.** The cardboard distance tubes were stood in a row against the wall at the
+right edge of the scene, so two of the three sit outside the colour camera's 70° view and only
+the 1.5 m one is usable as a check. They should be placed at the marks *in the middle* of the
+frame, where all three are visible in both colour and depth. A written frame-by-frame log of
+what was placed where would also have saved reconstructing it afterwards from the photographs.
 
 ---
 

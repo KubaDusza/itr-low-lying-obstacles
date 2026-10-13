@@ -329,7 +329,57 @@ dataset and the training script is on the `juan-rgbd` branch, so it is a retrain
 
 ---
 
-## 8. Regenerating
+## 8. What we would do differently
+
+Notes from running the session, written down so the next recording is better rather than just
+bigger. Most of these are about one thing: the automatic ground truth is only as good as how
+still everything that is *not* an obstacle stayed.
+
+**Objects were placed by hand, not to a layout.** Every set was carried in and put down by eye,
+so the arrangement is not repeatable: the same four cables sit in different places at 0.75 m
+and at 1.5 m, and the relative order of the items inside a set changed between runs too. The
+poses are therefore not a controlled variable, and a run at 25 cm is not a pixel-matched pair
+of the same run at 52 cm. Nothing in the metrics depends on it — each frame is scored against
+its own mask — but it rules out the tidiest comparison we could have had, which is the same
+scene seen from two heights. Next time: mark the item positions on the floor (a paper template
+or a few tape crosses per set), photograph the layout once, and rebuild it identically for
+every distance, height and background.
+
+**The camera may have moved between runs.** The tripod was bolted to the robot, but the robot
+was pushed to the tape line by hand for each distance and the rig was handled between blocks.
+`own_gt.py` registers every frame to its group anchor by phase correlation on the top band for
+exactly this reason, and the measured shifts are small, but registration can only undo a
+translation — it cannot undo a change of tilt or a change of viewpoint, and any of those
+leaves the whole scene slightly misaligned with the median background. Next time: clamp the
+rig, move the *objects* rather than the camera, and re-measure the tilt at the start of each
+block.
+
+**Set the scene up for the background subtraction, not just for the photograph.** The median
+across runs is what makes labelling unnecessary, so it deserves to be designed rather than
+inherited. Concretely, for the next session: lock exposure and white balance so frames do not
+need gain matching at all; record a dedicated empty run immediately before *and* after each
+group from the untouched pose; keep more sets per (distance, background) group so an obstacle
+is a smaller minority at every pixel; keep people and furniture out of the frame for the whole
+group; and shoot a few more frames per run so the per-run median is itself stable. The 13 runs
+that fail the reliability check all fail for one of these reasons, not because the objects were
+hard.
+
+**The white background was improvised.** It was office posters laid on the floor — too small
+to cover the visible band, so their edges are inside the frame, and they had to be moved and
+re-laid between distances. That motion is exactly what the median background cannot absorb:
+the poster is present in every run of a group, but not in the same place, so its edges leak
+into the difference image. It is the main reason the poster runs are the unreliable ones. Next
+time: one large white surface — a roll of paper or a white sheet, wide enough to cover the
+floor from the near mark past the far mark and the full width of the frame — taped down once
+and left alone for the whole block.
+
+**Smaller things.** The cardboard distance tubes should be weighted so they do not fall over
+(two of ours did, and ended up outside the colour FoV). A written frame-by-frame log of what
+was placed where would have saved reconstructing it afterwards from the photographs.
+
+---
+
+## 9. Regenerating
 
 The `.db3` recordings (8.5 GB) are not in the repository. From them:
 
@@ -347,7 +397,7 @@ rsync -az shire:/data/cs_courses/jdusza_itr/OWN_pred data/
 python code/eval_own.py && python code/plot_own.py
 ```
 
-## 9. Every run
+## 10. Every run
 
 One row per recording: the columns of [`dataset_index.csv`](dataset_index.csv) with the scene
 it belongs to. GitHub renders a `.csv` as a table but shows HTML in a cell as literal text, so

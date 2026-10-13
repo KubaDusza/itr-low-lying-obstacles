@@ -121,8 +121,8 @@ def segment(model, processor, images, phrase, thr, device):
     out = []
     for r in res:
         masks = r["masks"].cpu().numpy().astype(np.uint8)
-        scores = r["scores"].cpu().numpy()
-        boxes = r["boxes"].cpu().numpy()
+        scores = r["scores"].float().cpu().numpy()   # bf16 does not convert to numpy
+        boxes = r["boxes"].float().cpu().numpy()
         out.append([(masks[i], float(scores[i]), boxes[i].tolist()) for i in range(len(scores))])
     return out
 
@@ -169,6 +169,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", default=ROOT, help="holds OWN/; the GPU server uses /data/cs_courses/jdusza_itr")
     ap.add_argument("--index", default=f"{ROOT}/data_collection/dataset_index.csv")
+    ap.add_argument("--model", default=MODEL,
+                    help="facebook/sam3 needs an approved access request; a byte-identical "
+                         "re-upload works the same while that is pending")
     ap.add_argument("--runs", default="", help="comma-separated substrings; default every run")
     ap.add_argument("--score", type=float, default=0.45, help="SAM 3 confidence threshold")
     ap.add_argument("--neg-score", type=float, default=0.5)
@@ -194,9 +197,9 @@ def main():
     import torch
     from transformers import Sam3Model, Sam3Processor
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    model = Sam3Model.from_pretrained(MODEL, dtype=torch.bfloat16).to(device).eval()
-    processor = Sam3Processor.from_pretrained(MODEL)
-    print(f"{MODEL} on {device}")
+    model = Sam3Model.from_pretrained(a.model, dtype=torch.bfloat16).to(device).eval()
+    processor = Sam3Processor.from_pretrained(a.model)
+    print(f"{a.model} on {device}")
 
     for run in runs:
         out_dir = f"{own}/{run}/sam"

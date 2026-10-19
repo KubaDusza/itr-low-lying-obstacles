@@ -138,6 +138,10 @@ PAGE = r"""<!doctype html>
           border-radius:5px; padding:3px 8px; cursor:pointer;
           font:12px ui-monospace,Menlo,monospace; }
   .kbtn.listen { background:var(--warn); color:#17191d; }
+  .mbtn { min-width:52px; text-align:center; border:1px solid var(--line); border-radius:5px;
+          padding:3px 8px; cursor:pointer; font-size:11px; color:var(--muted); }
+  .mbtn.hold { background:#2b3a2f; color:#8fd6a8; border-color:#36513d; }
+  .krow .sp { flex:1; }
   #keyfoot { display:flex; gap:10px; margin-top:16px; }
 </style>
 <div id="side">
@@ -157,7 +161,7 @@ PAGE = r"""<!doctype html>
     <span class="tool" data-t="wand" data-hint="Flood fill by colour: click one pixel and every connected pixel of a similar colour joins the mask. One click covers a whole rag or tape roll. Tolerance decides how different a pixel may be before it stops spreading.">wand<span class="k" data-k="wand"></span></span>
     <span class="tool" data-t="poly" data-hint="Polygon: click each corner, Enter fills the shape, Esc cancels. Best for straight-edged objects like the pink rag.">polygon<span class="k" data-k="poly"></span></span>
     <span class="tool" data-t="assign" data-hint="Assign a whole blob to the selected item: click any masked pixel and every connected masked pixel takes that item's colour. This is the fast way through a SAM pre-label — press the item's number, click its blob, done.">assign<span class="k" data-k="assign"></span></span>
-    <span class="tool" data-t="pan" data-hint="Move the view: drag with the left button, nothing is painted. Holding space does the same from any tool, and the scroll wheel still zooms.">pan<span class="k" data-k="pan"></span></span>
+    <span class="tool" data-t="pan" data-hint="Move the view: drag with the left button, nothing is painted. Its key is held rather than toggled by default — the ? panel sets hold or toggle for every tool. Space pans from any tool, and the scroll wheel still zooms.">pan<span class="k" data-k="pan"></span></span>
     <span class="tool" id="smart" data-hint="Smart edge mode. On mouse-down the colour under the cursor is sampled, and the stroke then only affects pixels close to that colour — so a sloppy sweep along a cable paints the cable and stops at its edge. The eraser works the same way: click on floor and only floor-coloured mask is removed. Uses the tolerance setting.">smart<span class="k" data-k="smart"></span></span>
     <span class="tool" id="szbox" data-hint="Brush and eraser diameter, in image pixels.">size <b id="sz">6</b><span class="k" data-k="sizeDown"></span><span class="k" data-k="sizeUp"></span></span>
     <span class="tool" id="tolbox" data-hint="How different a pixel may be from the one you clicked before the wand stops. Raise it if the wand grabs too little, lower it if it bleeds onto the floor.">tol <b id="tol">14</b><span class="k" data-k="tolDown"></span><span class="k" data-k="tolUp"></span></span>
@@ -199,6 +203,15 @@ const LABEL = {brush:'brush', eraser:'eraser', wand:'wand', poly:'polygon',
                clear:'clear mask',
                carry:'toggle carry to next frame', smart:'toggle smart edges',
                next:'next frame', prev:'previous frame'};
+/* Each of these can be a sticky toggle -- press once and it stays -- or spring-loaded: it
+   lasts only while the key is held, and the previous tool comes back on release. Pan is the
+   one that wants holding by default; the rest are set in the ? panel. */
+const HOLDABLE = ['brush', 'eraser', 'wand', 'poly', 'assign', 'pan', 'hide'];
+const MODE_DEF = {pan: 'hold'};
+let MODES = {};
+HOLDABLE.forEach(a => MODES[a] = MODE_DEF[a] || 'toggle');
+try { Object.assign(MODES, JSON.parse(localStorage.getItem('annot_modes') || '{}')); } catch (e) {}
+
 let KEYS = Object.assign({}, DEFAULTS);
 try { Object.assign(KEYS, JSON.parse(localStorage.getItem('annot_keys') || '{}')); } catch (e) {}
 /* 1-9 now pick the item to paint with, so a binding saved on a digit before that -- brush
@@ -216,7 +229,7 @@ let mask = document.createElement('canvas'), mctx = null;
 let view = {z: 2, ox: 0, oy: 0}, tool = 'brush', size = 6, tol = 14, carry = true;
 let drawing = false, panning = false, last = null, hide = false, dirty = false;
 let smart = false, strokeRef = null;
-let undo = [], poly = [], mouse = null, panKey = false, listening = null;
+let undo = [], poly = [], mouse = null, panKey = false, listening = null, held = null;
 const cv = $('#cv'), ctx = cv.getContext('2d');
 
 /* ------------------------------------------------------------------ keys */
@@ -236,7 +249,21 @@ function buildKeyPanel() {
   const box = $('#krows'); box.innerHTML = '';
   Object.keys(DEFAULTS).forEach(a => {
     const r = document.createElement('div'); r.className = 'krow';
-    r.innerHTML = `<span>${LABEL[a]}</span>`;
+    r.innerHTML = `<span>${LABEL[a]}</span><span class="sp"></span>`;
+    if (HOLDABLE.includes(a)) {
+      const m = document.createElement('span');
+      const paint = () => {
+        m.className = 'mbtn' + (MODES[a] === 'hold' ? ' hold' : '');
+        m.textContent = MODES[a];
+        m.title = MODES[a] === 'hold' ? 'active only while the key is held'
+                                      : 'press once, stays until you pick another';
+      };
+      m.onclick = () => {
+        MODES[a] = MODES[a] === 'hold' ? 'toggle' : 'hold';
+        localStorage.setItem('annot_modes', JSON.stringify(MODES)); paint();
+      };
+      paint(); r.appendChild(m);
+    }
     const b = document.createElement('span');
     b.className = 'kbtn'; b.textContent = keyLabel(KEYS[a]);
     b.onclick = () => {
@@ -784,7 +811,10 @@ $('#help').onclick = () => $('#keys').classList.add('on');
 $('#kclose').onclick = () => $('#keys').classList.remove('on');
 $('#kreset').onclick = () => {
   KEYS = Object.assign({}, DEFAULTS);
-  localStorage.setItem('annot_keys', JSON.stringify(KEYS)); buildKeyPanel(); paintKeys();
+  MODES = {}; HOLDABLE.forEach(a => MODES[a] = MODE_DEF[a] || 'toggle');
+  localStorage.setItem('annot_keys', JSON.stringify(KEYS));
+  localStorage.setItem('annot_modes', JSON.stringify(MODES));
+  buildKeyPanel(); paintKeys();
 };
 $('#keys').onclick = e => { if (e.target.id === 'keys') $('#keys').classList.remove('on'); };
 
@@ -850,6 +880,12 @@ window.addEventListener('keydown', e => {
   const act = Object.keys(KEYS).find(a => KEYS[a] && KEYS[a] === e.key);
   if (!act) return;
   e.preventDefault();
+  if (HOLDABLE.includes(act) && MODES[act] === 'hold') {
+    if (e.repeat || held) return;                 // autorepeat is not a second press
+    held = {act: act, key: e.key, tool: tool, hide: hide};
+    if (act === 'hide') { hide = true; draw(); } else setTool(act);
+    return;
+  }
   if (['brush', 'eraser', 'wand', 'poly', 'assign', 'pan'].includes(act)) setTool(act);
   else if (act === 'sizeDown') { size = Math.max(1, size - 1); $('#sz').textContent = size; draw(); }
   else if (act === 'sizeUp') { size = Math.min(120, size + 1); $('#sz').textContent = size; draw(); }
@@ -865,7 +901,13 @@ window.addEventListener('keydown', e => {
   else if (act === 'next') { if (cur + 1 < frames.length) load(cur + 1, carry); }
   else if (act === 'prev') { if (cur > 0) load(cur - 1, carry); }
 });
-window.addEventListener('keyup', e => { if (e.key === ' ') panKey = false; });
+window.addEventListener('keyup', e => {
+  if (e.key === ' ') panKey = false;
+  if (held && e.key === held.key) {
+    if (held.act === 'hide') { hide = held.hide; draw(); } else setTool(held.tool);
+    held = null;
+  }
+});
 window.addEventListener('resize', () => draw());
 function banner(msg) {
   const b = document.createElement('div');

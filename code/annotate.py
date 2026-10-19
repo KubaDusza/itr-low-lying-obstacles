@@ -76,7 +76,12 @@ PAGE = r"""<!doctype html>
   #side { width:262px; flex:none; border-right:1px solid var(--line); display:flex;
           flex-direction:column; background:var(--panel); }
   #side h1 { font-size:13px; margin:0; padding:12px 14px; border-bottom:1px solid var(--line); }
-  #filter { padding:8px 14px; border-bottom:1px solid var(--line); color:var(--muted); }
+  #filter { padding:8px 14px 4px; color:var(--muted); }
+  #filter2 { padding:0 14px 8px; border-bottom:1px solid var(--line); color:var(--muted); }
+  #note { width:150px; background:#12151a; color:var(--ink); border:1px solid var(--line);
+          border-radius:5px; padding:3px 7px; font:12px ui-sans-serif,system-ui; }
+  #note:focus { outline:none; border-color:var(--accent); }
+  .flagged { color:var(--warn); }
   #list { overflow:auto; flex:1; }
   #itembox { flex:none; border-top:1px solid var(--line); background:#191c22; }
   #itembox h2 { font-size:11px; letter-spacing:.06em; text-transform:uppercase;
@@ -164,6 +169,7 @@ PAGE = r"""<!doctype html>
 <div id="side">
   <h1>mask annotator</h1>
   <label id="filter"><input type="checkbox" id="only"> only runs needing work</label>
+  <label id="filter2"><input type="checkbox" id="onlyflag"> only flagged</label>
   <div id="list"></div>
   <div id="itembox">
     <h2>items in this run</h2>
@@ -188,6 +194,8 @@ PAGE = r"""<!doctype html>
     <span class="tool" id="loadauto" data-hint="Replace the mask with the background-subtraction mask from own_gt.py, discarding your edits to this frame. Worth a look when SAM 3 missed an object entirely: the two methods fail in different places.">load auto<span class="k" data-k="loadAuto"></span></span>
     <span class="tool" id="clear" data-hint="Empty the mask for this frame.">clear<span class="k" data-k="clear"></span></span>
     <span class="tool" id="carry" data-hint="Carry the mask to the next frame. Camera and objects do not move inside a run, so the five frames are nearly identical — with this on, moving to the next frame keeps what you drew instead of loading that frame's own mask.">carry<span class="k" data-k="carry"></span></span>
+    <span class="tool" id="flag" data-hint="Mark this frame to come back to, with a note if you want one. Flagged frames carry a ⚑ in the list and the filter above it can show only those.">flag<span class="k" data-k="flag"></span></span>
+    <input id="note" placeholder="note" spellcheck="false">
     <span class="tool" id="save" data-hint="Write the mask to data/OWN_manual/. Also happens automatically when you change frame.">save<span class="k">⌘s</span></span>
     <span class="tool" id="help" data-hint="Change any shortcut.">?</span>
   </div>
@@ -223,10 +231,11 @@ PAGE = r"""<!doctype html>
 const $ = s => document.querySelector(s);
 const DEFAULTS = {brush:'w', eraser:'e', wand:'q', poly:'p', assign:'f', sizeDown:'!',
                   sizeUp:'@', tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a',
-                  loadSam:'g', clear:'x', pan:'v', ref:'r', move:'m',
+                  loadSam:'g', clear:'x', pan:'v', ref:'r', move:'m', flag:'t',
                   carry:'c', smart:'s', next:'n', prev:'N'};
 const LABEL = {brush:'brush', eraser:'eraser', wand:'wand', poly:'polygon',
                assign:'assign blob to item', pan:'pan the view', move:'move a blob',
+               flag:'flag this frame',
                ref:'reference panel',
                sizeDown:'smaller brush', sizeUp:'bigger brush', tolDown:'lower tolerance',
                tolUp:'raise tolerance', hide:'hide / show mask', fit:'fit to window',
@@ -363,8 +372,10 @@ async function boot() {
 }
 function renderList() {
   const only = $('#only').checked, l = $('#list'); l.innerHTML = '';
+  const onlyFlag = $('#onlyflag').checked;
   frames.forEach((f, i) => {
     if (only && f.reliable && !f.manual) return;
+    if (onlyFlag && !f.flag) return;
     const d = document.createElement('div');
     d.className = 'row' + (i === cur ? ' sel' : '') + (f.manual ? ' done' : '');
     /* The state that matters while labelling is whether the items are named, which is not
@@ -372,7 +383,9 @@ function renderList() {
     const state = !f.manual ? (f.reliable ? 'ok' : 'needs work')
                 : f.todo || !f.manual_id ? 'items left' : 'labelled';
     const bad = state === 'needs work' || state === 'items left';
-    d.innerHTML = `<span>${f.run}<span class="tag"> ·${f.frame}</span></span>` +
+    const note = f.flag && f.flag.note ? ` — ${f.flag.note}` : '';
+    d.innerHTML = `<span>${f.flag ? '<span class="flagged">⚑ </span>' : ''}${f.run}` +
+                  `<span class="tag"> ·${f.frame}${note}</span></span>` +
                   `<span class="tag ${bad ? 'bad' : ''}">${state}</span>`;
     d.onclick = () => load(i);
     l.appendChild(d);
@@ -386,6 +399,8 @@ async function load(i, keep) {
   cur = i; poly = []; undo = [];
   const f = frames[i];
   items = itemSets[f.oset] || []; item = 0; lastCounts = null; renderItems();
+  $('#flag').classList.toggle('on', !!f.flag);
+  $('#note').value = f.flag ? f.flag.note : '';
   $('#title').textContent = `${f.run}  frame ${f.frame}`;
   img = new Image();
   // onload rather than decode(): decode() never settles while the tab is in the background,
@@ -1098,7 +1113,21 @@ $('#loadsam').onclick = () => { snap(); loadInto('sam'); dirty = true; };
 $('#clear').onclick = () => { snap(); mctx.clearRect(0, 0, mask.width, mask.height);
   dirty = true; rescan(); draw(); };
 $('#save').onclick = () => save();
+function setFlag(on, note) {
+  const f = frames[cur];
+  f.flag = on ? {note: note || ''} : null;
+  $('#flag').classList.toggle('on', !!f.flag);
+  $('#note').value = f.flag ? f.flag.note : '';
+  renderList();
+  fetch(`/api/flag?run=${f.run}&frame=${f.frame}`,
+        {method: 'POST', body: JSON.stringify({flag: !!f.flag, note: note || ''})});
+}
+$('#flag').onclick = () => setFlag(!frames[cur].flag, $('#note').value);
+$('#note').onchange = () => setFlag($('#note').value !== '' || !!frames[cur].flag,
+                                    $('#note').value);
+$('#note').onkeydown = e => { if (e.key === 'Enter') $('#note').blur(); };
 $('#only').onchange = renderList;
+$('#onlyflag').onchange = renderList;
 $('#carry').onclick = () => { carry = !carry; $('#carry').classList.toggle('on', carry);
 $('#smart').classList.toggle('on', smart); };
 $('#smart').onclick = () => { smart = !smart; $('#smart').classList.toggle('on', smart); draw(); };
@@ -1146,6 +1175,7 @@ async function put(imgdata, url) {
 }
 
 window.addEventListener('keydown', e => {
+  if (/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName) && !listening) return;
   if (listening) {                              // capturing a new shortcut
     e.preventDefault();
     if (e.key !== 'Escape' && e.key.length === 1) setKey(listening.action, e.key);
@@ -1220,6 +1250,7 @@ window.addEventListener('keydown', e => {
   else if (act === 'loadSam') $('#loadsam').click();
   else if (act === 'clear') $('#clear').click();
   else if (act === 'ref') $('#refbtn').click();
+  else if (act === 'flag') $('#flag').click();
   else if (act === 'carry') $('#carry').click();
   else if (act === 'smart') $('#smart').click();
   else if (act === 'next') { if (cur + 1 < frames.length) load(cur + 1, carry); }
@@ -1257,6 +1288,17 @@ boot(); setTool('brush');
 """
 
 
+FLAGS = f"{MAN}/flags.json"
+
+
+def read_flags():
+    """<run>_<frame> -> {"note": ...}, the frames marked to come back to."""
+    try:
+        return json.load(open(FLAGS))
+    except Exception:
+        return {}
+
+
 def unassigned(path):
     """Does this saved id map still hold pixels nobody put a name to? Items are 1..N and
     UNLABELLED is 255, so the maximum answers it."""
@@ -1275,6 +1317,7 @@ def frame_list():
     if os.path.exists(p):
         meta = {r["run"]: r for r in json.load(open(p))}
     sets = run_sets()
+    flags = read_flags()
     out = []
     for run in sorted(os.listdir(OWN)):
         d = f"{OWN}/{run}/rgb"
@@ -1285,6 +1328,7 @@ def frame_list():
         for f in sorted(os.listdir(d), key=lambda x: int(x[:-4])):
             i = f[:-4]
             out.append(dict(run=run, frame=i, reliable=rel, oset=oset,
+                            flag=flags.get(f"{run}_{i}"),
                             manual=os.path.exists(f"{MAN}/{run}_{i}.png"),
                             manual_id=os.path.exists(f"{MAN}/{run}_{i}_id.png"),
                             todo=unassigned(f"{MAN}/{run}_{i}_id.png"),
@@ -1311,6 +1355,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
             return self._send(200, PAGE.encode(), "text/html; charset=utf-8")
         if u.path == "/api/list":
             return self._send(200, json.dumps(frame_list()).encode(), "application/json")
+        if u.path == "/api/flags":
+            return self._send(200, json.dumps(read_flags()).encode(), "application/json")
         if u.path == "/api/items":
             return self._send(200, json.dumps(item_table()).encode(), "application/json")
         if u.path.startswith("/file/"):
@@ -1327,6 +1373,20 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def do_POST(self):
         u = urllib.parse.urlparse(self.path)
         q = urllib.parse.parse_qs(u.query)
+        if u.path == "/api/flag" and "run" in q and "frame" in q:
+            run, frame = q["run"][0], q["frame"][0]
+            if "/" in run or "/" in frame:
+                return self._send(400, b"bad")
+            body = json.loads(self.rfile.read(int(self.headers["Content-Length"])) or b"{}")
+            flags = read_flags()
+            key = f"{run}_{frame}"
+            if body.get("flag"):
+                flags[key] = {"note": body.get("note", "")}
+            else:
+                flags.pop(key, None)
+            os.makedirs(MAN, exist_ok=True)
+            json.dump(flags, open(FLAGS, "w"), indent=1, sort_keys=True)
+            return self._send(200, b"ok", "text/plain")
         if u.path != "/api/save" or "run" not in q or "frame" not in q:
             return self._send(400, b"bad")
         run, frame = q["run"][0], q["frame"][0]

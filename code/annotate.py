@@ -186,8 +186,8 @@ PAGE = r"""<!doctype html>
 </div></div>
 <script>
 const $ = s => document.querySelector(s);
-const DEFAULTS = {brush:'w', eraser:'e', wand:'q', poly:'p', assign:'f', sizeDown:'[',
-                  sizeUp:']', tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a',
+const DEFAULTS = {brush:'w', eraser:'e', wand:'q', poly:'p', assign:'f', sizeDown:'!',
+                  sizeUp:'@', tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a',
                   loadSam:'g', clear:'x',
                   carry:'c', smart:'s', next:'n', prev:'N'};
 const LABEL = {brush:'brush', eraser:'eraser', wand:'wand', poly:'polygon',
@@ -200,6 +200,10 @@ const LABEL = {brush:'brush', eraser:'eraser', wand:'wand', poly:'polygon',
                next:'next frame', prev:'previous frame'};
 let KEYS = Object.assign({}, DEFAULTS);
 try { Object.assign(KEYS, JSON.parse(localStorage.getItem('annot_keys') || '{}')); } catch (e) {}
+/* 1-9 now pick the item to paint with, so a binding saved on a digit before that -- brush
+   size lived on 1 and 2 -- goes back to its default, which is the shifted digit. */
+Object.keys(KEYS).forEach(a => { if (/^[1-9]$/.test(KEYS[a])) KEYS[a] = DEFAULTS[a]; });
+try { localStorage.setItem('annot_keys', JSON.stringify(KEYS)); } catch (e) {}
 
 let frames = [], cur = -1, img = null, imgData = null;
 /* The mask canvas carries the item in its colour: every stroke is painted in the selected
@@ -210,12 +214,13 @@ const UNLAB = [190, 190, 190], UNLAB_IDX = 255;
 let mask = document.createElement('canvas'), mctx = null;
 let view = {z: 2, ox: 0, oy: 0}, tool = 'brush', size = 6, tol = 14, carry = true;
 let drawing = false, panning = false, last = null, hide = false, dirty = false;
-let smart = true, strokeRef = null;
+let smart = false, strokeRef = null;
 let undo = [], poly = [], mouse = null, panKey = false, listening = null;
 const cv = $('#cv'), ctx = cv.getContext('2d');
 
 /* ------------------------------------------------------------------ keys */
-const keyLabel = k => k === ' ' ? 'space' : (k || '—');
+const SHIFTED = {'!':'⇧1', '@':'⇧2', '#':'⇧3', '$':'⇧4', '%':'⇧5'};
+const keyLabel = k => k === ' ' ? 'space' : (SHIFTED[k] || k || '—');
 function paintKeys() {
   document.querySelectorAll('[data-k]').forEach(e => {
     e.textContent = KEYS[e.dataset.k] ? ' ' + keyLabel(KEYS[e.dataset.k]) : '';

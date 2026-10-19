@@ -1122,9 +1122,15 @@ function setFlag(on, note) {
   fetch(`/api/flag?run=${f.run}&frame=${f.frame}`,
         {method: 'POST', body: JSON.stringify({flag: !!f.flag, note: note || ''})});
 }
+/* Pressing the button must not take focus off the note field: its change event would flag
+   the frame first and the click would then toggle that straight back off, which looks like
+   nothing happening. */
+$('#flag').onmousedown = e => e.preventDefault();
 $('#flag').onclick = () => setFlag(!frames[cur].flag, $('#note').value);
-$('#note').onchange = () => setFlag($('#note').value !== '' || !!frames[cur].flag,
-                                    $('#note').value);
+$('#note').onchange = () => {
+  const want = $('#note').value !== '' || !!frames[cur].flag;
+  if (want || frames[cur].flag) setFlag(want, $('#note').value);
+};
 $('#note').onkeydown = e => { if (e.key === 'Enter') $('#note').blur(); };
 $('#only').onchange = renderList;
 $('#onlyflag').onchange = renderList;

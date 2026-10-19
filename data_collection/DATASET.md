@@ -351,6 +351,35 @@ re-upload. The one used here is byte-identical to Meta's file: 3,439,938,512 byt
 sha256 `6d06f0a5f84e435071fe6603e61d0b4cc7b40e0d39d487cfd4d67d8cc11cc14a`, the same hash in two
 independently uploaded copies.
 
+### Per-item labels
+
+The same physical objects were re-placed run after run: the same four cables at three distances,
+two camera heights and two backgrounds, the same five tape rolls, the same hex keys. A mask that
+only says *obstacle* throws that away. So the hand pass labels each pixel with the **item** it
+belongs to, and the benchmark can then be read one object at a time — this cable is found at
+0.75 m and lost at 2.5 m, that hex key is never found at all, the white rag is found on the
+floor and lost on the poster — instead of as one number per run.
+
+`data_collection/items.csv` is the inventory: 32 items over the seven sets, each with an id, the
+set it belongs to, a display colour, and the qualitative attributes that the analysis groups by
+(tone, shape class, specular). `height_mm`, `long_mm` and `short_mm` are still empty; they need a
+ruler, not a photograph, and the overhead photos in §2 are too oblique to measure from.
+
+`code/annotate.py` reads that file, shows the items of the run being annotated as a palette, and
+writes a second file next to every saved mask:
+
+    data/OWN_manual/<run>_<frame>.png       0 / 255, what everything downstream already reads
+    data/OWN_manual/<run>_<frame>_id.png    the item index, 1-based within the set
+                                            (255 = masked but not yet assigned)
+
+The index is the item's row position within its set in `items.csv`, so the two files are joined
+through that one table. The work per frame is small, because SAM 3 has already separated the
+instances: press the item's number, click its blob, and the whole connected region takes that
+item. Phrases that name exactly one item in a set and fired exactly once in a frame — *extension
+cord*, *carpenter square*, *rubik's cube*, *eye bolt*, *pile of screws* — are assigned before the
+frame opens. The rest cannot be resolved from the phrase: SAM 3 returns four instances of *chess
+piece*, and which one is the black pawn is something only the annotator knows.
+
 ---
 
 ## 6. What the models do on it

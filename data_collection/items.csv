@@ -1,0 +1,33 @@
+item_id,object_set,label,colour,tone,shape,specular,height_mm,long_mm,short_mm,sam_phrases,notes
+cab_white_thick,cables,white extension lead,#e6194b,bright,thin-linear,no,,,,extension cord,moulded socket at one end and a plug at the other
+cab_white_thin,cables,white USB-C lead,#3cb44b,bright,thin-linear,no,,,,,the thinnest cable in the set
+cab_black_thick,cables,black mains lead,#4363d8,dark,thin-linear,no,,,,,IEC connector and a European plug
+cab_black_thin,cables,black USB lead,#f58231,dark,thin-linear,no,,,,,
+tap_masking,tapes,beige masking roll,#e6194b,bright,raised,no,,,,masking tape roll,widest roll in the set
+tap_redblack,tapes,red/black insulating roll,#3cb44b,mid,raised,no,,,,,a loose red tail lies flat beside the roll
+tap_yellow_grey,tapes,yellow/grey insulating roll,#4363d8,mid,raised,no,,,,,
+tap_yellow_small,tapes,small yellow roll,#f58231,mid,raised,no,,,,,
+tap_red_tiny,tapes,tiny red roll,#911eb4,mid,raised,no,,,,,smallest object in the set
+hex_square,hexkeys,carpenter's square,#e6194b,mid,thin-linear,yes,,,,carpenter square;metal ruler,Dexter 400 mm stainless square; aluminium leg
+hex_large,hexkeys,large hex key,#3cb44b,mid,thin-linear,yes,,,,,ball end
+hex_medium,hexkeys,medium hex key,#4363d8,mid,thin-linear,yes,,,,,
+hex_small,hexkeys,small hex key,#f58231,mid,thin-linear,yes,,,,,
+hex_tiny,hexkeys,tiny hex key,#911eb4,mid,thin-linear,yes,,,,,thinnest object in the dataset
+rnd_cube,random,Rubik's cube,#e6194b,mixed,raised,no,,,,rubik's cube,
+rnd_screwdriver,random,yellow screwdriver,#3cb44b,mixed,compact,yes,,,,screwdriver,yellow/black handle and a bare steel shaft
+rnd_pen,random,green ballpoint pen,#4363d8,mixed,thin-linear,no,,,,ballpoint pen,
+rnd_keycap,random,wire keycap puller,#f58231,mid,thin-linear,yes,,,,small metal tool,bare wire loop; nearly transparent to a segmentation model
+scr_eyebolt,screws,eye bolt,#e6194b,mid,compact,yes,,,,eye bolt,longest single fastener
+scr_machine_long,screws,long machine screw,#3cb44b,mid,compact,yes,,,,,
+scr_machine_short,screws,short machine screw,#4363d8,mid,compact,yes,,,,,
+scr_wood,screws,wood screw,#f58231,mid,compact,yes,,,,,broad head
+scr_bolt_small,screws,small bolt,#911eb4,mid,compact,yes,,,,,
+scr_pile,screws,pile of screws,#42d4f4,mid,compact,yes,,,,pile of screws,loose heap; counted as one object
+chs_white_queen,chess,white queen,#e6194b,bright,raised,no,,,,,positive control for depth
+chs_white_pawn,chess,white pawn,#3cb44b,bright,raised,no,,,,,
+chs_black_queen,chess,black queen,#4363d8,dark,raised,no,,,,,
+chs_black_pawn,chess,black pawn,#f58231,dark,raised,no,,,,,
+rag_white_flat,rags,flat paper towel,#e6194b,bright,flat-soft,no,,,,,white on white: the hardest item on the poster background
+rag_white_crumpled,rags,crumpled tissue,#3cb44b,bright,flat-soft,no,,,,,
+rag_pink,rags,folded pink cloth,#4363d8,mid,flat-soft,no,,,,,microfibre
+rag_purple,rags,bundled purple cloth,#f58231,mid,flat-soft,no,,,,,microfibre

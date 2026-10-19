@@ -2,17 +2,28 @@
 
     python code/annotate.py            # then open the URL it prints
 
-Masks are written to data/OWN_manual/<run>_<frame>.png (255 = obstacle), the same format
-own_gt.py produces, so anything saved here overrides the automatic mask for that frame.
+Two masks are written per frame:
 
-The point of this tool rather than a general one: a frame opens with its automatic mask
-already loaded so you correct rather than draw, the wand fills a whole rag in one click, and
-"carry" moves the mask you just drew onto the next frame, which is nearly identical because
-the camera never moved inside a run.
+    data/OWN_manual/<run>_<frame>.png       255 = obstacle, the format own_gt.py produces,
+                                            so it overrides the automatic mask for that frame
+    data/OWN_manual/<run>_<frame>_id.png    which *item* each pixel belongs to
+
+The id map is the point of the labelling pass. The same physical objects were re-placed in run
+after run -- the same four cables, the same five tape rolls -- so if every pixel carries the
+item that produced it, the benchmark can be read per item: this cable is found at 0.75 m and
+lost at 2.5 m, that hex key is never found at all. The item inventory lives in
+data_collection/items.csv, one row per object with its set, and the pixel value is that item's
+1-based position within its set. 255 means masked but not yet assigned to an item; 0 is
+background.
+
+A frame opens with its SAM 3 pre-label, each instance already a separate region, so most of the
+work is pressing an item's number and clicking its blob. "carry" moves the labelled mask onto
+the next frame, which is nearly identical because the camera never moved inside a run.
 
 Every shortcut is remappable in the panel behind the ? button, and the bindings persist in the
 browser.
 """
+import csv
 import http.server
 import json
 import os
@@ -23,7 +34,31 @@ import urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OWN, MAN = f"{ROOT}/data/OWN", f"{ROOT}/data/OWN_manual"
+ITEMS_CSV = f"{ROOT}/data_collection/items.csv"
+INDEX_CSV = f"{ROOT}/data_collection/dataset_index.csv"
+UNLABELLED = 255
 PORT = int(os.environ.get("ANNOT_PORT", 8765))
+
+
+def item_table():
+    """object set -> the items placed in it, in csv order. The index is the pixel value."""
+    sets = {}
+    if os.path.exists(ITEMS_CSV):
+        for r in csv.DictReader(open(ITEMS_CSV)):
+            row = sets.setdefault(r["object_set"], [])
+            row.append(dict(idx=len(row) + 1, id=r["item_id"], label=r["label"],
+                            colour=r["colour"],
+                            phrases=[p for p in r["sam_phrases"].split(";") if p]))
+    return sets
+
+
+def run_sets():
+    """run -> its object set."""
+    out = {}
+    if os.path.exists(INDEX_CSV):
+        for r in csv.DictReader(open(INDEX_CSV)):
+            out[r["run"]] = r["object_set"]
+    return out
 
 PAGE = r"""<!doctype html>
 <meta charset="utf-8"><title>mask annotator</title>
@@ -38,6 +73,18 @@ PAGE = r"""<!doctype html>
   #side h1 { font-size:13px; margin:0; padding:12px 14px; border-bottom:1px solid var(--line); }
   #filter { padding:8px 14px; border-bottom:1px solid var(--line); color:var(--muted); }
   #list { overflow:auto; flex:1; }
+  #itembox { flex:none; border-top:1px solid var(--line); background:#191c22; }
+  #itembox h2 { font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+                color:var(--muted); margin:0; padding:9px 14px 5px; }
+  .item { display:flex; align-items:center; gap:8px; padding:4px 14px; cursor:pointer; }
+  .item:hover { background:#232832; }
+  .item.sel { background:#232832; box-shadow:inset 3px 0 0 var(--accent); }
+  .item .sw { width:11px; height:11px; border-radius:3px; flex:none;
+              border:1px solid rgba(255,255,255,.35); }
+  .item .nm { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .item .n, .item .num { font:11px ui-monospace,Menlo,monospace; color:var(--muted); flex:none; }
+  .item.empty .nm { color:#6b7585; }
+  .item.sel .nm { color:#fff; }
   .row { padding:6px 14px; cursor:pointer; border-bottom:1px solid #22252b; display:flex;
          justify-content:space-between; gap:8px; }
   .row:hover { background:#232832; }
@@ -70,6 +117,7 @@ PAGE = r"""<!doctype html>
   #pos, #px, #zoom { font:12px/1.5 ui-monospace,Menlo,monospace; flex:none;
                      display:inline-block; text-align:left; }
   #pos { width:116px; } #px { width:84px; } #zoom { width:52px; }
+  #under { width:150px; flex:none; overflow:hidden; white-space:nowrap; }
   #hints { flex:1; min-width:0; overflow:hidden; white-space:nowrap; }
   kbd { background:#262b33; border:1px solid var(--line); border-radius:4px; padding:0 4px;
         font:11px/1.6 ui-monospace,Menlo,monospace; }
@@ -92,6 +140,10 @@ PAGE = r"""<!doctype html>
   <h1>mask annotator</h1>
   <label id="filter"><input type="checkbox" id="only"> only runs needing work</label>
   <div id="list"></div>
+  <div id="itembox">
+    <h2>items in this run</h2>
+    <div id="itemlist"></div>
+  </div>
 </div>
 <div id="main">
   <div id="bar">
@@ -100,6 +152,7 @@ PAGE = r"""<!doctype html>
     <span class="tool" data-t="eraser" data-hint="Remove mask freehand. Same ring, same size control — use a big one to wipe the automatic mask's false blobs.">eraser<span class="k" data-k="eraser"></span></span>
     <span class="tool" data-t="wand" data-hint="Flood fill by colour: click one pixel and every connected pixel of a similar colour joins the mask. One click covers a whole rag or tape roll. Tolerance decides how different a pixel may be before it stops spreading.">wand<span class="k" data-k="wand"></span></span>
     <span class="tool" data-t="poly" data-hint="Polygon: click each corner, Enter fills the shape, Esc cancels. Best for straight-edged objects like the pink rag.">polygon<span class="k" data-k="poly"></span></span>
+    <span class="tool" data-t="assign" data-hint="Assign a whole blob to the selected item: click any masked pixel and every connected masked pixel takes that item's colour. This is the fast way through a SAM pre-label — press the item's number, click its blob, done.">assign<span class="k" data-k="assign"></span></span>
     <span class="tool" id="smart" data-hint="Smart edge mode. On mouse-down the colour under the cursor is sampled, and the stroke then only affects pixels close to that colour — so a sloppy sweep along a cable paints the cable and stops at its edge. The eraser works the same way: click on floor and only floor-coloured mask is removed. Uses the tolerance setting.">smart<span class="k" data-k="smart"></span></span>
     <span class="tool" id="szbox" data-hint="Brush and eraser diameter, in image pixels.">size <b id="sz">6</b><span class="k" data-k="sizeDown"></span><span class="k" data-k="sizeUp"></span></span>
     <span class="tool" id="tolbox" data-hint="How different a pixel may be from the one you clicked before the wand stops. Raise it if the wand grabs too little, lower it if it bleeds onto the floor.">tol <b id="tol">14</b><span class="k" data-k="tolDown"></span><span class="k" data-k="tolUp"></span></span>
@@ -113,6 +166,7 @@ PAGE = r"""<!doctype html>
   <div id="wrap"><canvas id="cv"></canvas></div>
   <div id="status">
     <span id="pos">—</span><span id="px">0 px</span><span id="zoom">1x</span>
+    <span id="under"></span>
     <span id="hints"></span>
   </div>
 </div>
@@ -127,11 +181,12 @@ PAGE = r"""<!doctype html>
 </div></div>
 <script>
 const $ = s => document.querySelector(s);
-const DEFAULTS = {brush:'w', eraser:'e', wand:'q', poly:'p', sizeDown:'[', sizeUp:']',
-                  tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a', loadSam:'g',
-                  clear:'x',
+const DEFAULTS = {brush:'w', eraser:'e', wand:'q', poly:'p', assign:'f', sizeDown:'[',
+                  sizeUp:']', tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a',
+                  loadSam:'g', clear:'x',
                   carry:'c', smart:'s', next:'n', prev:'N'};
 const LABEL = {brush:'brush', eraser:'eraser', wand:'wand', poly:'polygon',
+               assign:'assign blob to item',
                sizeDown:'smaller brush', sizeUp:'bigger brush', tolDown:'lower tolerance',
                tolUp:'raise tolerance', hide:'hide / show mask', fit:'fit to window',
                loadAuto:'load automatic mask', loadSam:'load SAM 3 mask',
@@ -142,6 +197,11 @@ let KEYS = Object.assign({}, DEFAULTS);
 try { Object.assign(KEYS, JSON.parse(localStorage.getItem('annot_keys') || '{}')); } catch (e) {}
 
 let frames = [], cur = -1, img = null, imgData = null;
+/* The mask canvas carries the item in its colour: every stroke is painted in the selected
+   item's palette colour, so no second buffer has to be kept in step with it, and saving is a
+   nearest-colour lookup. UNLAB is what a mask loaded from SAM 3 or own_gt.py starts as. */
+let itemSets = {}, items = [], item = 0;
+const UNLAB = [190, 190, 190], UNLAB_IDX = 255;
 let mask = document.createElement('canvas'), mctx = null;
 let view = {z: 2, ox: 0, oy: 0}, tool = 'brush', size = 6, tol = 14, carry = true;
 let drawing = false, panning = false, last = null, hide = false, dirty = false;
@@ -156,7 +216,8 @@ function paintKeys() {
     e.textContent = KEYS[e.dataset.k] ? ' ' + keyLabel(KEYS[e.dataset.k]) : '';
   });
   $('#hints').innerHTML =
-    `scroll zoom · space-drag pan · <kbd>${keyLabel(KEYS.fit)}</kbd> fit · ` +
+    `scroll zoom · space-drag pan · <kbd>1</kbd>…<kbd>9</kbd> item · ` +
+    `<kbd>${keyLabel(KEYS.fit)}</kbd> fit · ` +
     `<kbd>${keyLabel(KEYS.hide)}</kbd> hide · <kbd>${keyLabel(KEYS.next)}</kbd>/` +
     `<kbd>${keyLabel(KEYS.prev)}</kbd> frame · <kbd>⌘z</kbd> undo`;
 }
@@ -181,8 +242,52 @@ function setKey(action, k) {
   buildKeyPanel(); paintKeys();
 }
 
+/* ------------------------------------------------------------------ items */
+const hexRgb = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+const curColour = () => items.length ? hexRgb(items[item].colour) : UNLAB;
+
+function nearestItem(r, g, b) {
+  /* Which item a painted pixel belongs to. Strokes are painted in exact palette colours, but
+     the canvas antialiases their edges, so match to the nearest colour rather than demanding
+     equality. */
+  let best = UNLAB_IDX, bd = (r-UNLAB[0])**2 + (g-UNLAB[1])**2 + (b-UNLAB[2])**2;
+  items.forEach(it => {
+    const c = hexRgb(it.colour), d = (r-c[0])**2 + (g-c[1])**2 + (b-c[2])**2;
+    if (d < bd) { bd = d; best = it.idx; }
+  });
+  return best;
+}
+function renderItems(counts) {
+  const l = $('#itemlist'); l.innerHTML = '';
+  if (!items.length) {
+    l.innerHTML = '<div class="item empty"><span class="nm">nothing was placed</span></div>';
+    return;
+  }
+  items.forEach((it, i) => {
+    const n = counts ? (counts[it.idx] || 0) : null;
+    const d = document.createElement('div');
+    d.className = 'item' + (i === item ? ' sel' : '') + (n === 0 ? ' empty' : '');
+    d.innerHTML = `<span class="num">${i + 1}</span>` +
+                  `<span class="sw" style="background:${it.colour}"></span>` +
+                  `<span class="nm">${it.label}</span>` +
+                  `<span class="n">${n === null ? '' : n}</span>`;
+    d.onclick = () => setItem(i);
+    l.appendChild(d);
+  });
+  if (counts && counts[UNLAB_IDX]) {
+    const d = document.createElement('div');
+    d.className = 'item empty';
+    d.innerHTML = `<span class="num"></span>` +
+                  `<span class="sw" style="background:rgb(${UNLAB.join(',')})"></span>` +
+                  `<span class="nm">unassigned</span><span class="n">${counts[UNLAB_IDX]}</span>`;
+    l.appendChild(d);
+  }
+}
+function setItem(i) { item = Math.max(0, Math.min(items.length - 1, i)); renderItems(lastCounts); }
+
 /* ---------------------------------------------------------------- frames */
 async function boot() {
+  itemSets = await (await fetch('/api/items')).json();
   frames = await (await fetch('/api/list')).json();
   renderList();
   if (frames.length) load(0);
@@ -205,6 +310,7 @@ async function load(i, keep) {
   const keepData = keep && mctx ? mctx.getImageData(0, 0, mask.width, mask.height) : null;
   cur = i; poly = []; undo = [];
   const f = frames[i];
+  items = itemSets[f.oset] || []; item = 0; lastCounts = null; renderItems();
   $('#title').textContent = `${f.run}  frame ${f.frame}`;
   img = new Image();
   // onload rather than decode(): decode() never settles while the tab is in the background,
@@ -226,29 +332,69 @@ async function load(i, keep) {
   if (keepData && keepData.width === mask.width) {
     mctx.putImageData(keepData, 0, 0); dirty = true; fit(); renderList(); return;
   }
-  await loadMask(f.manual ? `/file/OWN_manual/${f.run}_${f.frame}.png`
-                 : f.sam  ? `/file/OWN/${f.run}/sam/${f.frame}.png`
-                          : `/file/OWN/${f.run}/gt/${f.frame}.png`);
+  if (f.manual_id)   await loadIdMask(`/file/OWN_manual/${f.run}_${f.frame}_id.png`, v => v);
+  else if (f.manual) await loadMask(`/file/OWN_manual/${f.run}_${f.frame}.png`);
+  else if (f.sam)    await loadSam();
+  else               await loadMask(`/file/OWN/${f.run}/gt/${f.frame}.png`);
   dirty = false; fit(); renderList();
  } catch (err) { banner('load failed: ' + (err && err.message || err)); }
 }
-function loadMask(url) {
+function readPng(url) {
   return new Promise(res => {
     const m = new Image();
     m.onload = () => {
       const t = document.createElement('canvas');
       t.width = img.width; t.height = img.height;
       const c = t.getContext('2d', {willReadFrequently: true});
+      c.imageSmoothingEnabled = false;             // an id map must not be interpolated
       c.drawImage(m, 0, 0, img.width, img.height);
-      const d = c.getImageData(0, 0, img.width, img.height);
-      const out = mctx.createImageData(img.width, img.height);
-      for (let i = 0; i < d.data.length; i += 4)
-        if (d.data[i] > 127) { out.data[i] = 255; out.data[i+3] = 255; }
-      mctx.putImageData(out, 0, 0); draw(); res();
+      res(c.getImageData(0, 0, img.width, img.height));
     };
-    m.onerror = () => { draw(); res(); };
+    m.onerror = () => res(null);
     m.src = url + '?t=' + Date.now();
   });
+}
+/* A plain 0/255 mask: everything in it is masked but unassigned. */
+async function loadMask(url) {
+  const d = await readPng(url);
+  paintIds(d && (i => d.data[i] > 127 ? UNLAB_IDX : 0));
+}
+/* An id map: pixel value -> item index, through `map` (identity for our own saved maps,
+   the SAM instance -> item assignment for a pre-label). */
+async function loadIdMask(url, map) {
+  const d = await readPng(url);
+  paintIds(d && (i => d.data[i] ? map(d.data[i]) : 0));
+}
+function paintIds(get) {
+  const out = mctx.createImageData(img.width, img.height);
+  if (get) {
+    const col = {0: null, [UNLAB_IDX]: UNLAB};
+    items.forEach(it => col[it.idx] = hexRgb(it.colour));
+    for (let i = 0; i < out.data.length; i += 4) {
+      const c = col[get(i)];
+      if (!c) continue;
+      out.data[i] = c[0]; out.data[i+1] = c[1]; out.data[i+2] = c[2]; out.data[i+3] = 255;
+    }
+  }
+  mctx.putImageData(out, 0, 0); draw();
+}
+/* The SAM 3 pre-label, with the instances it named unambiguously already assigned. A phrase
+   that belongs to exactly one item of the set, and fired exactly once in this frame, is that
+   item; everything else is left unassigned for the click-through. */
+async function loadSam() {
+  const f = frames[cur];
+  let meta = null;
+  try { meta = await (await fetch(`/file/OWN/${f.run}/sam/${f.frame}.json`)).json(); } catch (e) {}
+  const assign = {};
+  if (meta) {
+    const once = {};
+    meta.instances.forEach(x => once[x.phrase] = (once[x.phrase] || 0) + 1);
+    meta.instances.forEach((x, i) => {
+      const hit = items.filter(it => it.phrases.includes(x.phrase));
+      if (hit.length === 1 && once[x.phrase] === 1) assign[i + 1] = hit[0].idx;
+    });
+  }
+  await loadIdMask(`/file/OWN/${f.run}/sam/${f.frame}_id.png`, v => assign[v] || UNLAB_IDX);
 }
 
 /* ------------------------------------------------------------------ view */
@@ -279,7 +425,9 @@ function draw() {
     const x = mouse[0] * view.z + view.ox, y = mouse[1] * view.z + view.oy;
     ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(0,0,0,.55)';
     ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.stroke();
-    ctx.lineWidth = 1; ctx.strokeStyle = tool === 'eraser' ? '#ffffff' : '#ff3b30';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = tool === 'eraser' ? '#ffffff'
+                      : items.length ? items[item].colour : '#ff3b30';
     if (smart && (tool === 'brush' || tool === 'eraser')) ctx.setLineDash([4, 3]);
     ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.stroke();
     ctx.setLineDash([]);
@@ -288,15 +436,35 @@ function draw() {
   $('#zoom').textContent = view.z.toFixed(1) + 'x';
   countPx();
 }
-let pxTimer = null;
+let pxTimer = null, lastCounts = null;
 function countPx() {
   if (!mctx) return;
   clearTimeout(pxTimer);
   pxTimer = setTimeout(() => {
     const d = mctx.getImageData(0, 0, mask.width, mask.height).data;
-    let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++;
+    const counts = {}, cache = new Map();
+    let n = 0;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i+3] === 0) continue;
+      n++;
+      const k = (d[i] << 16) | (d[i+1] << 8) | d[i+2];
+      let v = cache.get(k);
+      if (v === undefined) { v = nearestItem(d[i], d[i+1], d[i+2]); cache.set(k, v); }
+      counts[v] = (counts[v] || 0) + 1;
+    }
     $('#px').textContent = String(n).padStart(6) + ' px';
+    lastCounts = counts; renderItems(counts);
   }, 120);
+}
+function itemUnder(p) {
+  if (!mctx || !img) return '';
+  const x = Math.round(p[0]), y = Math.round(p[1]);
+  if (x < 0 || y < 0 || x >= img.width || y >= img.height) return '';
+  const d = mctx.getImageData(x, y, 1, 1).data;
+  if (d[3] === 0) return '';
+  const v = nearestItem(d[0], d[1], d[2]);
+  const it = items.find(i => i.idx === v);
+  return it ? it.label : 'unassigned';
 }
 const toImg = e => {
   const r = cv.getBoundingClientRect();
@@ -432,11 +600,12 @@ function smartDab(cx, cy) {
     if (n && colDist((y * W + x) * 4, ref) <= tol * 1.8) grown[b] = 1;
   }
   const md = mctx.getImageData(x0, y0, bw, bh);
-  const er = tool === 'eraser';
+  const er = tool === 'eraser', c = curColour();
   for (let b = 0; b < grown.length; b++) {
     if (!grown[b]) continue;
     const k = b * 4;
-    if (er) md.data[k+3] = 0; else { md.data[k] = 255; md.data[k+3] = 255; }
+    if (er) md.data[k+3] = 0;
+    else { md.data[k] = c[0]; md.data[k+1] = c[1]; md.data[k+2] = c[2]; md.data[k+3] = 255; }
   }
   mctx.putImageData(md, x0, y0);
 }
@@ -465,7 +634,8 @@ function paint(a, b) {
     return;
   }
   mctx.globalCompositeOperation = tool === 'eraser' ? 'destination-out' : 'source-over';
-  mctx.strokeStyle = '#ff0000'; mctx.lineWidth = size;
+  mctx.strokeStyle = items.length ? items[item].colour : `rgb(${UNLAB.join(',')})`;
+  mctx.lineWidth = size;
   mctx.lineCap = 'round'; mctx.lineJoin = 'round';
   mctx.beginPath(); mctx.moveTo(a[0], a[1]); mctx.lineTo(b[0], b[1]); mctx.stroke();
   mctx.globalCompositeOperation = 'source-over';
@@ -476,14 +646,38 @@ function wand(x, y) {
   if (x < 0 || y < 0 || x >= W || y >= H) return;
   const s = (y * W + x) * 4, r0 = d[s], g0 = d[s+1], b0 = d[s+2];
   const seen = new Uint8Array(W * H), out = mctx.getImageData(0, 0, W, H);
-  const st = [[x, y]]; let n = 0;
+  const c = curColour(), st = [[x, y]]; let n = 0;
   while (st.length && n < 80000) {
     const [cx, cy] = st.pop(), k = cy * W + cx;
     if (seen[k]) continue;
     seen[k] = 1;
     const i = k * 4;
     if (Math.abs(d[i]-r0) + Math.abs(d[i+1]-g0) + Math.abs(d[i+2]-b0) > tol * 3) continue;
-    out.data[i] = 255; out.data[i+3] = 255; n++;
+    out.data[i] = c[0]; out.data[i+1] = c[1]; out.data[i+2] = c[2]; out.data[i+3] = 255; n++;
+    if (cx > 0) st.push([cx-1, cy]);
+    if (cx < W-1) st.push([cx+1, cy]);
+    if (cy > 0) st.push([cx, cy-1]);
+    if (cy < H-1) st.push([cx, cy+1]);
+  }
+  mctx.putImageData(out, 0, 0); dirty = true; draw();
+}
+function assign(x, y) {
+  /* Recolour one connected masked blob to the selected item. Connectivity is over the mask,
+     not the photograph, so it does not matter what the blob looks like -- a SAM instance, a
+     stroke, a wand fill -- it moves to the item in one click. */
+  x = Math.round(x); y = Math.round(y);
+  const W = img.width, H = img.height;
+  if (x < 0 || y < 0 || x >= W || y >= H || !items.length) return;
+  const out = mctx.getImageData(0, 0, W, H), d = out.data;
+  if (d[(y * W + x) * 4 + 3] === 0) return;            // clicked on bare floor
+  const c = curColour(), seen = new Uint8Array(W * H), st = [[x, y]];
+  while (st.length) {
+    const [cx, cy] = st.pop(), k = cy * W + cx;
+    if (seen[k]) continue;
+    seen[k] = 1;
+    const i = k * 4;
+    if (d[i+3] === 0) continue;                        // the blob ends here
+    d[i] = c[0]; d[i+1] = c[1]; d[i+2] = c[2];
     if (cx > 0) st.push([cx-1, cy]);
     if (cx < W-1) st.push([cx+1, cy]);
     if (cy > 0) st.push([cx, cy-1]);
@@ -495,6 +689,7 @@ cv.addEventListener('mousedown', e => {
   if (e.button === 1 || panKey) { panning = true; last = [e.clientX, e.clientY]; return; }
   const p = toImg(e);
   if (tool === 'wand') { snap(); wand(p[0], p[1]); return; }
+  if (tool === 'assign') { snap(); assign(p[0], p[1]); return; }
   if (tool === 'poly') { poly.push(p); draw(); return; }
   snap(); drawing = true; last = p;
   strokeRef = smart ? strokeSeed(p[0], p[1]) : null;
@@ -508,6 +703,7 @@ window.addEventListener('mousemove', e => {
   const p = toImg(e);
   mouse = p;
   $('#pos').textContent = `x ${String(Math.round(p[0])).padStart(4)} y ${String(Math.round(p[1])).padStart(4)}`;
+  $('#under').textContent = itemUnder(p);
   if (drawing) { paint(last, p); last = p; dirty = true; }
   draw();
 });
@@ -531,9 +727,7 @@ document.querySelectorAll('.tool[data-t]').forEach(el => el.onclick = () => setT
 $('#loadauto').onclick = () => {
   snap(); loadMask(`/file/OWN/${frames[cur].run}/gt/${frames[cur].frame}.png`); dirty = true;
 };
-$('#loadsam').onclick = () => {
-  snap(); loadMask(`/file/OWN/${frames[cur].run}/sam/${frames[cur].frame}.png`); dirty = true;
-};
+$('#loadsam').onclick = () => { snap(); loadSam(); dirty = true; };
 $('#clear').onclick = () => { snap(); mctx.clearRect(0, 0, mask.width, mask.height); dirty = true; draw(); };
 $('#save').onclick = () => save();
 $('#only').onchange = renderList;
@@ -549,21 +743,35 @@ $('#kreset').onclick = () => {
 $('#keys').onclick = e => { if (e.target.id === 'keys') $('#keys').classList.remove('on'); };
 
 async function save(quiet) {
+  /* Two files: the 0/255 mask everything downstream already reads, and the id map that says
+     which item each pixel came from. */
+  const d = mctx.getImageData(0, 0, mask.width, mask.height).data;
+  const bin = blank(), ids = blank(), cache = new Map();
+  for (let i = 0; i < d.length; i += 4) {
+    if (d[i+3] === 0) continue;
+    bin.data[i] = bin.data[i+1] = bin.data[i+2] = 255;
+    const k = (d[i] << 16) | (d[i+1] << 8) | d[i+2];
+    let v = cache.get(k);
+    if (v === undefined) { v = nearestItem(d[i], d[i+1], d[i+2]); cache.set(k, v); }
+    ids.data[i] = ids.data[i+1] = ids.data[i+2] = v;
+  }
+  const f = frames[cur];
+  await put(bin, `/api/save?run=${f.run}&frame=${f.frame}&kind=mask`);
+  await put(ids, `/api/save?run=${f.run}&frame=${f.frame}&kind=id`);
+  f.manual = true; f.manual_id = true; dirty = false; renderList();
+  if (!quiet) { $('#save').classList.add('on'); setTimeout(() => $('#save').classList.remove('on'), 350); }
+}
+function blank() {
+  const o = new ImageData(mask.width, mask.height);
+  for (let i = 3; i < o.data.length; i += 4) o.data[i] = 255;
+  return o;
+}
+async function put(imgdata, url) {
   const t = document.createElement('canvas');
   t.width = mask.width; t.height = mask.height;
-  const c = t.getContext('2d');
-  const d = mctx.getImageData(0, 0, mask.width, mask.height);
-  const o = c.createImageData(t.width, t.height);
-  for (let i = 0; i < d.data.length; i += 4) {
-    const v = d.data[i+3] > 0 ? 255 : 0;
-    o.data[i] = o.data[i+1] = o.data[i+2] = v; o.data[i+3] = 255;
-  }
-  c.putImageData(o, 0, 0);
+  t.getContext('2d').putImageData(imgdata, 0, 0);
   const blob = await new Promise(r => t.toBlob(r, 'image/png'));
-  const f = frames[cur];
-  await fetch(`/api/save?run=${f.run}&frame=${f.frame}`, {method: 'POST', body: blob});
-  f.manual = true; dirty = false; renderList();
-  if (!quiet) { $('#save').classList.add('on'); setTimeout(() => $('#save').classList.remove('on'), 350); }
+  await fetch(url, {method: 'POST', body: blob});
 }
 
 window.addEventListener('keydown', e => {
@@ -582,8 +790,12 @@ window.addEventListener('keydown', e => {
     return;
   }
   if (e.metaKey || e.ctrlKey) return;
+  if (e.key >= '1' && e.key <= '9' && items.length) {     // pick the item to paint with
+    e.preventDefault(); setItem(+e.key - 1); return;
+  }
   if (e.key === 'Enter' && tool === 'poly' && poly.length > 2) {
-    snap(); mctx.fillStyle = '#ff0000'; mctx.beginPath();
+    snap(); mctx.fillStyle = items.length ? items[item].colour : `rgb(${UNLAB.join(',')})`;
+    mctx.beginPath();
     mctx.moveTo(poly[0][0], poly[0][1]);
     poly.slice(1).forEach(p => mctx.lineTo(p[0], p[1]));
     mctx.closePath(); mctx.fill(); poly = []; dirty = true; draw(); return;
@@ -592,7 +804,7 @@ window.addEventListener('keydown', e => {
   const act = Object.keys(KEYS).find(a => KEYS[a] && KEYS[a] === e.key);
   if (!act) return;
   e.preventDefault();
-  if (['brush', 'eraser', 'wand', 'poly'].includes(act)) setTool(act);
+  if (['brush', 'eraser', 'wand', 'poly', 'assign'].includes(act)) setTool(act);
   else if (act === 'sizeDown') { size = Math.max(1, size - 1); $('#sz').textContent = size; draw(); }
   else if (act === 'sizeUp') { size = Math.min(120, size + 1); $('#sz').textContent = size; draw(); }
   else if (act === 'tolDown') { tol = Math.max(2, tol - 3); $('#tol').textContent = tol; }
@@ -638,16 +850,19 @@ def frame_list():
     p = f"{OWN}/gt_summary.json"
     if os.path.exists(p):
         meta = {r["run"]: r for r in json.load(open(p))}
+    sets = run_sets()
     out = []
     for run in sorted(os.listdir(OWN)):
         d = f"{OWN}/{run}/rgb"
         if not os.path.isdir(d):
             continue
         rel = bool(meta.get(run, {}).get("reliable", True))
+        oset = sets.get(run, run.split("_")[2] if len(run.split("_")) > 2 else "")
         for f in sorted(os.listdir(d), key=lambda x: int(x[:-4])):
             i = f[:-4]
-            out.append(dict(run=run, frame=i, reliable=rel,
+            out.append(dict(run=run, frame=i, reliable=rel, oset=oset,
                             manual=os.path.exists(f"{MAN}/{run}_{i}.png"),
+                            manual_id=os.path.exists(f"{MAN}/{run}_{i}_id.png"),
                             sam=os.path.exists(f"{OWN}/{run}/sam/{i}.png")))
     out.sort(key=lambda r: (r["reliable"], r["run"], int(r["frame"])))   # needs-work first
     return out
@@ -671,14 +886,17 @@ class Handler(http.server.BaseHTTPRequestHandler):
             return self._send(200, PAGE.encode(), "text/html; charset=utf-8")
         if u.path == "/api/list":
             return self._send(200, json.dumps(frame_list()).encode(), "application/json")
+        if u.path == "/api/items":
+            return self._send(200, json.dumps(item_table()).encode(), "application/json")
         if u.path.startswith("/file/"):
             rel = urllib.parse.unquote(u.path[len("/file/"):])
             base = f"{ROOT}/data"
             full = os.path.normpath(os.path.join(base, rel))
             if not full.startswith(base) or not os.path.exists(full):
                 return self._send(404, b"no")
+            ctype = "application/json" if full.endswith(".json") else "image/png"
             with open(full, "rb") as f:
-                return self._send(200, f.read(), "image/png")
+                return self._send(200, f.read(), ctype)
         self._send(404, b"no")
 
     def do_POST(self):
@@ -687,13 +905,15 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if u.path != "/api/save" or "run" not in q or "frame" not in q:
             return self._send(400, b"bad")
         run, frame = q["run"][0], q["frame"][0]
-        if "/" in run or "/" in frame:
+        kind = q.get("kind", ["mask"])[0]
+        if "/" in run or "/" in frame or kind not in ("mask", "id"):
             return self._send(400, b"bad")
         os.makedirs(MAN, exist_ok=True)
         data = self.rfile.read(int(self.headers["Content-Length"]))
-        with open(f"{MAN}/{run}_{frame}.png", "wb") as f:
+        name = f"{run}_{frame}.png" if kind == "mask" else f"{run}_{frame}_id.png"
+        with open(f"{MAN}/{name}", "wb") as f:
             f.write(data)
-        print(f"saved {run}_{frame}.png ({len(data)} bytes)")
+        print(f"saved {name} ({len(data)} bytes)")
         self._send(200, b"ok", "text/plain")
 
 

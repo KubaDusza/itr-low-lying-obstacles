@@ -85,14 +85,17 @@ PAGE = r"""<!doctype html>
   .item .n, .item .num { font:11px ui-monospace,Menlo,monospace; color:var(--muted); flex:none; }
   .item.empty .nm { color:#6b7585; }
   .item.sel .nm { color:#fff; }
+  .item.todo { background:#2a1430; }
+  .item.todo .nm, .item.todo .n { color:#ff00e6; }
+  .sw.stripe { background:repeating-linear-gradient(45deg,#ff00e6 0 3px,#141414 3px 6px); }
   .row { padding:6px 14px; cursor:pointer; border-bottom:1px solid #22252b; display:flex;
          justify-content:space-between; gap:8px; }
   .row:hover { background:#232832; }
   .row.sel { background:var(--accent); color:#fff; }
   .row .tag { font-size:11px; color:var(--muted); flex:none; }
   .row.sel .tag { color:#dbe6ff; }
-  .row.done .tag::after { content:" saved"; color:var(--ok); }
-  .row.sel.done .tag::after { color:#bdf5db; }
+  .row.done .tag { color:var(--ok); }
+  .row.done .tag.bad { color:var(--warn); }
   .bad { color:var(--warn); }
   #main { flex:1; display:flex; flex-direction:column; min-width:0; }
   #bar { display:flex; align-items:center; gap:10px; padding:8px 14px;
@@ -118,6 +121,7 @@ PAGE = r"""<!doctype html>
                      display:inline-block; text-align:left; }
   #pos { width:116px; } #px { width:84px; } #zoom { width:52px; }
   #under { width:150px; flex:none; overflow:hidden; white-space:nowrap; }
+  #todo { width:120px; flex:none; font:12px/1.5 ui-monospace,Menlo,monospace; }
   #hints { flex:1; min-width:0; overflow:hidden; white-space:nowrap; }
   kbd { background:#262b33; border:1px solid var(--line); border-radius:4px; padding:0 4px;
         font:11px/1.6 ui-monospace,Menlo,monospace; }
@@ -167,6 +171,7 @@ PAGE = r"""<!doctype html>
   <div id="status">
     <span id="pos">—</span><span id="px">0 px</span><span id="zoom">1x</span>
     <span id="under"></span>
+    <span id="todo"></span>
     <span id="hints"></span>
   </div>
 </div>
@@ -276,9 +281,8 @@ function renderItems(counts) {
   });
   if (counts && counts[UNLAB_IDX]) {
     const d = document.createElement('div');
-    d.className = 'item empty';
-    d.innerHTML = `<span class="num"></span>` +
-                  `<span class="sw" style="background:rgb(${UNLAB.join(',')})"></span>` +
+    d.className = 'item todo';
+    d.innerHTML = `<span class="num"></span><span class="sw stripe"></span>` +
                   `<span class="nm">unassigned</span><span class="n">${counts[UNLAB_IDX]}</span>`;
     l.appendChild(d);
   }
@@ -298,8 +302,13 @@ function renderList() {
     if (only && f.reliable && !f.manual) return;
     const d = document.createElement('div');
     d.className = 'row' + (i === cur ? ' sel' : '') + (f.manual ? ' done' : '');
+    /* The state that matters while labelling is whether the items are named, which is not
+       the same as whether the frame was saved. */
+    const state = !f.manual ? (f.reliable ? 'ok' : 'needs work')
+                : f.todo || !f.manual_id ? 'items left' : 'labelled';
+    const bad = state === 'needs work' || state === 'items left';
     d.innerHTML = `<span>${f.run}<span class="tag"> ·${f.frame}</span></span>` +
-                  `<span class="tag ${f.reliable ? '' : 'bad'}">${f.reliable ? 'ok' : 'needs work'}</span>`;
+                  `<span class="tag ${bad ? 'bad' : ''}">${state}</span>`;
     d.onclick = () => load(i);
     l.appendChild(d);
   });
@@ -330,7 +339,7 @@ async function load(i, keep) {
   imgData = tctx.getImageData(0, 0, img.width, img.height);
   buildGrad();
   if (keepData && keepData.width === mask.width) {
-    mctx.putImageData(keepData, 0, 0); dirty = true; fit(); renderList(); return;
+    mctx.putImageData(keepData, 0, 0); dirty = true; fit(); rescan(); renderList(); return;
   }
   if (f.manual_id)   await loadIdMask(`/file/OWN_manual/${f.run}_${f.frame}_id.png`, v => v);
   else if (f.manual) await loadMask(`/file/OWN_manual/${f.run}_${f.frame}.png`);
@@ -376,7 +385,7 @@ function paintIds(get) {
       out.data[i] = c[0]; out.data[i+1] = c[1]; out.data[i+2] = c[2]; out.data[i+3] = 255;
     }
   }
-  mctx.putImageData(out, 0, 0); draw();
+  mctx.putImageData(out, 0, 0); rescan(); draw();
 }
 /* The SAM 3 pre-label, with the instances it named unambiguously already assigned. A phrase
    that belongs to exactly one item of the set, and fired exactly once in this frame, is that
@@ -413,7 +422,10 @@ function draw() {
   ctx.clearRect(0, 0, w, h);
   ctx.save(); ctx.translate(view.ox, view.oy); ctx.scale(view.z, view.z);
   ctx.drawImage(img, 0, 0);
-  if (!hide) { ctx.globalAlpha = 0.5; ctx.drawImage(mask, 0, 0); ctx.globalAlpha = 1; }
+  if (!hide) {
+    ctx.globalAlpha = 0.5; ctx.drawImage(mask, 0, 0); ctx.globalAlpha = 1;
+    if (warn.width === img.width) ctx.drawImage(warn, 0, 0);   // what is still unassigned
+  }
   if (poly.length) {
     ctx.strokeStyle = '#ffd400'; ctx.lineWidth = 1 / view.z;
     ctx.beginPath(); ctx.moveTo(poly[0][0], poly[0][1]);
@@ -434,16 +446,26 @@ function draw() {
     ctx.fillStyle = '#ffffff'; ctx.fillRect(x - 0.5, y - 0.5, 1, 1);
   }
   $('#zoom').textContent = view.z.toFixed(1) + 'x';
-  countPx();
 }
 let pxTimer = null, lastCounts = null;
-function countPx() {
+let warn = document.createElement('canvas'), wctx = null;
+/* Counting, the per-item tally and the unassigned overlay all need the same full pass over
+   the mask, so they share one debounced scan. It is called from the edits, never from draw(),
+   which would loop: the scan ends in a redraw. */
+function rescan() {
   if (!mctx) return;
   clearTimeout(pxTimer);
   pxTimer = setTimeout(() => {
-    const d = mctx.getImageData(0, 0, mask.width, mask.height).data;
+    const W = mask.width, H = mask.height;
+    const d = mctx.getImageData(0, 0, W, H).data;
     const counts = {}, cache = new Map();
-    let n = 0;
+    /* Unassigned pixels are drawn back over the mask as hazard stripes at full opacity. A
+       flat colour does not work here: half the items are white on a white poster, and a
+       quiet grey wash over them is exactly what gets missed and saved. */
+    if (warn.width !== W) { warn.width = W; warn.height = H; }
+    wctx = wctx || warn.getContext('2d', {willReadFrequently: true});
+    const w = wctx.createImageData(W, H);
+    let n = 0, unassigned = 0;
     for (let i = 0; i < d.length; i += 4) {
       if (d[i+3] === 0) continue;
       n++;
@@ -451,9 +473,18 @@ function countPx() {
       let v = cache.get(k);
       if (v === undefined) { v = nearestItem(d[i], d[i+1], d[i+2]); cache.set(k, v); }
       counts[v] = (counts[v] || 0) + 1;
+      if (v !== UNLAB_IDX) continue;
+      unassigned++;
+      const p = i / 4, x = p % W, y = (p / W) | 0, on = ((x + y) % 10) < 5;
+      w.data[i] = on ? 255 : 20; w.data[i+1] = on ? 0 : 20; w.data[i+2] = on ? 230 : 20;
+      w.data[i+3] = 255;
     }
+    wctx.putImageData(w, 0, 0);
     $('#px').textContent = String(n).padStart(6) + ' px';
+    $('#todo').textContent = unassigned ? `${unassigned} unassigned` : '';
+    $('#todo').className = unassigned ? 'bad' : '';
     lastCounts = counts; renderItems(counts);
+    draw();
   }, 120);
 }
 function itemUnder(p) {
@@ -659,7 +690,7 @@ function wand(x, y) {
     if (cy > 0) st.push([cx, cy-1]);
     if (cy < H-1) st.push([cx, cy+1]);
   }
-  mctx.putImageData(out, 0, 0); dirty = true; draw();
+  mctx.putImageData(out, 0, 0); dirty = true; rescan(); draw();
 }
 function assign(x, y) {
   /* Recolour one connected masked blob to the selected item. Connectivity is over the mask,
@@ -683,7 +714,7 @@ function assign(x, y) {
     if (cy > 0) st.push([cx, cy-1]);
     if (cy < H-1) st.push([cx, cy+1]);
   }
-  mctx.putImageData(out, 0, 0); dirty = true; draw();
+  mctx.putImageData(out, 0, 0); dirty = true; rescan(); draw();
 }
 cv.addEventListener('mousedown', e => {
   if (e.button === 1 || panKey) { panning = true; last = [e.clientX, e.clientY]; return; }
@@ -693,7 +724,7 @@ cv.addEventListener('mousedown', e => {
   if (tool === 'poly') { poly.push(p); draw(); return; }
   snap(); drawing = true; last = p;
   strokeRef = smart ? strokeSeed(p[0], p[1]) : null;
-  paint(p, p); dirty = true; draw();
+  paint(p, p); dirty = true; rescan(); draw();
 });
 window.addEventListener('mousemove', e => {
   if (panning) {
@@ -704,7 +735,7 @@ window.addEventListener('mousemove', e => {
   mouse = p;
   $('#pos').textContent = `x ${String(Math.round(p[0])).padStart(4)} y ${String(Math.round(p[1])).padStart(4)}`;
   $('#under').textContent = itemUnder(p);
-  if (drawing) { paint(last, p); last = p; dirty = true; }
+  if (drawing) { paint(last, p); last = p; dirty = true; rescan(); }
   draw();
 });
 window.addEventListener('mouseup', () => { drawing = false; panning = false; });
@@ -728,7 +759,8 @@ $('#loadauto').onclick = () => {
   snap(); loadMask(`/file/OWN/${frames[cur].run}/gt/${frames[cur].frame}.png`); dirty = true;
 };
 $('#loadsam').onclick = () => { snap(); loadSam(); dirty = true; };
-$('#clear').onclick = () => { snap(); mctx.clearRect(0, 0, mask.width, mask.height); dirty = true; draw(); };
+$('#clear').onclick = () => { snap(); mctx.clearRect(0, 0, mask.width, mask.height);
+  dirty = true; rescan(); draw(); };
 $('#save').onclick = () => save();
 $('#only').onchange = renderList;
 $('#carry').onclick = () => { carry = !carry; $('#carry').classList.toggle('on', carry);
@@ -786,7 +818,7 @@ window.addEventListener('keydown', e => {
   if ((e.metaKey || e.ctrlKey) && e.key === 'z') {
     e.preventDefault();
     const u = undo.pop();
-    if (u) { mctx.putImageData(u, 0, 0); dirty = true; draw(); }
+    if (u) { mctx.putImageData(u, 0, 0); dirty = true; rescan(); draw(); }
     return;
   }
   if (e.metaKey || e.ctrlKey) return;
@@ -798,7 +830,7 @@ window.addEventListener('keydown', e => {
     mctx.beginPath();
     mctx.moveTo(poly[0][0], poly[0][1]);
     poly.slice(1).forEach(p => mctx.lineTo(p[0], p[1]));
-    mctx.closePath(); mctx.fill(); poly = []; dirty = true; draw(); return;
+    mctx.closePath(); mctx.fill(); poly = []; dirty = true; rescan(); draw(); return;
   }
   if (e.key === 'Escape') { poly = []; $('#keys').classList.remove('on'); draw(); return; }
   const act = Object.keys(KEYS).find(a => KEYS[a] && KEYS[a] === e.key);
@@ -845,6 +877,18 @@ boot(); setTool('brush');
 """
 
 
+def unassigned(path):
+    """Does this saved id map still hold pixels nobody put a name to? Items are 1..N and
+    UNLABELLED is 255, so the maximum answers it."""
+    if not os.path.exists(path):
+        return False
+    try:
+        from PIL import Image
+        return Image.open(path).convert("L").getextrema()[1] == UNLABELLED
+    except Exception:
+        return False
+
+
 def frame_list():
     meta = {}
     p = f"{OWN}/gt_summary.json"
@@ -863,6 +907,7 @@ def frame_list():
             out.append(dict(run=run, frame=i, reliable=rel, oset=oset,
                             manual=os.path.exists(f"{MAN}/{run}_{i}.png"),
                             manual_id=os.path.exists(f"{MAN}/{run}_{i}_id.png"),
+                            todo=unassigned(f"{MAN}/{run}_{i}_id.png"),
                             sam=os.path.exists(f"{OWN}/{run}/sam/{i}.png")))
     out.sort(key=lambda r: (r["reliable"], r["run"], int(r["frame"])))   # needs-work first
     return out

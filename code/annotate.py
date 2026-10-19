@@ -20,6 +20,11 @@ A frame opens with its SAM 3 pre-label, each instance already a separate region,
 work is pressing an item's number and clicking its blob. "carry" moves the labelled mask onto
 the next frame, which is nearly identical because the camera never moved inside a run.
 
+The reference panel holds a second frame beside it with its own mask drawn on: the same objects
+at another distance, height or background. Clicking an item there copies its mask over as a
+stamp to drag, scale and rotate into place, so a cable that was traced once does not have to be
+traced again.
+
 Every shortcut is remappable in the panel behind the ? button, and the bindings persist in the
 browser.
 """
@@ -112,7 +117,19 @@ PAGE = r"""<!doctype html>
     padding:7px 9px; font-size:12px; line-height:1.4; z-index:20; white-space:normal;
     box-shadow:0 6px 18px rgba(0,0,0,.45); }
   .tool.hr[data-hint]:hover::after { left:auto; right:0; }
-  #wrap { flex:1; overflow:hidden; position:relative; background:#0d0f12; }
+  #mid { flex:1; display:flex; min-height:0; }
+  #wrap { flex:1; overflow:hidden; position:relative; background:#0d0f12; min-width:0; }
+  #ref { width:430px; flex:none; border-left:1px solid var(--line); background:var(--panel);
+         display:none; flex-direction:column; min-width:0; }
+  #ref.on { display:flex; }
+  #refhead { display:flex; gap:7px; align-items:center; padding:7px 10px;
+             border-bottom:1px solid var(--line); }
+  #refsel { flex:1; min-width:0; background:#12151a; color:var(--ink); padding:3px 6px;
+            border:1px solid var(--line); border-radius:5px; font:12px ui-sans-serif,system-ui; }
+  #refwrap { flex:1; position:relative; overflow:hidden; background:#0d0f12; }
+  #refcv { position:absolute; image-rendering:pixelated; }
+  #reffoot { padding:5px 10px; border-top:1px solid var(--line); color:var(--muted);
+             font-size:11px; line-height:1.5; }
   canvas { position:absolute; image-rendering:pixelated; cursor:none; }
   #status { padding:6px 14px; border-top:1px solid var(--line); color:var(--muted);
             background:var(--panel); display:flex; gap:18px; flex-wrap:nowrap; }
@@ -161,6 +178,7 @@ PAGE = r"""<!doctype html>
     <span class="tool" data-t="wand" data-hint="Flood fill by colour: click one pixel and every connected pixel of a similar colour joins the mask. One click covers a whole rag or tape roll. Tolerance decides how different a pixel may be before it stops spreading.">wand<span class="k" data-k="wand"></span></span>
     <span class="tool" data-t="poly" data-hint="Polygon: click each corner, Enter fills the shape, Esc cancels. Best for straight-edged objects like the pink rag.">polygon<span class="k" data-k="poly"></span></span>
     <span class="tool" data-t="assign" data-hint="Assign a whole blob to the selected item: click any masked pixel and every connected masked pixel takes that item's colour. This is the fast way through a SAM pre-label — press the item's number, click its blob, done.">assign<span class="k" data-k="assign"></span></span>
+    <span class="tool" id="refbtn" data-hint="A second frame beside this one, with its mask drawn on it: the same objects at another distance, height or background. Clicking an item there copies its mask onto this frame as a stamp you can move, scale and rotate into place, which beats redrawing a cable you have already drawn once.">reference<span class="k" data-k="ref"></span></span>
     <span class="tool" data-t="pan" data-hint="Move the view: drag with the left button, nothing is painted. Its key is held rather than toggled by default — the ? panel sets hold or toggle for every tool. Space pans from any tool, and the scroll wheel still zooms.">pan<span class="k" data-k="pan"></span></span>
     <span class="tool" id="smart" data-hint="Smart edge mode. On mouse-down the colour under the cursor is sampled, and the stroke then only affects pixels close to that colour — so a sloppy sweep along a cable paints the cable and stops at its edge. The eraser works the same way: click on floor and only floor-coloured mask is removed. Uses the tolerance setting.">smart<span class="k" data-k="smart"></span></span>
     <span class="tool" id="szbox" data-hint="Brush and eraser diameter, in image pixels.">size <b id="sz">6</b><span class="k" data-k="sizeDown"></span><span class="k" data-k="sizeUp"></span></span>
@@ -172,7 +190,18 @@ PAGE = r"""<!doctype html>
     <span class="tool" id="save" data-hint="Write the mask to data/OWN_manual/. Also happens automatically when you change frame.">save<span class="k">⌘s</span></span>
     <span class="tool" id="help" data-hint="Change any shortcut.">?</span>
   </div>
-  <div id="wrap"><canvas id="cv"></canvas></div>
+  <div id="mid">
+    <div id="wrap"><canvas id="cv"></canvas></div>
+    <div id="ref">
+      <div id="refhead">
+        <select id="refsel"></select>
+        <span class="tool on" id="refmask" data-hint="Show or hide the reference frame's own mask.">mask</span>
+        <span class="tool" id="refclose" data-hint="Close the reference panel.">&times;</span>
+      </div>
+      <div id="refwrap"><canvas id="refcv"></canvas></div>
+      <div id="reffoot">click an item to copy its mask · drag to pan · scroll to zoom</div>
+    </div>
+  </div>
   <div id="status">
     <span id="pos">—</span><span id="px">0 px</span><span id="zoom">1x</span>
     <span id="under"></span>
@@ -193,10 +222,11 @@ PAGE = r"""<!doctype html>
 const $ = s => document.querySelector(s);
 const DEFAULTS = {brush:'w', eraser:'e', wand:'q', poly:'p', assign:'f', sizeDown:'!',
                   sizeUp:'@', tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a',
-                  loadSam:'g', clear:'x', pan:'v',
+                  loadSam:'g', clear:'x', pan:'v', ref:'r',
                   carry:'c', smart:'s', next:'n', prev:'N'};
 const LABEL = {brush:'brush', eraser:'eraser', wand:'wand', poly:'polygon',
                assign:'assign blob to item', pan:'pan the view',
+               ref:'reference panel',
                sizeDown:'smaller brush', sizeUp:'bigger brush', tolDown:'lower tolerance',
                tolUp:'raise tolerance', hide:'hide / show mask', fit:'fit to window',
                loadAuto:'load automatic mask', loadSam:'load SAM 3 mask',
@@ -374,69 +404,86 @@ async function load(i, keep) {
   if (keepData && keepData.width === mask.width) {
     mctx.putImageData(keepData, 0, 0); dirty = true; fit(); rescan(); renderList(); return;
   }
-  if (f.manual_id)   await loadIdMask(`/file/OWN_manual/${f.run}_${f.frame}_id.png`, v => v);
-  else if (f.manual) await loadMask(`/file/OWN_manual/${f.run}_${f.frame}.png`);
-  else if (f.sam)    await loadSam();
-  else               await loadMask(`/file/OWN/${f.run}/gt/${f.frame}.png`);
+  await loadInto('best');
   dirty = false; fit(); renderList();
  } catch (err) { banner('load failed: ' + (err && err.message || err)); }
 }
-function readPng(url) {
+function readPng(url, w, h) {
   return new Promise(res => {
     const m = new Image();
     m.onload = () => {
       const t = document.createElement('canvas');
-      t.width = img.width; t.height = img.height;
+      t.width = w; t.height = h;
       const c = t.getContext('2d', {willReadFrequently: true});
       c.imageSmoothingEnabled = false;             // an id map must not be interpolated
-      c.drawImage(m, 0, 0, img.width, img.height);
-      res(c.getImageData(0, 0, img.width, img.height));
+      c.drawImage(m, 0, 0, w, h);
+      res(c.getImageData(0, 0, w, h));
     };
     m.onerror = () => res(null);
     m.src = url + '?t=' + Date.now();
   });
 }
-/* A plain 0/255 mask: everything in it is masked but unassigned. */
-async function loadMask(url) {
-  const d = await readPng(url);
-  paintIds(d && (i => d.data[i] > 127 ? UNLAB_IDX : 0));
-}
-/* An id map: pixel value -> item index, through `map` (identity for our own saved maps,
-   the SAM instance -> item assignment for a pre-label). */
-async function loadIdMask(url, map) {
-  const d = await readPng(url);
-  paintIds(d && (i => d.data[i] ? map(d.data[i]) : 0));
-}
-function paintIds(get) {
-  const out = mctx.createImageData(img.width, img.height);
-  if (get) {
-    const col = {0: null, [UNLAB_IDX]: UNLAB};
-    items.forEach(it => col[it.idx] = hexRgb(it.colour));
-    for (let i = 0; i < out.data.length; i += 4) {
-      const c = col[get(i)];
-      if (!c) continue;
-      out.data[i] = c[0]; out.data[i+1] = c[1]; out.data[i+2] = c[2]; out.data[i+3] = 255;
+/* The item id of every pixel of a frame, as one array: 0 background, 1..N an item of the
+   set, 255 masked but unassigned. `src` picks where it comes from -- 'best' is what the
+   frame should open with, 'sam' and 'auto' are the two reload buttons. Both panes read a
+   frame through this, so the reference shows exactly what the main canvas would. */
+async function idMapFor(f, w, h, src, fitems) {
+  const out = new Uint8Array(w * h);
+  const binary = d => { for (let p = 0, i = 0; i < d.data.length; i += 4, p++)
+                          if (d.data[i] > 127) out[p] = UNLAB_IDX; };
+  const indexed = (d, map) => { for (let p = 0, i = 0; i < d.data.length; i += 4, p++)
+                                  if (d.data[i]) out[p] = map(d.data[i]); };
+  let d = null;
+  if (src === 'best' && f.manual_id) {
+    d = await readPng(`/file/OWN_manual/${f.run}_${f.frame}_id.png`, w, h);
+    if (d) indexed(d, v => v);
+    return out;
+  }
+  if (src === 'best' && f.manual) {
+    d = await readPng(`/file/OWN_manual/${f.run}_${f.frame}.png`, w, h);
+    if (d) binary(d);
+    return out;
+  }
+  if (src !== 'auto' && f.sam) {
+    /* The SAM 3 pre-label, with the instances it named unambiguously already assigned: a
+       phrase that belongs to exactly one item of the set and fired exactly once in this
+       frame is that item. The rest is left unassigned for the click-through. */
+    let meta = null;
+    try { meta = await (await fetch(`/file/OWN/${f.run}/sam/${f.frame}.json`)).json(); } catch (e) {}
+    const assign = {};
+    if (meta) {
+      const once = {};
+      meta.instances.forEach(x => once[x.phrase] = (once[x.phrase] || 0) + 1);
+      meta.instances.forEach((x, i) => {
+        const hit = (fitems || []).filter(it => it.phrases.includes(x.phrase));
+        if (hit.length === 1 && once[x.phrase] === 1) assign[i + 1] = hit[0].idx;
+      });
     }
+    d = await readPng(`/file/OWN/${f.run}/sam/${f.frame}_id.png`, w, h);
+    if (d) indexed(d, v => assign[v] || UNLAB_IDX);
+    return out;
   }
-  mctx.putImageData(out, 0, 0); rescan(); draw();
+  d = await readPng(`/file/OWN/${f.run}/gt/${f.frame}.png`, w, h);
+  if (d) binary(d);
+  return out;
 }
-/* The SAM 3 pre-label, with the instances it named unambiguously already assigned. A phrase
-   that belongs to exactly one item of the set, and fired exactly once in this frame, is that
-   item; everything else is left unassigned for the click-through. */
-async function loadSam() {
-  const f = frames[cur];
-  let meta = null;
-  try { meta = await (await fetch(`/file/OWN/${f.run}/sam/${f.frame}.json`)).json(); } catch (e) {}
-  const assign = {};
-  if (meta) {
-    const once = {};
-    meta.instances.forEach(x => once[x.phrase] = (once[x.phrase] || 0) + 1);
-    meta.instances.forEach((x, i) => {
-      const hit = items.filter(it => it.phrases.includes(x.phrase));
-      if (hit.length === 1 && once[x.phrase] === 1) assign[i + 1] = hit[0].idx;
-    });
+/* ids -> the painted mask. Items are drawn in their own colour, which is what makes the
+   mask readable and what save() reads back. */
+function idsToImage(ids, w, h, fitems) {
+  const out = new ImageData(w, h);
+  const col = {[UNLAB_IDX]: UNLAB};
+  (fitems || []).forEach(it => col[it.idx] = hexRgb(it.colour));
+  for (let p = 0, i = 0; p < ids.length; p++, i += 4) {
+    const c = col[ids[p]];
+    if (!c) continue;
+    out.data[i] = c[0]; out.data[i+1] = c[1]; out.data[i+2] = c[2]; out.data[i+3] = 255;
   }
-  await loadIdMask(`/file/OWN/${f.run}/sam/${f.frame}_id.png`, v => assign[v] || UNLAB_IDX);
+  return out;
+}
+async function loadInto(src) {
+  const ids = await idMapFor(frames[cur], img.width, img.height, src, items);
+  mctx.putImageData(idsToImage(ids, img.width, img.height, items), 0, 0);
+  rescan(); draw();
 }
 
 /* ------------------------------------------------------------------ view */
@@ -458,6 +505,18 @@ function draw() {
   if (!hide) {
     ctx.globalAlpha = 0.5; ctx.drawImage(mask, 0, 0); ctx.globalAlpha = 1;
     if (warn.width === img.width) ctx.drawImage(warn, 0, 0);   // what is still unassigned
+  }
+  if (stamp) {
+    const k = view.z * stamp.scale;
+    ctx.save();
+    ctx.translate(stamp.x, stamp.y); ctx.rotate(stamp.rot); ctx.scale(stamp.scale, stamp.scale);
+    ctx.globalAlpha = 0.85; ctx.drawImage(stamp.cv, -stamp.w / 2, -stamp.h / 2);
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = '#ffd400'; ctx.lineWidth = 1 / k;
+    ctx.setLineDash([4 / k, 3 / k]);
+    ctx.strokeRect(-stamp.w / 2, -stamp.h / 2, stamp.w, stamp.h);
+    ctx.setLineDash([]);
+    ctx.restore();
   }
   if (poly.length) {
     ctx.strokeStyle = '#ffd400'; ctx.lineWidth = 1 / view.z;
@@ -750,6 +809,7 @@ function assign(x, y) {
   mctx.putImageData(out, 0, 0); dirty = true; rescan(); draw();
 }
 cv.addEventListener('mousedown', e => {
+  if (stamp && e.button === 0) { dropStamp(); return; }
   if (e.button === 1 || panKey || tool === 'pan') {
     panning = true; last = [e.clientX, e.clientY];
     if (tool === 'pan') cv.style.cursor = 'grabbing';
@@ -772,6 +832,7 @@ window.addEventListener('mousemove', e => {
   mouse = p;
   $('#pos').textContent = `x ${String(Math.round(p[0])).padStart(4)} y ${String(Math.round(p[1])).padStart(4)}`;
   $('#under').textContent = itemUnder(p);
+  if (stamp && stamp.follow) { stamp.x = p[0]; stamp.y = p[1]; draw(); }
   if (drawing) { paint(last, p); last = p; dirty = true; rescan(); }
   draw();
 });
@@ -788,6 +849,192 @@ $('#wrap').addEventListener('wheel', e => {
   view.z = nz; draw();
 }, {passive: false});
 
+/* ------------------------------------------------------------- reference */
+/* A second frame beside the one being annotated, with its mask on it. The same objects were
+   re-placed run after run, so the cable drawn at 0.75 m is the cable to draw at 2.5 m: click
+   it in the reference and it comes over as a stamp to move, scale and rotate into place. */
+let ref = {i: -1, img: null, ids: null, mask: null, items: [], show: true,
+           view: {z: 1, ox: 0, oy: 0}};
+let stamp = null, refDrag = null;
+
+function refOptions() {
+  const sel = $('#refsel'); sel.innerHTML = '';
+  frames.forEach((f, i) => {
+    const o = document.createElement('option');
+    o.value = i;
+    o.textContent = `${f.run} ·${f.frame}${f.manual_id ? '  ✓' : ''}`;
+    sel.appendChild(o);
+  });
+  if (ref.i >= 0) sel.value = ref.i;
+}
+function defaultRef() {
+  /* the most useful neighbour: the same objects, already labelled, in another run */
+  const f = frames[cur];
+  let i = frames.findIndex(g => g.oset === f.oset && g.run !== f.run && g.manual_id);
+  if (i < 0) i = frames.findIndex(g => g.oset === f.oset && g.run !== f.run);
+  if (i < 0) i = cur > 0 ? cur - 1 : 0;
+  return i;
+}
+async function loadRef(i) {
+  const f = frames[i];
+  if (!f) return;
+  ref.i = i; ref.items = itemSets[f.oset] || [];
+  const im = new Image();
+  await new Promise(res => { im.onload = res; im.onerror = res;
+                             im.src = `/file/OWN/${f.run}/rgb/${f.frame}.png`; });
+  if (!im.width) return;
+  ref.img = im;
+  ref.ids = await idMapFor(f, im.width, im.height, 'best', ref.items);
+  const c = document.createElement('canvas');
+  c.width = im.width; c.height = im.height;
+  c.getContext('2d').putImageData(idsToImage(ref.ids, im.width, im.height, ref.items), 0, 0);
+  ref.mask = c;
+  $('#refsel').value = i;
+  $('#reffoot').textContent = `${f.run} ·${f.frame} — ${f.oset}` +
+    (f.oset === frames[cur].oset ? ' · same set, items carry over'
+                                 : ' · different set, a copy lands unassigned');
+  refFit();
+}
+function refFit() {
+  if (!ref.img) return;
+  const w = $('#refwrap').clientWidth, h = $('#refwrap').clientHeight;
+  ref.view.z = Math.min(w / ref.img.width, h / ref.img.height);
+  ref.view.ox = (w - ref.img.width * ref.view.z) / 2;
+  ref.view.oy = (h - ref.img.height * ref.view.z) / 2;
+  refDraw();
+}
+function refDraw() {
+  const el = $('#refcv'), w = $('#refwrap').clientWidth, h = $('#refwrap').clientHeight;
+  el.width = w; el.height = h;
+  const c = el.getContext('2d');
+  c.imageSmoothingEnabled = false;
+  c.clearRect(0, 0, w, h);
+  if (!ref.img) return;
+  c.save(); c.translate(ref.view.ox, ref.view.oy); c.scale(ref.view.z, ref.view.z);
+  c.drawImage(ref.img, 0, 0);
+  if (ref.show && ref.mask) { c.globalAlpha = 0.5; c.drawImage(ref.mask, 0, 0); c.globalAlpha = 1; }
+  c.restore();
+}
+function refOpen(on) {
+  $('#ref').classList.toggle('on', on);
+  $('#refbtn').classList.toggle('on', on);
+  if (!on) return;
+  if (ref.i < 0) { refOptions(); loadRef(defaultRef()); } else refFit();
+  draw();
+}
+$('#refbtn').onclick = () => refOpen(!$('#ref').classList.contains('on'));
+$('#refclose').onclick = () => refOpen(false);
+$('#refmask').onclick = () => { ref.show = !ref.show;
+                                $('#refmask').classList.toggle('on', ref.show); refDraw(); };
+$('#refsel').onchange = e => loadRef(+e.target.value);
+$('#refwrap').addEventListener('wheel', e => {
+  e.preventDefault();
+  const r = $('#refcv').getBoundingClientRect();
+  const mx = e.clientX - r.left, my = e.clientY - r.top;
+  const k = e.deltaY < 0 ? 1.15 : 1 / 1.15, nz = Math.min(24, Math.max(0.1, ref.view.z * k));
+  ref.view.ox = mx - (mx - ref.view.ox) * (nz / ref.view.z);
+  ref.view.oy = my - (my - ref.view.oy) * (nz / ref.view.z);
+  ref.view.z = nz; refDraw();
+}, {passive: false});
+$('#refcv').addEventListener('mousedown', e => {
+  refDrag = {x: e.clientX, y: e.clientY, moved: 0};
+});
+window.addEventListener('mousemove', e => {
+  if (!refDrag) return;
+  const dx = e.clientX - refDrag.x, dy = e.clientY - refDrag.y;
+  refDrag.moved += Math.abs(dx) + Math.abs(dy);
+  refDrag.x = e.clientX; refDrag.y = e.clientY;
+  ref.view.ox += dx; ref.view.oy += dy; refDraw();
+});
+window.addEventListener('mouseup', e => {
+  if (refDrag && refDrag.moved < 4) refPickAt(e);     // a click, not a drag
+  refDrag = null;
+});
+function refPickAt(e) {
+  if (!ref.ids || !ref.img) return;
+  const r = $('#refcv').getBoundingClientRect();
+  const x = Math.round((e.clientX - r.left - ref.view.ox) / ref.view.z);
+  const y = Math.round((e.clientY - r.top - ref.view.oy) / ref.view.z);
+  const W = ref.img.width, H = ref.img.height;
+  if (x < 0 || y < 0 || x >= W || y >= H) return;
+  const id = ref.ids[y * W + x];
+  if (id) copyFromRef(id);
+}
+function stampColour(idx) {
+  const it = items.find(i => i.idx === idx);
+  return it ? hexRgb(it.colour) : UNLAB;
+}
+function copyFromRef(id) {
+  /* every pixel of that item in the reference, cropped to its box */
+  const W = ref.img.width, H = ref.img.height;
+  let x0 = W, y0 = H, x1 = -1, y1 = -1;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    if (ref.ids[y * W + x] !== id) continue;
+    if (x < x0) x0 = x;
+    if (x > x1) x1 = x;
+    if (y < y0) y0 = y;
+    if (y > y1) y1 = y;
+  }
+  if (x1 < 0) return;
+  // the item only carries over when both frames hold the same objects
+  const same = frames[ref.i].oset === frames[cur].oset && items.some(i => i.idx === id);
+  stamp = {w: x1 - x0 + 1, h: y1 - y0 + 1, src: [], x: img.width / 2, y: img.height / 2,
+           scale: 1, rot: 0, follow: true, item: same ? id : UNLAB_IDX};
+  for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++)
+    if (ref.ids[y * W + x] === id) stamp.src.push((y - y0) * stamp.w + (x - x0));
+  paintStamp();
+  $('#hints').innerHTML = 'drag to place · <kbd>click</kbd> drop · <kbd>[</kbd><kbd>]</kbd> ' +
+    'scale · <kbd>;</kbd><kbd>\'</kbd> rotate · <kbd>1</kbd>…<kbd>9</kbd> item · ' +
+    '<kbd>esc</kbd> cancel';
+  draw();
+}
+function paintStamp() {
+  const c = document.createElement('canvas');
+  c.width = stamp.w; c.height = stamp.h;
+  const cx = c.getContext('2d', {willReadFrequently: true});
+  const d = cx.createImageData(stamp.w, stamp.h), col = stampColour(stamp.item);
+  stamp.src.forEach(p => {
+    const k = p * 4;
+    d.data[k] = col[0]; d.data[k+1] = col[1]; d.data[k+2] = col[2]; d.data[k+3] = 255;
+  });
+  cx.putImageData(d, 0, 0);
+  stamp.cv = c;
+}
+function dropStamp() {
+  if (!stamp) return;
+  snap();
+  mctx.save();
+  mctx.imageSmoothingEnabled = false;
+  mctx.translate(stamp.x, stamp.y);
+  mctx.rotate(stamp.rot);
+  mctx.scale(stamp.scale, stamp.scale);
+  mctx.drawImage(stamp.cv, -stamp.w / 2, -stamp.h / 2);
+  mctx.restore();
+  /* rotating and scaling feathers the edge; a mask may not be soft, so threshold what was
+     just laid down and snap it back to the item's exact colour */
+  const rad = Math.hypot(stamp.w, stamp.h) * stamp.scale / 2 + 2;
+  harden(stamp.x - rad, stamp.y - rad, stamp.x + rad, stamp.y + rad);
+  stamp = null; dirty = true; rescan(); draw(); paintKeys();
+}
+function harden(x0, y0, x1, y1) {
+  x0 = Math.max(0, Math.floor(x0)); y0 = Math.max(0, Math.floor(y0));
+  x1 = Math.min(mask.width - 1, Math.ceil(x1)); y1 = Math.min(mask.height - 1, Math.ceil(y1));
+  if (x1 < x0 || y1 < y0) return;
+  const w = x1 - x0 + 1, h = y1 - y0 + 1, d = mctx.getImageData(x0, y0, w, h);
+  const cache = new Map();
+  for (let i = 0; i < d.data.length; i += 4) {
+    const a = d.data[i+3];
+    if (!a) continue;
+    if (a < 128) { d.data[i+3] = 0; continue; }
+    d.data[i+3] = 255;
+    const k = (d.data[i] << 16) | (d.data[i+1] << 8) | d.data[i+2];
+    let c = cache.get(k);
+    if (!c) { c = stampColour(nearestItem(d.data[i], d.data[i+1], d.data[i+2])); cache.set(k, c); }
+    d.data[i] = c[0]; d.data[i+1] = c[1]; d.data[i+2] = c[2];
+  }
+  mctx.putImageData(d, x0, y0);
+}
+
 /* -------------------------------------------------------------------- ui */
 function setTool(t) {
   tool = t; poly = [];
@@ -796,10 +1043,8 @@ function setTool(t) {
   draw();
 }
 document.querySelectorAll('.tool[data-t]').forEach(el => el.onclick = () => setTool(el.dataset.t));
-$('#loadauto').onclick = () => {
-  snap(); loadMask(`/file/OWN/${frames[cur].run}/gt/${frames[cur].frame}.png`); dirty = true;
-};
-$('#loadsam').onclick = () => { snap(); loadSam(); dirty = true; };
+$('#loadauto').onclick = () => { snap(); loadInto('auto'); dirty = true; };
+$('#loadsam').onclick = () => { snap(); loadInto('sam'); dirty = true; };
 $('#clear').onclick = () => { snap(); mctx.clearRect(0, 0, mask.width, mask.height);
   dirty = true; rescan(); draw(); };
 $('#save').onclick = () => save();
@@ -857,6 +1102,28 @@ window.addEventListener('keydown', e => {
     else buildKeyPanel();
     listening = null; return;
   }
+  if (stamp) {
+    const step = e.shiftKey ? 10 : 1;
+    if (e.key === 'Escape') { stamp = null; draw(); paintKeys(); return; }
+    if (e.key === 'Enter') { dropStamp(); return; }
+    if (e.key === '[' || e.key === ']') {
+      stamp.scale *= e.key === ']' ? 1.05 : 1 / 1.05; draw(); return;
+    }
+    if (e.key === ';' || e.key === "'") {
+      stamp.rot += (e.key === "'" ? 1 : -1) * Math.PI / 60; draw(); return;
+    }
+    if (e.key.startsWith('Arrow')) {
+      e.preventDefault(); stamp.follow = false;
+      if (e.key === 'ArrowLeft') stamp.x -= step;
+      if (e.key === 'ArrowRight') stamp.x += step;
+      if (e.key === 'ArrowUp') stamp.y -= step;
+      if (e.key === 'ArrowDown') stamp.y += step;
+      draw(); return;
+    }
+    if (e.key >= '1' && e.key <= '9' && items[+e.key - 1]) {
+      stamp.item = items[+e.key - 1].idx; paintStamp(); draw(); return;
+    }
+  }
   if (e.key === ' ') { panKey = true; e.preventDefault(); return; }
   if ((e.metaKey || e.ctrlKey) && e.key === 's') { e.preventDefault(); save(); return; }
   if ((e.metaKey || e.ctrlKey) && e.key === 'z') {
@@ -896,6 +1163,7 @@ window.addEventListener('keydown', e => {
   else if (act === 'loadAuto') $('#loadauto').click();
   else if (act === 'loadSam') $('#loadsam').click();
   else if (act === 'clear') $('#clear').click();
+  else if (act === 'ref') $('#refbtn').click();
   else if (act === 'carry') $('#carry').click();
   else if (act === 'smart') $('#smart').click();
   else if (act === 'next') { if (cur + 1 < frames.length) load(cur + 1, carry); }
@@ -908,7 +1176,7 @@ window.addEventListener('keyup', e => {
     held = null;
   }
 });
-window.addEventListener('resize', () => draw());
+window.addEventListener('resize', () => { draw(); if ($('#ref').classList.contains('on')) refFit(); });
 function banner(msg) {
   const b = document.createElement('div');
   b.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#7a1f1f;color:#fff;' +

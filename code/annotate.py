@@ -157,6 +157,7 @@ PAGE = r"""<!doctype html>
     <span class="tool" data-t="wand" data-hint="Flood fill by colour: click one pixel and every connected pixel of a similar colour joins the mask. One click covers a whole rag or tape roll. Tolerance decides how different a pixel may be before it stops spreading.">wand<span class="k" data-k="wand"></span></span>
     <span class="tool" data-t="poly" data-hint="Polygon: click each corner, Enter fills the shape, Esc cancels. Best for straight-edged objects like the pink rag.">polygon<span class="k" data-k="poly"></span></span>
     <span class="tool" data-t="assign" data-hint="Assign a whole blob to the selected item: click any masked pixel and every connected masked pixel takes that item's colour. This is the fast way through a SAM pre-label — press the item's number, click its blob, done.">assign<span class="k" data-k="assign"></span></span>
+    <span class="tool" data-t="pan" data-hint="Move the view: drag with the left button, nothing is painted. Holding space does the same from any tool, and the scroll wheel still zooms.">pan<span class="k" data-k="pan"></span></span>
     <span class="tool" id="smart" data-hint="Smart edge mode. On mouse-down the colour under the cursor is sampled, and the stroke then only affects pixels close to that colour — so a sloppy sweep along a cable paints the cable and stops at its edge. The eraser works the same way: click on floor and only floor-coloured mask is removed. Uses the tolerance setting.">smart<span class="k" data-k="smart"></span></span>
     <span class="tool" id="szbox" data-hint="Brush and eraser diameter, in image pixels.">size <b id="sz">6</b><span class="k" data-k="sizeDown"></span><span class="k" data-k="sizeUp"></span></span>
     <span class="tool" id="tolbox" data-hint="How different a pixel may be from the one you clicked before the wand stops. Raise it if the wand grabs too little, lower it if it bleeds onto the floor.">tol <b id="tol">14</b><span class="k" data-k="tolDown"></span><span class="k" data-k="tolUp"></span></span>
@@ -188,10 +189,10 @@ PAGE = r"""<!doctype html>
 const $ = s => document.querySelector(s);
 const DEFAULTS = {brush:'w', eraser:'e', wand:'q', poly:'p', assign:'f', sizeDown:'!',
                   sizeUp:'@', tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a',
-                  loadSam:'g', clear:'x',
+                  loadSam:'g', clear:'x', pan:'v',
                   carry:'c', smart:'s', next:'n', prev:'N'};
 const LABEL = {brush:'brush', eraser:'eraser', wand:'wand', poly:'polygon',
-               assign:'assign blob to item',
+               assign:'assign blob to item', pan:'pan the view',
                sizeDown:'smaller brush', sizeUp:'bigger brush', tolDown:'lower tolerance',
                tolUp:'raise tolerance', hide:'hide / show mask', fit:'fit to window',
                loadAuto:'load automatic mask', loadSam:'load SAM 3 mask',
@@ -437,7 +438,7 @@ function draw() {
     poly.slice(1).forEach(p => ctx.lineTo(p[0], p[1])); ctx.stroke();
   }
   ctx.restore();
-  if (mouse) {                              // the cursor IS the brush size
+  if (mouse && tool !== 'pan') {            // the cursor IS the brush size
     const r = (tool === 'brush' || tool === 'eraser') ? Math.max(2, size / 2 * view.z) : 4;
     const x = mouse[0] * view.z + view.ox, y = mouse[1] * view.z + view.oy;
     ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(0,0,0,.55)';
@@ -722,7 +723,11 @@ function assign(x, y) {
   mctx.putImageData(out, 0, 0); dirty = true; rescan(); draw();
 }
 cv.addEventListener('mousedown', e => {
-  if (e.button === 1 || panKey) { panning = true; last = [e.clientX, e.clientY]; return; }
+  if (e.button === 1 || panKey || tool === 'pan') {
+    panning = true; last = [e.clientX, e.clientY];
+    if (tool === 'pan') cv.style.cursor = 'grabbing';
+    return;
+  }
   const p = toImg(e);
   if (tool === 'wand') { snap(); wand(p[0], p[1]); return; }
   if (tool === 'assign') { snap(); assign(p[0], p[1]); return; }
@@ -743,7 +748,10 @@ window.addEventListener('mousemove', e => {
   if (drawing) { paint(last, p); last = p; dirty = true; rescan(); }
   draw();
 });
-window.addEventListener('mouseup', () => { drawing = false; panning = false; });
+window.addEventListener('mouseup', () => {
+  drawing = false; panning = false;
+  if (tool === 'pan') cv.style.cursor = 'grab';
+});
 $('#wrap').addEventListener('wheel', e => {
   e.preventDefault();
   const r = cv.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
@@ -756,6 +764,7 @@ $('#wrap').addEventListener('wheel', e => {
 /* -------------------------------------------------------------------- ui */
 function setTool(t) {
   tool = t; poly = [];
+  cv.style.cursor = t === 'pan' ? 'grab' : 'none';
   document.querySelectorAll('.tool[data-t]').forEach(e => e.classList.toggle('on', e.dataset.t === t));
   draw();
 }
@@ -841,7 +850,7 @@ window.addEventListener('keydown', e => {
   const act = Object.keys(KEYS).find(a => KEYS[a] && KEYS[a] === e.key);
   if (!act) return;
   e.preventDefault();
-  if (['brush', 'eraser', 'wand', 'poly', 'assign'].includes(act)) setTool(act);
+  if (['brush', 'eraser', 'wand', 'poly', 'assign', 'pan'].includes(act)) setTool(act);
   else if (act === 'sizeDown') { size = Math.max(1, size - 1); $('#sz').textContent = size; draw(); }
   else if (act === 'sizeUp') { size = Math.min(120, size + 1); $('#sz').textContent = size; draw(); }
   else if (act === 'tolDown') { tol = Math.max(2, tol - 3); $('#tol').textContent = tol; }

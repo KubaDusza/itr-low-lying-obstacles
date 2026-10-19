@@ -178,6 +178,7 @@ PAGE = r"""<!doctype html>
     <span class="tool" data-t="wand" data-hint="Flood fill by colour: click one pixel and every connected pixel of a similar colour joins the mask. One click covers a whole rag or tape roll. Tolerance decides how different a pixel may be before it stops spreading.">wand<span class="k" data-k="wand"></span></span>
     <span class="tool" data-t="poly" data-hint="Polygon: click each corner, Enter fills the shape, Esc cancels. Best for straight-edged objects like the pink rag.">polygon<span class="k" data-k="poly"></span></span>
     <span class="tool" data-t="assign" data-hint="Assign a whole blob to the selected item: click any masked pixel and every connected masked pixel takes that item's colour. This is the fast way through a SAM pre-label — press the item's number, click its blob, done.">assign<span class="k" data-k="assign"></span></span>
+    <span class="tool" data-t="move" data-hint="Pick a mask up and drag it. Press on any masked pixel and that whole item's connected blob lifts off the frame and follows the mouse until you let go; [ ] scale it and ; ' rotate it while it is in the air, and Esc puts it back where it was. The same grab works on a mask just copied from the reference panel.">move<span class="k" data-k="move"></span></span>
     <span class="tool" id="refbtn" data-hint="A second frame beside this one, with its mask drawn on it: the same objects at another distance, height or background. Clicking an item there copies its mask onto this frame as a stamp you can move, scale and rotate into place, which beats redrawing a cable you have already drawn once.">reference<span class="k" data-k="ref"></span></span>
     <span class="tool" data-t="pan" data-hint="Move the view: drag with the left button, nothing is painted. Its key is held rather than toggled by default — the ? panel sets hold or toggle for every tool. Space pans from any tool, and the scroll wheel still zooms.">pan<span class="k" data-k="pan"></span></span>
     <span class="tool" id="smart" data-hint="Smart edge mode. On mouse-down the colour under the cursor is sampled, and the stroke then only affects pixels close to that colour — so a sloppy sweep along a cable paints the cable and stops at its edge. The eraser works the same way: click on floor and only floor-coloured mask is removed. Uses the tolerance setting.">smart<span class="k" data-k="smart"></span></span>
@@ -222,10 +223,10 @@ PAGE = r"""<!doctype html>
 const $ = s => document.querySelector(s);
 const DEFAULTS = {brush:'w', eraser:'e', wand:'q', poly:'p', assign:'f', sizeDown:'!',
                   sizeUp:'@', tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a',
-                  loadSam:'g', clear:'x', pan:'v', ref:'r',
+                  loadSam:'g', clear:'x', pan:'v', ref:'r', move:'m',
                   carry:'c', smart:'s', next:'n', prev:'N'};
 const LABEL = {brush:'brush', eraser:'eraser', wand:'wand', poly:'polygon',
-               assign:'assign blob to item', pan:'pan the view',
+               assign:'assign blob to item', pan:'pan the view', move:'move a blob',
                ref:'reference panel',
                sizeDown:'smaller brush', sizeUp:'bigger brush', tolDown:'lower tolerance',
                tolUp:'raise tolerance', hide:'hide / show mask', fit:'fit to window',
@@ -236,7 +237,7 @@ const LABEL = {brush:'brush', eraser:'eraser', wand:'wand', poly:'polygon',
 /* Each of these can be a sticky toggle -- press once and it stays -- or spring-loaded: it
    lasts only while the key is held, and the previous tool comes back on release. Pan is the
    one that wants holding by default; the rest are set in the ? panel. */
-const HOLDABLE = ['brush', 'eraser', 'wand', 'poly', 'assign', 'pan', 'hide'];
+const HOLDABLE = ['brush', 'eraser', 'wand', 'poly', 'assign', 'move', 'pan', 'hide'];
 const MODE_DEF = {pan: 'hold'};
 let MODES = {};
 HOLDABLE.forEach(a => MODES[a] = MODE_DEF[a] || 'toggle');
@@ -260,6 +261,7 @@ let view = {z: 2, ox: 0, oy: 0}, tool = 'brush', size = 6, tol = 14, carry = tru
 let drawing = false, panning = false, last = null, hide = false, dirty = false;
 let smart = false, strokeRef = null;
 let undo = [], poly = [], mouse = null, panKey = false, listening = null, held = null;
+let moving = null;
 const cv = $('#cv'), ctx = cv.getContext('2d');
 
 /* ------------------------------------------------------------------ keys */
@@ -378,6 +380,7 @@ function renderList() {
 }
 async function load(i, keep) {
  try {
+  if (stamp) { moving = null; dropStamp(); }
   if (dirty && cur >= 0) await save(true);
   const keepData = keep && mctx ? mctx.getImageData(0, 0, mask.width, mask.height) : null;
   cur = i; poly = []; undo = [];
@@ -809,7 +812,13 @@ function assign(x, y) {
   mctx.putImageData(out, 0, 0); dirty = true; rescan(); draw();
 }
 cv.addEventListener('mousedown', e => {
-  if (stamp && e.button === 0) { dropStamp(); return; }
+  if (stamp && e.button === 0 && tool !== 'move') { dropStamp(); return; }
+  if (tool === 'move' && e.button === 0) {
+    const q = toImg(e);
+    if (!stamp && !liftAt(q[0], q[1])) return;
+    moving = [stamp.x - q[0], stamp.y - q[1]];      // keep the grab point under the cursor
+    draw(); return;
+  }
   if (e.button === 1 || panKey || tool === 'pan') {
     panning = true; last = [e.clientX, e.clientY];
     if (tool === 'pan') cv.style.cursor = 'grabbing';
@@ -832,12 +841,14 @@ window.addEventListener('mousemove', e => {
   mouse = p;
   $('#pos').textContent = `x ${String(Math.round(p[0])).padStart(4)} y ${String(Math.round(p[1])).padStart(4)}`;
   $('#under').textContent = itemUnder(p);
-  if (stamp && stamp.follow) { stamp.x = p[0]; stamp.y = p[1]; draw(); }
+  if (moving && stamp) { stamp.x = p[0] + moving[0]; stamp.y = p[1] + moving[1]; draw(); }
+  else if (stamp && stamp.follow) { stamp.x = p[0]; stamp.y = p[1]; draw(); }
   if (drawing) { paint(last, p); last = p; dirty = true; rescan(); }
   draw();
 });
 window.addEventListener('mouseup', () => {
   drawing = false; panning = false;
+  if (moving) { moving = null; dropStamp(); }       // let go and it lands
   if (tool === 'pan') cv.style.cursor = 'grab';
 });
 $('#wrap').addEventListener('wheel', e => {
@@ -986,7 +997,7 @@ function copyFromRef(id) {
   for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++)
     if (ref.ids[y * W + x] === id) stamp.src.push((y - y0) * stamp.w + (x - x0));
   paintStamp();
-  $('#hints').innerHTML = 'drag to place · <kbd>click</kbd> drop · <kbd>[</kbd><kbd>]</kbd> ' +
+  $('#hints').innerHTML = 'move the mouse to place · <kbd>click</kbd> drop · <kbd>[</kbd><kbd>]</kbd> ' +
     'scale · <kbd>;</kbd><kbd>\'</kbd> rotate · <kbd>1</kbd>…<kbd>9</kbd> item · ' +
     '<kbd>esc</kbd> cancel';
   draw();
@@ -1003,9 +1014,45 @@ function paintStamp() {
   cx.putImageData(d, 0, 0);
   stamp.cv = c;
 }
+/* Lift the blob under the cursor off the mask and into the floating stamp, so it can be
+   dragged. Only pixels of the same item travel: two items that touch stay separate. */
+function liftAt(px, py) {
+  const W = img.width, H = img.height;
+  const x = Math.round(px), y = Math.round(py);
+  if (x < 0 || y < 0 || x >= W || y >= H) return false;
+  const d = mctx.getImageData(0, 0, W, H), dd = d.data;
+  if (!dd[(y * W + x) * 4 + 3]) return false;
+  const i0 = (y * W + x) * 4;
+  const id = nearestItem(dd[i0], dd[i0+1], dd[i0+2]);
+  const seen = new Uint8Array(W * H), got = [], st = [[x, y]];
+  let x0 = W, y0 = H, x1 = -1, y1 = -1;
+  while (st.length) {
+    const [cx, cy] = st.pop(), k = cy * W + cx;
+    if (cx < 0 || cy < 0 || cx >= W || cy >= H || seen[k]) continue;
+    seen[k] = 1;
+    const i = k * 4;
+    if (!dd[i+3] || nearestItem(dd[i], dd[i+1], dd[i+2]) !== id) continue;
+    got.push(k); dd[i+3] = 0;                       // it leaves the mask while in the air
+    if (cx < x0) x0 = cx;
+    if (cx > x1) x1 = cx;
+    if (cy < y0) y0 = cy;
+    if (cy > y1) y1 = cy;
+    st.push([cx-1, cy]); st.push([cx+1, cy]); st.push([cx, cy-1]); st.push([cx, cy+1]);
+  }
+  if (!got.length) return false;
+  snap();
+  mctx.putImageData(d, 0, 0);
+  const w = x1 - x0 + 1, h = y1 - y0 + 1;
+  stamp = {w: w, h: h, src: got.map(k => ((k / W | 0) - y0) * w + (k % W - x0)),
+           x: x0 + w / 2, y: y0 + h / 2, scale: 1, rot: 0, follow: false, item: id,
+           home: {x: x0 + w / 2, y: y0 + h / 2}};
+  paintStamp();
+  return true;
+}
 function dropStamp() {
   if (!stamp) return;
-  snap();
+  if (!stamp.home) snap();     // a lifted blob already snapped before it left the mask, and
+                               // one undo should put a move back, not half of it
   mctx.save();
   mctx.imageSmoothingEnabled = false;
   mctx.translate(stamp.x, stamp.y);
@@ -1107,7 +1154,13 @@ window.addEventListener('keydown', e => {
   }
   if (stamp) {
     const step = e.shiftKey ? 10 : 1;
-    if (e.key === 'Escape') { stamp = null; draw(); paintKeys(); return; }
+    if (e.key === 'Escape') {
+      if (stamp.home) {                             // it came off this frame: put it back
+        stamp.x = stamp.home.x; stamp.y = stamp.home.y; stamp.scale = 1; stamp.rot = 0;
+        moving = null; dropStamp();
+      } else { stamp = null; draw(); paintKeys(); }
+      return;
+    }
     if (e.key === 'Enter') { dropStamp(); return; }
     if (e.key === '[' || e.key === ']') {
       stamp.scale *= e.key === ']' ? 1.05 : 1 / 1.05; draw(); return;
@@ -1156,7 +1209,7 @@ window.addEventListener('keydown', e => {
     if (act === 'hide') { hide = true; draw(); } else setTool(act);
     return;
   }
-  if (['brush', 'eraser', 'wand', 'poly', 'assign', 'pan'].includes(act)) setTool(act);
+  if (['brush', 'eraser', 'wand', 'poly', 'assign', 'move', 'pan'].includes(act)) setTool(act);
   else if (act === 'sizeDown') { size = Math.max(1, size - 1); $('#sz').textContent = size; draw(); }
   else if (act === 'sizeUp') { size = Math.min(120, size + 1); $('#sz').textContent = size; draw(); }
   else if (act === 'tolDown') { tol = Math.max(2, tol - 3); $('#tol').textContent = tol; }

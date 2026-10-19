@@ -127,7 +127,7 @@ PAGE = r"""<!doctype html>
   #refsel { flex:1; min-width:0; background:#12151a; color:var(--ink); padding:3px 6px;
             border:1px solid var(--line); border-radius:5px; font:12px ui-sans-serif,system-ui; }
   #refwrap { flex:1; position:relative; overflow:hidden; background:#0d0f12; }
-  #refcv { position:absolute; image-rendering:pixelated; }
+  #refcv { position:absolute; image-rendering:pixelated; cursor:crosshair; }
   #reffoot { padding:5px 10px; border-top:1px solid var(--line); color:var(--muted);
              font-size:11px; line-height:1.5; }
   canvas { position:absolute; image-rendering:pixelated; cursor:none; }
@@ -939,15 +939,18 @@ $('#refwrap').addEventListener('wheel', e => {
 $('#refcv').addEventListener('mousedown', e => {
   refDrag = {x: e.clientX, y: e.clientY, moved: 0};
 });
+$('#refcv').addEventListener('mouseleave', () => { if (!refDrag) $('#refcv').style.cursor = 'crosshair'; });
 window.addEventListener('mousemove', e => {
   if (!refDrag) return;
   const dx = e.clientX - refDrag.x, dy = e.clientY - refDrag.y;
   refDrag.moved += Math.abs(dx) + Math.abs(dy);
   refDrag.x = e.clientX; refDrag.y = e.clientY;
+  if (refDrag.moved > 4) $('#refcv').style.cursor = 'grabbing';
   ref.view.ox += dx; ref.view.oy += dy; refDraw();
 });
 window.addEventListener('mouseup', e => {
   if (refDrag && refDrag.moved < 4) refPickAt(e);     // a click, not a drag
+  if (refDrag) $('#refcv').style.cursor = 'crosshair';
   refDrag = null;
 });
 function refPickAt(e) {

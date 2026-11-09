@@ -145,6 +145,8 @@ PAGE = r"""<!doctype html>
   #under { width:150px; flex:none; overflow:hidden; white-space:nowrap; }
   #todo { width:190px; flex:none; font:12px/1.5 ui-monospace,Menlo,monospace; }
   #todo.clickable { cursor:pointer; text-decoration:underline dotted; }
+  #msg { flex:none; color:var(--muted); font-size:12px; white-space:nowrap; }
+  #msg.warn { color:var(--warn); }
   #hints { flex:1; min-width:0; overflow:hidden; white-space:nowrap; }
   kbd { background:#262b33; border:1px solid var(--line); border-radius:4px; padding:0 4px;
         font:11px/1.6 ui-monospace,Menlo,monospace; }
@@ -197,6 +199,7 @@ PAGE = r"""<!doctype html>
     <span class="tool" id="carry" data-hint="Carry the mask to the next frame. Camera and objects do not move inside a run, so the five frames are nearly identical — with this on, moving to the next frame keeps what you drew. It only applies within one run and only to a frame nobody has labelled yet: a different run holds re-placed objects, and a labelled frame would be overwritten. In both of those cases the frame opens with its own mask instead.">carry<span class="k" data-k="carry"></span></span>
     <span class="tool" id="flag" data-hint="Mark this frame to come back to, with a note if you want one. Flagged frames carry a ⚑ in the list and the filter above it can show only those.">flag<span class="k" data-k="flag"></span></span>
     <input id="note" placeholder="note" spellcheck="false">
+    <span class="tool" id="torun" data-hint="Write this mask over every frame of this run, labelled ones included. The camera does not move inside a run, so a correction made on one frame belongs on all five — this is the deliberate version of carry, which refuses to touch a frame that is already labelled. Press it twice to confirm.">apply to run<span class="k" data-k="toRun"></span></span>
     <span class="tool" id="save" data-hint="Write the mask to data/OWN_manual/. Also happens automatically when you change frame.">save<span class="k">⌘s</span></span>
     <span class="tool" id="help" data-hint="Change any shortcut.">?</span>
   </div>
@@ -216,6 +219,7 @@ PAGE = r"""<!doctype html>
     <span id="pos">—</span><span id="px">0 px</span><span id="zoom">1x</span>
     <span id="under"></span>
     <span id="todo"></span>
+    <span id="msg"></span>
     <span id="hints"></span>
   </div>
 </div>
@@ -233,10 +237,12 @@ const $ = s => document.querySelector(s);
 const DEFAULTS = {brush:'w', eraser:'e', wand:'q', poly:'p', assign:'f', sizeDown:'!',
                   sizeUp:'@', tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a',
                   loadSam:'g', clear:'x', pan:'v', ref:'r', move:'m', flag:'t', unass:'u',
+                  toRun:'C',
                   carry:'c', smart:'s', next:'n', prev:'N'};
 const LABEL = {brush:'brush', eraser:'eraser', wand:'wand', poly:'polygon',
                assign:'assign blob to item', pan:'pan the view', move:'move a blob',
                flag:'flag this frame', unass:'go to the next unassigned pixels',
+               toRun:'apply this mask to the whole run',
                ref:'reference panel',
                sizeDown:'smaller brush', sizeUp:'bigger brush', tolDown:'lower tolerance',
                tolUp:'raise tolerance', hide:'hide / show mask', fit:'fit to window',
@@ -414,6 +420,9 @@ async function load(i, keep) {
   const f0 = cur >= 0 ? frames[cur] : null;
   const fresh = !frames[i].manual && !frames[i].manual_id;
   const carryOk = keep && f0 && f0.run === frames[i].run && fresh;
+  if (keep && !carryOk && f0)
+    msg(f0.run !== frames[i].run ? 'carry skipped: another run'
+                                 : 'carry skipped: already labelled — ⇧C applies this mask to the run');
   const keepData = carryOk && mctx ? mctx.getImageData(0, 0, mask.width, mask.height) : null;
   cur = i; poly = []; undo = [];
   const f = frames[i];
@@ -637,6 +646,12 @@ function jumpUnassigned() {
   draw();
   $('#todo').textContent = `${t.n} px at ${t.x},${t.y}` +
                            (left.length > 1 ? ` (${leftAt}/${left.length})` : '');
+}
+let msgTimer = null;
+function msg(text, warn) {
+  $('#msg').textContent = text; $('#msg').className = warn ? 'warn' : '';
+  clearTimeout(msgTimer);
+  msgTimer = setTimeout(() => { $('#msg').textContent = ''; }, 4000);
 }
 function itemUnder(p) {
   if (!mctx || !img) return '';
@@ -1193,6 +1208,39 @@ $('#keys').onclick = e => { if (e.target.id === 'keys') $('#keys').classList.rem
 async function save(quiet) {
   /* Two files: the 0/255 mask everything downstream already reads, and the id map that says
      which item each pixel came from. */
+  const [bin, ids, unassigned] = maskPngs();
+  const f = frames[cur];
+  await put(bin, `/api/save?run=${f.run}&frame=${f.frame}&kind=mask`);
+  await put(ids, `/api/save?run=${f.run}&frame=${f.frame}&kind=id`);
+  // the list's state is what was just written, not what the server scanned at page load
+  f.manual = true; f.manual_id = true; f.todo = unassigned > 0;
+  dirty = false; renderList();
+  if (!quiet) { $('#save').classList.add('on'); setTimeout(() => $('#save').classList.remove('on'), 350); }
+}
+/* The whole run at once. Inside a run nothing moved, so a mask corrected on one frame is the
+   mask for all five; carry deliberately refuses to overwrite a labelled frame, and this is
+   the way to say that is what you meant. Two presses, because it cannot be undone. */
+let runArm = 0;
+$('#torun').onclick = async () => {
+  const f = frames[cur];
+  const rest = frames.map((g, j) => [g, j]).filter(([g]) => g.run === f.run && g !== f);
+  if (!rest.length) return msg('this run has one frame');
+  if (Date.now() - runArm > 4000) {
+    runArm = Date.now();
+    return msg(`press again to write this mask over ${rest.length} more frames of ${f.run}`, 1);
+  }
+  runArm = 0;
+  if (dirty) await save(true);
+  const [bin, ids, unassigned] = maskPngs();
+  for (const [g] of rest) {
+    await put(bin, `/api/save?run=${g.run}&frame=${g.frame}&kind=mask`);
+    await put(ids, `/api/save?run=${g.run}&frame=${g.frame}&kind=id`);
+    g.manual = true; g.manual_id = true; g.todo = unassigned > 0;
+  }
+  renderList();
+  msg(`written to ${rest.length} frames`);
+};
+function maskPngs() {
   const d = mctx.getImageData(0, 0, mask.width, mask.height).data;
   const bin = blank(), ids = blank(), cache = new Map();
   let unassigned = 0;
@@ -1205,13 +1253,7 @@ async function save(quiet) {
     if (v === UNLAB_IDX) unassigned++;
     ids.data[i] = ids.data[i+1] = ids.data[i+2] = v;
   }
-  const f = frames[cur];
-  await put(bin, `/api/save?run=${f.run}&frame=${f.frame}&kind=mask`);
-  await put(ids, `/api/save?run=${f.run}&frame=${f.frame}&kind=id`);
-  // the list's state is what was just written, not what the server scanned at page load
-  f.manual = true; f.manual_id = true; f.todo = unassigned > 0;
-  dirty = false; renderList();
-  if (!quiet) { $('#save').classList.add('on'); setTimeout(() => $('#save').classList.remove('on'), 350); }
+  return [bin, ids, unassigned];
 }
 function blank() {
   const o = new ImageData(mask.width, mask.height);
@@ -1304,6 +1346,7 @@ window.addEventListener('keydown', e => {
   else if (act === 'ref') $('#refbtn').click();
   else if (act === 'flag') $('#flag').click();
   else if (act === 'unass') jumpUnassigned();
+  else if (act === 'toRun') $('#torun').click();
   else if (act === 'carry') $('#carry').click();
   else if (act === 'smart') $('#smart').click();
   else if (act === 'next') { if (cur + 1 < frames.length) load(cur + 1, carry); }

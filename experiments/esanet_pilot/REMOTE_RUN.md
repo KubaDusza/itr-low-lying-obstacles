@@ -9,8 +9,8 @@ The project asks whether stereo depth improves segmentation of small, low-lying 
 The agreed method compares **ESANet R34-NBt1D** (Seichter et al., ICRA 2021, official code
 TUI-NICR/ESANet) with RGB, depth and RGB-D input on ISOD, using our existing site split and
 derived obstacle masks. This run **does not train the models for the paper**. It checks that the
-data are what we think they are, prepares a human review of the obstacle masks, and (later, only
-with separate approval) checks that the pipeline runs on the GPU and measures time, memory and disk.
+data are what we think they are, checks that the pipeline runs on the GPU, and measures time,
+memory and disk in a short RGB and RGB-D pilot.
 
 **Annotation status (agreed with Jakub, 2026-11-09).** Train only on ISOD; never on GTE-Floor.
 The ISOD obstacle masks in `ISOD_gt/` come from an automatic wall-removal rule and have **not
@@ -156,7 +156,7 @@ done
 ```
 The first call computes `runs/isod_train_stats_ISOD_gt.json` (depth mean/std of valid train
 pixels in mm, class weights, mask fingerprint) once and reuses it in later runs. Each log starts with
-`Masks: ISOD_gt, fingerprint ...`, which must equal the fingerprint in the Phase C2 `summary.json`. Expected: exit 0, finite losses, 10 test PNGs at
+`Masks: ISOD_gt, fingerprint ...`: report it; every later run must show the same value. Expected: exit 0, finite losses, 10 test PNGs at
 640×422 (the 10-frame test score is not a result), `best.pt` ≈ 125 MB (RGB, depth) and ≈ 180 MB (RGB-D). Params 32.1 M / 32.0 M / 46.9 M.
 Validation numbers after 3 batches are meaningless. Report `peak_gpu_memory_MiB`, the train statistics
 (sanity: depth mean should be a few thousand mm; obstacle class weight ≫ background weight) and errors.

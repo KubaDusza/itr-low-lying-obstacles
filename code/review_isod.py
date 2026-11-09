@@ -104,7 +104,7 @@ PAGE = r"""<!doctype html>
     <span class="tool" id="szbox" data-hint="Cut brush diameter.">size <b id="sz">4</b><span class="k">[ ]</span></span>
     <span class="tool" id="keepall" data-hint="Keep every component in this frame.">keep all<span class="k">k</span></span>
     <span class="tool" id="reset" data-hint="Back to what the automatic pass proposed for this frame, discarding your toggles and cuts.">reset<span class="k">x</span></span>
-    <span class="tool" id="hide" data-hint="Hide the overlay to see the photograph.">hide<span class="k">h</span></span>
+    <span class="tool" id="hide" data-hint="Hide the overlay to see the photograph underneath. Tap h to toggle it, or hold h to peek while it is down.">hide<span class="k">h</span></span>
     <span class="tool" id="fit" data-hint="Fit the frame to the window.">fit<span class="k">0</span></span>
     <span class="tool" id="save" data-hint="Write this frame's mask. Also happens when you change frame.">save<span class="k">⌘s</span></span>
   </div>
@@ -124,7 +124,7 @@ let sites = [], site = null, idx = 0, frames = [];
 let img = null, comp = null, rows = [], W = 0, H = 0;
 let view = {z: 1, ox: 0, oy: 0}, hide = false, dirty = false;
 let cutting = false, size = 4, drawing = false, panning = false, last = null, panKey = false;
-let cut = null, undo = [];
+let cut = null, undo = [], peek = null;
 const cv = $('#cv'), ctx = cv.getContext('2d');
 
 async function boot() {
@@ -308,12 +308,21 @@ window.addEventListener('keydown', async e => {
   else if (e.key === 'e') $('#cut').click();
   else if (e.key === 'k') $('#keepall').click();
   else if (e.key === 'x') $('#reset').click();
-  else if (e.key === 'h') $('#hide').click();
+  else if (e.key === 'h') {
+    // tap toggles, hold peeks: holding it is how you check an edge you just decided
+    if (!peek) { peek = {at: Date.now(), was: hide}; $('#hide').click(); }
+  }
   else if (e.key === '0') fit();
   else if (e.key === '[') { size = Math.max(1, size - 1); $('#sz').textContent = size; }
   else if (e.key === ']') { size = Math.min(40, size + 1); $('#sz').textContent = size; }
 });
-window.addEventListener('keyup', e => { if (e.key === ' ') panKey = false; });
+window.addEventListener('keyup', e => {
+  if (e.key === ' ') panKey = false;
+  if (e.key === 'h' && peek) {
+    if (Date.now() - peek.at > 250 && hide !== peek.was) $('#hide').click();
+    peek = null;
+  }
+});
 window.addEventListener('resize', fit);
 boot();
 </script>

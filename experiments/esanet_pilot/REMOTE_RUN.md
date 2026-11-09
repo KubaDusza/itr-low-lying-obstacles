@@ -1,4 +1,4 @@
-# REMOTE_RUN — esanet_pilot (v2, 2026-11-09)
+# REMOTE_RUN — esanet_pilot (v3, 2026-11-09 evening)
 
 You are a Claude Code session on the university Linux host **shire** (reached from `gtlpc103`
 with `ssh shire`). **You have no chat history.** This file is the complete task. Work through the
@@ -18,8 +18,11 @@ been verified**. They are annotation version **v0: frozen, provisional**. They m
 technical pilot only; definitive experiments wait for the review in
 `experiments/isod_mask_review/PROTOCOL.md`. Never modify, move or overwrite `ISOD_gt/`.
 
-**Phases authorised now: A, B, C, C2 (no GPU).** Phases D and E use the GPU and need a separate,
-explicit "go" from the human, even if A–C2 pass.
+**Authorised now (Juan, 2026-11-09): A → B → C → D → E in one session**, stopping only at the
+STOP after Phase A (storage answer) and on any stop condition below. Phase E is a SHORT technical
+pilot: RGB and RGB-D, seed 0, 10 epochs each, on the provisional v0 masks. **Not authorised:**
+500-epoch runs, depth or extra seeds, the nine-run sweep (each needs a new explicit go).
+Phase C2 (mask-review package) is optional and runs only after E, if time remains.
 
 ## 2. Hard rules
 - Never ask for, type or log passwords, tokens or keys. If something needs a login, the human does it.
@@ -27,8 +30,8 @@ explicit "go" from the human, even if A–C2 pass.
 - Do **not** install anything into `/opt/venv/jdusza_venv` (owned by collaborator `jdusza`). Only *use* it.
 - Do **not** write runs, checkpoints or downloads into the home directory `/home/GTL/jgomezel`
   (network disk, ~5.7 GiB free on 2026-11-09). Use `$SCRATCH` (Phase A). Do not assume `/tmp` persists.
-- Do not delete files, kill processes other than your own Phase E run, edit `.bashrc`, use more than one GPU, or run anything
-  beyond the pilot in Phase E. No `git push`, no force operations.
+- Do not delete files, kill processes other than your own Phase E runs, edit `.bashrc`, use more than the
+  two GPUs of shire, or run anything beyond the pilot in Phase E. No `git push`, no force operations.
 - If something differs from this file, STOP and report it; never guess a path.
 
 ## 3. Known facts (re-verify; user-checked on 2026-11-09)
@@ -107,6 +110,7 @@ How to read it:
   **no manual correction**. If > 0, list `examples_of_differing_frames`. Do not "fix" anything.
 - `floor_label_values` other than {0, 255} → STOP (make_esanet_label would treat them as floor).
 - Any entry in `problems`, or outlines visibly off the objects in depth → **STOP**.
+- Otherwise continue directly to Phase D (no need to wait). Phase C2 is optional and comes after E.
 
 ## Phase C2 — mask review package (read-only on the dataset, CPU, a few minutes)
 ```bash
@@ -134,14 +138,16 @@ ls -lh ~/isod_v0_pilot.tgz ~/pilot_files.sha256 ~/pilot_frames.csv
 Report `pilot_frames.csv` (how many objective and difficult frames were found).
 The human downloads these files in VS Code (Explorer → right-click → Download) and deletes them
 from the home directory afterwards.
-**STOP.** Phases D and E start only after an explicit "go" from the human.
+Phase C2 is optional: run it only after Phase E has been reported.
 
-## Phase D — GPU smoke test (2 epochs × 3 batches, real batch size 8, ~minutes) — needs explicit go
-Uses the provisional v0 masks; nothing from this phase is a result. Pick a GPU that Phase A showed as idle (`G=0` or `G=1`), then:
+## Phase D — GPU smoke test (2 epochs × 3 batches, real batch size 8, ~minutes)
+Uses the provisional v0 masks; nothing from this phase is a result. Check free memory first:
+`nvidia-smi --query-gpu=index,memory.used,memory.total,utilization.gpu --format=csv`. A GPU is
+usable if it has ≥ 12 GiB free and no other user's process. Set `G` to a usable GPU, then:
 ```bash
 cd /home/GTL/jgomezel/intro_to_research/itr-low-lying-obstacles/code
 P=$SCRATCH/esanet_pilot/ESANet/trained_models/imagenet   # folder containing r34_NBt1D.pth
-for m in rgb depth rgbd; do
+for m in rgb rgbd; do
   CUDA_VISIBLE_DEVICES=$G /opt/venv/jdusza_venv/bin/python train_esanet.py \
     --esanet $SCRATCH/esanet_pilot/ESANet --pretrained_dir $P \
     --root /home/GTL/jgomezel/datasets/isod_work --out $SCRATCH/esanet_pilot/runs \
@@ -156,26 +162,37 @@ Validation numbers after 3 batches are meaningless. Report `peak_gpu_memory_MiB`
 (sanity: depth mean should be a few thousand mm; obstacle class weight ≫ background weight) and errors.
 STOP on: out-of-memory, NaN, `Missing key`/pretrained-load error, or depth mean outside ~500–6000 mm.
 
-## Phase E — time-bounded pilot (one run, RGB-D, 10 epochs) — needs explicit go
-Only if A–D passed and the human said go. Provisional v0 masks: the numbers are pipeline checks only. In `tmux` (detach Ctrl-b d, reattach `tmux attach -t esanet`):
+## Phase E — short technical pilot: RGB and RGB-D, seed 0, 10 epochs each
+Only if A–D passed. Provisional v0 masks: the numbers are pipeline checks, not results. Run in
+`tmux` so the runs survive a closed terminal (detach Ctrl-b d, reattach `tmux attach -t esanet`).
+If **both** GPUs are usable, run the two in parallel (`GA=0`, `GB=1`); otherwise set `GA=GB=$G`
+and run the second command only after the first has finished.
 ```bash
 tmux new -s esanet
 cd /home/GTL/jgomezel/intro_to_research/itr-low-lying-obstacles/code
-CUDA_VISIBLE_DEVICES=$G /opt/venv/jdusza_venv/bin/python train_esanet.py \
+CUDA_VISIBLE_DEVICES=$GA /opt/venv/jdusza_venv/bin/python train_esanet.py \
   --esanet $SCRATCH/esanet_pilot/ESANet --pretrained_dir $P \
   --root /home/GTL/jgomezel/datasets/isod_work --out $SCRATCH/esanet_pilot/runs \
-  --modality rgbd --seed 0 --epochs 10 2>&1 | grep -v Warning | tee $SCRATCH/esanet_pilot/pilot_rgbd.log
+  --modality rgb --seed 0 --epochs 10 2>&1 | grep -v Warning > $SCRATCH/esanet_pilot/pilot_rgb.log &
+CUDA_VISIBLE_DEVICES=$GB /opt/venv/jdusza_venv/bin/python train_esanet.py \
+  --esanet $SCRATCH/esanet_pilot/ESANet --pretrained_dir $P \
+  --root /home/GTL/jgomezel/datasets/isod_work --out $SCRATCH/esanet_pilot/runs \
+  --modality rgbd --seed 0 --epochs 10 2>&1 | grep -v Warning > $SCRATCH/esanet_pilot/pilot_rgbd.log &
+wait
+tail -n 3 $SCRATCH/esanet_pilot/pilot_rgb.log $SCRATCH/esanet_pilot/pilot_rgbd.log
 ```
 While it runs, check `nvidia-smi` once in a while. **Hard stop: kill only this run** (Ctrl-c in its
 tmux) if an epoch takes over 5 minutes or another user's job appears on the same GPU.
 The 10-epoch OneCycle schedule is not a shortened 500-epoch run (the learning rate peaks at
 epoch 1–2 instead of 50), so its IoU is not a result. It measures cost and checks that training works:
-- seconds/epoch = last `seconds` in `history.csv` ÷ 10 → **projected 500-epoch hours** = s/epoch × 500 / 3600
+- per run: seconds/epoch = last `seconds` in `history.csv` ÷ 10 → **projected 500-epoch hours** = s/epoch × 500 / 3600
+  (if the two ran in parallel, say so: sharing CPU data loading can slow both)
+- `peak_gpu_memory_MiB` from `test_eval.json`; train_loss and val_IoU per epoch from `history.csv`
 - train_loss should fall; val_IoU should rise well above 0. Rough reference only: the U-Net RGB runs
   reached val IoU ≈ 0.76 in 15 epochs. A value near 0 after 10 epochs is a red flag.
 - `test_eval.json` has test IoU/precision/recall (same scoring functions as `eval.py`). Report it as "pilot, not a result".
 - `du -sh $SCRATCH/esanet_pilot/runs/*` for the disk footprint.
-**STOP.** Do not start other modalities, seeds or longer runs.
+**STOP.** Report, then wait. Do not start depth, other seeds or longer runs.
 
 ## 4. Return: `$SCRATCH/esanet_pilot/REMOTE_RESULTS.md` (also paste it to the human)
 1. What ran (phases, commands), host, GPU id, date. Repo commit and ESANet commit (in `config.json`),
@@ -183,7 +200,9 @@ epoch 1–2 instead of 50), so its IoU is not a result. It measures cost and che
 2. Phase A output (trimmed), the `SCRATCH` and venv answers.
 3. Audit summary + description of `isod_audit.png`; mask-review `summary.json` and image count.
 4. Smoke: per modality exit code, params, peak memory, best.pt size, train statistics.
-5. Pilot: `history.csv` content, s/epoch, projected 500-epoch hours, peak memory, disk, test metrics (labelled *pilot*).
+5. Pilot, for RGB and RGB-D separately: `history.csv` content, s/epoch, projected 500-epoch hours, peak memory,
+   disk, test metrics, all labelled *provisional pilot on v0 masks (fingerprint …)*. Parameter counts
+   (RGB ≈ 32.1 M, RGB-D ≈ 46.9 M): the variants differ in size, so this is not a pure input ablation.
 6. Everything that differed from this file, every error (last 20 lines), and what did not run and why.
 Copy `isod_audit.json`, `isod_audit.png`, the review `summary.json` and (if D/E ran) `history.csv`,
 `config.json`, `test_eval.json` next to it (they are small); leave `best.pt` and predictions in `$SCRATCH`.
@@ -202,8 +221,7 @@ pixel counts summed over frames; checked identical to `eval.py` on 300 frames).
 > I am on shire (via gtlpc103) in VS Code, in `/home/GTL/jgomezel/intro_to_research/itr-low-lying-obstacles`.
 > You do not have my previous chats. Run `git fetch origin esanet-pilot` and read the task with
 > `git show origin/esanet-pilot:experiments/esanet_pilot/REMOTE_RUN.md`, then follow it
-> exactly, phase by phase, stopping at every STOP to wait for me. Today only Phases A, B, C and C2
-> (no GPU); never start D or E without my explicit go. Never ask for or print passwords. Do not
-> modify the dataset or ISOD_gt, install into `/opt/venv/jdusza_venv`, put runs or downloads in my
-> home directory (except the review and pilot packages), delete files, push, or train. Finish by writing
-> REMOTE_RESULTS.md as specified.
+> exactly, phase by phase: A, then STOP for my storage answer; then B, C, D and the short RGB and RGB-D
+> pilot in E (10 epochs each), stopping only on a stop condition. Nothing longer than that. Never ask
+> for or print passwords. Do not modify the dataset or ISOD_gt, install into `/opt/venv/jdusza_venv`,
+> put runs or downloads in my home directory, delete files or push. Finish by writing REMOTE_RESULTS.md.

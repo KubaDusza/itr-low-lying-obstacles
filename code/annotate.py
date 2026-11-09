@@ -52,7 +52,7 @@ def item_table():
         for r in csv.DictReader(open(ITEMS_CSV)):
             row = sets.setdefault(r["object_set"], [])
             row.append(dict(idx=len(row) + 1, id=r["item_id"], label=r["label"],
-                            colour=r["colour"],
+                            colour=r["colour"], multi=bool(r.get("multi")),
                             phrases=[p for p in r["sam_phrases"].split(";") if p]))
     return sets
 
@@ -503,7 +503,9 @@ async function idMapFor(f, w, h, src, fitems) {
       meta.instances.forEach(x => once[x.phrase] = (once[x.phrase] || 0) + 1);
       meta.instances.forEach((x, i) => {
         const hit = (fitems || []).filter(it => it.phrases.includes(x.phrase));
-        if (hit.length === 1 && once[x.phrase] === 1) assign[i + 1] = hit[0].idx;
+        // one instance of a phrase that names one item is that item; an item marked multi
+        // in items.csv takes every instance, because it is a class, not an object
+        if (hit.length === 1 && (hit[0].multi || once[x.phrase] === 1)) assign[i + 1] = hit[0].idx;
       });
     }
     d = await readPng(`/file/OWN/${f.run}/sam/${f.frame}_id.png`, w, h);

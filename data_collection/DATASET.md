@@ -360,10 +360,16 @@ belongs to, and the benchmark can then be read one object at a time — this cab
 0.75 m and lost at 2.5 m, that hex key is never found at all, the white rag is found on the
 floor and lost on the poster — instead of as one number per run.
 
-`data_collection/items.csv` is the inventory: 32 items over the seven sets, each with an id, the
+`data_collection/items.csv` is the inventory: 29 items over the seven sets, each with an id, the
 set it belongs to, a display colour, and the qualitative attributes that the analysis groups by
 (tone, shape class, specular). `height_mm`, `long_mm` and `short_mm` are still empty; they need a
 ruler, not a photograph, and the overhead photos in §2 are too oblique to measure from.
+
+An item is usually one physical object, but not always. The screws set is three items, not six:
+the eye bolt, the four small fasteners as a single **small screws** class, and the pile. The four
+were not always laid out in the same order from run to run, and at 2.5 m each covers a few
+pixels, so a per-object label there would record a guess. Items like this carry `multi` in the
+inventory, which also tells the pre-label that every instance of their phrases belongs to them.
 
 `code/annotate.py` reads that file, shows the items of the run being annotated as a palette, and
 writes a second file next to every saved mask:

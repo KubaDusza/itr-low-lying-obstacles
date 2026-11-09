@@ -169,6 +169,8 @@ If **both** GPUs are usable, run the two in parallel (`GA=0`, `GB=1`); otherwise
 and run the second command only after the first has finished.
 ```bash
 tmux new -s esanet
+# inside tmux, set the variables again (tmux may not inherit them):
+export SCRATCH=<same path as Phase B>; P=$SCRATCH/esanet_pilot/ESANet/trained_models/imagenet; GA=<gpu>; GB=<gpu>
 cd /home/GTL/jgomezel/intro_to_research/itr-low-lying-obstacles/code
 CUDA_VISIBLE_DEVICES=$GA /opt/venv/jdusza_venv/bin/python train_esanet.py \
   --esanet $SCRATCH/esanet_pilot/ESANet --pretrained_dir $P \

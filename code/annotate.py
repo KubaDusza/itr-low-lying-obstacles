@@ -1212,8 +1212,15 @@ $('#keys').onclick = e => { if (e.target.id === 'keys') $('#keys').classList.rem
 async function save(quiet) {
   /* Two files: the 0/255 mask everything downstream already reads, and the id map that says
      which item each pixel came from. */
-  const [bin, ids, unassigned] = maskPngs();
+  const [bin, ids, unassigned, total] = maskPngs();
   const f = frames[cur];
+  /* An empty mask on a run where something was placed is almost always an accident -- the
+     frame was stepped past before anything was drawn -- and it lands in the list as
+     "labelled". Stepping past never writes one; ⌘s still does, and says so. */
+  if (!total && f.oset !== 'empty') {
+    if (quiet) return;
+    msg('saved an empty mask, though this run has objects in it', 1);
+  }
   await put(bin, `/api/save?run=${f.run}&frame=${f.frame}&kind=mask`);
   await put(ids, `/api/save?run=${f.run}&frame=${f.frame}&kind=id`);
   // the list's state is what was just written, not what the server scanned at page load
@@ -1247,7 +1254,7 @@ $('#torun').onclick = async () => {
 function maskPngs() {
   const d = mctx.getImageData(0, 0, mask.width, mask.height).data;
   const bin = blank(), ids = blank(), cache = new Map();
-  let unassigned = 0;
+  let unassigned = 0, total = 0;
   for (let i = 0; i < d.length; i += 4) {
     if (d[i+3] === 0) continue;
     bin.data[i] = bin.data[i+1] = bin.data[i+2] = 255;
@@ -1256,8 +1263,9 @@ function maskPngs() {
     if (v === undefined) { v = nearestItem(d[i], d[i+1], d[i+2]); cache.set(k, v); }
     if (v === UNLAB_IDX) unassigned++;
     ids.data[i] = ids.data[i+1] = ids.data[i+2] = v;
+    total++;
   }
-  return [bin, ids, unassigned];
+  return [bin, ids, unassigned, total];
 }
 function blank() {
   const o = new ImageData(mask.width, mask.height);

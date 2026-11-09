@@ -395,9 +395,11 @@ function renderList() {
     d.className = 'row' + (i === cur ? ' sel' : '') + (f.manual ? ' done' : '');
     /* The state that matters while labelling is whether the items are named, which is not
        the same as whether the frame was saved. */
-    const state = !f.manual ? (f.reliable ? 'ok' : 'needs work')
+    /* "ok" used to mean the automatic mask passed its reliability check, which read as
+       done when it meant the opposite: nobody has labelled it yet. */
+    const state = !f.manual ? (f.reliable ? 'to do' : 'to do · weak gt')
                 : f.todo || !f.manual_id ? 'items left' : 'labelled';
-    const bad = state === 'needs work' || state === 'items left';
+    const bad = state !== 'labelled';
     const note = f.flag && f.flag.note ? ` — ${f.flag.note}` : '';
     d.innerHTML = `<span>${f.flag ? '<span class="flagged">⚑ </span>' : ''}${f.run}` +
                   `<span class="tag"> ·${f.frame}${note}</span></span>` +

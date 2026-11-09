@@ -143,7 +143,8 @@ PAGE = r"""<!doctype html>
                      display:inline-block; text-align:left; }
   #pos { width:116px; } #px { width:84px; } #zoom { width:52px; }
   #under { width:150px; flex:none; overflow:hidden; white-space:nowrap; }
-  #todo { width:120px; flex:none; font:12px/1.5 ui-monospace,Menlo,monospace; }
+  #todo { width:190px; flex:none; font:12px/1.5 ui-monospace,Menlo,monospace; }
+  #todo.clickable { cursor:pointer; text-decoration:underline dotted; }
   #hints { flex:1; min-width:0; overflow:hidden; white-space:nowrap; }
   kbd { background:#262b33; border:1px solid var(--line); border-radius:4px; padding:0 4px;
         font:11px/1.6 ui-monospace,Menlo,monospace; }
@@ -231,11 +232,11 @@ PAGE = r"""<!doctype html>
 const $ = s => document.querySelector(s);
 const DEFAULTS = {brush:'w', eraser:'e', wand:'q', poly:'p', assign:'f', sizeDown:'!',
                   sizeUp:'@', tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a',
-                  loadSam:'g', clear:'x', pan:'v', ref:'r', move:'m', flag:'t',
+                  loadSam:'g', clear:'x', pan:'v', ref:'r', move:'m', flag:'t', unass:'u',
                   carry:'c', smart:'s', next:'n', prev:'N'};
 const LABEL = {brush:'brush', eraser:'eraser', wand:'wand', poly:'polygon',
                assign:'assign blob to item', pan:'pan the view', move:'move a blob',
-               flag:'flag this frame',
+               flag:'flag this frame', unass:'go to the next unassigned pixels',
                ref:'reference panel',
                sizeDown:'smaller brush', sizeUp:'bigger brush', tolDown:'lower tolerance',
                tolUp:'raise tolerance', hide:'hide / show mask', fit:'fit to window',
@@ -568,7 +569,7 @@ function rescan() {
   pxTimer = setTimeout(() => {
     const W = mask.width, H = mask.height;
     const d = mctx.getImageData(0, 0, W, H).data;
-    const counts = {}, cache = new Map();
+    const counts = {}, cache = new Map(), spots = new Map();
     /* Unassigned pixels are drawn back over the mask as hazard stripes at full opacity. A
        flat colour does not work here: half the items are white on a white poster, and a
        quiet grey wash over them is exactly what gets missed and saved. */
@@ -586,16 +587,37 @@ function rescan() {
       if (v !== UNLAB_IDX) continue;
       unassigned++;
       const p = i / 4, x = p % W, y = (p / W) | 0, on = ((x + y) % 10) < 5;
+      // where they are, in 24 px cells, so two pixels in a corner can be jumped to
+      const cell = ((y / 24) | 0) * 1000 + ((x / 24) | 0);
+      const sp = spots.get(cell);
+      if (sp) { sp.n++; } else { spots.set(cell, {x: x, y: y, n: 1}); }
       w.data[i] = on ? 255 : 20; w.data[i+1] = on ? 0 : 20; w.data[i+2] = on ? 230 : 20;
       w.data[i+3] = 255;
     }
     wctx.putImageData(w, 0, 0);
     $('#px').textContent = String(n).padStart(6) + ' px';
-    $('#todo').textContent = unassigned ? `${unassigned} unassigned` : '';
-    $('#todo').className = unassigned ? 'bad' : '';
+    left = [...spots.values()].sort((a, b) => b.n - a.n);
+    $('#todo').textContent = unassigned
+      ? `${unassigned} unassigned${left.length > 1 ? ` · ${left.length} spots` : ''}` : '';
+    $('#todo').className = unassigned ? 'bad clickable' : '';
     lastCounts = counts; renderItems(counts);
     draw();
   }, 120);
+}
+let left = [], leftAt = 0;
+/* Walk to the unassigned pixels. Two pixels in a corner are invisible at fit zoom, and the
+   list says the frame is not finished without saying where. */
+function jumpUnassigned() {
+  if (!left.length) return;
+  leftAt = leftAt % left.length;
+  const t = left[leftAt++];
+  view.z = Math.max(view.z, 8);
+  const w = $('#wrap').clientWidth, h = $('#wrap').clientHeight;
+  view.ox = w / 2 - (t.x + 0.5) * view.z;
+  view.oy = h / 2 - (t.y + 0.5) * view.z;
+  draw();
+  $('#todo').textContent = `${t.n} px at ${t.x},${t.y}` +
+                           (left.length > 1 ? ` (${leftAt}/${left.length})` : '');
 }
 function itemUnder(p) {
   if (!mctx || !img) return '';
@@ -1132,6 +1154,7 @@ $('#note').onchange = () => {
   if (want || frames[cur].flag) setFlag(want, $('#note').value);
 };
 $('#note').onkeydown = e => { if (e.key === 'Enter') $('#note').blur(); };
+$('#todo').onclick = jumpUnassigned;
 $('#only').onchange = renderList;
 $('#onlyflag').onchange = renderList;
 $('#carry').onclick = () => { carry = !carry; $('#carry').classList.toggle('on', carry);
@@ -1257,6 +1280,7 @@ window.addEventListener('keydown', e => {
   else if (act === 'clear') $('#clear').click();
   else if (act === 'ref') $('#refbtn').click();
   else if (act === 'flag') $('#flag').click();
+  else if (act === 'unass') jumpUnassigned();
   else if (act === 'carry') $('#carry').click();
   else if (act === 'smart') $('#smart').click();
   else if (act === 'next') { if (cur + 1 < frames.length) load(cur + 1, carry); }

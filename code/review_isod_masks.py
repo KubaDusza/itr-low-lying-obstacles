@@ -20,6 +20,10 @@ What it looks for (each is a hint, not a verdict: a person decides)
                   was wrongly KEPT as an obstacle.
   large_obstacle  an obstacle bigger than LARGE_OBSTACLE_PX: more likely furniture than a floor item.
   small_obstacle  an obstacle smaller than SMALL_OBSTACLE_PX: real, or label noise?
+  thin_obstacle   a long, thin obstacle (cable-like): average width = area / length is under
+                  THIN_WIDTH_PX, with length = the diagonal of its bounding box (right for straight
+                  or slanted cables, an underestimate for curved ones). Thin shapes are where boundaries are
+                  hardest to draw. (A coiled cable drawn as a filled blob is NOT caught by this.)
   dropped_blob    a not-drivable blob under 20 px that the rule threw away: noise, or a screw?
 
 Depth is deliberately NOT used to find suspects. Depth is one of the inputs we are comparing; if
@@ -39,11 +43,17 @@ Outputs (in --out)
   summary.json            totals per split, thresholds used, mask fingerprint
   review_images/*.jpg     one picture per frame to review (see draw_review_image for colours)
   review_log.csv          the sheet the reviewer fills in (verdict columns empty)
+  pilot_frames.csv        the 20 frames of the annotation pilot (10 objective + 10 difficult)
+  pilot_files.txt         the files to copy for the pilot (pilot frames, splits.json, all of
+                          ISOD_gt), relative to --root, one per line: `tar -T pilot_files.txt`
+  pilot_files.sha256      SHA-256 of each of those files, checkable on any computer with
+                          `shasum -a 256 -c pilot_files.sha256` (proves the copy is identical)
 
   python review_isod_masks.py --root <isod_work> --out <folder>
 """
 import argparse
 import csv
+import hashlib
 import json
 import os
 
@@ -57,9 +67,14 @@ from train_esanet import ground_truth_fingerprint, read_frame
 WALL_BUMP_OPENING_PX = 31    # parts of the wall region narrower than ~31 px count as "bumps"
 LARGE_OBSTACLE_PX = 5000     # about 2 % of a 640x422 frame
 SMALL_OBSTACLE_PX = 144      # the "small" tercile boundary of the earlier object analysis
+THIN_WIDTH_PX = 6            # average width under 6 px ...
+THIN_MIN_LENGTH_PX = 30      # ... over at least 30 px of length counts as "thin"
 SYSTEMATIC_FRAMES = [0, 20, 40, 60, 80]
 FLAGGED_PER_HINT = 30        # frames per hint in the flagged sample
 MAX_FLAGGED_PER_SITE = 2     # per hint, so that the flagged sample covers many scenes
+PILOT_OBJECTIVE_FRAME = 40   # pilot "objective" half: frame 40 of every second site (10 frames)
+PILOT_DIFFICULT = [("wall_bump", 2), ("border_obstacle", 2), ("large_obstacle", 2),
+                   ("thin_obstacle", 2), ("small_obstacle", 1), ("dropped_blob", 1)]
 
 
 def find_wall_region_and_dropped_blobs(floor_label):
@@ -113,8 +128,9 @@ def analyse_frame(floor_label, obstacle):
     border = np.zeros(obstacle.shape, dtype=bool)
     large = np.zeros(obstacle.shape, dtype=bool)
     small = np.zeros(obstacle.shape, dtype=bool)
+    thin = np.zeros(obstacle.shape, dtype=bool)
     n, pieces, stats, _ = cv2.connectedComponentsWithStats(obstacle.astype(np.uint8), connectivity=8)
-    n_border = n_large = n_small = 0
+    n_border = n_large = n_small = n_thin = 0
     for k in range(1, n):
         area = stats[k, cv2.CC_STAT_AREA]
         if touches_border(stats[k], *obstacle.shape):
@@ -126,6 +142,12 @@ def analyse_frame(floor_label, obstacle):
         if area < SMALL_OBSTACLE_PX:
             small |= pieces == k
             n_small += 1
+        # Average width of a thin shape ~ its area divided by its length. For a straight or
+        # slanted cable the length is about the diagonal of its bounding box (Pythagoras).
+        length = float(np.hypot(stats[k, cv2.CC_STAT_WIDTH], stats[k, cv2.CC_STAT_HEIGHT]))
+        if length >= THIN_MIN_LENGTH_PX and area / length < THIN_WIDTH_PX:
+            thin |= pieces == k
+            n_thin += 1
 
     n_bumps = cv2.connectedComponents(bumps.astype(np.uint8), connectivity=8)[0] - 1
     n_dropped = cv2.connectedComponents(dropped.astype(np.uint8), connectivity=8)[0] - 1
@@ -136,10 +158,12 @@ def analyse_frame(floor_label, obstacle):
         "border_obstacle": n_border, "border_obstacle_px": int(border.sum()),
         "large_obstacle": n_large, "large_obstacle_px": int(large.sum()),
         "small_obstacle": n_small,
+        "thin_obstacle": n_thin, "thin_obstacle_px": int(thin.sum()),
         "dropped_blob": n_dropped, "dropped_blob_px": int(dropped.sum()),
         "mask_equals_rule": bool(np.array_equal(obstacle, isod.obstacles(floor_label) > 0)),
     }
-    masks = {"wall": wall, "bumps": bumps, "border": border, "large": large, "dropped": dropped}
+    masks = {"wall": wall, "bumps": bumps, "border": border, "large": large, "thin": thin,
+             "dropped": dropped}
     return numbers, masks
 
 
@@ -149,6 +173,7 @@ def draw_review_image(rgb, obstacle, masks, title):
       darkened             = the removed wall/furniture region (ignored in training)
       red circle           = wall_bump (maybe an object lost inside the wall region)
       orange outline       = border_obstacle or large_obstacle (maybe wall/furniture kept)
+      cyan outline         = thin_obstacle (cable-like: check the boundary)
       magenta circle       = dropped_blob (tiny piece the rule removed)
     Circles are drawn around small hints so the eye finds them quickly."""
     overlay = rgb.copy()
@@ -156,6 +181,7 @@ def draw_review_image(rgb, obstacle, masks, title):
     overlay[obstacle] = (0.5 * overlay[obstacle] + 0.5 * np.array([0, 255, 0])).astype(np.uint8)
     draw_outline(overlay, obstacle, (0, 255, 0), thickness=1)
     draw_outline(overlay, masks["border"] | masks["large"], (255, 140, 0), thickness=2)
+    draw_outline(overlay, masks["thin"], (0, 255, 255), thickness=2)
     draw_circles(overlay, masks["bumps"], (255, 0, 0))
     draw_circles(overlay, masks["dropped"], (255, 0, 255))
 
@@ -184,7 +210,8 @@ def choose_flagged_frames(rows, already_chosen):
     per site, FLAGGED_PER_HINT in total. Sorting by area (ties by name) makes it repeatable."""
     chosen = []
     for hint, key in (("wall_bump", "wall_bump_px"), ("border_obstacle", "border_obstacle_px"),
-                      ("large_obstacle", "large_obstacle_px"), ("dropped_blob", "dropped_blob_px"),
+                      ("large_obstacle", "large_obstacle_px"), ("thin_obstacle", "thin_obstacle_px"),
+                      ("dropped_blob", "dropped_blob_px"),
                       ("small_obstacle", "small_obstacle")):
         candidates = sorted((r for r in rows if r[key] > 0),
                             key=lambda r: (-r[key], r["site"], r["frame"]))
@@ -199,6 +226,72 @@ def choose_flagged_frames(rows, already_chosen):
             if len([c for c in chosen if c[0] == f"flagged:{hint}"]) >= FLAGGED_PER_HINT:
                 break
     return chosen
+
+
+def hint_size(row, hint):
+    """How strongly a frame shows a hint: flagged pixels if we measure them, else the count."""
+    if f"{hint}_px" in row:
+        return row[f"{hint}_px"]
+    return row[hint]
+
+
+def choose_pilot_frames(rows, sites):
+    """The 20 frames of the annotation pilot, chosen by fixed rules before anyone looks at them.
+      objective (10): frame PILOT_OBJECTIVE_FRAME of every second site in alphabetical order.
+                      Ordinary frames: they say how good the masks TYPICALLY are.
+      difficult (10): for each hint in PILOT_DIFFICULT, the frames that show it most strongly,
+                      each from a site not used yet by the difficult half. They say how each
+                      method copes with HARD cases, and must never be used for error rates."""
+    pilot = []
+    for site in sites[0::2]:
+        row = next(r for r in rows if r["site"] == site and r["frame"] == PILOT_OBJECTIVE_FRAME)
+        pilot.append(("objective", "systematic", row))
+
+    used_frames = {(r["site"], r["frame"]) for _, _, r in pilot}
+    used_sites_difficult = set()
+    for hint, how_many in PILOT_DIFFICULT:
+        candidates = sorted((r for r in rows if r[hint] > 0),
+                            key=lambda r: (-hint_size(r, hint), r["site"], r["frame"]))
+        taken = 0
+        for r in candidates:
+            if taken == how_many:
+                break
+            if (r["site"], r["frame"]) in used_frames or r["site"] in used_sites_difficult:
+                continue
+            pilot.append(("difficult", hint, r))
+            used_frames.add((r["site"], r["frame"]))
+            used_sites_difficult.add(r["site"])
+            taken += 1
+    return pilot
+
+
+def sha256_of_file(path):
+    with open(path, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+
+def write_pilot_package_lists(root, gt_folder, pilot, all_sites, out):
+    """pilot_frames.csv, and the list + checksums of every file the pilot needs. All of the
+    masks folder is included (it is small) so the full fingerprint can be checked on the Mac."""
+    with open(f"{out}/pilot_frames.csv", "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["pilot_id", "group", "reason", "site", "split", "frame"])
+        for number, (group, reason, r) in enumerate(pilot, start=1):
+            writer.writerow([number, group, reason, r["site"], r["split"], r["frame"]])
+
+    files = ["splits.json"]
+    for _, _, r in pilot:
+        for folder in ("rgb", "depth", "label", "mask"):
+            files.append(f"ISOD/data/{r['site']}/{folder}/{r['frame']}.png")
+    for site in all_sites:
+        for i in range(100):
+            files.append(f"{gt_folder}/{site}/{i}.png")
+
+    with open(f"{out}/pilot_files.txt", "w") as f:
+        f.write("\n".join(files) + "\n")
+    with open(f"{out}/pilot_files.sha256", "w") as f:
+        for path in files:  # same format as the `shasum` command: "<hash>  <path>"
+            f.write(f"{sha256_of_file(f'{root}/{path}')}  {path}\n")
 
 
 def main():
@@ -236,7 +329,8 @@ def main():
     review = systematic + choose_flagged_frames(rows, already_chosen)
 
     # 3. One picture per reviewed frame, and the empty review sheet.
-    hint_names = ["wall_bump", "border_obstacle", "large_obstacle", "small_obstacle", "dropped_blob"]
+    hint_names = ["wall_bump", "border_obstacle", "large_obstacle", "small_obstacle",
+                  "thin_obstacle", "dropped_blob"]
     log_rows = []
     for number, (sample, r) in enumerate(review, start=1):
         rgb, _, floor_label, obstacle = read_frame(args.root, r["site"], r["frame"], args.gt_folder)
@@ -256,14 +350,22 @@ def main():
         writer.writeheader()
         writer.writerows(log_rows)
 
-    # 4. Summary: totals per split, the settings, and which masks were reviewed.
+    # 4. The 20-frame annotation pilot: which frames, and which files to copy (with checksums).
+    pilot = choose_pilot_frames(rows, all_sites)
+    write_pilot_package_lists(args.root, args.gt_folder, pilot, all_sites, args.out)
+
+    # 5. Summary: totals per split, the settings, and which masks were reviewed.
     summary = {"gt_folder": args.gt_folder,
                "gt_fingerprint": ground_truth_fingerprint(args.root, args.gt_folder, all_sites),
                "thresholds": {"WALL_BUMP_OPENING_PX": WALL_BUMP_OPENING_PX,
                               "LARGE_OBSTACLE_PX": LARGE_OBSTACLE_PX,
                               "SMALL_OBSTACLE_PX": SMALL_OBSTACLE_PX,
+                              "THIN_WIDTH_PX": THIN_WIDTH_PX,
+                              "THIN_MIN_LENGTH_PX": THIN_MIN_LENGTH_PX,
                               "MIN_AREA (isod.py)": isod.MIN_AREA},
                "review_frames": {"systematic": len(systematic), "flagged": len(review) - len(systematic)},
+               "pilot_frames": {"objective": sum(g == "objective" for g, _, _ in pilot),
+                                "difficult": sum(g == "difficult" for g, _, _ in pilot)},
                "per_split": {}}
     for part in ("train", "val", "test"):
         part_rows = [r for r in rows if r["split"] == part]

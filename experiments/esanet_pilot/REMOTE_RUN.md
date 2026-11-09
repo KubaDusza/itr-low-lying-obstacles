@@ -119,11 +119,21 @@ Report `summary.json` (fingerprint, hint counts per split, `frames_masks_differ_
 the number of review images (expected: 100 systematic + up to 150 flagged). **Do not judge the
 images yourself and do not fill in `review_log.csv`**: the human reviewers do that, following
 `experiments/isod_mask_review/PROTOCOL.md`. Then pack the folder for download (one small file,
-expected ~20–40 MB; this is the only file allowed in the home directory):
+expected ~20–40 MB; these review/pilot files are the only files allowed in the home directory):
 ```bash
 tar czf ~/isod_mask_review_v0.tgz -C $SCRATCH/esanet_pilot mask_review_v0 && ls -lh ~/isod_mask_review_v0.tgz
 ```
-The human downloads it in VS Code (Explorer → right-click → Download) and deletes it afterwards.
+Also pack the 20-frame annotation-pilot package (exact v0 files + checksums, see
+`experiments/isod_mask_review/ANNOTATION_PILOT.md` §9; expected ~15–40 MB):
+```bash
+cd /home/GTL/jgomezel/datasets/isod_work
+tar czf ~/isod_v0_pilot.tgz -T $SCRATCH/esanet_pilot/mask_review_v0/pilot_files.txt
+cp $SCRATCH/esanet_pilot/mask_review_v0/pilot_files.sha256 $SCRATCH/esanet_pilot/mask_review_v0/pilot_frames.csv ~/
+ls -lh ~/isod_v0_pilot.tgz ~/pilot_files.sha256 ~/pilot_frames.csv
+```
+Report `pilot_frames.csv` (how many objective and difficult frames were found).
+The human downloads these files in VS Code (Explorer → right-click → Download) and deletes them
+from the home directory afterwards.
 **STOP.** Phases D and E start only after an explicit "go" from the human.
 
 ## Phase D — GPU smoke test (2 epochs × 3 batches, real batch size 8, ~minutes) — needs explicit go
@@ -195,5 +205,5 @@ pixel counts summed over frames; checked identical to `eval.py` on 300 frames).
 > exactly, phase by phase, stopping at every STOP to wait for me. Today only Phases A, B, C and C2
 > (no GPU); never start D or E without my explicit go. Never ask for or print passwords. Do not
 > modify the dataset or ISOD_gt, install into `/opt/venv/jdusza_venv`, put runs or downloads in my
-> home directory (except the review .tgz), delete files, push, or train. Finish by writing
+> home directory (except the review and pilot packages), delete files, push, or train. Finish by writing
 > REMOTE_RESULTS.md as specified.

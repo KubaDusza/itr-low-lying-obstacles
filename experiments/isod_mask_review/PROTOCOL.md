@@ -47,15 +47,15 @@ frame to review in `review_images/`, and `review_log.csv`, the sheet to fill in.
   looks suspicious, so it must **never** be used to estimate how often errors happen.
 
 The automatic hints (`wall_bump`, `border_obstacle`, `large_obstacle`, `small_obstacle`,
-`dropped_blob`) only decide which pictures a person looks at. **A hint is not an error.** The
+`thin_obstacle`, `dropped_blob`) only decide which pictures a person looks at. **A hint is not an error.** The
 person decides. Depth is not used to choose suspects: depth is one of the inputs we compare, and
 choosing masks to check by depth would bias any later corrections in its favour.
 
 ## 4. How to review one picture
 Left half: the plain photo. Right half: green = obstacle in the current masks; darkened = ignored
 (walls/furniture); red circle = a thin part of the wall region (possible missed object); orange
-outline = obstacle at the image border or very large (possible wall/furniture); magenta circle =
-tiny blob removed by the rule.
+outline = obstacle at the image border or very large (possible wall/furniture); cyan outline =
+thin, cable-like obstacle (check its boundary); magenta circle = tiny blob removed by the rule.
 
 Ask, for the **whole floor area** (not only where the hints are):
 1. Is there any object on the floor that is **not** green? → `MISSED`
@@ -107,6 +107,9 @@ interval, overall and per split, plus the error types and causes seen in the fla
   systematic sample (frames 10, 30, 50, 70, 90 of every site).
 
 Deciding the threshold after seeing the numbers would let the result steer the decision.
+
+The same script also fixes the 20 frames of the annotation pilot (`pilot_frames.csv`) that
+compares heuristic, manual and SAM-assisted masks: see `ANNOTATION_PILOT.md`.
 
 ## 6. Relation to the experiments
 - **Technical pilot** (ESANet smoke test and 10-epoch timing run): may use v0. Its numbers are

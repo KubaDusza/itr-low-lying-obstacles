@@ -196,7 +196,7 @@ PAGE = r"""<!doctype html>
     <span class="tool" id="loadsam" data-hint="Replace the mask with the SAM 3 pre-label from sam3_prelabel.py, discarding your edits to this frame. This is what a frame opens with when it exists: SAM 3 was prompted with the object set that was actually placed, so the edges are usually close and the work is removing what it invented and adding what it missed.">load sam<span class="k" data-k="loadSam"></span></span>
     <span class="tool" id="loadauto" data-hint="Replace the mask with the background-subtraction mask from own_gt.py, discarding your edits to this frame. Worth a look when SAM 3 missed an object entirely: the two methods fail in different places.">load auto<span class="k" data-k="loadAuto"></span></span>
     <span class="tool" id="clear" data-hint="Empty the mask for this frame.">clear<span class="k" data-k="clear"></span></span>
-    <span class="tool" id="carry" data-hint="Carry the mask to the next frame. Camera and objects do not move inside a run, so the five frames are nearly identical — with this on, moving to the next frame keeps what you drew. It only applies within one run and only to a frame nobody has labelled yet: a different run holds re-placed objects, and a labelled frame would be overwritten. In both of those cases the frame opens with its own mask instead.">carry<span class="k" data-k="carry"></span></span>
+    <span class="tool" id="carry" data-hint="Carry the mask to the next frame. Camera and objects do not move inside a run, so the five frames are nearly identical — with this on, moving to the next frame keeps what you drew, over whatever that frame already holds. It stops at the edge of a run: the next run holds re-placed objects, so that frame opens with its own mask.">carry<span class="k" data-k="carry"></span></span>
     <span class="tool" id="flag" data-hint="Mark this frame to come back to, with a note if you want one. Flagged frames carry a ⚑ in the list and the filter above it can show only those.">flag<span class="k" data-k="flag"></span></span>
     <input id="note" placeholder="note" spellcheck="false">
     <span class="tool" id="torun" data-hint="Write this mask over every frame of this run, labelled ones included. The camera does not move inside a run, so a correction made on one frame belongs on all five — this is the deliberate version of carry, which refuses to touch a frame that is already labelled. Press it twice to confirm.">apply to run<span class="k" data-k="toRun"></span></span>
@@ -419,14 +419,13 @@ async function load(i, keep) {
      only onto a frame nobody has labelled yet. Across runs the objects were re-placed, so a
      carried mask is nonsense, and over a labelled frame it would wipe the work. Either way
      the frame opens with its own mask, which for an untouched one is the SAM 3 pre-label. */
+  /* The only thing carry must not cross is a run: there the objects were re-placed and the
+     mask means nothing. Inside a run the five frames are the same scene, so carrying over a
+     frame that already has a mask is the point, not a hazard -- it is how a correction moves
+     forward. ⌘z and the files on disk are the safety net. */
   const f0 = cur >= 0 ? frames[cur] : null;
-  /* Nothing to protect in a frame that was only saved with its pre-label on it: "labelled"
-     means somebody named an item there, not that a file exists. */
-  const fresh = (!frames[i].manual && !frames[i].manual_id) || !frames[i].named;
-  const carryOk = keep && f0 && f0.run === frames[i].run && fresh;
-  if (keep && !carryOk && f0)
-    msg(f0.run !== frames[i].run ? 'carry skipped: another run'
-                                 : 'carry skipped: already labelled — ⇧C applies this mask to the run');
+  const carryOk = keep && f0 && f0.run === frames[i].run;
+  if (keep && !carryOk && f0) msg('carry skipped: another run');
   const keepData = carryOk && mctx ? mctx.getImageData(0, 0, mask.width, mask.height) : null;
   cur = i; poly = []; undo = [];
   const f = frames[i];
@@ -1227,7 +1226,6 @@ async function save(quiet) {
   await put(ids, `/api/save?run=${f.run}&frame=${f.frame}&kind=id`);
   // the list's state is what was just written, not what the server scanned at page load
   f.manual = true; f.manual_id = true; f.todo = unassigned > 0;
-  f.named = total > unassigned;
   dirty = false; renderList();
   if (!quiet) { $('#save').classList.add('on'); setTimeout(() => $('#save').classList.remove('on'), 350); }
 }
@@ -1250,7 +1248,6 @@ $('#torun').onclick = async () => {
     await put(bin, `/api/save?run=${g.run}&frame=${g.frame}&kind=mask`);
     await put(ids, `/api/save?run=${g.run}&frame=${g.frame}&kind=id`);
     g.manual = true; g.manual_id = true; g.todo = unassigned > 0;
-    g.named = true;
   }
   renderList();
   msg(`written to ${rest.length} frames`);
@@ -1411,17 +1408,16 @@ def read_flags():
         return {}
 
 
-def id_stats(path):
-    """(holds unassigned pixels, holds pixels given an item) for a saved id map. Items are
-    1..N and UNLABELLED is 255, so the histogram answers both."""
+def unassigned(path):
+    """Does this saved id map still hold pixels nobody put a name to? Items are 1..N and
+    UNLABELLED is 255, so the maximum answers it."""
     if not os.path.exists(path):
-        return False, False
+        return False
     try:
         from PIL import Image
-        h = Image.open(path).convert("L").histogram()
-        return h[UNLABELLED] > 0, any(h[1:UNLABELLED])
+        return Image.open(path).convert("L").getextrema()[1] == UNLABELLED
     except Exception:
-        return False, False
+        return False
 
 
 def frame_list():
@@ -1440,12 +1436,11 @@ def frame_list():
         oset = sets.get(run, run.split("_")[2] if len(run.split("_")) > 2 else "")
         for f in sorted(os.listdir(d), key=lambda x: int(x[:-4])):
             i = f[:-4]
-            todo, named = id_stats(f"{MAN}/{run}_{i}_id.png")
             out.append(dict(run=run, frame=i, reliable=rel, oset=oset,
                             flag=flags.get(f"{run}_{i}"),
                             manual=os.path.exists(f"{MAN}/{run}_{i}.png"),
                             manual_id=os.path.exists(f"{MAN}/{run}_{i}_id.png"),
-                            todo=todo, named=named,
+                            todo=unassigned(f"{MAN}/{run}_{i}_id.png"),
                             sam=os.path.exists(f"{OWN}/{run}/sam/{i}.png")))
     out.sort(key=lambda r: (r["reliable"], r["run"], int(r["frame"])))   # needs-work first
     return out

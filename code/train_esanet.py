@@ -15,7 +15,9 @@ their own argument parser, so nothing is retyped (and possibly mistyped) here.
 
 What this script adds for our task
 ----------------------------------
-1. Reading ISOD with our existing split (splits.json) and obstacle masks (ISOD_gt/).
+1. Reading ISOD with our existing split (splits.json) and obstacle masks (by default ISOD_gt/,
+   the heuristic masks; --gt_folder selects another, agreed annotation version). Every run
+   records which masks it used and a fingerprint of their contents in config.json.
 2. Turning each frame into the 3-value label ESANet expects:
        0 = void (walls and furniture: ignored by the loss and the metrics)
        1 = background (floor and everything else that is not an obstacle)
@@ -30,6 +32,8 @@ How to run
 ----------
   python train_esanet.py --esanet <ESANet folder> --pretrained_dir <folder with r34_NBt1D.pth> \
       --root <isod_work> --out <approved storage folder> --modality rgbd --seed 0
+  The current ISOD_gt masks are PROVISIONAL (automatic wall-removal rule, not yet reviewed):
+  use them for the technical pilot only, not for the definitive experiments.
   Add --smoke to only check that everything runs (2 epochs of 3 batches, 10 test frames).
 
 Outputs, in <out>/esanet_r34nbt1d_<modality>_s<seed>/
@@ -41,6 +45,7 @@ Outputs, in <out>/esanet_r34nbt1d_<modality>_s<seed>/
 """
 import argparse
 import contextlib
+import hashlib
 import io
 import json
 import os
@@ -74,14 +79,15 @@ OBSTACLE = 2
 # =============================================================================================
 # 1. Reading one ISOD frame
 # =============================================================================================
-def read_frame(root, site, i):
+def read_frame(root, site, i, gt_folder="ISOD_gt"):
     """Read one frame and check that its files are what we expect.
+    gt_folder: folder (inside root) holding the obstacle masks; ISOD_gt = heuristic version.
 
     Returns
       rgb           uint8, height x width x 3, in RGB order
       depth         uint16, height x width, millimetres, 0 = the camera had no reading
       floor_label   uint8, height x width, ISOD's hand label: 255 = drivable floor, 0 = not
-      obstacle      bool, height x width, our derived obstacle mask (ISOD_gt, 255 = obstacle)
+      obstacle      bool, height x width, obstacle mask from gt_folder (255 = obstacle)
     """
     folder = f"{root}/ISOD/data/{site}"
     # IMREAD_UNCHANGED: read the file exactly as stored. Without it OpenCV would silently turn
@@ -89,7 +95,7 @@ def read_frame(root, site, i):
     bgr = cv2.imread(f"{folder}/rgb/{i}.png", cv2.IMREAD_UNCHANGED)
     depth = cv2.imread(f"{folder}/depth/{i}.png", cv2.IMREAD_UNCHANGED)
     floor_label = cv2.imread(f"{folder}/label/{i}.png", cv2.IMREAD_UNCHANGED)
-    obstacle_png = cv2.imread(f"{root}/ISOD_gt/{site}/{i}.png", cv2.IMREAD_UNCHANGED)
+    obstacle_png = cv2.imread(f"{root}/{gt_folder}/{site}/{i}.png", cv2.IMREAD_UNCHANGED)
 
     name = f"{site}/{i}"
     for image in (bgr, depth, floor_label, obstacle_png):
@@ -119,6 +125,18 @@ def make_esanet_label(floor_label, obstacle):
     return label
 
 
+def ground_truth_fingerprint(root, gt_folder, sites):
+    """One short code that changes if ANY obstacle mask changes (a SHA-256 over all mask files).
+    Stored in config.json, so we can always prove which annotation version a run used, and
+    check that nobody overwrote the masks between two runs."""
+    combined = hashlib.sha256()
+    for site in sorted(sites):
+        for i in range(100):
+            with open(f"{root}/{gt_folder}/{site}/{i}.png", "rb") as f:
+                combined.update(hashlib.sha256(f.read()).hexdigest().encode())
+    return combined.hexdigest()[:16]
+
+
 # =============================================================================================
 # 2. The dataset object that PyTorch's DataLoader asks for
 # =============================================================================================
@@ -127,9 +145,10 @@ class ISODForESANet(Dataset):
     sample number k (__getitem__). The DataLoader then batches and shuffles them for us.
     The `preprocessor` is ESANet's own chain of transforms (resize/crop/flip/normalise)."""
 
-    def __init__(self, root, sites, preprocessor):
+    def __init__(self, root, sites, preprocessor, gt_folder="ISOD_gt"):
         self.root = root
         self.preprocessor = preprocessor
+        self.gt_folder = gt_folder
         self.frames = []  # list of (site, frame number); every ISOD site has frames 0..99
         for site in sites:
             for i in range(100):
@@ -140,7 +159,7 @@ class ISODForESANet(Dataset):
 
     def __getitem__(self, k):
         site, i = self.frames[k]
-        rgb, depth, floor_label, obstacle = read_frame(self.root, site, i)
+        rgb, depth, floor_label, obstacle = read_frame(self.root, site, i, self.gt_folder)
         sample = {
             "image": rgb,
             "depth": depth.astype(np.float32),  # still millimetres; ESANet normalises it later
@@ -152,7 +171,7 @@ class ISODForESANet(Dataset):
 # =============================================================================================
 # 3. Statistics computed on the training sites only
 # =============================================================================================
-def compute_train_statistics(root, train_sites):
+def compute_train_statistics(root, train_sites, gt_folder):
     """Depth mean/std and class weights, from the TRAINING frames only.
 
     Using validation or test frames here would leak information about them into training.
@@ -174,7 +193,7 @@ def compute_train_statistics(root, train_sites):
 
     for site in train_sites:
         for i in range(100):
-            _, depth, floor_label, obstacle = read_frame(root, site, i)
+            _, depth, floor_label, obstacle = read_frame(root, site, i, gt_folder)
             label = make_esanet_label(floor_label, obstacle)
 
             valid_depth = depth[depth > 0].astype(np.float64)  # float64: the sums get very large
@@ -202,17 +221,22 @@ def compute_train_statistics(root, train_sites):
     }
 
 
-def load_or_compute_train_statistics(root, train_sites, out_folder):
+def load_or_compute_train_statistics(root, train_sites, out_folder, gt_folder, gt_fingerprint):
     """The statistics take a few minutes, so they are saved once and reused by every run in
-    the same --out folder. That also guarantees all runs use identical numbers."""
-    path = f"{out_folder}/isod_train_stats.json"
+    the same --out folder. That also guarantees all runs use identical numbers.
+    The class weights depend on the masks, so a saved file is only reused for the same split
+    AND the same mask version (same fingerprint)."""
+    path = f"{out_folder}/isod_train_stats_{gt_folder}.json"
     if os.path.exists(path):
         with open(path) as f:
             stats = json.load(f)
         assert stats["train_sites"] == sorted(train_sites), f"{path} was made from another split"
+        assert stats["gt_fingerprint"] == gt_fingerprint, f"{path} was made from other masks"
         return stats
     print("Computing depth mean/std and class weights on the training sites ...", flush=True)
-    stats = compute_train_statistics(root, train_sites)
+    stats = compute_train_statistics(root, train_sites, gt_folder)
+    stats["gt_folder"] = gt_folder
+    stats["gt_fingerprint"] = gt_fingerprint
     with open(path, "w") as f:
         json.dump(stats, f, indent=1)
     return stats
@@ -310,7 +334,7 @@ def predict_and_score_test(model, test_set, modality, device, out_folder, n_fram
             os.makedirs(f"{out_folder}/{site}", exist_ok=True)
             Image.fromarray(mask * 255).save(f"{out_folder}/{site}/{i}.png")
 
-            _, _, floor_label, obstacle = read_frame(test_set.root, site, i)
+            _, _, floor_label, obstacle = read_frame(test_set.root, site, i, test_set.gt_folder)
             gt = obstacle.astype(np.uint8)
             rows.append(isod.score(mask, gt, ignore=isod.ignore_region(floor_label, gt)))
     seconds = time.time() - start
@@ -355,6 +379,8 @@ def main():
     parser.add_argument("--pretrained_dir", default=None,
                         help="folder containing r34_NBt1D.pth (ImageNet weights); only --smoke may omit it")
     parser.add_argument("--root", required=True, help="isod_work: ISOD/data, ISOD_gt, splits.json")
+    parser.add_argument("--gt_folder", default="ISOD_gt",
+                        help="mask folder inside --root; ISOD_gt = provisional heuristic masks")
     parser.add_argument("--out", required=True, help="approved storage folder (NOT the home disk)")
     parser.add_argument("--modality", required=True, choices=["rgb", "depth", "rgbd"])
     parser.add_argument("--seed", type=int, default=0)
@@ -412,7 +438,12 @@ def main():
         splits = json.load(f)
     overlap = set(splits["train"]) & (set(splits["val"]) | set(splits["test"]))
     assert not overlap, f"sites in both train and val/test: {overlap}"
-    stats = load_or_compute_train_statistics(our_args.root, splits["train"], our_args.out)
+    # Fingerprint of the masks used (all 20 sites), recorded in config.json and the statistics.
+    gt_fingerprint = ground_truth_fingerprint(
+        our_args.root, our_args.gt_folder, splits["train"] + splits["val"] + splits["test"])
+    print(f"Masks: {our_args.gt_folder}, fingerprint {gt_fingerprint}", flush=True)
+    stats = load_or_compute_train_statistics(our_args.root, splits["train"], our_args.out,
+                                             our_args.gt_folder, gt_fingerprint)
     print("Training statistics:", {k: v for k, v in stats.items() if k != "train_sites"}, flush=True)
 
     # ESANet's transforms. Training: random rescale 1.0-1.4, random 448x640 crop, small colour
@@ -423,9 +454,10 @@ def main():
                                 train_random_rescale=(esanet_args.aug_scale_min,
                                                       esanet_args.aug_scale_max))
 
-    train_set = ISODForESANet(our_args.root, splits["train"], esanet_preprocessor("train"))
-    val_set = ISODForESANet(our_args.root, splits["val"], esanet_preprocessor("test"))
-    test_set = ISODForESANet(our_args.root, splits["test"], esanet_preprocessor("test"))
+    gt = our_args.gt_folder
+    train_set = ISODForESANet(our_args.root, splits["train"], esanet_preprocessor("train"), gt)
+    val_set = ISODForESANet(our_args.root, splits["val"], esanet_preprocessor("test"), gt)
+    test_set = ISODForESANet(our_args.root, splits["test"], esanet_preprocessor("test"), gt)
     # The generator fixes the shuffling order from the seed; drop_last avoids a tiny last batch.
     train_loader = DataLoader(train_set, batch_size=esanet_args.batch_size, shuffle=True,
                               drop_last=True, num_workers=our_args.workers,
@@ -455,6 +487,9 @@ def main():
         "our_args": vars(our_args),
         "esanet_args": vars(esanet_args),
         "train_stats": stats,
+        "ground_truth": {"folder": our_args.gt_folder, "fingerprint": gt_fingerprint,
+                         "status": "provisional heuristic masks" if our_args.gt_folder == "ISOD_gt"
+                                   else "see annotation log"},
         "n_parameters": n_parameters,
         "selection_rule": "best validation obstacle IoU (void excluded), at 448x640",
         "our_git": git_revision(os.path.dirname(os.path.abspath(__file__))),
@@ -505,6 +540,7 @@ def main():
     result = {
         "best_epoch": checkpoint["epoch"],
         "best_val_IoU": checkpoint["val_IoU"],
+        "ground_truth": {"folder": our_args.gt_folder, "fingerprint": gt_fingerprint},
         "test": test_scores,  # only 10 frames in a smoke test: not a result
         "n_parameters": n_parameters,
         "frames_per_second_incl_io": frames_per_second,

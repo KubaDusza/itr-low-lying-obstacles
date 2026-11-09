@@ -1,0 +1,100 @@
+{
+ "our_args": {
+  "esanet": "/data/cs_courses/jgomezel/esanet_pilot/ESANet",
+  "pretrained_dir": "/data/cs_courses/jgomezel/esanet_pilot/ESANet/trained_models/imagenet/imagenet",
+  "root": "/home/GTL/jgomezel/Flat Obstacle Detection/datasets/isod_work",
+  "gt_folder": "ISOD_gt",
+  "out": "/data/cs_courses/jgomezel/esanet_pilot/runs_50_rgbd",
+  "modality": "rgbd",
+  "seed": 0,
+  "epochs": 50,
+  "workers": 8,
+  "batch": null,
+  "smoke": false
+ },
+ "esanet_args": {
+  "results_dir": "./results",
+  "last_ckpt": "",
+  "pretrained_dir": "/data/cs_courses/jgomezel/esanet_pilot/ESANet/trained_models/imagenet/imagenet",
+  "pretrained_scenenet": "",
+  "pretrained_on_imagenet": true,
+  "finetune": null,
+  "freeze": 0,
+  "batch_size": 8,
+  "batch_size_valid": null,
+  "height": 448,
+  "width": 640,
+  "epochs": 50,
+  "lr": 0.01,
+  "weight_decay": 0.0001,
+  "momentum": 0.9,
+  "optimizer": "SGD",
+  "class_weighting": "median_frequency",
+  "c_for_logarithmic_weighting": 1.02,
+  "he_init": false,
+  "valid_full_res": false,
+  "activation": "relu",
+  "encoder": "resnet34",
+  "encoder_block": "NonBottleneck1D",
+  "nr_decoder_blocks": [
+   3
+  ],
+  "encoder_depth": "resnet34",
+  "modality": "rgbd",
+  "encoder_decoder_fusion": "add",
+  "context_module": "ppm",
+  "channels_decoder": 128,
+  "decoder_channels_mode": "decreasing",
+  "fuse_depth_in_rgb_encoder": "SE-add",
+  "upsampling": "learned-3x3-zeropad",
+  "dataset": "nyuv2",
+  "dataset_dir": null,
+  "raw_depth": true,
+  "aug_scale_min": 1.0,
+  "aug_scale_max": 1.4,
+  "workers": 8,
+  "debug": false
+ },
+ "train_stats": {
+  "depth_mean": 1523.4304331999087,
+  "depth_std": 2406.1966863822927,
+  "class_weights": [
+   0.540212856534526,
+   6.716917213661619
+  ],
+  "pixels_per_class": [
+   161647932.0,
+   200574677.0,
+   15889391.0
+  ],
+  "train_sites": [
+   "ABEC_MM",
+   "ABEC_RM",
+   "BT_BM",
+   "BT_LM",
+   "FL_BM",
+   "FL_LM",
+   "HB_G",
+   "HB_LM",
+   "HB_MM",
+   "HDCL_HW_B",
+   "HDCL_RM_A",
+   "HDCL_RM_B",
+   "HL_LM",
+   "MEB_HW_C"
+  ],
+  "gt_folder": "ISOD_gt",
+  "gt_fingerprint": "322545f4dca9e751"
+ },
+ "ground_truth": {
+  "folder": "ISOD_gt",
+  "fingerprint": "322545f4dca9e751",
+  "status": "provisional heuristic masks"
+ },
+ "n_parameters": 46877104,
+ "selection_rule": "best validation obstacle IoU (void excluded), at 448x640",
+ "our_git": "f430ad3",
+ "esanet_git": "820c5bb",
+ "torch": "2.14.0+cu130",
+ "gpu": "NVIDIA GeForce RTX 3090"
+}

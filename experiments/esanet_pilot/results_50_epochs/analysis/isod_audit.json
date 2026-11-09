@@ -1,0 +1,115 @@
+{
+ "split_sizes": {
+  "test": 3,
+  "val": 3,
+  "train": 14
+ },
+ "sites_on_disk_not_in_split": [],
+ "per_split": {
+  "train": {
+   "frames": 1400,
+   "obstacle_share": 0.04202297467417061,
+   "void_share_ignored": 0.4275133611205146,
+   "background_share": 0.5304636642053149,
+   "depth_missing_share": 0.0065220172858835475,
+   "depth_missing_share_on_obstacles": 0.0020265723211166493,
+   "depth_max_mm": 65535
+  },
+  "val": {
+   "frames": 300,
+   "obstacle_share": 0.04113921800947867,
+   "void_share_ignored": 0.423481733807267,
+   "background_share": 0.5353790481832543,
+   "depth_missing_share": 0.014255652646129541,
+   "depth_missing_share_on_obstacles": 0.005610716702907421,
+   "depth_max_mm": 65535
+  },
+  "test": {
+   "frames": 300,
+   "obstacle_share": 0.0316580766192733,
+   "void_share_ignored": 0.35555465047393364,
+   "background_share": 0.612787272906793,
+   "depth_missing_share": 0.009564301935229069,
+   "depth_missing_share_on_obstacles": 0.0019332850954206211,
+   "depth_max_mm": 65535
+  }
+ },
+ "frame_sizes": [
+  [
+   422,
+   640
+  ]
+ ],
+ "floor_label_values": [
+  0,
+  255
+ ],
+ "obstacle_mask_values": [
+  0,
+  255
+ ],
+ "frames_where_mask_differs_from_automatic_rule": 0,
+ "examples_of_differing_frames": [],
+ "unet_depth_stats_used_same_train_sites": true,
+ "esanet_preprocessing": {
+  "train": {
+   "image_shape": [
+    3,
+    448,
+    640
+   ],
+   "depth_shape": [
+    1,
+    448,
+    640
+   ],
+   "label_shape": [
+    448,
+    640
+   ],
+   "label_values": [
+    0,
+    1,
+    2
+   ],
+   "share_of_depth_exactly_zero": 0.00970284640789032,
+   "small_label_shapes": {
+    "8": [
+     56,
+     80
+    ],
+    "16": [
+     28,
+     40
+    ],
+    "32": [
+     14,
+     20
+    ]
+   }
+  },
+  "test": {
+   "image_shape": [
+    3,
+    448,
+    640
+   ],
+   "depth_shape": [
+    1,
+    448,
+    640
+   ],
+   "label_shape": [
+    448,
+    640
+   ],
+   "label_values": [
+    0,
+    1,
+    2
+   ],
+   "share_of_depth_exactly_zero": 0.013270786963403225
+  }
+ },
+ "problems": []
+}

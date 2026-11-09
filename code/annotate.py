@@ -194,7 +194,7 @@ PAGE = r"""<!doctype html>
     <span class="tool" id="loadsam" data-hint="Replace the mask with the SAM 3 pre-label from sam3_prelabel.py, discarding your edits to this frame. This is what a frame opens with when it exists: SAM 3 was prompted with the object set that was actually placed, so the edges are usually close and the work is removing what it invented and adding what it missed.">load sam<span class="k" data-k="loadSam"></span></span>
     <span class="tool" id="loadauto" data-hint="Replace the mask with the background-subtraction mask from own_gt.py, discarding your edits to this frame. Worth a look when SAM 3 missed an object entirely: the two methods fail in different places.">load auto<span class="k" data-k="loadAuto"></span></span>
     <span class="tool" id="clear" data-hint="Empty the mask for this frame.">clear<span class="k" data-k="clear"></span></span>
-    <span class="tool" id="carry" data-hint="Carry the mask to the next frame. Camera and objects do not move inside a run, so the five frames are nearly identical — with this on, moving to the next frame keeps what you drew instead of loading that frame's own mask.">carry<span class="k" data-k="carry"></span></span>
+    <span class="tool" id="carry" data-hint="Carry the mask to the next frame. Camera and objects do not move inside a run, so the five frames are nearly identical — with this on, moving to the next frame keeps what you drew. It only applies within one run and only to a frame nobody has labelled yet: a different run holds re-placed objects, and a labelled frame would be overwritten. In both of those cases the frame opens with its own mask instead.">carry<span class="k" data-k="carry"></span></span>
     <span class="tool" id="flag" data-hint="Mark this frame to come back to, with a note if you want one. Flagged frames carry a ⚑ in the list and the filter above it can show only those.">flag<span class="k" data-k="flag"></span></span>
     <input id="note" placeholder="note" spellcheck="false">
     <span class="tool" id="save" data-hint="Write the mask to data/OWN_manual/. Also happens automatically when you change frame.">save<span class="k">⌘s</span></span>
@@ -391,12 +391,22 @@ function renderList() {
     d.onclick = () => load(i);
     l.appendChild(d);
   });
+  // stepping through with n must not leave the selected row off screen
+  const sel = l.querySelector('.row.sel');
+  if (sel) sel.scrollIntoView({block: 'nearest'});
 }
 async function load(i, keep) {
  try {
   if (stamp) { moving = null; dropStamp(); }
   if (dirty && cur >= 0) await save(true);
-  const keepData = keep && mctx ? mctx.getImageData(0, 0, mask.width, mask.height) : null;
+  /* Carry only where it can do no harm: inside one run, where the camera did not move, and
+     only onto a frame nobody has labelled yet. Across runs the objects were re-placed, so a
+     carried mask is nonsense, and over a labelled frame it would wipe the work. Either way
+     the frame opens with its own mask, which for an untouched one is the SAM 3 pre-label. */
+  const f0 = cur >= 0 ? frames[cur] : null;
+  const fresh = !frames[i].manual && !frames[i].manual_id;
+  const carryOk = keep && f0 && f0.run === frames[i].run && fresh;
+  const keepData = carryOk && mctx ? mctx.getImageData(0, 0, mask.width, mask.height) : null;
   cur = i; poly = []; undo = [];
   const f = frames[i];
   items = itemSets[f.oset] || []; item = 0; lastCounts = null; renderItems();
@@ -1176,18 +1186,22 @@ async function save(quiet) {
      which item each pixel came from. */
   const d = mctx.getImageData(0, 0, mask.width, mask.height).data;
   const bin = blank(), ids = blank(), cache = new Map();
+  let unassigned = 0;
   for (let i = 0; i < d.length; i += 4) {
     if (d[i+3] === 0) continue;
     bin.data[i] = bin.data[i+1] = bin.data[i+2] = 255;
     const k = (d[i] << 16) | (d[i+1] << 8) | d[i+2];
     let v = cache.get(k);
     if (v === undefined) { v = nearestItem(d[i], d[i+1], d[i+2]); cache.set(k, v); }
+    if (v === UNLAB_IDX) unassigned++;
     ids.data[i] = ids.data[i+1] = ids.data[i+2] = v;
   }
   const f = frames[cur];
   await put(bin, `/api/save?run=${f.run}&frame=${f.frame}&kind=mask`);
   await put(ids, `/api/save?run=${f.run}&frame=${f.frame}&kind=id`);
-  f.manual = true; f.manual_id = true; dirty = false; renderList();
+  // the list's state is what was just written, not what the server scanned at page load
+  f.manual = true; f.manual_id = true; f.todo = unassigned > 0;
+  dirty = false; renderList();
   if (!quiet) { $('#save').classList.add('on'); setTimeout(() => $('#save').classList.remove('on'), 350); }
 }
 function blank() {

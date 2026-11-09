@@ -420,7 +420,9 @@ async function load(i, keep) {
      carried mask is nonsense, and over a labelled frame it would wipe the work. Either way
      the frame opens with its own mask, which for an untouched one is the SAM 3 pre-label. */
   const f0 = cur >= 0 ? frames[cur] : null;
-  const fresh = !frames[i].manual && !frames[i].manual_id;
+  /* Nothing to protect in a frame that was only saved with its pre-label on it: "labelled"
+     means somebody named an item there, not that a file exists. */
+  const fresh = (!frames[i].manual && !frames[i].manual_id) || !frames[i].named;
   const carryOk = keep && f0 && f0.run === frames[i].run && fresh;
   if (keep && !carryOk && f0)
     msg(f0.run !== frames[i].run ? 'carry skipped: another run'
@@ -1225,6 +1227,7 @@ async function save(quiet) {
   await put(ids, `/api/save?run=${f.run}&frame=${f.frame}&kind=id`);
   // the list's state is what was just written, not what the server scanned at page load
   f.manual = true; f.manual_id = true; f.todo = unassigned > 0;
+  f.named = total > unassigned;
   dirty = false; renderList();
   if (!quiet) { $('#save').classList.add('on'); setTimeout(() => $('#save').classList.remove('on'), 350); }
 }
@@ -1247,6 +1250,7 @@ $('#torun').onclick = async () => {
     await put(bin, `/api/save?run=${g.run}&frame=${g.frame}&kind=mask`);
     await put(ids, `/api/save?run=${g.run}&frame=${g.frame}&kind=id`);
     g.manual = true; g.manual_id = true; g.todo = unassigned > 0;
+    g.named = true;
   }
   renderList();
   msg(`written to ${rest.length} frames`);
@@ -1407,16 +1411,17 @@ def read_flags():
         return {}
 
 
-def unassigned(path):
-    """Does this saved id map still hold pixels nobody put a name to? Items are 1..N and
-    UNLABELLED is 255, so the maximum answers it."""
+def id_stats(path):
+    """(holds unassigned pixels, holds pixels given an item) for a saved id map. Items are
+    1..N and UNLABELLED is 255, so the histogram answers both."""
     if not os.path.exists(path):
-        return False
+        return False, False
     try:
         from PIL import Image
-        return Image.open(path).convert("L").getextrema()[1] == UNLABELLED
+        h = Image.open(path).convert("L").histogram()
+        return h[UNLABELLED] > 0, any(h[1:UNLABELLED])
     except Exception:
-        return False
+        return False, False
 
 
 def frame_list():
@@ -1435,11 +1440,12 @@ def frame_list():
         oset = sets.get(run, run.split("_")[2] if len(run.split("_")) > 2 else "")
         for f in sorted(os.listdir(d), key=lambda x: int(x[:-4])):
             i = f[:-4]
+            todo, named = id_stats(f"{MAN}/{run}_{i}_id.png")
             out.append(dict(run=run, frame=i, reliable=rel, oset=oset,
                             flag=flags.get(f"{run}_{i}"),
                             manual=os.path.exists(f"{MAN}/{run}_{i}.png"),
                             manual_id=os.path.exists(f"{MAN}/{run}_{i}_id.png"),
-                            todo=unassigned(f"{MAN}/{run}_{i}_id.png"),
+                            todo=todo, named=named,
                             sam=os.path.exists(f"{OWN}/{run}/sam/{i}.png")))
     out.sort(key=lambda r: (r["reliable"], r["run"], int(r["frame"])))   # needs-work first
     return out

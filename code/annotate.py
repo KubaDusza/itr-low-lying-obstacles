@@ -369,7 +369,15 @@ async function boot() {
   itemSets = await (await fetch('/api/items')).json();
   frames = await (await fetch('/api/list')).json();
   renderList();
-  if (frames.length) load(0);
+  if (!frames.length) return;
+  /* come back to the frame this browser was last on, not to the top of the list */
+  let start = 0;
+  try {
+    const k = (localStorage.getItem('annot_at') || '').split('|');
+    const j = frames.findIndex(f => f.run === k[0] && f.frame === k[1]);
+    if (j >= 0) start = j;
+  } catch (e) {}
+  load(start);
 }
 function renderList() {
   const only = $('#only').checked, l = $('#list'); l.innerHTML = '';
@@ -413,6 +421,7 @@ async function load(i, keep) {
   $('#flag').classList.toggle('on', !!f.flag);
   $('#note').value = f.flag ? f.flag.note : '';
   $('#title').textContent = `${f.run}  frame ${f.frame}`;
+  try { localStorage.setItem('annot_at', `${f.run}|${f.frame}`); } catch (e) {}
   img = new Image();
   // onload rather than decode(): decode() never settles while the tab is in the background,
   // because Chrome defers decoding for hidden documents, and the whole loader would stall.

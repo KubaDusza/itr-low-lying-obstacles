@@ -7,9 +7,11 @@ import numpy as np
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(ROOT, "data", "ISOD", "data")
-GT = os.path.join(ROOT, "data", "ISOD_gt")
-SPLITS = os.path.join(ROOT, "data", "splits.json")
+# On the GPU server the dataset sits outside the repo; $ITR_DATA points at it there.
+DATA_ROOT = os.environ.get("ITR_DATA") or os.path.join(ROOT, "data")
+DATA = os.path.join(DATA_ROOT, "ISOD", "data")
+GT = os.path.join(DATA_ROOT, "ISOD_gt")
+SPLITS = os.path.join(DATA_ROOT, "splits.json")
 
 MIN_AREA = 20  # px; below this a blob is sensor noise
 DILATE_FOR_FLOOR_AREA = 41  # px; scoring region = floor plus a margin around it

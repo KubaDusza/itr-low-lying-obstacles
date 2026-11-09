@@ -33,7 +33,7 @@ and disk so we can decide whether the 500-epoch protocol is feasible.
 Expected data conventions (taken from `code/isod.py`, `prep_gt.py`, `train_modal.py`; **verified in Phase C, not assumed**):
 RGB 8-bit 3-channel; depth 16-bit **millimetres**, 0 = no reading; `label/` 255 = drivable floor,
 0 = not drivable; `ISOD_gt/` 255 = obstacle, **derived automatically** by `isod.obstacles(label)`
-(not hand-corrected); frames 640×422. ESANet labels built by `make_label`: 0 = void/ignored
+(not hand-corrected); frames 640×422. ESANet labels built by `make_esanet_label`: 0 = void/ignored
 (not drivable and not obstacle = walls/furniture), 1 = background, 2 = obstacle.
 
 ## Phase A — read-only preflight

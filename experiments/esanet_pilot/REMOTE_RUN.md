@@ -17,7 +17,7 @@ and disk so we can decide whether the 500-epoch protocol is feasible.
 - Do **not** install anything into `/opt/venv/jdusza_venv` (owned by collaborator `jdusza`). Only *use* it.
 - Do **not** write runs, checkpoints or downloads into the home directory `/home/GTL/jgomezel`
   (network disk, ~5.7 GiB free on 2026-11-09). Use `$SCRATCH` (Phase A). Do not assume `/tmp` persists.
-- Do not delete files, kill processes, edit `.bashrc`, use more than one GPU, or run anything
+- Do not delete files, kill processes other than your own Phase E run, edit `.bashrc`, use more than one GPU, or run anything
   beyond the pilot in Phase E. No `git push`, no force operations.
 - If something differs from this file, STOP and report it; never guess a path.
 
@@ -162,5 +162,5 @@ pixel counts summed over frames), the scorer used for every other method.
 > You do not have my previous chats. Run `git fetch origin esanet-pilot` and read the task with
 > `git show origin/esanet-pilot:experiments/esanet_pilot/REMOTE_RUN.md`, then follow it
 > exactly, phase by phase, stopping at every STOP to wait for me. Never ask for or print passwords.
-> Do not install into `/opt/venv/jdusza_venv`, write to my home directory, delete files, push, or
+> Do not install into `/opt/venv/jdusza_venv`, put runs or downloads in my home directory, delete files, push, or
 > train beyond Phase E. Finish by writing REMOTE_RESULTS.md as specified.

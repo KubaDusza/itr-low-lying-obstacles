@@ -25,7 +25,7 @@ and disk so we can decide whether the 500-epoch protocol is feasible.
 | Item | Value |
 |---|---|
 | Repo | `/home/GTL/jgomezel/intro_to_research/itr-low-lying-obstacles` |
-| Code for this task | branch **`esanet-pilot`** (code commit **`4c13408`**, child of `62c3036` on `juan-rgbd`; this file is in the next commit): `code/train_esanet.py`, `code/check_isod_esanet.py` |
+| Code for this task | branch **`esanet-pilot`** (child of `62c3036` on `juan-rgbd`; check with `git log --oneline -5`): `code/train_esanet.py`, `code/check_isod_esanet.py` |
 | Dataset root (`--root`) | `/home/GTL/jgomezel/datasets/isod_work` → `ISOD/data/<site>/{rgb,depth,label,mask}/<i>.png`, `ISOD_gt/<site>/<i>.png`, `splits.json` (14/3/3 sites), `depth_stats.json` (U-Net runs) |
 | Python | `/opt/venv/jdusza_venv/bin/python` (PyTorch 2.14.0+cu130, CUDA available) |
 | GPUs | 2 × RTX 3090 24 GiB |
@@ -67,7 +67,7 @@ Do not continue without both answers, or if a package above is MISSING, or if th
 ```bash
 export SCRATCH=<answer 1>
 cd /home/GTL/jgomezel/intro_to_research/itr-low-lying-obstacles
-git fetch origin esanet-pilot && git checkout esanet-pilot && git log --oneline -3   # must contain 4c13408
+git fetch origin esanet-pilot && git checkout esanet-pilot && git log --oneline -5   # must show 62c3036 below the new commits
 mkdir -p $SCRATCH/esanet_pilot && cd $SCRATCH/esanet_pilot
 git clone https://github.com/TUI-NICR/ESANet.git && git -C ESANet rev-parse --short HEAD     # 820c5bb was tested
 mkdir -p ESANet/trained_models/imagenet && cd ESANet/trained_models/imagenet
@@ -86,16 +86,16 @@ cd /home/GTL/jgomezel/intro_to_research/itr-low-lying-obstacles/code
   --root /home/GTL/jgomezel/datasets/isod_work --out $SCRATCH/esanet_pilot/audit \
   --esanet $SCRATCH/esanet_pilot/ESANet
 ```
-Report from `audit/isod_audit.json`: split sizes, `frame_shapes`, `floor_label_values`,
-`gt_values`, `gt_frames_not_equal_to_derived_rule`, per-split shares, preprocessing shapes,
-`problems`. Open `audit/isod_audit.png` and describe it. Columns: RGB, depth, ESANet label
+Report from `audit/isod_audit.json`: `split_sizes`, `frame_sizes`, `floor_label_values`,
+`obstacle_mask_values`, `frames_where_mask_differs_from_automatic_rule`, `per_split`,
+`esanet_preprocessing`, `problems`. Open `audit/isod_audit.png` and describe it. Columns: RGB, depth, ESANet label
 (black = ignored, grey = background, red = obstacle). The yellow obstacle outlines should sit on
 the objects in **both** RGB and depth.
 
 How to read it:
-- `gt_frames_not_equal_to_derived_rule` = 0 → the obstacle masks are exactly the automatic rule:
-  **no manual correction**. If > 0, list the examples. Do not "fix" anything.
-- `floor_label_values` other than {0, 255} → STOP (make_label would treat them as floor).
+- `frames_where_mask_differs_from_automatic_rule` = 0 → the obstacle masks are exactly the automatic rule:
+  **no manual correction**. If > 0, list `examples_of_differing_frames`. Do not "fix" anything.
+- `floor_label_values` other than {0, 255} → STOP (make_esanet_label would treat them as floor).
 - Any entry in `problems`, or outlines visibly off the objects in depth → **STOP**.
 
 ## Phase D — GPU smoke test (2 epochs × 3 batches, real batch size 8, ~minutes)
@@ -112,8 +112,8 @@ done
 ```
 The first call computes `runs/isod_train_stats.json` (depth mean/std of valid train pixels in
 mm, class weights) once and reuses it in later runs. Expected: exit 0, finite losses, 10 test PNGs at
-640×422, `best.pt` ≈ 125 MB (RGB, depth) and ≈ 180 MB (RGB-D). Params 32.1 M / 32.0 M / 46.9 M.
-Validation numbers after 3 batches are meaningless. Report `peak_gpu_mem_MiB`, the train statistics
+640×422 (the 10-frame test score is not a result), `best.pt` ≈ 125 MB (RGB, depth) and ≈ 180 MB (RGB-D). Params 32.1 M / 32.0 M / 46.9 M.
+Validation numbers after 3 batches are meaningless. Report `peak_gpu_memory_MiB`, the train statistics
 (sanity: depth mean should be a few thousand mm; obstacle class weight ≫ background weight) and errors.
 STOP on: out-of-memory, NaN, `Missing key`/pretrained-load error, or depth mean outside ~500–6000 mm.
 
@@ -134,7 +134,7 @@ epoch 1–2 instead of 50), so its IoU is not a result. It measures cost and che
 - seconds/epoch = last `seconds` in `history.csv` ÷ 10 → **projected 500-epoch hours** = s/epoch × 500 / 3600
 - train_loss should fall; val_IoU should rise well above 0. Rough reference only: the U-Net RGB runs
   reached val IoU ≈ 0.76 in 15 epochs. A value near 0 after 10 epochs is a red flag.
-- `test_eval.json` has test IoU/precision/recall from `eval.py`. Report it as "pilot, not a result".
+- `test_eval.json` has test IoU/precision/recall (same scoring functions as `eval.py`). Report it as "pilot, not a result".
 - `du -sh $SCRATCH/esanet_pilot/runs/*` for the disk footprint.
 **STOP.** Do not start other modalities, seeds or longer runs.
 
@@ -154,8 +154,9 @@ Unchanged from ESANet: model (`build_model`, paper defaults), augmentation (resc
 cross-entropy with deep supervision at 1/8, 1/16, 1/32, SGD (lr 0.01, momentum 0.9, Nesterov, wd 1e-4),
 OneCycle stepped once per epoch, batch 8, fp32. Ours: ISOD reading and the 3-value label; train-only
 statistics; validation loss and obstacle IoU/precision/recall each epoch; selection by validation
-obstacle IoU, one checkpoint (weights only); test masks at 640×422 scored by `eval.py` (void excluded,
-pixel counts summed over frames), the scorer used for every other method.
+obstacle IoU, one checkpoint (weights only); test masks at 640×422 scored with `isod.ignore_region`,
+`isod.score`, `isod.totals` — the functions `eval.py` uses for every other method (void excluded,
+pixel counts summed over frames; checked identical to `eval.py` on 300 frames).
 
 ## 6. Text to paste into a fresh Claude Code session on shire
 > I am on shire (via gtlpc103) in VS Code, in `/home/GTL/jgomezel/intro_to_research/itr-low-lying-obstacles`.

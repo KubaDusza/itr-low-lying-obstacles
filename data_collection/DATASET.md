@@ -309,12 +309,9 @@ standing in shot, so three filters run over the raw instances:
   floor*, where geometry cannot help;
 - the **ground plane** from `floor.png` must contain at least a quarter of the instance, which
   removes the wall, the desks and anything above knee height;
-- an **area window**, which drops single-pixel noise and whole-floor blobs. The first pass took
-  its lower bound from `own_gt.py`, 20 px, and that quietly emptied the distant runs: a screw
-  covering 164 px at 0.75 m covers about 50 at 1.5 m and 18 at 2.5 m, and the four small ones
-  about 6. The screws at 1.5 and 2.5 m came back with nothing and looked like a failure of the
-  model until the frames were enlarged and the screws were plainly there. The bound is now 4 px
-  and `--min-area` sets it.
+- an **area window**, which drops single-pixel noise and whole-floor blobs. Its lower bound is
+  4 px, set by `--min-area`; `own_gt.py`'s 20 px, which the first pass borrowed, is too coarse
+  for an object that covers 18 px at 2.5 m.
 
 Output goes to `data/OWN/<run>/sam/`: `<i>.png` is the union, `<i>_id.png` indexes the instances,
 `<i>.json` records each one's phrase, score, area and box, and `preview_<i>.jpg` draws them on
@@ -350,6 +347,15 @@ returns the five tape rolls — each phrase covering all of them at ~100% — an
 removes every one. The first full pass found 0.3 instances per frame on a set with five rolls in
 it before this was caught. `NEGATIVE_SKIP` drops those two phrases for that set only; *cardboard
 tube* stays, because it finds the distance tubes and leaves the rolls alone.
+
+**The confidence threshold is what the distant runs turn on.** At the default 0.45 the screws
+at 1.5 and 2.5 m came back with nothing at all, which read as the model being unable to see a
+5 mm screw at that range. It is not: enlarging a frame shows the eye bolt, the four screws and
+the pile plainly, and they stand out against the empty-scene median. Rerunning those four runs
+at `--score 0.08` puts an instance on every one of them, correctly placed, scoring 0.08 to 0.22.
+A 20 px object simply does not earn a confident score. The far screws runs and
+`h52_floor_chess_250` therefore use a lowered threshold; everything else stays at 0.45, where
+the precision is worth more than the last few pixels.
 
 The official checkpoint is gated on Hugging Face and approval is manual, so `--model` takes a
 re-upload. The one used here is byte-identical to Meta's file: 3,439,938,512 bytes,

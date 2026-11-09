@@ -101,7 +101,7 @@ NEGATIVE = ["tape measure", "measuring tape", "shoe", "foot", "cardboard tube",
 # the distance tubes and leaves the rolls alone.
 NEGATIVE_SKIP = {"tapes": {"tape measure", "measuring tape", "cardboard roll"}}
 
-MIN_AREA, MAX_AREA = 20, 60000      # the window own_gt.py scores with
+MIN_AREA, MAX_AREA = 4, 60000       # own_gt.py scores from 20; see --min-area below
 FLOOR_FRAC = 0.25                   # a kept instance must sit this far inside the ground plane
 VETO_FRAC = 0.5                     # covered this much by a negative instance -> drop
 DEDUP_IOU = 0.6                     # same object found by two phrases
@@ -178,6 +178,7 @@ def preview(rgb, insts):
 
 
 def main():
+    global MIN_AREA, MAX_AREA, FLOOR_FRAC
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", default=ROOT, help="holds OWN/; the GPU server uses /data/cs_courses/jdusza_itr")
     ap.add_argument("--index", default=f"{ROOT}/data_collection/dataset_index.csv")
@@ -186,11 +187,22 @@ def main():
                          "re-upload works the same while that is pending")
     ap.add_argument("--runs", default="", help="comma-separated substrings; default every run")
     ap.add_argument("--score", type=float, default=0.45, help="SAM 3 confidence threshold")
+    ap.add_argument("--min-area", type=int, default=MIN_AREA,
+                    help="smallest instance kept, in pixels. own_gt.py scores from 20, and "
+                         "the first pass reused that, which silently threw the distant runs "
+                         "away: a screw that covers 164 px at 0.75 m covers ~50 at 1.5 m and "
+                         "~18 at 2.5 m, and the four small ones ~6 px. Those frames came back "
+                         "empty and looked like a model failure rather than a filter")
+    ap.add_argument("--max-area", type=int, default=MAX_AREA)
+    ap.add_argument("--floor-frac", type=float, default=FLOOR_FRAC,
+                    help="share of an instance that must lie inside the fitted ground plane")
     ap.add_argument("--neg-score", type=float, default=0.5)
     ap.add_argument("--batch", type=int, default=5, help="frames per forward pass")
     ap.add_argument("--list", action="store_true", help="print the prompt table and exit")
     ap.add_argument("--overwrite", action="store_true")
     a = ap.parse_args()
+
+    MIN_AREA, MAX_AREA, FLOOR_FRAC = a.min_area, a.max_area, a.floor_frac
 
     items = run_items(a.index)
     if a.list:

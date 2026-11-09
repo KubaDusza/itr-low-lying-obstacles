@@ -309,7 +309,12 @@ standing in shot, so three filters run over the raw instances:
   floor*, where geometry cannot help;
 - the **ground plane** from `floor.png` must contain at least a quarter of the instance, which
   removes the wall, the desks and anything above knee height;
-- the same **area window** `own_gt.py` uses, which drops single-pixel noise and whole-floor blobs.
+- an **area window**, which drops single-pixel noise and whole-floor blobs. The first pass took
+  its lower bound from `own_gt.py`, 20 px, and that quietly emptied the distant runs: a screw
+  covering 164 px at 0.75 m covers about 50 at 1.5 m and 18 at 2.5 m, and the four small ones
+  about 6. The screws at 1.5 and 2.5 m came back with nothing and looked like a failure of the
+  model until the frames were enlarged and the screws were plainly there. The bound is now 4 px
+  and `--min-area` sets it.
 
 Output goes to `data/OWN/<run>/sam/`: `<i>.png` is the union, `<i>_id.png` indexes the instances,
 `<i>.json` records each one's phrase, score, area and box, and `preview_<i>.jpg` draws them on
@@ -513,6 +518,10 @@ export CUDA_DEVICE_ORDER=PCI_BUS_ID CUDA_VISIBLE_DEVICES=1
 /opt/venv/jdusza_venv/bin/python /data/cs_courses/jdusza_itr/code/sam3_prelabel.py \
     --root /data/cs_courses/jdusza_itr --model bodhicitta/sam3
 ```
+
+The GPU servers sit behind a computer-room PC, and the one named in `~/.ssh/config` is regularly
+the thing that is broken rather than the server. Sweep the room before concluding anything is
+down, and point `ProxyJump` at whichever machine answers.
 
 then bring them back and annotate:
 

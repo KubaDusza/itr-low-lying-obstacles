@@ -2,17 +2,33 @@
 
     python code/annotate.py            # then open the URL it prints
 
-Masks are written to data/OWN_manual/<run>_<frame>.png (255 = obstacle), the same format
-own_gt.py produces, so anything saved here overrides the automatic mask for that frame.
+Two masks are written per frame:
 
-The point of this tool rather than a general one: a frame opens with its automatic mask
-already loaded so you correct rather than draw, the wand fills a whole rag in one click, and
-"carry" moves the mask you just drew onto the next frame, which is nearly identical because
-the camera never moved inside a run.
+    data/OWN_manual/<run>_<frame>.png       255 = obstacle, the format own_gt.py produces,
+                                            so it overrides the automatic mask for that frame
+    data/OWN_manual/<run>_<frame>_id.png    which *item* each pixel belongs to
+
+The id map is the point of the labelling pass. The same physical objects were re-placed in run
+after run -- the same four cables, the same five tape rolls -- so if every pixel carries the
+item that produced it, the benchmark can be read per item: this cable is found at 0.75 m and
+lost at 2.5 m, that hex key is never found at all. The item inventory lives in
+data_collection/items.csv, one row per object with its set, and the pixel value is that item's
+1-based position within its set. 255 means masked but not yet assigned to an item; 0 is
+background.
+
+A frame opens with its SAM 3 pre-label, each instance already a separate region, so most of the
+work is pressing an item's number and clicking its blob. "carry" moves the labelled mask onto
+the next frame, which is nearly identical because the camera never moved inside a run.
+
+The reference panel holds a second frame beside it with its own mask drawn on: the same objects
+at another distance, height or background. Clicking an item there copies its mask over as a
+stamp to drag, scale and rotate into place, so a cable that was traced once does not have to be
+traced again.
 
 Every shortcut is remappable in the panel behind the ? button, and the bindings persist in the
 browser.
 """
+import csv
 import http.server
 import json
 import os
@@ -23,7 +39,31 @@ import urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OWN, MAN = f"{ROOT}/data/OWN", f"{ROOT}/data/OWN_manual"
+ITEMS_CSV = f"{ROOT}/data_collection/items.csv"
+INDEX_CSV = f"{ROOT}/data_collection/dataset_index.csv"
+UNLABELLED = 255
 PORT = int(os.environ.get("ANNOT_PORT", 8765))
+
+
+def item_table():
+    """object set -> the items placed in it, in csv order. The index is the pixel value."""
+    sets = {}
+    if os.path.exists(ITEMS_CSV):
+        for r in csv.DictReader(open(ITEMS_CSV)):
+            row = sets.setdefault(r["object_set"], [])
+            row.append(dict(idx=len(row) + 1, id=r["item_id"], label=r["label"],
+                            colour=r["colour"], multi=bool(r.get("multi")),
+                            phrases=[p for p in r["sam_phrases"].split(";") if p]))
+    return sets
+
+
+def run_sets():
+    """run -> its object set."""
+    out = {}
+    if os.path.exists(INDEX_CSV):
+        for r in csv.DictReader(open(INDEX_CSV)):
+            out[r["run"]] = r["object_set"]
+    return out
 
 PAGE = r"""<!doctype html>
 <meta charset="utf-8"><title>mask annotator</title>
@@ -36,16 +76,36 @@ PAGE = r"""<!doctype html>
   #side { width:262px; flex:none; border-right:1px solid var(--line); display:flex;
           flex-direction:column; background:var(--panel); }
   #side h1 { font-size:13px; margin:0; padding:12px 14px; border-bottom:1px solid var(--line); }
-  #filter { padding:8px 14px; border-bottom:1px solid var(--line); color:var(--muted); }
+  #filter { padding:8px 14px 4px; color:var(--muted); }
+  #filter2 { padding:0 14px 8px; border-bottom:1px solid var(--line); color:var(--muted); }
+  #note { width:150px; background:#12151a; color:var(--ink); border:1px solid var(--line);
+          border-radius:5px; padding:3px 7px; font:12px ui-sans-serif,system-ui; }
+  #note:focus { outline:none; border-color:var(--accent); }
+  .flagged { color:var(--warn); }
   #list { overflow:auto; flex:1; }
+  #itembox { flex:none; border-top:1px solid var(--line); background:#191c22; }
+  #itembox h2 { font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+                color:var(--muted); margin:0; padding:9px 14px 5px; }
+  .item { display:flex; align-items:center; gap:8px; padding:4px 14px; cursor:pointer; }
+  .item:hover { background:#232832; }
+  .item.sel { background:#232832; box-shadow:inset 3px 0 0 var(--accent); }
+  .item .sw { width:11px; height:11px; border-radius:3px; flex:none;
+              border:1px solid rgba(255,255,255,.35); }
+  .item .nm { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .item .n, .item .num { font:11px ui-monospace,Menlo,monospace; color:var(--muted); flex:none; }
+  .item.empty .nm { color:#6b7585; }
+  .item.sel .nm { color:#fff; }
+  .item.todo { background:#2a1430; }
+  .item.todo .nm, .item.todo .n { color:#ff00e6; }
+  .sw.stripe { background:repeating-linear-gradient(45deg,#ff00e6 0 3px,#141414 3px 6px); }
   .row { padding:6px 14px; cursor:pointer; border-bottom:1px solid #22252b; display:flex;
          justify-content:space-between; gap:8px; }
   .row:hover { background:#232832; }
   .row.sel { background:var(--accent); color:#fff; }
   .row .tag { font-size:11px; color:var(--muted); flex:none; }
   .row.sel .tag { color:#dbe6ff; }
-  .row.done .tag::after { content:" saved"; color:var(--ok); }
-  .row.sel.done .tag::after { color:#bdf5db; }
+  .row.done .tag { color:var(--ok); }
+  .row.done .tag.bad { color:var(--warn); }
   .bad { color:var(--warn); }
   #main { flex:1; display:flex; flex-direction:column; min-width:0; }
   #bar { display:flex; align-items:center; gap:10px; padding:8px 14px;
@@ -62,7 +122,19 @@ PAGE = r"""<!doctype html>
     padding:7px 9px; font-size:12px; line-height:1.4; z-index:20; white-space:normal;
     box-shadow:0 6px 18px rgba(0,0,0,.45); }
   .tool.hr[data-hint]:hover::after { left:auto; right:0; }
-  #wrap { flex:1; overflow:hidden; position:relative; background:#0d0f12; }
+  #mid { flex:1; display:flex; min-height:0; }
+  #wrap { flex:1; overflow:hidden; position:relative; background:#0d0f12; min-width:0; }
+  #ref { width:430px; flex:none; border-left:1px solid var(--line); background:var(--panel);
+         display:none; flex-direction:column; min-width:0; }
+  #ref.on { display:flex; }
+  #refhead { display:flex; gap:7px; align-items:center; padding:7px 10px;
+             border-bottom:1px solid var(--line); }
+  #refsel { flex:1; min-width:0; background:#12151a; color:var(--ink); padding:3px 6px;
+            border:1px solid var(--line); border-radius:5px; font:12px ui-sans-serif,system-ui; }
+  #refwrap { flex:1; position:relative; overflow:hidden; background:#0d0f12; }
+  #refcv { position:absolute; image-rendering:pixelated; cursor:crosshair; }
+  #reffoot { padding:5px 10px; border-top:1px solid var(--line); color:var(--muted);
+             font-size:11px; line-height:1.5; }
   canvas { position:absolute; image-rendering:pixelated; cursor:none; }
   #status { padding:6px 14px; border-top:1px solid var(--line); color:var(--muted);
             background:var(--panel); display:flex; gap:18px; flex-wrap:nowrap; }
@@ -70,6 +142,11 @@ PAGE = r"""<!doctype html>
   #pos, #px, #zoom { font:12px/1.5 ui-monospace,Menlo,monospace; flex:none;
                      display:inline-block; text-align:left; }
   #pos { width:116px; } #px { width:84px; } #zoom { width:52px; }
+  #under { width:150px; flex:none; overflow:hidden; white-space:nowrap; }
+  #todo { width:190px; flex:none; font:12px/1.5 ui-monospace,Menlo,monospace; }
+  #todo.clickable { cursor:pointer; text-decoration:underline dotted; }
+  #msg { flex:none; color:var(--muted); font-size:12px; white-space:nowrap; }
+  #msg.warn { color:var(--warn); }
   #hints { flex:1; min-width:0; overflow:hidden; white-space:nowrap; }
   kbd { background:#262b33; border:1px solid var(--line); border-radius:4px; padding:0 4px;
         font:11px/1.6 ui-monospace,Menlo,monospace; }
@@ -86,12 +163,21 @@ PAGE = r"""<!doctype html>
           border-radius:5px; padding:3px 8px; cursor:pointer;
           font:12px ui-monospace,Menlo,monospace; }
   .kbtn.listen { background:var(--warn); color:#17191d; }
+  .mbtn { min-width:52px; text-align:center; border:1px solid var(--line); border-radius:5px;
+          padding:3px 8px; cursor:pointer; font-size:11px; color:var(--muted); }
+  .mbtn.hold { background:#2b3a2f; color:#8fd6a8; border-color:#36513d; }
+  .krow .sp { flex:1; }
   #keyfoot { display:flex; gap:10px; margin-top:16px; }
 </style>
 <div id="side">
   <h1>mask annotator</h1>
   <label id="filter"><input type="checkbox" id="only"> only runs needing work</label>
+  <label id="filter2"><input type="checkbox" id="onlyflag"> only flagged</label>
   <div id="list"></div>
+  <div id="itembox">
+    <h2>items in this run</h2>
+    <div id="itemlist"></div>
+  </div>
 </div>
 <div id="main">
   <div id="bar">
@@ -100,19 +186,40 @@ PAGE = r"""<!doctype html>
     <span class="tool" data-t="eraser" data-hint="Remove mask freehand. Same ring, same size control — use a big one to wipe the automatic mask's false blobs.">eraser<span class="k" data-k="eraser"></span></span>
     <span class="tool" data-t="wand" data-hint="Flood fill by colour: click one pixel and every connected pixel of a similar colour joins the mask. One click covers a whole rag or tape roll. Tolerance decides how different a pixel may be before it stops spreading.">wand<span class="k" data-k="wand"></span></span>
     <span class="tool" data-t="poly" data-hint="Polygon: click each corner, Enter fills the shape, Esc cancels. Best for straight-edged objects like the pink rag.">polygon<span class="k" data-k="poly"></span></span>
+    <span class="tool" data-t="assign" data-hint="Assign a whole blob to the selected item: click any masked pixel and every connected masked pixel takes that item's colour. This is the fast way through a SAM pre-label — press the item's number, click its blob, done.">assign<span class="k" data-k="assign"></span></span>
+    <span class="tool" data-t="move" data-hint="Pick a mask up and drag it. Press on any masked pixel and that whole item's connected blob lifts off the frame and follows the mouse until you let go; [ ] scale it and ; ' rotate it while it is in the air, and Esc puts it back where it was. The same grab works on a mask just copied from the reference panel.">move<span class="k" data-k="move"></span></span>
+    <span class="tool" id="refbtn" data-hint="A second frame beside this one, with its mask drawn on it: the same objects at another distance, height or background. Clicking an item there copies its mask onto this frame as a stamp you can move, scale and rotate into place, which beats redrawing a cable you have already drawn once.">reference<span class="k" data-k="ref"></span></span>
+    <span class="tool" data-t="pan" data-hint="Move the view: drag with the left button, nothing is painted. Its key is held rather than toggled by default — the ? panel sets hold or toggle for every tool. Space pans from any tool, and the scroll wheel still zooms.">pan<span class="k" data-k="pan"></span></span>
     <span class="tool" id="smart" data-hint="Smart edge mode. On mouse-down the colour under the cursor is sampled, and the stroke then only affects pixels close to that colour — so a sloppy sweep along a cable paints the cable and stops at its edge. The eraser works the same way: click on floor and only floor-coloured mask is removed. Uses the tolerance setting.">smart<span class="k" data-k="smart"></span></span>
     <span class="tool" id="szbox" data-hint="Brush and eraser diameter, in image pixels.">size <b id="sz">6</b><span class="k" data-k="sizeDown"></span><span class="k" data-k="sizeUp"></span></span>
     <span class="tool" id="tolbox" data-hint="How different a pixel may be from the one you clicked before the wand stops. Raise it if the wand grabs too little, lower it if it bleeds onto the floor.">tol <b id="tol">14</b><span class="k" data-k="tolDown"></span><span class="k" data-k="tolUp"></span></span>
     <span class="tool" id="loadsam" data-hint="Replace the mask with the SAM 3 pre-label from sam3_prelabel.py, discarding your edits to this frame. This is what a frame opens with when it exists: SAM 3 was prompted with the object set that was actually placed, so the edges are usually close and the work is removing what it invented and adding what it missed.">load sam<span class="k" data-k="loadSam"></span></span>
     <span class="tool" id="loadauto" data-hint="Replace the mask with the background-subtraction mask from own_gt.py, discarding your edits to this frame. Worth a look when SAM 3 missed an object entirely: the two methods fail in different places.">load auto<span class="k" data-k="loadAuto"></span></span>
     <span class="tool" id="clear" data-hint="Empty the mask for this frame.">clear<span class="k" data-k="clear"></span></span>
-    <span class="tool" id="carry" data-hint="Carry the mask to the next frame. Camera and objects do not move inside a run, so the five frames are nearly identical — with this on, moving to the next frame keeps what you drew instead of loading that frame's own mask.">carry<span class="k" data-k="carry"></span></span>
+    <span class="tool" id="carry" data-hint="Carry the mask to the next frame. Camera and objects do not move inside a run, so the five frames are nearly identical — with this on, moving to the next frame keeps what you drew, over whatever that frame already holds. It stops at the edge of a run: the next run holds re-placed objects, so that frame opens with its own mask.">carry<span class="k" data-k="carry"></span></span>
+    <span class="tool" id="flag" data-hint="Mark this frame to come back to, with a note if you want one. Flagged frames carry a ⚑ in the list and the filter above it can show only those.">flag<span class="k" data-k="flag"></span></span>
+    <input id="note" placeholder="note" spellcheck="false">
+    <span class="tool" id="torun" data-hint="Write this mask over every frame of this run, labelled ones included. The camera does not move inside a run, so a correction made on one frame belongs on all five — this is the deliberate version of carry, which refuses to touch a frame that is already labelled. Press it twice to confirm.">apply to run<span class="k" data-k="toRun"></span></span>
     <span class="tool" id="save" data-hint="Write the mask to data/OWN_manual/. Also happens automatically when you change frame.">save<span class="k">⌘s</span></span>
     <span class="tool" id="help" data-hint="Change any shortcut.">?</span>
   </div>
-  <div id="wrap"><canvas id="cv"></canvas></div>
+  <div id="mid">
+    <div id="wrap"><canvas id="cv"></canvas></div>
+    <div id="ref">
+      <div id="refhead">
+        <select id="refsel"></select>
+        <span class="tool on" id="refmask" data-hint="Show or hide the reference frame's own mask.">mask</span>
+        <span class="tool" id="refclose" data-hint="Close the reference panel.">&times;</span>
+      </div>
+      <div id="refwrap"><canvas id="refcv"></canvas></div>
+      <div id="reffoot">click an item to copy its mask · drag to pan · scroll to zoom</div>
+    </div>
+  </div>
   <div id="status">
     <span id="pos">—</span><span id="px">0 px</span><span id="zoom">1x</span>
+    <span id="under"></span>
+    <span id="todo"></span>
+    <span id="msg"></span>
     <span id="hints"></span>
   </div>
 </div>
@@ -127,36 +234,62 @@ PAGE = r"""<!doctype html>
 </div></div>
 <script>
 const $ = s => document.querySelector(s);
-const DEFAULTS = {brush:'w', eraser:'e', wand:'q', poly:'p', sizeDown:'[', sizeUp:']',
-                  tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a', loadSam:'g',
-                  clear:'x',
+const DEFAULTS = {brush:'w', eraser:'e', wand:'q', poly:'p', assign:'f', sizeDown:'!',
+                  sizeUp:'@', tolDown:',', tolUp:'.', hide:'h', fit:'0', loadAuto:'a',
+                  loadSam:'g', clear:'x', pan:'v', ref:'r', move:'m', flag:'t', unass:'u',
+                  toRun:'C',
                   carry:'c', smart:'s', next:'n', prev:'N'};
 const LABEL = {brush:'brush', eraser:'eraser', wand:'wand', poly:'polygon',
+               assign:'assign blob to item', pan:'pan the view', move:'move a blob',
+               flag:'flag this frame', unass:'go to the next unassigned pixels',
+               toRun:'apply this mask to the whole run',
+               ref:'reference panel',
                sizeDown:'smaller brush', sizeUp:'bigger brush', tolDown:'lower tolerance',
                tolUp:'raise tolerance', hide:'hide / show mask', fit:'fit to window',
                loadAuto:'load automatic mask', loadSam:'load SAM 3 mask',
                clear:'clear mask',
                carry:'toggle carry to next frame', smart:'toggle smart edges',
                next:'next frame', prev:'previous frame'};
+/* Each of these can be a sticky toggle -- press once and it stays -- or spring-loaded: it
+   lasts only while the key is held, and the previous tool comes back on release. Pan is the
+   one that wants holding by default; the rest are set in the ? panel. */
+const HOLDABLE = ['brush', 'eraser', 'wand', 'poly', 'assign', 'move', 'pan', 'hide'];
+const MODE_DEF = {pan: 'hold'};
+let MODES = {};
+HOLDABLE.forEach(a => MODES[a] = MODE_DEF[a] || 'toggle');
+try { Object.assign(MODES, JSON.parse(localStorage.getItem('annot_modes') || '{}')); } catch (e) {}
+
 let KEYS = Object.assign({}, DEFAULTS);
 try { Object.assign(KEYS, JSON.parse(localStorage.getItem('annot_keys') || '{}')); } catch (e) {}
+/* 1-9 now pick the item to paint with, so a binding saved on a digit before that -- brush
+   size lived on 1 and 2 -- goes back to its default, which is the shifted digit. */
+Object.keys(KEYS).forEach(a => { if (/^[1-9]$/.test(KEYS[a])) KEYS[a] = DEFAULTS[a]; });
+try { localStorage.setItem('annot_keys', JSON.stringify(KEYS)); } catch (e) {}
 
 let frames = [], cur = -1, img = null, imgData = null;
+/* The mask canvas carries the item in its colour: every stroke is painted in the selected
+   item's palette colour, so no second buffer has to be kept in step with it, and saving is a
+   nearest-colour lookup. UNLAB is what a mask loaded from SAM 3 or own_gt.py starts as. */
+let itemSets = {}, items = [], item = 0;
+const UNLAB = [190, 190, 190], UNLAB_IDX = 255;
 let mask = document.createElement('canvas'), mctx = null;
 let view = {z: 2, ox: 0, oy: 0}, tool = 'brush', size = 6, tol = 14, carry = true;
 let drawing = false, panning = false, last = null, hide = false, dirty = false;
-let smart = true, strokeRef = null;
-let undo = [], poly = [], mouse = null, panKey = false, listening = null;
+let smart = false, strokeRef = null;
+let undo = [], poly = [], mouse = null, panKey = false, listening = null, held = null;
+let moving = null;
 const cv = $('#cv'), ctx = cv.getContext('2d');
 
 /* ------------------------------------------------------------------ keys */
-const keyLabel = k => k === ' ' ? 'space' : (k || '—');
+const SHIFTED = {'!':'⇧1', '@':'⇧2', '#':'⇧3', '$':'⇧4', '%':'⇧5'};
+const keyLabel = k => k === ' ' ? 'space' : (SHIFTED[k] || k || '—');
 function paintKeys() {
   document.querySelectorAll('[data-k]').forEach(e => {
     e.textContent = KEYS[e.dataset.k] ? ' ' + keyLabel(KEYS[e.dataset.k]) : '';
   });
   $('#hints').innerHTML =
-    `scroll zoom · space-drag pan · <kbd>${keyLabel(KEYS.fit)}</kbd> fit · ` +
+    `scroll zoom · space-drag pan · <kbd>1</kbd>…<kbd>9</kbd> item · ` +
+    `<kbd>${keyLabel(KEYS.fit)}</kbd> fit · ` +
     `<kbd>${keyLabel(KEYS.hide)}</kbd> hide · <kbd>${keyLabel(KEYS.next)}</kbd>/` +
     `<kbd>${keyLabel(KEYS.prev)}</kbd> frame · <kbd>⌘z</kbd> undo`;
 }
@@ -164,7 +297,21 @@ function buildKeyPanel() {
   const box = $('#krows'); box.innerHTML = '';
   Object.keys(DEFAULTS).forEach(a => {
     const r = document.createElement('div'); r.className = 'krow';
-    r.innerHTML = `<span>${LABEL[a]}</span>`;
+    r.innerHTML = `<span>${LABEL[a]}</span><span class="sp"></span>`;
+    if (HOLDABLE.includes(a)) {
+      const m = document.createElement('span');
+      const paint = () => {
+        m.className = 'mbtn' + (MODES[a] === 'hold' ? ' hold' : '');
+        m.textContent = MODES[a];
+        m.title = MODES[a] === 'hold' ? 'active only while the key is held'
+                                      : 'press once, stays until you pick another';
+      };
+      m.onclick = () => {
+        MODES[a] = MODES[a] === 'hold' ? 'toggle' : 'hold';
+        localStorage.setItem('annot_modes', JSON.stringify(MODES)); paint();
+      };
+      paint(); r.appendChild(m);
+    }
     const b = document.createElement('span');
     b.className = 'kbtn'; b.textContent = keyLabel(KEYS[a]);
     b.onclick = () => {
@@ -181,31 +328,112 @@ function setKey(action, k) {
   buildKeyPanel(); paintKeys();
 }
 
+/* ------------------------------------------------------------------ items */
+const hexRgb = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+const curColour = () => items.length ? hexRgb(items[item].colour) : UNLAB;
+
+function nearestItem(r, g, b) {
+  /* Which item a painted pixel belongs to. Strokes are painted in exact palette colours, but
+     the canvas antialiases their edges, so match to the nearest colour rather than demanding
+     equality. */
+  let best = UNLAB_IDX, bd = (r-UNLAB[0])**2 + (g-UNLAB[1])**2 + (b-UNLAB[2])**2;
+  items.forEach(it => {
+    const c = hexRgb(it.colour), d = (r-c[0])**2 + (g-c[1])**2 + (b-c[2])**2;
+    if (d < bd) { bd = d; best = it.idx; }
+  });
+  return best;
+}
+function renderItems(counts) {
+  const l = $('#itemlist'); l.innerHTML = '';
+  if (!items.length) {
+    l.innerHTML = '<div class="item empty"><span class="nm">nothing was placed</span></div>';
+    return;
+  }
+  items.forEach((it, i) => {
+    const n = counts ? (counts[it.idx] || 0) : null;
+    const d = document.createElement('div');
+    d.className = 'item' + (i === item ? ' sel' : '') + (n === 0 ? ' empty' : '');
+    d.innerHTML = `<span class="num">${i + 1}</span>` +
+                  `<span class="sw" style="background:${it.colour}"></span>` +
+                  `<span class="nm">${it.label}</span>` +
+                  `<span class="n">${n === null ? '' : n}</span>`;
+    d.onclick = () => setItem(i);
+    l.appendChild(d);
+  });
+  if (counts && counts[UNLAB_IDX]) {
+    const d = document.createElement('div');
+    d.className = 'item todo';
+    d.innerHTML = `<span class="num"></span><span class="sw stripe"></span>` +
+                  `<span class="nm">unassigned</span><span class="n">${counts[UNLAB_IDX]}</span>`;
+    l.appendChild(d);
+  }
+}
+function setItem(i) { item = Math.max(0, Math.min(items.length - 1, i)); renderItems(lastCounts); }
+
 /* ---------------------------------------------------------------- frames */
 async function boot() {
+  itemSets = await (await fetch('/api/items')).json();
   frames = await (await fetch('/api/list')).json();
   renderList();
-  if (frames.length) load(0);
+  if (!frames.length) return;
+  /* come back to the frame this browser was last on, not to the top of the list */
+  let start = 0;
+  try {
+    const k = (localStorage.getItem('annot_at') || '').split('|');
+    const j = frames.findIndex(f => f.run === k[0] && f.frame === k[1]);
+    if (j >= 0) start = j;
+  } catch (e) {}
+  load(start);
 }
 function renderList() {
   const only = $('#only').checked, l = $('#list'); l.innerHTML = '';
+  const onlyFlag = $('#onlyflag').checked;
   frames.forEach((f, i) => {
     if (only && f.reliable && !f.manual) return;
+    if (onlyFlag && !f.flag) return;
     const d = document.createElement('div');
     d.className = 'row' + (i === cur ? ' sel' : '') + (f.manual ? ' done' : '');
-    d.innerHTML = `<span>${f.run}<span class="tag"> ·${f.frame}</span></span>` +
-                  `<span class="tag ${f.reliable ? '' : 'bad'}">${f.reliable ? 'ok' : 'needs work'}</span>`;
+    /* The state that matters while labelling is whether the items are named, which is not
+       the same as whether the frame was saved. */
+    /* "ok" used to mean the automatic mask passed its reliability check, which read as
+       done when it meant the opposite: nobody has labelled it yet. */
+    const state = !f.manual ? (f.reliable ? 'to do' : 'to do · weak gt')
+                : f.todo || !f.manual_id ? 'items left' : 'labelled';
+    const bad = state !== 'labelled';
+    const note = f.flag && f.flag.note ? ` — ${f.flag.note}` : '';
+    d.innerHTML = `<span>${f.flag ? '<span class="flagged">⚑ </span>' : ''}${f.run}` +
+                  `<span class="tag"> ·${f.frame}${note}</span></span>` +
+                  `<span class="tag ${bad ? 'bad' : ''}">${state}</span>`;
     d.onclick = () => load(i);
     l.appendChild(d);
   });
+  // stepping through with n must not leave the selected row off screen
+  const sel = l.querySelector('.row.sel');
+  if (sel) sel.scrollIntoView({block: 'nearest'});
 }
 async function load(i, keep) {
  try {
+  if (stamp) { moving = null; dropStamp(); }
   if (dirty && cur >= 0) await save(true);
-  const keepData = keep && mctx ? mctx.getImageData(0, 0, mask.width, mask.height) : null;
+  /* Carry only where it can do no harm: inside one run, where the camera did not move, and
+     only onto a frame nobody has labelled yet. Across runs the objects were re-placed, so a
+     carried mask is nonsense, and over a labelled frame it would wipe the work. Either way
+     the frame opens with its own mask, which for an untouched one is the SAM 3 pre-label. */
+  /* The only thing carry must not cross is a run: there the objects were re-placed and the
+     mask means nothing. Inside a run the five frames are the same scene, so carrying over a
+     frame that already has a mask is the point, not a hazard -- it is how a correction moves
+     forward. ⌘z and the files on disk are the safety net. */
+  const f0 = cur >= 0 ? frames[cur] : null;
+  const carryOk = keep && f0 && f0.run === frames[i].run;
+  if (keep && !carryOk && f0) msg('carry skipped: another run');
+  const keepData = carryOk && mctx ? mctx.getImageData(0, 0, mask.width, mask.height) : null;
   cur = i; poly = []; undo = [];
   const f = frames[i];
+  items = itemSets[f.oset] || []; item = 0; lastCounts = null; renderItems();
+  $('#flag').classList.toggle('on', !!f.flag);
+  $('#note').value = f.flag ? f.flag.note : '';
   $('#title').textContent = `${f.run}  frame ${f.frame}`;
+  try { localStorage.setItem('annot_at', `${f.run}|${f.frame}`); } catch (e) {}
   img = new Image();
   // onload rather than decode(): decode() never settles while the tab is in the background,
   // because Chrome defers decoding for hidden documents, and the whole loader would stall.
@@ -224,31 +452,90 @@ async function load(i, keep) {
   imgData = tctx.getImageData(0, 0, img.width, img.height);
   buildGrad();
   if (keepData && keepData.width === mask.width) {
-    mctx.putImageData(keepData, 0, 0); dirty = true; fit(); renderList(); return;
+    mctx.putImageData(keepData, 0, 0); dirty = true; fit(); rescan(); renderList(); return;
   }
-  await loadMask(f.manual ? `/file/OWN_manual/${f.run}_${f.frame}.png`
-                 : f.sam  ? `/file/OWN/${f.run}/sam/${f.frame}.png`
-                          : `/file/OWN/${f.run}/gt/${f.frame}.png`);
+  await loadInto('best');
   dirty = false; fit(); renderList();
  } catch (err) { banner('load failed: ' + (err && err.message || err)); }
 }
-function loadMask(url) {
+function readPng(url, w, h) {
   return new Promise(res => {
     const m = new Image();
     m.onload = () => {
       const t = document.createElement('canvas');
-      t.width = img.width; t.height = img.height;
+      t.width = w; t.height = h;
       const c = t.getContext('2d', {willReadFrequently: true});
-      c.drawImage(m, 0, 0, img.width, img.height);
-      const d = c.getImageData(0, 0, img.width, img.height);
-      const out = mctx.createImageData(img.width, img.height);
-      for (let i = 0; i < d.data.length; i += 4)
-        if (d.data[i] > 127) { out.data[i] = 255; out.data[i+3] = 255; }
-      mctx.putImageData(out, 0, 0); draw(); res();
+      c.imageSmoothingEnabled = false;             // an id map must not be interpolated
+      c.drawImage(m, 0, 0, w, h);
+      res(c.getImageData(0, 0, w, h));
     };
-    m.onerror = () => { draw(); res(); };
+    m.onerror = () => res(null);
     m.src = url + '?t=' + Date.now();
   });
+}
+/* The item id of every pixel of a frame, as one array: 0 background, 1..N an item of the
+   set, 255 masked but unassigned. `src` picks where it comes from -- 'best' is what the
+   frame should open with, 'sam' and 'auto' are the two reload buttons. Both panes read a
+   frame through this, so the reference shows exactly what the main canvas would. */
+async function idMapFor(f, w, h, src, fitems) {
+  const out = new Uint8Array(w * h);
+  const binary = d => { for (let p = 0, i = 0; i < d.data.length; i += 4, p++)
+                          if (d.data[i] > 127) out[p] = UNLAB_IDX; };
+  const indexed = (d, map) => { for (let p = 0, i = 0; i < d.data.length; i += 4, p++)
+                                  if (d.data[i]) out[p] = map(d.data[i]); };
+  let d = null;
+  if (src === 'best' && f.manual_id) {
+    d = await readPng(`/file/OWN_manual/${f.run}_${f.frame}_id.png`, w, h);
+    if (d) indexed(d, v => v);
+    return out;
+  }
+  if (src === 'best' && f.manual) {
+    d = await readPng(`/file/OWN_manual/${f.run}_${f.frame}.png`, w, h);
+    if (d) binary(d);
+    return out;
+  }
+  if (src !== 'auto' && f.sam) {
+    /* The SAM 3 pre-label, with the instances it named unambiguously already assigned: a
+       phrase that belongs to exactly one item of the set and fired exactly once in this
+       frame is that item. The rest is left unassigned for the click-through. */
+    let meta = null;
+    try { meta = await (await fetch(`/file/OWN/${f.run}/sam/${f.frame}.json`)).json(); } catch (e) {}
+    const assign = {};
+    if (meta) {
+      const once = {};
+      meta.instances.forEach(x => once[x.phrase] = (once[x.phrase] || 0) + 1);
+      meta.instances.forEach((x, i) => {
+        const hit = (fitems || []).filter(it => it.phrases.includes(x.phrase));
+        // one instance of a phrase that names one item is that item; an item marked multi
+        // in items.csv takes every instance, because it is a class, not an object
+        if (hit.length === 1 && (hit[0].multi || once[x.phrase] === 1)) assign[i + 1] = hit[0].idx;
+      });
+    }
+    d = await readPng(`/file/OWN/${f.run}/sam/${f.frame}_id.png`, w, h);
+    if (d) indexed(d, v => assign[v] || UNLAB_IDX);
+    return out;
+  }
+  d = await readPng(`/file/OWN/${f.run}/gt/${f.frame}.png`, w, h);
+  if (d) binary(d);
+  return out;
+}
+/* ids -> the painted mask. Items are drawn in their own colour, which is what makes the
+   mask readable and what save() reads back. */
+function idsToImage(ids, w, h, fitems) {
+  const out = new ImageData(w, h);
+  const col = {[UNLAB_IDX]: UNLAB};
+  (fitems || []).forEach(it => col[it.idx] = hexRgb(it.colour));
+  for (let p = 0, i = 0; p < ids.length; p++, i += 4) {
+    const c = col[ids[p]];
+    if (!c) continue;
+    out.data[i] = c[0]; out.data[i+1] = c[1]; out.data[i+2] = c[2]; out.data[i+3] = 255;
+  }
+  return out;
+}
+async function loadInto(src) {
+  const ids = await idMapFor(frames[cur], img.width, img.height, src, items);
+  mctx.putImageData(idsToImage(ids, img.width, img.height, items), 0, 0);
+  rescan(); draw();
 }
 
 /* ------------------------------------------------------------------ view */
@@ -267,36 +554,119 @@ function draw() {
   ctx.clearRect(0, 0, w, h);
   ctx.save(); ctx.translate(view.ox, view.oy); ctx.scale(view.z, view.z);
   ctx.drawImage(img, 0, 0);
-  if (!hide) { ctx.globalAlpha = 0.5; ctx.drawImage(mask, 0, 0); ctx.globalAlpha = 1; }
+  if (!hide) {
+    ctx.globalAlpha = 0.5; ctx.drawImage(mask, 0, 0); ctx.globalAlpha = 1;
+    if (warn.width === img.width) ctx.drawImage(warn, 0, 0);   // what is still unassigned
+  }
+  if (stamp) {
+    const k = view.z * stamp.scale;
+    ctx.save();
+    ctx.translate(stamp.x, stamp.y); ctx.rotate(stamp.rot); ctx.scale(stamp.scale, stamp.scale);
+    ctx.globalAlpha = 0.85; ctx.drawImage(stamp.cv, -stamp.w / 2, -stamp.h / 2);
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = '#ffd400'; ctx.lineWidth = 1 / k;
+    ctx.setLineDash([4 / k, 3 / k]);
+    ctx.strokeRect(-stamp.w / 2, -stamp.h / 2, stamp.w, stamp.h);
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
   if (poly.length) {
     ctx.strokeStyle = '#ffd400'; ctx.lineWidth = 1 / view.z;
     ctx.beginPath(); ctx.moveTo(poly[0][0], poly[0][1]);
     poly.slice(1).forEach(p => ctx.lineTo(p[0], p[1])); ctx.stroke();
   }
   ctx.restore();
-  if (mouse) {                              // the cursor IS the brush size
+  if (mouse && tool !== 'pan') {            // the cursor IS the brush size
     const r = (tool === 'brush' || tool === 'eraser') ? Math.max(2, size / 2 * view.z) : 4;
     const x = mouse[0] * view.z + view.ox, y = mouse[1] * view.z + view.oy;
     ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(0,0,0,.55)';
     ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.stroke();
-    ctx.lineWidth = 1; ctx.strokeStyle = tool === 'eraser' ? '#ffffff' : '#ff3b30';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = tool === 'eraser' ? '#ffffff'
+                      : items.length ? items[item].colour : '#ff3b30';
     if (smart && (tool === 'brush' || tool === 'eraser')) ctx.setLineDash([4, 3]);
     ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle = '#ffffff'; ctx.fillRect(x - 0.5, y - 0.5, 1, 1);
   }
   $('#zoom').textContent = view.z.toFixed(1) + 'x';
-  countPx();
 }
-let pxTimer = null;
-function countPx() {
+let pxTimer = null, lastCounts = null;
+let warn = document.createElement('canvas'), wctx = null;
+/* Counting, the per-item tally and the unassigned overlay all need the same full pass over
+   the mask, so they share one debounced scan. It is called from the edits, never from draw(),
+   which would loop: the scan ends in a redraw. */
+function rescan() {
   if (!mctx) return;
   clearTimeout(pxTimer);
   pxTimer = setTimeout(() => {
-    const d = mctx.getImageData(0, 0, mask.width, mask.height).data;
-    let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++;
+    const W = mask.width, H = mask.height;
+    const d = mctx.getImageData(0, 0, W, H).data;
+    const counts = {}, cache = new Map(), spots = new Map();
+    /* Unassigned pixels are drawn back over the mask as hazard stripes at full opacity. A
+       flat colour does not work here: half the items are white on a white poster, and a
+       quiet grey wash over them is exactly what gets missed and saved. */
+    if (warn.width !== W) { warn.width = W; warn.height = H; }
+    wctx = wctx || warn.getContext('2d', {willReadFrequently: true});
+    const w = wctx.createImageData(W, H);
+    let n = 0, unassigned = 0;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i+3] === 0) continue;
+      n++;
+      const k = (d[i] << 16) | (d[i+1] << 8) | d[i+2];
+      let v = cache.get(k);
+      if (v === undefined) { v = nearestItem(d[i], d[i+1], d[i+2]); cache.set(k, v); }
+      counts[v] = (counts[v] || 0) + 1;
+      if (v !== UNLAB_IDX) continue;
+      unassigned++;
+      const p = i / 4, x = p % W, y = (p / W) | 0, on = ((x + y) % 10) < 5;
+      // where they are, in 24 px cells, so two pixels in a corner can be jumped to
+      const cell = ((y / 24) | 0) * 1000 + ((x / 24) | 0);
+      const sp = spots.get(cell);
+      if (sp) { sp.n++; } else { spots.set(cell, {x: x, y: y, n: 1}); }
+      w.data[i] = on ? 255 : 20; w.data[i+1] = on ? 0 : 20; w.data[i+2] = on ? 230 : 20;
+      w.data[i+3] = 255;
+    }
+    wctx.putImageData(w, 0, 0);
     $('#px').textContent = String(n).padStart(6) + ' px';
+    left = [...spots.values()].sort((a, b) => b.n - a.n);
+    $('#todo').textContent = unassigned
+      ? `${unassigned} unassigned${left.length > 1 ? ` · ${left.length} spots` : ''}` : '';
+    $('#todo').className = unassigned ? 'bad clickable' : '';
+    lastCounts = counts; renderItems(counts);
+    draw();
   }, 120);
+}
+let left = [], leftAt = 0;
+/* Walk to the unassigned pixels. Two pixels in a corner are invisible at fit zoom, and the
+   list says the frame is not finished without saying where. */
+function jumpUnassigned() {
+  if (!left.length) return;
+  leftAt = leftAt % left.length;
+  const t = left[leftAt++];
+  view.z = Math.max(view.z, 8);
+  const w = $('#wrap').clientWidth, h = $('#wrap').clientHeight;
+  view.ox = w / 2 - (t.x + 0.5) * view.z;
+  view.oy = h / 2 - (t.y + 0.5) * view.z;
+  draw();
+  $('#todo').textContent = `${t.n} px at ${t.x},${t.y}` +
+                           (left.length > 1 ? ` (${leftAt}/${left.length})` : '');
+}
+let msgTimer = null;
+function msg(text, warn) {
+  $('#msg').textContent = text; $('#msg').className = warn ? 'warn' : '';
+  clearTimeout(msgTimer);
+  msgTimer = setTimeout(() => { $('#msg').textContent = ''; }, 4000);
+}
+function itemUnder(p) {
+  if (!mctx || !img) return '';
+  const x = Math.round(p[0]), y = Math.round(p[1]);
+  if (x < 0 || y < 0 || x >= img.width || y >= img.height) return '';
+  const d = mctx.getImageData(x, y, 1, 1).data;
+  if (d[3] === 0) return '';
+  const v = nearestItem(d[0], d[1], d[2]);
+  const it = items.find(i => i.idx === v);
+  return it ? it.label : 'unassigned';
 }
 const toImg = e => {
   const r = cv.getBoundingClientRect();
@@ -432,11 +802,12 @@ function smartDab(cx, cy) {
     if (n && colDist((y * W + x) * 4, ref) <= tol * 1.8) grown[b] = 1;
   }
   const md = mctx.getImageData(x0, y0, bw, bh);
-  const er = tool === 'eraser';
+  const er = tool === 'eraser', c = curColour();
   for (let b = 0; b < grown.length; b++) {
     if (!grown[b]) continue;
     const k = b * 4;
-    if (er) md.data[k+3] = 0; else { md.data[k] = 255; md.data[k+3] = 255; }
+    if (er) md.data[k+3] = 0;
+    else { md.data[k] = c[0]; md.data[k+1] = c[1]; md.data[k+2] = c[2]; md.data[k+3] = 255; }
   }
   mctx.putImageData(md, x0, y0);
 }
@@ -465,7 +836,8 @@ function paint(a, b) {
     return;
   }
   mctx.globalCompositeOperation = tool === 'eraser' ? 'destination-out' : 'source-over';
-  mctx.strokeStyle = '#ff0000'; mctx.lineWidth = size;
+  mctx.strokeStyle = items.length ? items[item].colour : `rgb(${UNLAB.join(',')})`;
+  mctx.lineWidth = size;
   mctx.lineCap = 'round'; mctx.lineJoin = 'round';
   mctx.beginPath(); mctx.moveTo(a[0], a[1]); mctx.lineTo(b[0], b[1]); mctx.stroke();
   mctx.globalCompositeOperation = 'source-over';
@@ -476,29 +848,65 @@ function wand(x, y) {
   if (x < 0 || y < 0 || x >= W || y >= H) return;
   const s = (y * W + x) * 4, r0 = d[s], g0 = d[s+1], b0 = d[s+2];
   const seen = new Uint8Array(W * H), out = mctx.getImageData(0, 0, W, H);
-  const st = [[x, y]]; let n = 0;
+  const c = curColour(), st = [[x, y]]; let n = 0;
   while (st.length && n < 80000) {
     const [cx, cy] = st.pop(), k = cy * W + cx;
     if (seen[k]) continue;
     seen[k] = 1;
     const i = k * 4;
     if (Math.abs(d[i]-r0) + Math.abs(d[i+1]-g0) + Math.abs(d[i+2]-b0) > tol * 3) continue;
-    out.data[i] = 255; out.data[i+3] = 255; n++;
+    out.data[i] = c[0]; out.data[i+1] = c[1]; out.data[i+2] = c[2]; out.data[i+3] = 255; n++;
     if (cx > 0) st.push([cx-1, cy]);
     if (cx < W-1) st.push([cx+1, cy]);
     if (cy > 0) st.push([cx, cy-1]);
     if (cy < H-1) st.push([cx, cy+1]);
   }
-  mctx.putImageData(out, 0, 0); dirty = true; draw();
+  mctx.putImageData(out, 0, 0); dirty = true; rescan(); draw();
+}
+function assign(x, y) {
+  /* Recolour one connected masked blob to the selected item. Connectivity is over the mask,
+     not the photograph, so it does not matter what the blob looks like -- a SAM instance, a
+     stroke, a wand fill -- it moves to the item in one click. */
+  x = Math.round(x); y = Math.round(y);
+  const W = img.width, H = img.height;
+  if (x < 0 || y < 0 || x >= W || y >= H || !items.length) return;
+  const out = mctx.getImageData(0, 0, W, H), d = out.data;
+  if (d[(y * W + x) * 4 + 3] === 0) return;            // clicked on bare floor
+  const c = curColour(), seen = new Uint8Array(W * H), st = [[x, y]];
+  while (st.length) {
+    const [cx, cy] = st.pop(), k = cy * W + cx;
+    if (seen[k]) continue;
+    seen[k] = 1;
+    const i = k * 4;
+    if (d[i+3] === 0) continue;                        // the blob ends here
+    d[i] = c[0]; d[i+1] = c[1]; d[i+2] = c[2];
+    if (cx > 0) st.push([cx-1, cy]);
+    if (cx < W-1) st.push([cx+1, cy]);
+    if (cy > 0) st.push([cx, cy-1]);
+    if (cy < H-1) st.push([cx, cy+1]);
+  }
+  mctx.putImageData(out, 0, 0); dirty = true; rescan(); draw();
 }
 cv.addEventListener('mousedown', e => {
-  if (e.button === 1 || panKey) { panning = true; last = [e.clientX, e.clientY]; return; }
+  if (stamp && e.button === 0 && tool !== 'move') { dropStamp(); return; }
+  if (tool === 'move' && e.button === 0) {
+    const q = toImg(e);
+    if (!stamp && !liftAt(q[0], q[1])) return;
+    moving = [stamp.x - q[0], stamp.y - q[1]];      // keep the grab point under the cursor
+    draw(); return;
+  }
+  if (e.button === 1 || panKey || tool === 'pan') {
+    panning = true; last = [e.clientX, e.clientY];
+    if (tool === 'pan') cv.style.cursor = 'grabbing';
+    return;
+  }
   const p = toImg(e);
   if (tool === 'wand') { snap(); wand(p[0], p[1]); return; }
+  if (tool === 'assign') { snap(); assign(p[0], p[1]); return; }
   if (tool === 'poly') { poly.push(p); draw(); return; }
   snap(); drawing = true; last = p;
   strokeRef = smart ? strokeSeed(p[0], p[1]) : null;
-  paint(p, p); dirty = true; draw();
+  paint(p, p); dirty = true; rescan(); draw();
 });
 window.addEventListener('mousemove', e => {
   if (panning) {
@@ -508,10 +916,17 @@ window.addEventListener('mousemove', e => {
   const p = toImg(e);
   mouse = p;
   $('#pos').textContent = `x ${String(Math.round(p[0])).padStart(4)} y ${String(Math.round(p[1])).padStart(4)}`;
-  if (drawing) { paint(last, p); last = p; dirty = true; }
+  $('#under').textContent = itemUnder(p);
+  if (moving && stamp) { stamp.x = p[0] + moving[0]; stamp.y = p[1] + moving[1]; draw(); }
+  else if (stamp && stamp.follow) { stamp.x = p[0]; stamp.y = p[1]; draw(); }
+  if (drawing) { paint(last, p); last = p; dirty = true; rescan(); }
   draw();
 });
-window.addEventListener('mouseup', () => { drawing = false; panning = false; });
+window.addEventListener('mouseup', () => {
+  drawing = false; panning = false;
+  if (moving) { moving = null; dropStamp(); }       // let go and it lands
+  if (tool === 'pan') cv.style.cursor = 'grab';
+});
 $('#wrap').addEventListener('wheel', e => {
   e.preventDefault();
   const r = cv.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
@@ -521,22 +936,266 @@ $('#wrap').addEventListener('wheel', e => {
   view.z = nz; draw();
 }, {passive: false});
 
+/* ------------------------------------------------------------- reference */
+/* A second frame beside the one being annotated, with its mask on it. The same objects were
+   re-placed run after run, so the cable drawn at 0.75 m is the cable to draw at 2.5 m: click
+   it in the reference and it comes over as a stamp to move, scale and rotate into place. */
+let ref = {i: -1, img: null, ids: null, mask: null, items: [], show: true,
+           view: {z: 1, ox: 0, oy: 0}};
+let stamp = null, refDrag = null;
+
+function refOptions() {
+  const sel = $('#refsel'); sel.innerHTML = '';
+  frames.forEach((f, i) => {
+    const o = document.createElement('option');
+    o.value = i;
+    o.textContent = `${f.run} ·${f.frame}${f.manual_id ? '  ✓' : ''}`;
+    sel.appendChild(o);
+  });
+  if (ref.i >= 0) sel.value = ref.i;
+}
+function defaultRef() {
+  /* the most useful neighbour: the same objects, already labelled, in another run */
+  const f = frames[cur];
+  let i = frames.findIndex(g => g.oset === f.oset && g.run !== f.run && g.manual_id);
+  if (i < 0) i = frames.findIndex(g => g.oset === f.oset && g.run !== f.run);
+  if (i < 0) i = cur > 0 ? cur - 1 : 0;
+  return i;
+}
+async function loadRef(i) {
+  const f = frames[i];
+  if (!f) return;
+  ref.i = i; ref.items = itemSets[f.oset] || [];
+  const im = new Image();
+  await new Promise(res => { im.onload = res; im.onerror = res;
+                             im.src = `/file/OWN/${f.run}/rgb/${f.frame}.png`; });
+  if (!im.width) return;
+  ref.img = im;
+  ref.ids = await idMapFor(f, im.width, im.height, 'best', ref.items);
+  const c = document.createElement('canvas');
+  c.width = im.width; c.height = im.height;
+  c.getContext('2d').putImageData(idsToImage(ref.ids, im.width, im.height, ref.items), 0, 0);
+  ref.mask = c;
+  $('#refsel').value = i;
+  $('#reffoot').textContent = `${f.run} ·${f.frame} — ${f.oset}` +
+    (f.oset === frames[cur].oset ? ' · same set, items carry over'
+                                 : ' · different set, a copy lands unassigned');
+  refFit();
+}
+function refFit() {
+  if (!ref.img) return;
+  const w = $('#refwrap').clientWidth, h = $('#refwrap').clientHeight;
+  ref.view.z = Math.min(w / ref.img.width, h / ref.img.height);
+  ref.view.ox = (w - ref.img.width * ref.view.z) / 2;
+  ref.view.oy = (h - ref.img.height * ref.view.z) / 2;
+  refDraw();
+}
+function refDraw() {
+  const el = $('#refcv'), w = $('#refwrap').clientWidth, h = $('#refwrap').clientHeight;
+  el.width = w; el.height = h;
+  const c = el.getContext('2d');
+  c.imageSmoothingEnabled = false;
+  c.clearRect(0, 0, w, h);
+  if (!ref.img) return;
+  c.save(); c.translate(ref.view.ox, ref.view.oy); c.scale(ref.view.z, ref.view.z);
+  c.drawImage(ref.img, 0, 0);
+  if (ref.show && ref.mask) { c.globalAlpha = 0.5; c.drawImage(ref.mask, 0, 0); c.globalAlpha = 1; }
+  c.restore();
+}
+function refOpen(on) {
+  $('#ref').classList.toggle('on', on);
+  $('#refbtn').classList.toggle('on', on);
+  if (!on) return;
+  if (ref.i < 0) { refOptions(); loadRef(defaultRef()); } else refFit();
+  draw();
+}
+$('#refbtn').onclick = () => refOpen(!$('#ref').classList.contains('on'));
+$('#refclose').onclick = () => refOpen(false);
+$('#refmask').onclick = () => { ref.show = !ref.show;
+                                $('#refmask').classList.toggle('on', ref.show); refDraw(); };
+$('#refsel').onchange = e => loadRef(+e.target.value);
+$('#refwrap').addEventListener('wheel', e => {
+  e.preventDefault();
+  const r = $('#refcv').getBoundingClientRect();
+  const mx = e.clientX - r.left, my = e.clientY - r.top;
+  const k = e.deltaY < 0 ? 1.15 : 1 / 1.15, nz = Math.min(24, Math.max(0.1, ref.view.z * k));
+  ref.view.ox = mx - (mx - ref.view.ox) * (nz / ref.view.z);
+  ref.view.oy = my - (my - ref.view.oy) * (nz / ref.view.z);
+  ref.view.z = nz; refDraw();
+}, {passive: false});
+$('#refcv').addEventListener('mousedown', e => {
+  refDrag = {x: e.clientX, y: e.clientY, moved: 0};
+});
+$('#refcv').addEventListener('mouseleave', () => { if (!refDrag) $('#refcv').style.cursor = 'crosshair'; });
+window.addEventListener('mousemove', e => {
+  if (!refDrag) return;
+  const dx = e.clientX - refDrag.x, dy = e.clientY - refDrag.y;
+  refDrag.moved += Math.abs(dx) + Math.abs(dy);
+  refDrag.x = e.clientX; refDrag.y = e.clientY;
+  if (refDrag.moved > 4) $('#refcv').style.cursor = 'grabbing';
+  ref.view.ox += dx; ref.view.oy += dy; refDraw();
+});
+window.addEventListener('mouseup', e => {
+  if (refDrag && refDrag.moved < 4) refPickAt(e);     // a click, not a drag
+  if (refDrag) $('#refcv').style.cursor = 'crosshair';
+  refDrag = null;
+});
+function refPickAt(e) {
+  if (!ref.ids || !ref.img) return;
+  const r = $('#refcv').getBoundingClientRect();
+  const x = Math.round((e.clientX - r.left - ref.view.ox) / ref.view.z);
+  const y = Math.round((e.clientY - r.top - ref.view.oy) / ref.view.z);
+  const W = ref.img.width, H = ref.img.height;
+  if (x < 0 || y < 0 || x >= W || y >= H) return;
+  const id = ref.ids[y * W + x];
+  if (id) copyFromRef(id);
+}
+function stampColour(idx) {
+  const it = items.find(i => i.idx === idx);
+  return it ? hexRgb(it.colour) : UNLAB;
+}
+function copyFromRef(id) {
+  /* every pixel of that item in the reference, cropped to its box */
+  const W = ref.img.width, H = ref.img.height;
+  let x0 = W, y0 = H, x1 = -1, y1 = -1;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    if (ref.ids[y * W + x] !== id) continue;
+    if (x < x0) x0 = x;
+    if (x > x1) x1 = x;
+    if (y < y0) y0 = y;
+    if (y > y1) y1 = y;
+  }
+  if (x1 < 0) return;
+  // the item only carries over when both frames hold the same objects
+  const same = frames[ref.i].oset === frames[cur].oset && items.some(i => i.idx === id);
+  stamp = {w: x1 - x0 + 1, h: y1 - y0 + 1, src: [], x: img.width / 2, y: img.height / 2,
+           scale: 1, rot: 0, follow: true, item: same ? id : UNLAB_IDX};
+  for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++)
+    if (ref.ids[y * W + x] === id) stamp.src.push((y - y0) * stamp.w + (x - x0));
+  paintStamp();
+  $('#hints').innerHTML = 'move the mouse to place · <kbd>click</kbd> drop · <kbd>[</kbd><kbd>]</kbd> ' +
+    'scale · <kbd>;</kbd><kbd>\'</kbd> rotate · <kbd>1</kbd>…<kbd>9</kbd> item · ' +
+    '<kbd>esc</kbd> cancel';
+  draw();
+}
+function paintStamp() {
+  const c = document.createElement('canvas');
+  c.width = stamp.w; c.height = stamp.h;
+  const cx = c.getContext('2d', {willReadFrequently: true});
+  const d = cx.createImageData(stamp.w, stamp.h), col = stampColour(stamp.item);
+  stamp.src.forEach(p => {
+    const k = p * 4;
+    d.data[k] = col[0]; d.data[k+1] = col[1]; d.data[k+2] = col[2]; d.data[k+3] = 255;
+  });
+  cx.putImageData(d, 0, 0);
+  stamp.cv = c;
+}
+/* Lift the blob under the cursor off the mask and into the floating stamp, so it can be
+   dragged. Only pixels of the same item travel: two items that touch stay separate. */
+function liftAt(px, py) {
+  const W = img.width, H = img.height;
+  const x = Math.round(px), y = Math.round(py);
+  if (x < 0 || y < 0 || x >= W || y >= H) return false;
+  const d = mctx.getImageData(0, 0, W, H), dd = d.data;
+  if (!dd[(y * W + x) * 4 + 3]) return false;
+  const i0 = (y * W + x) * 4;
+  const id = nearestItem(dd[i0], dd[i0+1], dd[i0+2]);
+  const seen = new Uint8Array(W * H), got = [], st = [[x, y]];
+  let x0 = W, y0 = H, x1 = -1, y1 = -1;
+  while (st.length) {
+    const [cx, cy] = st.pop(), k = cy * W + cx;
+    if (cx < 0 || cy < 0 || cx >= W || cy >= H || seen[k]) continue;
+    seen[k] = 1;
+    const i = k * 4;
+    if (!dd[i+3] || nearestItem(dd[i], dd[i+1], dd[i+2]) !== id) continue;
+    got.push(k); dd[i+3] = 0;                       // it leaves the mask while in the air
+    if (cx < x0) x0 = cx;
+    if (cx > x1) x1 = cx;
+    if (cy < y0) y0 = cy;
+    if (cy > y1) y1 = cy;
+    st.push([cx-1, cy]); st.push([cx+1, cy]); st.push([cx, cy-1]); st.push([cx, cy+1]);
+  }
+  if (!got.length) return false;
+  snap();
+  mctx.putImageData(d, 0, 0);
+  const w = x1 - x0 + 1, h = y1 - y0 + 1;
+  stamp = {w: w, h: h, src: got.map(k => ((k / W | 0) - y0) * w + (k % W - x0)),
+           x: x0 + w / 2, y: y0 + h / 2, scale: 1, rot: 0, follow: false, item: id,
+           home: {x: x0 + w / 2, y: y0 + h / 2}};
+  paintStamp();
+  return true;
+}
+function dropStamp() {
+  if (!stamp) return;
+  if (!stamp.home) snap();     // a lifted blob already snapped before it left the mask, and
+                               // one undo should put a move back, not half of it
+  mctx.save();
+  mctx.imageSmoothingEnabled = false;
+  mctx.translate(stamp.x, stamp.y);
+  mctx.rotate(stamp.rot);
+  mctx.scale(stamp.scale, stamp.scale);
+  mctx.drawImage(stamp.cv, -stamp.w / 2, -stamp.h / 2);
+  mctx.restore();
+  /* rotating and scaling feathers the edge; a mask may not be soft, so threshold what was
+     just laid down and snap it back to the item's exact colour */
+  const rad = Math.hypot(stamp.w, stamp.h) * stamp.scale / 2 + 2;
+  harden(stamp.x - rad, stamp.y - rad, stamp.x + rad, stamp.y + rad);
+  stamp = null; dirty = true; rescan(); draw(); paintKeys();
+}
+function harden(x0, y0, x1, y1) {
+  x0 = Math.max(0, Math.floor(x0)); y0 = Math.max(0, Math.floor(y0));
+  x1 = Math.min(mask.width - 1, Math.ceil(x1)); y1 = Math.min(mask.height - 1, Math.ceil(y1));
+  if (x1 < x0 || y1 < y0) return;
+  const w = x1 - x0 + 1, h = y1 - y0 + 1, d = mctx.getImageData(x0, y0, w, h);
+  const cache = new Map();
+  for (let i = 0; i < d.data.length; i += 4) {
+    const a = d.data[i+3];
+    if (!a) continue;
+    if (a < 128) { d.data[i+3] = 0; continue; }
+    d.data[i+3] = 255;
+    const k = (d.data[i] << 16) | (d.data[i+1] << 8) | d.data[i+2];
+    let c = cache.get(k);
+    if (!c) { c = stampColour(nearestItem(d.data[i], d.data[i+1], d.data[i+2])); cache.set(k, c); }
+    d.data[i] = c[0]; d.data[i+1] = c[1]; d.data[i+2] = c[2];
+  }
+  mctx.putImageData(d, x0, y0);
+}
+
 /* -------------------------------------------------------------------- ui */
 function setTool(t) {
   tool = t; poly = [];
+  cv.style.cursor = t === 'pan' ? 'grab' : 'none';
   document.querySelectorAll('.tool[data-t]').forEach(e => e.classList.toggle('on', e.dataset.t === t));
   draw();
 }
 document.querySelectorAll('.tool[data-t]').forEach(el => el.onclick = () => setTool(el.dataset.t));
-$('#loadauto').onclick = () => {
-  snap(); loadMask(`/file/OWN/${frames[cur].run}/gt/${frames[cur].frame}.png`); dirty = true;
-};
-$('#loadsam').onclick = () => {
-  snap(); loadMask(`/file/OWN/${frames[cur].run}/sam/${frames[cur].frame}.png`); dirty = true;
-};
-$('#clear').onclick = () => { snap(); mctx.clearRect(0, 0, mask.width, mask.height); dirty = true; draw(); };
+$('#loadauto').onclick = () => { snap(); loadInto('auto'); dirty = true; };
+$('#loadsam').onclick = () => { snap(); loadInto('sam'); dirty = true; };
+$('#clear').onclick = () => { snap(); mctx.clearRect(0, 0, mask.width, mask.height);
+  dirty = true; rescan(); draw(); };
 $('#save').onclick = () => save();
+function setFlag(on, note) {
+  const f = frames[cur];
+  f.flag = on ? {note: note || ''} : null;
+  $('#flag').classList.toggle('on', !!f.flag);
+  $('#note').value = f.flag ? f.flag.note : '';
+  renderList();
+  fetch(`/api/flag?run=${f.run}&frame=${f.frame}`,
+        {method: 'POST', body: JSON.stringify({flag: !!f.flag, note: note || ''})});
+}
+/* Pressing the button must not take focus off the note field: its change event would flag
+   the frame first and the click would then toggle that straight back off, which looks like
+   nothing happening. */
+$('#flag').onmousedown = e => e.preventDefault();
+$('#flag').onclick = () => setFlag(!frames[cur].flag, $('#note').value);
+$('#note').onchange = () => {
+  const want = $('#note').value !== '' || !!frames[cur].flag;
+  if (want || frames[cur].flag) setFlag(want, $('#note').value);
+};
+$('#note').onkeydown = e => { if (e.key === 'Enter') $('#note').blur(); };
+$('#todo').onclick = jumpUnassigned;
 $('#only').onchange = renderList;
+$('#onlyflag').onchange = renderList;
 $('#carry').onclick = () => { carry = !carry; $('#carry').classList.toggle('on', carry);
 $('#smart').classList.toggle('on', smart); };
 $('#smart').onclick = () => { smart = !smart; $('#smart').classList.toggle('on', smart); draw(); };
@@ -544,55 +1203,150 @@ $('#help').onclick = () => $('#keys').classList.add('on');
 $('#kclose').onclick = () => $('#keys').classList.remove('on');
 $('#kreset').onclick = () => {
   KEYS = Object.assign({}, DEFAULTS);
-  localStorage.setItem('annot_keys', JSON.stringify(KEYS)); buildKeyPanel(); paintKeys();
+  MODES = {}; HOLDABLE.forEach(a => MODES[a] = MODE_DEF[a] || 'toggle');
+  localStorage.setItem('annot_keys', JSON.stringify(KEYS));
+  localStorage.setItem('annot_modes', JSON.stringify(MODES));
+  buildKeyPanel(); paintKeys();
 };
 $('#keys').onclick = e => { if (e.target.id === 'keys') $('#keys').classList.remove('on'); };
 
 async function save(quiet) {
+  /* Two files: the 0/255 mask everything downstream already reads, and the id map that says
+     which item each pixel came from. */
+  const [bin, ids, unassigned, total] = maskPngs();
+  const f = frames[cur];
+  /* An empty mask on a run where something was placed is almost always an accident -- the
+     frame was stepped past before anything was drawn -- and it lands in the list as
+     "labelled". Stepping past never writes one; ⌘s still does, and says so. */
+  if (!total && f.oset !== 'empty') {
+    if (quiet) return;
+    msg('saved an empty mask, though this run has objects in it', 1);
+  }
+  await put(bin, `/api/save?run=${f.run}&frame=${f.frame}&kind=mask`);
+  await put(ids, `/api/save?run=${f.run}&frame=${f.frame}&kind=id`);
+  // the list's state is what was just written, not what the server scanned at page load
+  f.manual = true; f.manual_id = true; f.todo = unassigned > 0;
+  dirty = false; renderList();
+  if (!quiet) { $('#save').classList.add('on'); setTimeout(() => $('#save').classList.remove('on'), 350); }
+}
+/* The whole run at once. Inside a run nothing moved, so a mask corrected on one frame is the
+   mask for all five; carry deliberately refuses to overwrite a labelled frame, and this is
+   the way to say that is what you meant. Two presses, because it cannot be undone. */
+let runArm = 0;
+$('#torun').onclick = async () => {
+  const f = frames[cur];
+  const rest = frames.map((g, j) => [g, j]).filter(([g]) => g.run === f.run && g !== f);
+  if (!rest.length) return msg('this run has one frame');
+  if (Date.now() - runArm > 4000) {
+    runArm = Date.now();
+    return msg(`press again to write this mask over ${rest.length} more frames of ${f.run}`, 1);
+  }
+  runArm = 0;
+  if (dirty) await save(true);
+  const [bin, ids, unassigned] = maskPngs();
+  for (const [g] of rest) {
+    await put(bin, `/api/save?run=${g.run}&frame=${g.frame}&kind=mask`);
+    await put(ids, `/api/save?run=${g.run}&frame=${g.frame}&kind=id`);
+    g.manual = true; g.manual_id = true; g.todo = unassigned > 0;
+  }
+  renderList();
+  msg(`written to ${rest.length} frames`);
+};
+function maskPngs() {
+  const d = mctx.getImageData(0, 0, mask.width, mask.height).data;
+  const bin = blank(), ids = blank(), cache = new Map();
+  let unassigned = 0, total = 0;
+  for (let i = 0; i < d.length; i += 4) {
+    if (d[i+3] === 0) continue;
+    bin.data[i] = bin.data[i+1] = bin.data[i+2] = 255;
+    const k = (d[i] << 16) | (d[i+1] << 8) | d[i+2];
+    let v = cache.get(k);
+    if (v === undefined) { v = nearestItem(d[i], d[i+1], d[i+2]); cache.set(k, v); }
+    if (v === UNLAB_IDX) unassigned++;
+    ids.data[i] = ids.data[i+1] = ids.data[i+2] = v;
+    total++;
+  }
+  return [bin, ids, unassigned, total];
+}
+function blank() {
+  const o = new ImageData(mask.width, mask.height);
+  for (let i = 3; i < o.data.length; i += 4) o.data[i] = 255;
+  return o;
+}
+async function put(imgdata, url) {
   const t = document.createElement('canvas');
   t.width = mask.width; t.height = mask.height;
-  const c = t.getContext('2d');
-  const d = mctx.getImageData(0, 0, mask.width, mask.height);
-  const o = c.createImageData(t.width, t.height);
-  for (let i = 0; i < d.data.length; i += 4) {
-    const v = d.data[i+3] > 0 ? 255 : 0;
-    o.data[i] = o.data[i+1] = o.data[i+2] = v; o.data[i+3] = 255;
-  }
-  c.putImageData(o, 0, 0);
+  t.getContext('2d').putImageData(imgdata, 0, 0);
   const blob = await new Promise(r => t.toBlob(r, 'image/png'));
-  const f = frames[cur];
-  await fetch(`/api/save?run=${f.run}&frame=${f.frame}`, {method: 'POST', body: blob});
-  f.manual = true; dirty = false; renderList();
-  if (!quiet) { $('#save').classList.add('on'); setTimeout(() => $('#save').classList.remove('on'), 350); }
+  await fetch(url, {method: 'POST', body: blob});
 }
 
 window.addEventListener('keydown', e => {
+  if (/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName) && !listening) return;
   if (listening) {                              // capturing a new shortcut
     e.preventDefault();
     if (e.key !== 'Escape' && e.key.length === 1) setKey(listening.action, e.key);
     else buildKeyPanel();
     listening = null; return;
   }
+  if (stamp) {
+    const step = e.shiftKey ? 10 : 1;
+    if (e.key === 'Escape') {
+      if (stamp.home) {                             // it came off this frame: put it back
+        stamp.x = stamp.home.x; stamp.y = stamp.home.y; stamp.scale = 1; stamp.rot = 0;
+        moving = null; dropStamp();
+      } else { stamp = null; draw(); paintKeys(); }
+      return;
+    }
+    if (e.key === 'Enter') { dropStamp(); return; }
+    if (e.key === '[' || e.key === ']') {
+      stamp.scale *= e.key === ']' ? 1.05 : 1 / 1.05; draw(); return;
+    }
+    if (e.key === ';' || e.key === "'") {
+      stamp.rot += (e.key === "'" ? 1 : -1) * Math.PI / 60; draw(); return;
+    }
+    if (e.key.startsWith('Arrow')) {
+      e.preventDefault(); stamp.follow = false;
+      if (e.key === 'ArrowLeft') stamp.x -= step;
+      if (e.key === 'ArrowRight') stamp.x += step;
+      if (e.key === 'ArrowUp') stamp.y -= step;
+      if (e.key === 'ArrowDown') stamp.y += step;
+      draw(); return;
+    }
+    if (e.key >= '1' && e.key <= '9' && items[+e.key - 1]) {
+      stamp.item = items[+e.key - 1].idx; paintStamp(); draw(); return;
+    }
+  }
   if (e.key === ' ') { panKey = true; e.preventDefault(); return; }
   if ((e.metaKey || e.ctrlKey) && e.key === 's') { e.preventDefault(); save(); return; }
   if ((e.metaKey || e.ctrlKey) && e.key === 'z') {
     e.preventDefault();
     const u = undo.pop();
-    if (u) { mctx.putImageData(u, 0, 0); dirty = true; draw(); }
+    if (u) { mctx.putImageData(u, 0, 0); dirty = true; rescan(); draw(); }
     return;
   }
   if (e.metaKey || e.ctrlKey) return;
+  if (e.key >= '1' && e.key <= '9' && items.length) {     // pick the item to paint with
+    e.preventDefault(); setItem(+e.key - 1); return;
+  }
   if (e.key === 'Enter' && tool === 'poly' && poly.length > 2) {
-    snap(); mctx.fillStyle = '#ff0000'; mctx.beginPath();
+    snap(); mctx.fillStyle = items.length ? items[item].colour : `rgb(${UNLAB.join(',')})`;
+    mctx.beginPath();
     mctx.moveTo(poly[0][0], poly[0][1]);
     poly.slice(1).forEach(p => mctx.lineTo(p[0], p[1]));
-    mctx.closePath(); mctx.fill(); poly = []; dirty = true; draw(); return;
+    mctx.closePath(); mctx.fill(); poly = []; dirty = true; rescan(); draw(); return;
   }
   if (e.key === 'Escape') { poly = []; $('#keys').classList.remove('on'); draw(); return; }
   const act = Object.keys(KEYS).find(a => KEYS[a] && KEYS[a] === e.key);
   if (!act) return;
   e.preventDefault();
-  if (['brush', 'eraser', 'wand', 'poly'].includes(act)) setTool(act);
+  if (HOLDABLE.includes(act) && MODES[act] === 'hold') {
+    if (e.repeat || held) return;                 // autorepeat is not a second press
+    held = {act: act, key: e.key, tool: tool, hide: hide};
+    if (act === 'hide') { hide = true; draw(); } else setTool(act);
+    return;
+  }
+  if (['brush', 'eraser', 'wand', 'poly', 'assign', 'move', 'pan'].includes(act)) setTool(act);
   else if (act === 'sizeDown') { size = Math.max(1, size - 1); $('#sz').textContent = size; draw(); }
   else if (act === 'sizeUp') { size = Math.min(120, size + 1); $('#sz').textContent = size; draw(); }
   else if (act === 'tolDown') { tol = Math.max(2, tol - 3); $('#tol').textContent = tol; }
@@ -602,13 +1356,23 @@ window.addEventListener('keydown', e => {
   else if (act === 'loadAuto') $('#loadauto').click();
   else if (act === 'loadSam') $('#loadsam').click();
   else if (act === 'clear') $('#clear').click();
+  else if (act === 'ref') $('#refbtn').click();
+  else if (act === 'flag') $('#flag').click();
+  else if (act === 'unass') jumpUnassigned();
+  else if (act === 'toRun') $('#torun').click();
   else if (act === 'carry') $('#carry').click();
   else if (act === 'smart') $('#smart').click();
   else if (act === 'next') { if (cur + 1 < frames.length) load(cur + 1, carry); }
   else if (act === 'prev') { if (cur > 0) load(cur - 1, carry); }
 });
-window.addEventListener('keyup', e => { if (e.key === ' ') panKey = false; });
-window.addEventListener('resize', () => draw());
+window.addEventListener('keyup', e => {
+  if (e.key === ' ') panKey = false;
+  if (held && e.key === held.key) {
+    if (held.act === 'hide') { hide = held.hide; draw(); } else setTool(held.tool);
+    held = null;
+  }
+});
+window.addEventListener('resize', () => { draw(); if ($('#ref').classList.contains('on')) refFit(); });
 function banner(msg) {
   const b = document.createElement('div');
   b.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#7a1f1f;color:#fff;' +
@@ -633,21 +1397,50 @@ boot(); setTool('brush');
 """
 
 
+FLAGS = f"{MAN}/flags.json"
+
+
+def read_flags():
+    """<run>_<frame> -> {"note": ...}, the frames marked to come back to."""
+    try:
+        return json.load(open(FLAGS))
+    except Exception:
+        return {}
+
+
+def unassigned(path):
+    """Does this saved id map still hold pixels nobody put a name to? Items are 1..N and
+    UNLABELLED is 255, so the maximum answers it."""
+    if not os.path.exists(path):
+        return False
+    try:
+        from PIL import Image
+        return Image.open(path).convert("L").getextrema()[1] == UNLABELLED
+    except Exception:
+        return False
+
+
 def frame_list():
     meta = {}
     p = f"{OWN}/gt_summary.json"
     if os.path.exists(p):
         meta = {r["run"]: r for r in json.load(open(p))}
+    sets = run_sets()
+    flags = read_flags()
     out = []
     for run in sorted(os.listdir(OWN)):
         d = f"{OWN}/{run}/rgb"
         if not os.path.isdir(d):
             continue
         rel = bool(meta.get(run, {}).get("reliable", True))
+        oset = sets.get(run, run.split("_")[2] if len(run.split("_")) > 2 else "")
         for f in sorted(os.listdir(d), key=lambda x: int(x[:-4])):
             i = f[:-4]
-            out.append(dict(run=run, frame=i, reliable=rel,
+            out.append(dict(run=run, frame=i, reliable=rel, oset=oset,
+                            flag=flags.get(f"{run}_{i}"),
                             manual=os.path.exists(f"{MAN}/{run}_{i}.png"),
+                            manual_id=os.path.exists(f"{MAN}/{run}_{i}_id.png"),
+                            todo=unassigned(f"{MAN}/{run}_{i}_id.png"),
                             sam=os.path.exists(f"{OWN}/{run}/sam/{i}.png")))
     out.sort(key=lambda r: (r["reliable"], r["run"], int(r["frame"])))   # needs-work first
     return out
@@ -671,29 +1464,50 @@ class Handler(http.server.BaseHTTPRequestHandler):
             return self._send(200, PAGE.encode(), "text/html; charset=utf-8")
         if u.path == "/api/list":
             return self._send(200, json.dumps(frame_list()).encode(), "application/json")
+        if u.path == "/api/flags":
+            return self._send(200, json.dumps(read_flags()).encode(), "application/json")
+        if u.path == "/api/items":
+            return self._send(200, json.dumps(item_table()).encode(), "application/json")
         if u.path.startswith("/file/"):
             rel = urllib.parse.unquote(u.path[len("/file/"):])
             base = f"{ROOT}/data"
             full = os.path.normpath(os.path.join(base, rel))
             if not full.startswith(base) or not os.path.exists(full):
                 return self._send(404, b"no")
+            ctype = "application/json" if full.endswith(".json") else "image/png"
             with open(full, "rb") as f:
-                return self._send(200, f.read(), "image/png")
+                return self._send(200, f.read(), ctype)
         self._send(404, b"no")
 
     def do_POST(self):
         u = urllib.parse.urlparse(self.path)
         q = urllib.parse.parse_qs(u.query)
+        if u.path == "/api/flag" and "run" in q and "frame" in q:
+            run, frame = q["run"][0], q["frame"][0]
+            if "/" in run or "/" in frame:
+                return self._send(400, b"bad")
+            body = json.loads(self.rfile.read(int(self.headers["Content-Length"])) or b"{}")
+            flags = read_flags()
+            key = f"{run}_{frame}"
+            if body.get("flag"):
+                flags[key] = {"note": body.get("note", "")}
+            else:
+                flags.pop(key, None)
+            os.makedirs(MAN, exist_ok=True)
+            json.dump(flags, open(FLAGS, "w"), indent=1, sort_keys=True)
+            return self._send(200, b"ok", "text/plain")
         if u.path != "/api/save" or "run" not in q or "frame" not in q:
             return self._send(400, b"bad")
         run, frame = q["run"][0], q["frame"][0]
-        if "/" in run or "/" in frame:
+        kind = q.get("kind", ["mask"])[0]
+        if "/" in run or "/" in frame or kind not in ("mask", "id"):
             return self._send(400, b"bad")
         os.makedirs(MAN, exist_ok=True)
         data = self.rfile.read(int(self.headers["Content-Length"]))
-        with open(f"{MAN}/{run}_{frame}.png", "wb") as f:
+        name = f"{run}_{frame}.png" if kind == "mask" else f"{run}_{frame}_id.png"
+        with open(f"{MAN}/{name}", "wb") as f:
             f.write(data)
-        print(f"saved {run}_{frame}.png ({len(data)} bytes)")
+        print(f"saved {name} ({len(data)} bytes)")
         self._send(200, b"ok", "text/plain")
 
 

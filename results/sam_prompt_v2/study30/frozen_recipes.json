@@ -1,0 +1,1737 @@
+{
+  "created_from": "30 development references only",
+  "selection_metric": "Mean image IoU; pooled IoU breaks ties; empty reference/prediction pair IoU=1",
+  "confidence": 0.6,
+  "mask_probability": 0.5,
+  "greedy_max_phrases": 6,
+  "greedy_min_gain": 0.002,
+  "simplicity_tolerance": 0.005,
+  "recipes": {
+    "baseline": {
+      "development_id": "baseline",
+      "recipe": {
+        "positive": [
+          "cable",
+          "cable bundle",
+          "cloth",
+          "crayon",
+          "doormat",
+          "electrical wire",
+          "extension cord",
+          "paper towel",
+          "piece of paper",
+          "power cord",
+          "power strip",
+          "rag",
+          "shoe",
+          "slipper",
+          "small hand tool",
+          "tennis racket"
+        ],
+        "negative": [],
+        "mode": "union",
+        "overlap": 0.5
+      },
+      "development": {
+        "mean_frame_iou": 0.4245658112167293,
+        "mean_site_iou": 0.43399500262081386,
+        "foreground_mean_iou": 0.4047232529828234,
+        "pooled_iou": 0.35183962774591493,
+        "precision": 0.6729483597226534,
+        "recall": 0.42441112931332686,
+        "tp": 130054,
+        "fp": 63206,
+        "fn": 176380,
+        "empty_frames": 1,
+        "empty_frames_with_prediction": 0,
+        "per_site": {
+          "ABEC_MM": {
+            "mean_frame_iou": 0.781079478054567,
+            "pooled_iou": 0.781079478054567,
+            "frames": 1
+          },
+          "ABEC_RM": {
+            "mean_frame_iou": 0.3367144752837688,
+            "pooled_iou": 0.2838575638981495,
+            "frames": 3
+          },
+          "BT_BM": {
+            "mean_frame_iou": 0.3881934828426598,
+            "pooled_iou": 0.35421346511777163,
+            "frames": 3
+          },
+          "BT_LM": {
+            "mean_frame_iou": 0.16633355588150836,
+            "pooled_iou": 0.15126108053426607,
+            "frames": 3
+          },
+          "FL_BM": {
+            "mean_frame_iou": 1.0,
+            "pooled_iou": 0.0,
+            "frames": 1
+          },
+          "FL_LM": {
+            "mean_frame_iou": 0.6305490874272391,
+            "pooled_iou": 0.5334119224279408,
+            "frames": 3
+          },
+          "HB_G": {
+            "mean_frame_iou": 0.2555213148433487,
+            "pooled_iou": 0.2555213148433487,
+            "frames": 1
+          },
+          "HB_LM": {
+            "mean_frame_iou": 0.38262971503559606,
+            "pooled_iou": 0.3278962485856036,
+            "frames": 4
+          },
+          "HB_MM": {
+            "mean_frame_iou": 0.539009373476204,
+            "pooled_iou": 0.6103803108258633,
+            "frames": 4
+          },
+          "HDCL_HW_B": {
+            "mean_frame_iou": 0.4262729157023659,
+            "pooled_iou": 0.16469433288710397,
+            "frames": 3
+          },
+          "HDCL_RM_A": {
+            "mean_frame_iou": 0.2463092463092463,
+            "pooled_iou": 0.2463092463092463,
+            "frames": 1
+          },
+          "HDCL_RM_B": {
+            "mean_frame_iou": 0.7621457489878543,
+            "pooled_iou": 0.7621457489878543,
+            "frames": 1
+          },
+          "HL_LM": {
+            "mean_frame_iou": 0.0,
+            "pooled_iou": 0.0,
+            "frames": 1
+          },
+          "MEB_HW_C": {
+            "mean_frame_iou": 0.16117164284703553,
+            "pooled_iou": 0.16117164284703553,
+            "frames": 1
+          }
+        },
+        "per_frame": [
+          {
+            "site": "ABEC_MM",
+            "frame": 4,
+            "iou": 0.781079478054567,
+            "tp": 13169,
+            "fp": 647,
+            "fn": 3044
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 14,
+            "iou": 0.3404743013312175,
+            "tp": 3862,
+            "fp": 103,
+            "fn": 7378
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 60,
+            "iou": 0.5146871008939975,
+            "tp": 806,
+            "fp": 29,
+            "fn": 731
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 84,
+            "iou": 0.15498202362609143,
+            "tp": 1207,
+            "fp": 8,
+            "fn": 6573
+          },
+          {
+            "site": "BT_BM",
+            "frame": 12,
+            "iou": 0.4970518867924528,
+            "tp": 5901,
+            "fp": 238,
+            "fn": 5733
+          },
+          {
+            "site": "BT_BM",
+            "frame": 24,
+            "iou": 0.4627092846270928,
+            "tp": 2128,
+            "fp": 13,
+            "fn": 2458
+          },
+          {
+            "site": "BT_BM",
+            "frame": 60,
+            "iou": 0.20481927710843373,
+            "tp": 3009,
+            "fp": 160,
+            "fn": 11522
+          },
+          {
+            "site": "BT_LM",
+            "frame": 28,
+            "iou": 0.13409116615767447,
+            "tp": 2371,
+            "fp": 4074,
+            "fn": 11237
+          },
+          {
+            "site": "BT_LM",
+            "frame": 34,
+            "iou": 0.08595354716384895,
+            "tp": 2176,
+            "fp": 1121,
+            "fn": 22019
+          },
+          {
+            "site": "BT_LM",
+            "frame": 88,
+            "iou": 0.27895595432300163,
+            "tp": 4275,
+            "fp": 2540,
+            "fn": 8510
+          },
+          {
+            "site": "FL_BM",
+            "frame": 44,
+            "iou": 1.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          },
+          {
+            "site": "FL_LM",
+            "frame": 16,
+            "iou": 0.8087918015102481,
+            "tp": 2999,
+            "fp": 619,
+            "fn": 90
+          },
+          {
+            "site": "FL_LM",
+            "frame": 40,
+            "iou": 0.7254197385539929,
+            "tp": 11709,
+            "fp": 101,
+            "fn": 4331
+          },
+          {
+            "site": "FL_LM",
+            "frame": 64,
+            "iou": 0.3574357222174767,
+            "tp": 8369,
+            "fp": 4384,
+            "fn": 10661
+          },
+          {
+            "site": "HB_G",
+            "frame": 64,
+            "iou": 0.2555213148433487,
+            "tp": 995,
+            "fp": 0,
+            "fn": 2899
+          },
+          {
+            "site": "HB_LM",
+            "frame": 48,
+            "iou": 0.5942028985507246,
+            "tp": 615,
+            "fp": 17,
+            "fn": 403
+          },
+          {
+            "site": "HB_LM",
+            "frame": 52,
+            "iou": 0.1877748900439824,
+            "tp": 3757,
+            "fp": 38,
+            "fn": 16213
+          },
+          {
+            "site": "HB_LM",
+            "frame": 60,
+            "iou": 0.3487833140208575,
+            "tp": 602,
+            "fp": 3,
+            "fn": 1121
+          },
+          {
+            "site": "HB_LM",
+            "frame": 92,
+            "iou": 0.3997577575268197,
+            "tp": 13862,
+            "fp": 7,
+            "fn": 20807
+          },
+          {
+            "site": "HB_MM",
+            "frame": 36,
+            "iou": 0.8766233766233766,
+            "tp": 2700,
+            "fp": 6,
+            "fn": 374
+          },
+          {
+            "site": "HB_MM",
+            "frame": 60,
+            "iou": 0.25304057690237863,
+            "tp": 2351,
+            "fp": 2547,
+            "fn": 4393
+          },
+          {
+            "site": "HB_MM",
+            "frame": 84,
+            "iou": 0.811677788369876,
+            "tp": 17029,
+            "fp": 96,
+            "fn": 3855
+          },
+          {
+            "site": "HB_MM",
+            "frame": 94,
+            "iou": 0.21469575200918484,
+            "tp": 935,
+            "fp": 16,
+            "fn": 3404
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 40,
+            "iou": 0.534923339011925,
+            "tp": 4710,
+            "fp": 3272,
+            "fn": 823
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 64,
+            "iou": 0.01721469558799019,
+            "tp": 723,
+            "fp": 40731,
+            "fn": 545
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 94,
+            "iou": 0.7266807125071826,
+            "tp": 3794,
+            "fp": 211,
+            "fn": 1216
+          },
+          {
+            "site": "HDCL_RM_A",
+            "frame": 4,
+            "iou": 0.2463092463092463,
+            "tp": 5072,
+            "fp": 1629,
+            "fn": 13891
+          },
+          {
+            "site": "HDCL_RM_B",
+            "frame": 14,
+            "iou": 0.7621457489878543,
+            "tp": 9789,
+            "fp": 513,
+            "fn": 2542
+          },
+          {
+            "site": "HL_LM",
+            "frame": 24,
+            "iou": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 3762
+          },
+          {
+            "site": "MEB_HW_C",
+            "frame": 34,
+            "iou": 0.16117164284703553,
+            "tp": 1139,
+            "fp": 83,
+            "fn": 5845
+          }
+        ]
+      }
+    },
+    "broad_pair": {
+      "development_id": "broad_pair",
+      "recipe": {
+        "positive": [
+          "loose item on the floor",
+          "small objects on the floor"
+        ],
+        "negative": [],
+        "mode": "union",
+        "overlap": 0.5
+      },
+      "development": {
+        "mean_frame_iou": 0.7029814593582502,
+        "mean_site_iou": 0.6986605981108914,
+        "foreground_mean_iou": 0.6927394407154313,
+        "pooled_iou": 0.6575573884527477,
+        "precision": 0.8101181447800684,
+        "recall": 0.7773680466266798,
+        "tp": 238212,
+        "fp": 55834,
+        "fn": 68222,
+        "empty_frames": 1,
+        "empty_frames_with_prediction": 0,
+        "per_site": {
+          "ABEC_MM": {
+            "mean_frame_iou": 0.9063840067645105,
+            "pooled_iou": 0.9063840067645105,
+            "frames": 1
+          },
+          "ABEC_RM": {
+            "mean_frame_iou": 0.7970729387131733,
+            "pooled_iou": 0.7205791303519551,
+            "frames": 3
+          },
+          "BT_BM": {
+            "mean_frame_iou": 0.7940586634128671,
+            "pooled_iou": 0.8323020986158066,
+            "frames": 3
+          },
+          "BT_LM": {
+            "mean_frame_iou": 0.7458292174549231,
+            "pooled_iou": 0.7018719597596422,
+            "frames": 3
+          },
+          "FL_BM": {
+            "mean_frame_iou": 1.0,
+            "pooled_iou": 0.0,
+            "frames": 1
+          },
+          "FL_LM": {
+            "mean_frame_iou": 0.5940289096496092,
+            "pooled_iou": 0.4679072276159655,
+            "frames": 3
+          },
+          "HB_G": {
+            "mean_frame_iou": 0.6569620253164556,
+            "pooled_iou": 0.6569620253164556,
+            "frames": 1
+          },
+          "HB_LM": {
+            "mean_frame_iou": 0.48457066916536473,
+            "pooled_iou": 0.5769443675615832,
+            "frames": 4
+          },
+          "HB_MM": {
+            "mean_frame_iou": 0.7998432505235483,
+            "pooled_iou": 0.8335963478554923,
+            "frames": 4
+          },
+          "HDCL_HW_B": {
+            "mean_frame_iou": 0.7964870948335725,
+            "pooled_iou": 0.8418882871231105,
+            "frames": 3
+          },
+          "HDCL_RM_A": {
+            "mean_frame_iou": 0.6375559652357125,
+            "pooled_iou": 0.6375559652357125,
+            "frames": 1
+          },
+          "HDCL_RM_B": {
+            "mean_frame_iou": 0.46517664023071376,
+            "pooled_iou": 0.46517664023071376,
+            "frames": 1
+          },
+          "HL_LM": {
+            "mean_frame_iou": 0.5247322794492606,
+            "pooled_iou": 0.5247322794492606,
+            "frames": 1
+          },
+          "MEB_HW_C": {
+            "mean_frame_iou": 0.5785467128027681,
+            "pooled_iou": 0.5785467128027681,
+            "frames": 1
+          }
+        },
+        "per_frame": [
+          {
+            "site": "ABEC_MM",
+            "frame": 4,
+            "iou": 0.9063840067645105,
+            "tp": 15007,
+            "fp": 344,
+            "fn": 1206
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 14,
+            "iou": 0.5852183061546554,
+            "tp": 6675,
+            "fp": 166,
+            "fn": 4565
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 60,
+            "iou": 0.9352428393524284,
+            "tp": 1502,
+            "fp": 69,
+            "fn": 35
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 84,
+            "iou": 0.8707576706324358,
+            "tp": 6953,
+            "fp": 205,
+            "fn": 827
+          },
+          {
+            "site": "BT_BM",
+            "frame": 12,
+            "iou": 0.8316655359565808,
+            "tp": 9807,
+            "fp": 158,
+            "fn": 1827
+          },
+          {
+            "site": "BT_BM",
+            "frame": 24,
+            "iou": 0.6666666666666666,
+            "tp": 3072,
+            "fp": 22,
+            "fn": 1514
+          },
+          {
+            "site": "BT_BM",
+            "frame": 60,
+            "iou": 0.8838437876153538,
+            "tp": 13217,
+            "fp": 423,
+            "fn": 1314
+          },
+          {
+            "site": "BT_LM",
+            "frame": 28,
+            "iou": 0.43221893073776274,
+            "tp": 12256,
+            "fp": 14748,
+            "fn": 1352
+          },
+          {
+            "site": "BT_LM",
+            "frame": 34,
+            "iou": 0.9033479714757665,
+            "tp": 22422,
+            "fp": 626,
+            "fn": 1773
+          },
+          {
+            "site": "BT_LM",
+            "frame": 88,
+            "iou": 0.9019207501512402,
+            "tp": 11927,
+            "fp": 439,
+            "fn": 858
+          },
+          {
+            "site": "FL_BM",
+            "frame": 44,
+            "iou": 1.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          },
+          {
+            "site": "FL_LM",
+            "frame": 16,
+            "iou": 0.066493206128939,
+            "tp": 2300,
+            "fp": 31501,
+            "fn": 789
+          },
+          {
+            "site": "FL_LM",
+            "frame": 40,
+            "iou": 0.8860509593435746,
+            "tp": 14362,
+            "fp": 169,
+            "fn": 1678
+          },
+          {
+            "site": "FL_LM",
+            "frame": 64,
+            "iou": 0.829542563476314,
+            "tp": 16303,
+            "fp": 623,
+            "fn": 2727
+          },
+          {
+            "site": "HB_G",
+            "frame": 64,
+            "iou": 0.6569620253164556,
+            "tp": 2595,
+            "fp": 56,
+            "fn": 1299
+          },
+          {
+            "site": "HB_LM",
+            "frame": 48,
+            "iou": 0.0,
+            "tp": 0,
+            "fp": 99,
+            "fn": 1018
+          },
+          {
+            "site": "HB_LM",
+            "frame": 52,
+            "iou": 0.8190060942377249,
+            "tp": 16530,
+            "fp": 213,
+            "fn": 3440
+          },
+          {
+            "site": "HB_LM",
+            "frame": 60,
+            "iou": 0.6692693809258227,
+            "tp": 1200,
+            "fp": 70,
+            "fn": 523
+          },
+          {
+            "site": "HB_LM",
+            "frame": 92,
+            "iou": 0.45000720149791157,
+            "tp": 15622,
+            "fp": 46,
+            "fn": 19047
+          },
+          {
+            "site": "HB_MM",
+            "frame": 36,
+            "iou": 0.8990625,
+            "tp": 2877,
+            "fp": 126,
+            "fn": 197
+          },
+          {
+            "site": "HB_MM",
+            "frame": 60,
+            "iou": 0.6574780058651026,
+            "tp": 4484,
+            "fp": 76,
+            "fn": 2260
+          },
+          {
+            "site": "HB_MM",
+            "frame": 84,
+            "iou": 0.899923896499239,
+            "tp": 18920,
+            "fp": 140,
+            "fn": 1964
+          },
+          {
+            "site": "HB_MM",
+            "frame": 94,
+            "iou": 0.7429085997298515,
+            "tp": 3300,
+            "fp": 103,
+            "fn": 1039
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 40,
+            "iou": 0.8828940385635945,
+            "tp": 4991,
+            "fp": 120,
+            "fn": 542
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 64,
+            "iou": 0.6631892697466468,
+            "tp": 890,
+            "fp": 74,
+            "fn": 378
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 94,
+            "iou": 0.8433779761904762,
+            "tp": 4534,
+            "fp": 366,
+            "fn": 476
+          },
+          {
+            "site": "HDCL_RM_A",
+            "frame": 4,
+            "iou": 0.6375559652357125,
+            "tp": 12104,
+            "fp": 22,
+            "fn": 6859
+          },
+          {
+            "site": "HDCL_RM_B",
+            "frame": 14,
+            "iou": 0.46517664023071376,
+            "tp": 6452,
+            "fp": 1539,
+            "fn": 5879
+          },
+          {
+            "site": "HL_LM",
+            "frame": 24,
+            "iou": 0.5247322794492606,
+            "tp": 2058,
+            "fp": 160,
+            "fn": 1704
+          },
+          {
+            "site": "MEB_HW_C",
+            "frame": 34,
+            "iou": 0.5785467128027681,
+            "tp": 5852,
+            "fp": 3131,
+            "fn": 1132
+          }
+        ]
+      }
+    },
+    "positive": {
+      "development_id": "compact_union",
+      "recipe": {
+        "positive": [
+          "small object on the floor",
+          "cable on the floor",
+          "things on the floor",
+          "poop on the floor"
+        ],
+        "negative": [],
+        "mode": "union",
+        "overlap": 0.5
+      },
+      "development": {
+        "mean_frame_iou": 0.7901732841681163,
+        "mean_site_iou": 0.7772728182249715,
+        "foreground_mean_iou": 0.7829378801739134,
+        "pooled_iou": 0.7779340936314634,
+        "precision": 0.9463360768644058,
+        "recall": 0.8138359320440943,
+        "tp": 249387,
+        "fp": 14142,
+        "fn": 57047,
+        "empty_frames": 1,
+        "empty_frames_with_prediction": 0,
+        "per_site": {
+          "ABEC_MM": {
+            "mean_frame_iou": 0.9139408780829106,
+            "pooled_iou": 0.9139408780829106,
+            "frames": 1
+          },
+          "ABEC_RM": {
+            "mean_frame_iou": 0.7962345549655359,
+            "pooled_iou": 0.7213745900470555,
+            "frames": 3
+          },
+          "BT_BM": {
+            "mean_frame_iou": 0.8470360208480656,
+            "pooled_iou": 0.8654980079681275,
+            "frames": 3
+          },
+          "BT_LM": {
+            "mean_frame_iou": 0.8558847620325252,
+            "pooled_iou": 0.8605011053795136,
+            "frames": 3
+          },
+          "FL_BM": {
+            "mean_frame_iou": 1.0,
+            "pooled_iou": 0.0,
+            "frames": 1
+          },
+          "FL_LM": {
+            "mean_frame_iou": 0.8217402642064924,
+            "pooled_iou": 0.8448284410948036,
+            "frames": 3
+          },
+          "HB_G": {
+            "mean_frame_iou": 0.44693913348535347,
+            "pooled_iou": 0.44693913348535347,
+            "frames": 1
+          },
+          "HB_LM": {
+            "mean_frame_iou": 0.6361304205702353,
+            "pooled_iou": 0.5986831873088289,
+            "frames": 4
+          },
+          "HB_MM": {
+            "mean_frame_iou": 0.8591624058989916,
+            "pooled_iou": 0.8869472382985897,
+            "frames": 4
+          },
+          "HDCL_HW_B": {
+            "mean_frame_iou": 0.8478546931904821,
+            "pooled_iou": 0.8790820829655781,
+            "frames": 3
+          },
+          "HDCL_RM_A": {
+            "mean_frame_iou": 0.7022604843175754,
+            "pooled_iou": 0.7022604843175754,
+            "frames": 1
+          },
+          "HDCL_RM_B": {
+            "mean_frame_iou": 0.5753723484278622,
+            "pooled_iou": 0.5753723484278622,
+            "frames": 1
+          },
+          "HL_LM": {
+            "mean_frame_iou": 0.7569461222517516,
+            "pooled_iou": 0.7569461222517516,
+            "frames": 1
+          },
+          "MEB_HW_C": {
+            "mean_frame_iou": 0.8223173668718223,
+            "pooled_iou": 0.8223173668718223,
+            "frames": 1
+          }
+        },
+        "per_frame": [
+          {
+            "site": "ABEC_MM",
+            "frame": 4,
+            "iou": 0.9139408780829106,
+            "tp": 15675,
+            "fp": 938,
+            "fn": 538
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 14,
+            "iou": 0.578689099193831,
+            "tp": 6604,
+            "fp": 172,
+            "fn": 4636
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 60,
+            "iou": 0.9269041769041769,
+            "tp": 1509,
+            "fp": 91,
+            "fn": 28
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 84,
+            "iou": 0.8831103887985998,
+            "tp": 7064,
+            "fp": 219,
+            "fn": 716
+          },
+          {
+            "site": "BT_BM",
+            "frame": 12,
+            "iou": 0.8580388168488855,
+            "tp": 10124,
+            "fp": 165,
+            "fn": 1510
+          },
+          {
+            "site": "BT_BM",
+            "frame": 24,
+            "iou": 0.7875188944072554,
+            "tp": 3647,
+            "fp": 45,
+            "fn": 939
+          },
+          {
+            "site": "BT_BM",
+            "frame": 60,
+            "iou": 0.8955503512880562,
+            "tp": 13384,
+            "fp": 414,
+            "fn": 1147
+          },
+          {
+            "site": "BT_LM",
+            "frame": 28,
+            "iou": 0.8218688944283501,
+            "tp": 12199,
+            "fp": 1235,
+            "fn": 1409
+          },
+          {
+            "site": "BT_LM",
+            "frame": 34,
+            "iou": 0.8802908233444685,
+            "tp": 22399,
+            "fp": 1250,
+            "fn": 1796
+          },
+          {
+            "site": "BT_LM",
+            "frame": 88,
+            "iou": 0.865494568324757,
+            "tp": 12110,
+            "fp": 1207,
+            "fn": 675
+          },
+          {
+            "site": "FL_BM",
+            "frame": 44,
+            "iou": 1.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          },
+          {
+            "site": "FL_LM",
+            "frame": 16,
+            "iou": 0.7536560766515381,
+            "tp": 2989,
+            "fp": 877,
+            "fn": 100
+          },
+          {
+            "site": "FL_LM",
+            "frame": 40,
+            "iou": 0.8649650825041716,
+            "tp": 13996,
+            "fp": 141,
+            "fn": 2044
+          },
+          {
+            "site": "FL_LM",
+            "frame": 64,
+            "iou": 0.8465996334637674,
+            "tp": 17092,
+            "fp": 1159,
+            "fn": 1938
+          },
+          {
+            "site": "HB_G",
+            "frame": 64,
+            "iou": 0.44693913348535347,
+            "tp": 2548,
+            "fp": 1807,
+            "fn": 1346
+          },
+          {
+            "site": "HB_LM",
+            "frame": 48,
+            "iou": 0.5831873905429071,
+            "tp": 666,
+            "fp": 124,
+            "fn": 352
+          },
+          {
+            "site": "HB_LM",
+            "frame": 52,
+            "iou": 0.829624134520277,
+            "tp": 16775,
+            "fp": 250,
+            "fn": 3195
+          },
+          {
+            "site": "HB_LM",
+            "frame": 60,
+            "iou": 0.6707589285714286,
+            "tp": 1202,
+            "fp": 69,
+            "fn": 521
+          },
+          {
+            "site": "HB_LM",
+            "frame": 92,
+            "iou": 0.4609512286463285,
+            "tp": 16001,
+            "fp": 44,
+            "fn": 18668
+          },
+          {
+            "site": "HB_MM",
+            "frame": 36,
+            "iou": 0.8981829573934837,
+            "tp": 2867,
+            "fp": 118,
+            "fn": 207
+          },
+          {
+            "site": "HB_MM",
+            "frame": 60,
+            "iou": 0.8199883957064114,
+            "tp": 5653,
+            "fp": 150,
+            "fn": 1091
+          },
+          {
+            "site": "HB_MM",
+            "frame": 84,
+            "iou": 0.9276037457812426,
+            "tp": 19514,
+            "fp": 153,
+            "fn": 1370
+          },
+          {
+            "site": "HB_MM",
+            "frame": 94,
+            "iou": 0.7908745247148289,
+            "tp": 3536,
+            "fp": 132,
+            "fn": 803
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 40,
+            "iou": 0.8867691220632397,
+            "tp": 5020,
+            "fp": 128,
+            "fn": 513
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 64,
+            "iou": 0.7554225878833208,
+            "tp": 1010,
+            "fp": 69,
+            "fn": 258
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 94,
+            "iou": 0.9013723696248856,
+            "tp": 4926,
+            "fp": 455,
+            "fn": 84
+          },
+          {
+            "site": "HDCL_RM_A",
+            "frame": 4,
+            "iou": 0.7022604843175754,
+            "tp": 13949,
+            "fp": 900,
+            "fn": 5014
+          },
+          {
+            "site": "HDCL_RM_B",
+            "frame": 14,
+            "iou": 0.5753723484278622,
+            "tp": 7649,
+            "fp": 963,
+            "fn": 4682
+          },
+          {
+            "site": "HL_LM",
+            "frame": 24,
+            "iou": 0.7569461222517516,
+            "tp": 3133,
+            "fp": 377,
+            "fn": 629
+          },
+          {
+            "site": "MEB_HW_C",
+            "frame": 34,
+            "iou": 0.8223173668718223,
+            "tp": 6146,
+            "fp": 490,
+            "fn": 838
+          }
+        ]
+      }
+    },
+    "subtract": {
+      "development_id": "compact_union|single:wall|subtract|0.5",
+      "recipe": {
+        "positive": [
+          "small object on the floor",
+          "cable on the floor",
+          "things on the floor",
+          "poop on the floor"
+        ],
+        "negative": [
+          "wall"
+        ],
+        "mode": "subtract",
+        "overlap": 0.5
+      },
+      "development": {
+        "mean_frame_iou": 0.7902385325867829,
+        "mean_site_iou": 0.7773270381281219,
+        "foreground_mean_iou": 0.7830053785380513,
+        "pooled_iou": 0.778011755016472,
+        "precision": 0.9464510032372285,
+        "recall": 0.8138359320440943,
+        "tp": 249387,
+        "fp": 14110,
+        "fn": 57047,
+        "empty_frames": 1,
+        "empty_frames_with_prediction": 0,
+        "per_site": {
+          "ABEC_MM": {
+            "mean_frame_iou": 0.9141007697690693,
+            "pooled_iou": 0.9141007697690693,
+            "frames": 1
+          },
+          "ABEC_RM": {
+            "mean_frame_iou": 0.7962345549655359,
+            "pooled_iou": 0.7213745900470555,
+            "frames": 3
+          },
+          "BT_BM": {
+            "mean_frame_iou": 0.8470360208480656,
+            "pooled_iou": 0.8654980079681275,
+            "frames": 3
+          },
+          "BT_LM": {
+            "mean_frame_iou": 0.8564839489904715,
+            "pooled_iou": 0.8609610882748705,
+            "frames": 3
+          },
+          "FL_BM": {
+            "mean_frame_iou": 1.0,
+            "pooled_iou": 0.0,
+            "frames": 1
+          },
+          "FL_LM": {
+            "mean_frame_iou": 0.8217402642064924,
+            "pooled_iou": 0.8448284410948036,
+            "frames": 3
+          },
+          "HB_G": {
+            "mean_frame_iou": 0.44693913348535347,
+            "pooled_iou": 0.44693913348535347,
+            "frames": 1
+          },
+          "HB_LM": {
+            "mean_frame_iou": 0.6361304205702353,
+            "pooled_iou": 0.5986831873088289,
+            "frames": 4
+          },
+          "HB_MM": {
+            "mean_frame_iou": 0.8591624058989916,
+            "pooled_iou": 0.8869472382985897,
+            "frames": 4
+          },
+          "HDCL_HW_B": {
+            "mean_frame_iou": 0.8478546931904821,
+            "pooled_iou": 0.8790820829655781,
+            "frames": 3
+          },
+          "HDCL_RM_A": {
+            "mean_frame_iou": 0.7022604843175754,
+            "pooled_iou": 0.7022604843175754,
+            "frames": 1
+          },
+          "HDCL_RM_B": {
+            "mean_frame_iou": 0.5753723484278622,
+            "pooled_iou": 0.5753723484278622,
+            "frames": 1
+          },
+          "HL_LM": {
+            "mean_frame_iou": 0.7569461222517516,
+            "pooled_iou": 0.7569461222517516,
+            "frames": 1
+          },
+          "MEB_HW_C": {
+            "mean_frame_iou": 0.8223173668718223,
+            "pooled_iou": 0.8223173668718223,
+            "frames": 1
+          }
+        },
+        "per_frame": [
+          {
+            "site": "ABEC_MM",
+            "frame": 4,
+            "iou": 0.9141007697690693,
+            "tp": 15675,
+            "fp": 935,
+            "fn": 538
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 14,
+            "iou": 0.578689099193831,
+            "tp": 6604,
+            "fp": 172,
+            "fn": 4636
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 60,
+            "iou": 0.9269041769041769,
+            "tp": 1509,
+            "fp": 91,
+            "fn": 28
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 84,
+            "iou": 0.8831103887985998,
+            "tp": 7064,
+            "fp": 219,
+            "fn": 716
+          },
+          {
+            "site": "BT_BM",
+            "frame": 12,
+            "iou": 0.8580388168488855,
+            "tp": 10124,
+            "fp": 165,
+            "fn": 1510
+          },
+          {
+            "site": "BT_BM",
+            "frame": 24,
+            "iou": 0.7875188944072554,
+            "tp": 3647,
+            "fp": 45,
+            "fn": 939
+          },
+          {
+            "site": "BT_BM",
+            "frame": 60,
+            "iou": 0.8955503512880562,
+            "tp": 13384,
+            "fp": 414,
+            "fn": 1147
+          },
+          {
+            "site": "BT_LM",
+            "frame": 28,
+            "iou": 0.8218688944283501,
+            "tp": 12199,
+            "fp": 1235,
+            "fn": 1409
+          },
+          {
+            "site": "BT_LM",
+            "frame": 34,
+            "iou": 0.8802908233444685,
+            "tp": 22399,
+            "fp": 1250,
+            "fn": 1796
+          },
+          {
+            "site": "BT_LM",
+            "frame": 88,
+            "iou": 0.8672921291985963,
+            "tp": 12110,
+            "fp": 1178,
+            "fn": 675
+          },
+          {
+            "site": "FL_BM",
+            "frame": 44,
+            "iou": 1.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          },
+          {
+            "site": "FL_LM",
+            "frame": 16,
+            "iou": 0.7536560766515381,
+            "tp": 2989,
+            "fp": 877,
+            "fn": 100
+          },
+          {
+            "site": "FL_LM",
+            "frame": 40,
+            "iou": 0.8649650825041716,
+            "tp": 13996,
+            "fp": 141,
+            "fn": 2044
+          },
+          {
+            "site": "FL_LM",
+            "frame": 64,
+            "iou": 0.8465996334637674,
+            "tp": 17092,
+            "fp": 1159,
+            "fn": 1938
+          },
+          {
+            "site": "HB_G",
+            "frame": 64,
+            "iou": 0.44693913348535347,
+            "tp": 2548,
+            "fp": 1807,
+            "fn": 1346
+          },
+          {
+            "site": "HB_LM",
+            "frame": 48,
+            "iou": 0.5831873905429071,
+            "tp": 666,
+            "fp": 124,
+            "fn": 352
+          },
+          {
+            "site": "HB_LM",
+            "frame": 52,
+            "iou": 0.829624134520277,
+            "tp": 16775,
+            "fp": 250,
+            "fn": 3195
+          },
+          {
+            "site": "HB_LM",
+            "frame": 60,
+            "iou": 0.6707589285714286,
+            "tp": 1202,
+            "fp": 69,
+            "fn": 521
+          },
+          {
+            "site": "HB_LM",
+            "frame": 92,
+            "iou": 0.4609512286463285,
+            "tp": 16001,
+            "fp": 44,
+            "fn": 18668
+          },
+          {
+            "site": "HB_MM",
+            "frame": 36,
+            "iou": 0.8981829573934837,
+            "tp": 2867,
+            "fp": 118,
+            "fn": 207
+          },
+          {
+            "site": "HB_MM",
+            "frame": 60,
+            "iou": 0.8199883957064114,
+            "tp": 5653,
+            "fp": 150,
+            "fn": 1091
+          },
+          {
+            "site": "HB_MM",
+            "frame": 84,
+            "iou": 0.9276037457812426,
+            "tp": 19514,
+            "fp": 153,
+            "fn": 1370
+          },
+          {
+            "site": "HB_MM",
+            "frame": 94,
+            "iou": 0.7908745247148289,
+            "tp": 3536,
+            "fp": 132,
+            "fn": 803
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 40,
+            "iou": 0.8867691220632397,
+            "tp": 5020,
+            "fp": 128,
+            "fn": 513
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 64,
+            "iou": 0.7554225878833208,
+            "tp": 1010,
+            "fp": 69,
+            "fn": 258
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 94,
+            "iou": 0.9013723696248856,
+            "tp": 4926,
+            "fp": 455,
+            "fn": 84
+          },
+          {
+            "site": "HDCL_RM_A",
+            "frame": 4,
+            "iou": 0.7022604843175754,
+            "tp": 13949,
+            "fp": 900,
+            "fn": 5014
+          },
+          {
+            "site": "HDCL_RM_B",
+            "frame": 14,
+            "iou": 0.5753723484278622,
+            "tp": 7649,
+            "fp": 963,
+            "fn": 4682
+          },
+          {
+            "site": "HL_LM",
+            "frame": 24,
+            "iou": 0.7569461222517516,
+            "tp": 3133,
+            "fp": 377,
+            "fn": 629
+          },
+          {
+            "site": "MEB_HW_C",
+            "frame": 34,
+            "iou": 0.8223173668718223,
+            "tp": 6146,
+            "fp": 490,
+            "fn": 838
+          }
+        ]
+      }
+    },
+    "veto": {
+      "development_id": "compact_union|furniture|veto|0.5",
+      "recipe": {
+        "positive": [
+          "small object on the floor",
+          "cable on the floor",
+          "things on the floor",
+          "poop on the floor"
+        ],
+        "negative": [
+          "chair",
+          "table",
+          "desk",
+          "cabinet",
+          "sofa",
+          "furniture"
+        ],
+        "mode": "veto",
+        "overlap": 0.5
+      },
+      "development": {
+        "mean_frame_iou": 0.7901732841681163,
+        "mean_site_iou": 0.7772728182249715,
+        "foreground_mean_iou": 0.7829378801739134,
+        "pooled_iou": 0.7779340936314634,
+        "precision": 0.9463360768644058,
+        "recall": 0.8138359320440943,
+        "tp": 249387,
+        "fp": 14142,
+        "fn": 57047,
+        "empty_frames": 1,
+        "empty_frames_with_prediction": 0,
+        "per_site": {
+          "ABEC_MM": {
+            "mean_frame_iou": 0.9139408780829106,
+            "pooled_iou": 0.9139408780829106,
+            "frames": 1
+          },
+          "ABEC_RM": {
+            "mean_frame_iou": 0.7962345549655359,
+            "pooled_iou": 0.7213745900470555,
+            "frames": 3
+          },
+          "BT_BM": {
+            "mean_frame_iou": 0.8470360208480656,
+            "pooled_iou": 0.8654980079681275,
+            "frames": 3
+          },
+          "BT_LM": {
+            "mean_frame_iou": 0.8558847620325252,
+            "pooled_iou": 0.8605011053795136,
+            "frames": 3
+          },
+          "FL_BM": {
+            "mean_frame_iou": 1.0,
+            "pooled_iou": 0.0,
+            "frames": 1
+          },
+          "FL_LM": {
+            "mean_frame_iou": 0.8217402642064924,
+            "pooled_iou": 0.8448284410948036,
+            "frames": 3
+          },
+          "HB_G": {
+            "mean_frame_iou": 0.44693913348535347,
+            "pooled_iou": 0.44693913348535347,
+            "frames": 1
+          },
+          "HB_LM": {
+            "mean_frame_iou": 0.6361304205702353,
+            "pooled_iou": 0.5986831873088289,
+            "frames": 4
+          },
+          "HB_MM": {
+            "mean_frame_iou": 0.8591624058989916,
+            "pooled_iou": 0.8869472382985897,
+            "frames": 4
+          },
+          "HDCL_HW_B": {
+            "mean_frame_iou": 0.8478546931904821,
+            "pooled_iou": 0.8790820829655781,
+            "frames": 3
+          },
+          "HDCL_RM_A": {
+            "mean_frame_iou": 0.7022604843175754,
+            "pooled_iou": 0.7022604843175754,
+            "frames": 1
+          },
+          "HDCL_RM_B": {
+            "mean_frame_iou": 0.5753723484278622,
+            "pooled_iou": 0.5753723484278622,
+            "frames": 1
+          },
+          "HL_LM": {
+            "mean_frame_iou": 0.7569461222517516,
+            "pooled_iou": 0.7569461222517516,
+            "frames": 1
+          },
+          "MEB_HW_C": {
+            "mean_frame_iou": 0.8223173668718223,
+            "pooled_iou": 0.8223173668718223,
+            "frames": 1
+          }
+        },
+        "per_frame": [
+          {
+            "site": "ABEC_MM",
+            "frame": 4,
+            "iou": 0.9139408780829106,
+            "tp": 15675,
+            "fp": 938,
+            "fn": 538
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 14,
+            "iou": 0.578689099193831,
+            "tp": 6604,
+            "fp": 172,
+            "fn": 4636
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 60,
+            "iou": 0.9269041769041769,
+            "tp": 1509,
+            "fp": 91,
+            "fn": 28
+          },
+          {
+            "site": "ABEC_RM",
+            "frame": 84,
+            "iou": 0.8831103887985998,
+            "tp": 7064,
+            "fp": 219,
+            "fn": 716
+          },
+          {
+            "site": "BT_BM",
+            "frame": 12,
+            "iou": 0.8580388168488855,
+            "tp": 10124,
+            "fp": 165,
+            "fn": 1510
+          },
+          {
+            "site": "BT_BM",
+            "frame": 24,
+            "iou": 0.7875188944072554,
+            "tp": 3647,
+            "fp": 45,
+            "fn": 939
+          },
+          {
+            "site": "BT_BM",
+            "frame": 60,
+            "iou": 0.8955503512880562,
+            "tp": 13384,
+            "fp": 414,
+            "fn": 1147
+          },
+          {
+            "site": "BT_LM",
+            "frame": 28,
+            "iou": 0.8218688944283501,
+            "tp": 12199,
+            "fp": 1235,
+            "fn": 1409
+          },
+          {
+            "site": "BT_LM",
+            "frame": 34,
+            "iou": 0.8802908233444685,
+            "tp": 22399,
+            "fp": 1250,
+            "fn": 1796
+          },
+          {
+            "site": "BT_LM",
+            "frame": 88,
+            "iou": 0.865494568324757,
+            "tp": 12110,
+            "fp": 1207,
+            "fn": 675
+          },
+          {
+            "site": "FL_BM",
+            "frame": 44,
+            "iou": 1.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          },
+          {
+            "site": "FL_LM",
+            "frame": 16,
+            "iou": 0.7536560766515381,
+            "tp": 2989,
+            "fp": 877,
+            "fn": 100
+          },
+          {
+            "site": "FL_LM",
+            "frame": 40,
+            "iou": 0.8649650825041716,
+            "tp": 13996,
+            "fp": 141,
+            "fn": 2044
+          },
+          {
+            "site": "FL_LM",
+            "frame": 64,
+            "iou": 0.8465996334637674,
+            "tp": 17092,
+            "fp": 1159,
+            "fn": 1938
+          },
+          {
+            "site": "HB_G",
+            "frame": 64,
+            "iou": 0.44693913348535347,
+            "tp": 2548,
+            "fp": 1807,
+            "fn": 1346
+          },
+          {
+            "site": "HB_LM",
+            "frame": 48,
+            "iou": 0.5831873905429071,
+            "tp": 666,
+            "fp": 124,
+            "fn": 352
+          },
+          {
+            "site": "HB_LM",
+            "frame": 52,
+            "iou": 0.829624134520277,
+            "tp": 16775,
+            "fp": 250,
+            "fn": 3195
+          },
+          {
+            "site": "HB_LM",
+            "frame": 60,
+            "iou": 0.6707589285714286,
+            "tp": 1202,
+            "fp": 69,
+            "fn": 521
+          },
+          {
+            "site": "HB_LM",
+            "frame": 92,
+            "iou": 0.4609512286463285,
+            "tp": 16001,
+            "fp": 44,
+            "fn": 18668
+          },
+          {
+            "site": "HB_MM",
+            "frame": 36,
+            "iou": 0.8981829573934837,
+            "tp": 2867,
+            "fp": 118,
+            "fn": 207
+          },
+          {
+            "site": "HB_MM",
+            "frame": 60,
+            "iou": 0.8199883957064114,
+            "tp": 5653,
+            "fp": 150,
+            "fn": 1091
+          },
+          {
+            "site": "HB_MM",
+            "frame": 84,
+            "iou": 0.9276037457812426,
+            "tp": 19514,
+            "fp": 153,
+            "fn": 1370
+          },
+          {
+            "site": "HB_MM",
+            "frame": 94,
+            "iou": 0.7908745247148289,
+            "tp": 3536,
+            "fp": 132,
+            "fn": 803
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 40,
+            "iou": 0.8867691220632397,
+            "tp": 5020,
+            "fp": 128,
+            "fn": 513
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 64,
+            "iou": 0.7554225878833208,
+            "tp": 1010,
+            "fp": 69,
+            "fn": 258
+          },
+          {
+            "site": "HDCL_HW_B",
+            "frame": 94,
+            "iou": 0.9013723696248856,
+            "tp": 4926,
+            "fp": 455,
+            "fn": 84
+          },
+          {
+            "site": "HDCL_RM_A",
+            "frame": 4,
+            "iou": 0.7022604843175754,
+            "tp": 13949,
+            "fp": 900,
+            "fn": 5014
+          },
+          {
+            "site": "HDCL_RM_B",
+            "frame": 14,
+            "iou": 0.5753723484278622,
+            "tp": 7649,
+            "fp": 963,
+            "fn": 4682
+          },
+          {
+            "site": "HL_LM",
+            "frame": 24,
+            "iou": 0.7569461222517516,
+            "tp": 3133,
+            "fp": 377,
+            "fn": 629
+          },
+          {
+            "site": "MEB_HW_C",
+            "frame": 34,
+            "iou": 0.8223173668718223,
+            "tp": 6146,
+            "fp": 490,
+            "fn": 838
+          }
+        ]
+      }
+    }
+  },
+  "preferred_development": "positive",
+  "development_config_sha256": "8b3c91e85708744b8337446c26ab5d75ff6186fc259a4df7f35b73026d6644cb"
+}

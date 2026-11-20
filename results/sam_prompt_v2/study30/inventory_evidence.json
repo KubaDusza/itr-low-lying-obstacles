@@ -1,0 +1,28 @@
+{
+  "sample_manifest": "expanded_protocol.json",
+  "sheets": [
+    "inventory30/snippets_1.jpg",
+    "inventory30/snippets_2.jpg",
+    "inventory30/snippets_3.jpg",
+    "inventory30/snippets_4.jpg",
+    "inventory30/snippets_5.jpg",
+    "inventory30/fresh_sample_extra_1.jpg",
+    "inventory30/fresh_sample_extra_2.jpg"
+  ],
+  "selection": "Fresh random location-balanced 30-frame sample. The evidence sheets include the preceding sample and all nine replacement frames; the exact executed 30 are listed in study30_config.json.",
+  "review": "Masked foreground snippets plus full RGB context visually inspected. Uncertain identities retain broad class descriptions.",
+  "negative_ablation": {
+    "scope": "30 development frames",
+    "positive_base": "compact_union",
+    "base_mean_iou": 0.7902,
+    "relation_exclusion_mean_iou": 0.5296,
+    "big_large_exclusion_mean_iou": 0.7506
+  },
+  "human_label_budget": 30,
+  "validation_references": 300,
+  "validation_role": "Frozen-recipe check; no new phrases or rules selected from validation examples.",
+  "earlier_pilot_frames": 8,
+  "pilot_overlap_with_active_development": 6,
+  "distinct_frames_across_pilot_and_active_development": 32,
+  "simulation_note": "The active recipe search uses 30 references; this is a retrospective simulation using an existing reviewed pool. The earlier pilot saw 8 frames, six of which overlap the active sample."
+}

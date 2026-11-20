@@ -6,3 +6,16 @@ __pycache__/
 *.pyc
 bibliography_report/REPORT.tex
 bibliography_report/REPORT.pdf
+
+# Local generation and training artifacts
+.DS_Store
+results/**/cache*/
+results/**/run_bundle/
+results/**/study_bundle/
+results/**/bundle/
+results/**/examples/
+results/**/development_masks/
+results/**/validation_masks/
+results/**/development_automatic/
+results/**/validation_automatic/
+*.tmp

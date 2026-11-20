@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ISOD generated ground-truth masks</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; padding: 26px; background: #fff; color: #171717; font: 16px/1.45 Inter, system-ui, sans-serif; }
+header, main { max-width: 1500px; margin: auto; }
+h1 { margin: 0 0 8px; font-size: clamp(25px, 3vw, 36px); }
+p { margin: 8px 0 16px; max-width: 80ch; color: #454545; }
+.filters { display: flex; flex-wrap: wrap; gap: 18px; align-items: end; margin: 23px 0 12px; }
+label { display: flex; flex-direction: column; gap: 5px; font-weight: 600; }
+input, select, button { font: inherit; color: inherit; background: white; border: 1px solid #999; border-radius: 4px; padding: 8px 10px; min-height: 42px; }
+button, select, summary { cursor: pointer; }
+input { width: min(270px, 90vw); }
+button:hover { background: #efefef; }
+button:disabled { color: #777; cursor: default; }
+:focus-visible { outline: 3px solid #1267bd; outline-offset: 3px; }
+::selection { background: #c7e3ff; }
+a { color: #154f86; text-underline-offset: 3px; }
+#count { margin-bottom: 18px; }
+#grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 24px; }
+figure { margin: 0; }
+figure a { display: block; }
+figure img { display: block; width: 100%; height: auto; background: #eee; aspect-ratio: 960 / 317; }
+figcaption { display: flex; gap: 14px; justify-content: space-between; margin: 7px 0 0; }
+.status { color: #555; font-size: 14px; }
+#detail { border-bottom: 1px solid #bbb; padding: 20px 0 28px; margin-bottom: 30px; }
+#detail[hidden], #grid[hidden] { display: none; }
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 20px; }
+.toolbar strong { margin-right: auto; font-size: 22px; }
+.large { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.large img { width: 100%; height: auto; display: block; }
+details { margin-top: 20px; }
+details img { display: block; max-width: 100%; margin-top: 12px; }
+#sheet-links { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 12px 0 25px; }
+@media (max-width: 720px) { body { padding: 16px; } #grid, .large { grid-template-columns: 1fr; } .filters { gap: 12px; } }
+</style>
+<header>
+<h1>Generated ISOD ground-truth masks</h1>
+<p>The masks used in the ISOD-assisted training arm. Each pair shows raw RGB and the target overlay. The default view contains every automatic mask, including empty masks. Click a frame to inspect it at full size.</p>
+<div class="filters">
+ <label>Location<select id="site"><option value="">All 14 locations</option></select></label>
+ <label>Label source<select id="status"><option value="isod_sam_prelabel">Automatic GT proposals (1,330)</option><option value="human_reviewed">Human-corrected targets (70)</option><option value="">All training targets (1,400)</option></select></label>
+ <label>Find a frame<input type="search" id="search" placeholder="e.g. MEB_HW_C / 34"></label>
+</div>
+<p id="count" role="status" aria-live="polite"></p>
+</header>
+<main>
+<section id="detail" hidden aria-label="Frame inspection">
+ <div class="toolbar"><strong id="frame-title"></strong><button id="previous">Previous</button><button id="next">Next</button><button id="close">Back to all frames</button></div>
+ <p id="frame-status"></p>
+ <div class="large">
+  <figure><a id="rgb-link" target="_blank" rel="noopener"></a><figcaption>Original RGB</figcaption></figure>
+  <figure><a id="overlay-link" target="_blank" rel="noopener"></a><figcaption>Frozen training target</figcaption></figure>
+ </div>
+ <details><summary>Binary mask</summary><div id="binary"></div></details>
+ <p>Left/right arrow keys move through the current filter. Escape returns to all frames. Click either image to open the full-resolution file.</p>
+</section>
+<div id="grid"></div>
+<details id="sheets"><summary>Contact sheets — 168 automatic examples across all 14 locations</summary><div id="sheet-links"></div></details>
+<noscript><p>Open the contact sheets in the sheets folder to inspect examples without JavaScript.</p></noscript>
+</main>
+<script>
+const frames = __FRAME_DATA__;
+const sites = [...new Set(frames.map(row => row.site))];
+const site = document.querySelector('#site');
+const status = document.querySelector('#status');
+const search = document.querySelector('#search');
+const grid = document.querySelector('#grid');
+const detail = document.querySelector('#detail');
+let filtered = [];
+let active = -1;
+const label = row => row.status === 'human_reviewed' ? 'Human-corrected target' : 'Automatic GT proposal';
+for (const name of sites) {
+ const option = new Option(name, name);
+ site.add(option);
+ const link = document.createElement('a');
+ link.href = `sheets/${name}.jpg`;
+ link.textContent = name;
+ link.target = '_blank';
+ link.rel = 'noopener';
+ document.querySelector('#sheet-links').append(link);
+}
+function showFrame(index) {
+ if (index < 0 || index >= filtered.length) return;
+ active = index;
+ const row = filtered[index];
+ document.querySelector('#frame-title').textContent = `${row.site} / ${row.frame}`;
+ document.querySelector('#frame-status').textContent = `${label(row)}. ${row.foreground_pixels.toLocaleString()} obstacle pixels. Frame ${index + 1} of ${filtered.length}.`;
+ for (const [target, source, description] of [
+  ['#rgb-link', row.rgb, 'Original RGB image'],
+  ['#overlay-link', row.overlay, 'Ground-truth target over RGB'],
+  ['#binary', row.mask, 'Binary obstacle mask']
+ ]) {
+  const image = document.createElement('img');
+  image.src = source;
+  image.alt = description;
+  document.querySelector(target).replaceChildren(image);
+ }
+ document.querySelector('#rgb-link').href = row.rgb;
+ document.querySelector('#overlay-link').href = row.overlay;
+ document.querySelector('#previous').disabled = index === 0;
+ document.querySelector('#next').disabled = index === filtered.length - 1;
+ detail.hidden = false;
+ grid.hidden = true;
+ document.querySelector('#sheets').hidden = true;
+ window.scrollTo({top: 0});
+}
+function closeFrame() {
+ detail.hidden = true;
+ grid.hidden = false;
+ document.querySelector('#sheets').hidden = false;
+ if (active >= 0) document.querySelector(`[data-index="${active}"]`)?.focus();
+ active = -1;
+}
+function render() {
+ const query = search.value.toLowerCase().replace(/[\s/]+/g, '');
+ filtered = frames.filter(row => (!site.value || row.site === site.value) &&
+  (!status.value || row.status === status.value) &&
+  (!query || `${row.site}${row.frame}`.toLowerCase().includes(query)));
+ detail.hidden = true;
+ grid.hidden = false;
+ document.querySelector('#sheets').hidden = false;
+ active = -1;
+ const auto = filtered.filter(row => row.status === 'isod_sam_prelabel').length;
+ document.querySelector('#count').textContent = `${filtered.length.toLocaleString()} frames shown. ${auto.toLocaleString()} automatic, ${(filtered.length - auto).toLocaleString()} human-corrected. RGB is on the left of every preview.`;
+ const fragment = document.createDocumentFragment();
+ filtered.forEach((row, index) => {
+  const figure = document.createElement('figure');
+  const anchor = document.createElement('a');
+  anchor.href = row.overlay;
+  anchor.dataset.index = index;
+  anchor.setAttribute('aria-label', `Inspect ${row.site} frame ${row.frame}, ${label(row)}`);
+  anchor.onclick = event => { event.preventDefault(); showFrame(index); };
+  const image = document.createElement('img');
+  image.src = row.preview;
+  image.loading = 'lazy';
+  image.decoding = 'async';
+  image.alt = `${row.site} / ${row.frame}, RGB and ${label(row)}`;
+  image.width = 960;
+  image.height = 317;
+  anchor.append(image);
+  const caption = document.createElement('figcaption');
+  const title = document.createElement('strong');
+  title.textContent = `${row.site} / ${row.frame}`;
+  const provenance = document.createElement('span');
+  provenance.className = 'status';
+  provenance.textContent = label(row);
+  caption.append(title, provenance);
+  figure.append(anchor, caption);
+  fragment.append(figure);
+ });
+ grid.replaceChildren(fragment);
+}
+site.addEventListener('change', render);
+status.addEventListener('change', render);
+search.addEventListener('input', render);
+document.querySelector('#previous').onclick = () => showFrame(active - 1);
+document.querySelector('#next').onclick = () => showFrame(active + 1);
+document.querySelector('#close').onclick = closeFrame;
+document.addEventListener('keydown', event => {
+ if (detail.hidden || ['INPUT', 'SELECT', 'TEXTAREA'].includes(event.target.tagName)) return;
+ if (event.key === 'ArrowRight') { event.preventDefault(); showFrame(active + 1); }
+ if (event.key === 'ArrowLeft') { event.preventDefault(); showFrame(active - 1); }
+ if (event.key === 'Escape') closeFrame();
+});
+render();
+</script>
+</html>

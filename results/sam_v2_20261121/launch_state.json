@@ -1,0 +1,31 @@
+{
+  "status": "labeling_on_gte",
+  "request": "Full three-prompt labeling and 15 SAM-supervised detector reruns; disconnect-safe overnight queue",
+  "hosts": {
+    "morgoth": "/mnt/gpu_storage/cs_courses/jdusza_itr/sam_v2_20261121",
+    "glaurung": "/data/dream/cs_courses/jdusza_itr/sam_v2_20261121",
+    "rivendell": "/mnt/gpu_storage/cs_courses/jdusza_itr/sam_v2_20261121"
+  },
+  "old_reference_runs_reused": true,
+  "training_frames": 1400,
+  "reviewed_validation_frames": 300,
+  "all_isod_frames": 2000,
+  "gte_frames": 320,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "epochs": {
+    "esanet": 500,
+    "unet": 15,
+    "yolo": 20
+  },
+  "supervisors": {
+    "morgoth": 1056700,
+    "glaurung": 4028383,
+    "rivendell": 310364
+  },
+  "shared_queue": "/home/GTL/jdusza/itr_sam_v2_queue_20261121",
+  "git_status": "preparing clean versioned branch"
+}

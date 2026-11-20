@@ -8,6 +8,14 @@ a lightweight model?
 Background, decisions and the evaluation plan: [`NOTES.md`](NOTES.md).
 Bibliography report: [`bibliography_report/`](bibliography_report).
 
+## Current experiment
+
+The full study compares ESANet RGB, depth and RGB-D, plus RGB U-Net and YOLOv8n-seg. Each setup uses reference supervision and unattended SAM supervision over seeds 0, 1 and 2. The reference runs are complete; the three-prompt SAM version is being regenerated and retrained.
+
+The version-2 labeler runs SAM 3 separately with `small object on the floor`, `cable on the floor`, and `things on the floor`, keeps detections at confidence 0.60 and mask probability 0.50, then unions their masks. SAM receives full RGB only. The prompt study uses 30 reviewed development frames and a 300-frame validation check. The final removal of a fourth prompt used validation evidence and was accepted by the project owner; this is validation-informed selection.
+
+See [the approved recipe](results/sam_v2_20261121/recipe.json), [the 15-run schedule](results/sam_v2_20261121/queue_plan.json), [the server-owned controller](code/overnight_sam_v2.py), and [published reference/SAM masks](data/README.md). Label generation, audits, smoke tests, checkpointing, training and scoring run on GTE after the laptop disconnects. The launch snapshot records startup state, not a live dashboard.
+
 ## Dataset
 
 [ISOD](https://www.kaggle.com/datasets/yuchen66/indoor-small-object-dataset) (Chen et al.,
@@ -16,13 +24,15 @@ Bibliography report: [`bibliography_report/`](bibliography_report).
 image with everything the authors' depth ground-plane method judged not-floor blacked out).
 Per site: `imu/imu.csv` and `ref.jpg`, a photo of the floor texture.
 
-The dataset is not in this repo (2.5 GB). Fetch it with:
+The original ISOD RGB/depth download is separate from the versioned masks in this repository. Fetch the original images with:
 
     kaggle datasets download yuchen66/indoor-small-object-dataset -p data --unzip
 
 ### Obstacle ground truth
 
-ISOD labels the drivable floor, not the objects, so walls, furniture and the objects are
+ISOD labels the drivable floor, not the objects. Current reference masks use ISOD-assisted SAM proposals and saved human corrections; the [data manifests](data/README.md) distinguish reviewed masks from assisted prelabels.
+
+The original prototype used the following component rule: walls, furniture and the objects are
 all "not drivable" alike. `isod.obstacles()` recovers the objects: in the not-drivable
 mask, the walls and every piece of furniture touching them form one big connected
 component. Dropping it (and blobs under 20 px) leaves the blobs enclosed by floor, which
@@ -31,7 +41,7 @@ are the objects lying on the floor. About 8.8 objects per frame.
 Known limits: objects touching the wall region are dropped with it; the annotators traced
 coiled cables as filled blobs, so cable masks are coarse.
 
-Depth is never used to build the ground truth — only as a method being scored.
+The unattended SAM arm consumes RGB only. All current training uses full-image obstacle/background targets, and every method is evaluated against the same frozen reference masks.
 
 ## Layout
 
@@ -65,25 +75,23 @@ On a GPU server (`/opt/venv/jdusza_venv` on shire, see `../GTE_SERVERS.md`):
 
 ## Splits
 
-By site, so test rooms are never seen in training: 14 sites train, 3 val, 3 test
+By recorded location: 14 sites train, 3 val, 3 test
 (`data/splits.json`).
 
 ## Metrics
 
-Everything is scored as mask overlap on the obstacle class, over the 300 test images:
+Scores measure obstacle-mask overlap. Current ISOD results cover 30 reviewed images from the 300-image test split and remain provisional pending wider reference coverage. External GTE-Floor evaluation covers all 320 images. New runs export predictions for all 300 ISOD test images so expanded references can be scored later:
 
 - **IoU** — overlap between predicted and true obstacle pixels, divided by their union. The headline number.
 - **Precision** — share of predicted obstacle pixels that are real obstacles.
 - **Recall** — share of real obstacle pixels that were predicted. For a robot a miss is
   worse than an oversized mask, so recall matters more than precision.
 
-Walls and furniture are ignored: they are labelled not-drivable but are not our objects,
-so predicting them neither helps nor hurts. Test sites are never seen during training.
+Current evaluation covers the full image: detections on walls and furniture count as false positives. Test locations do not enter detector training or checkpoint selection.
 
 ## Models
 
-All three are pretrained (COCO for YOLO, ImageNet for the encoders) and fine-tuned on the
-1,400 training images with one class, "obstacle".
+The current five model/input setups are initialized from the declared public weights and fine-tuned on 1,400 training images with one obstacle class. ESANet provides the native RGB, depth and RGB-D comparison; U-Net and YOLO provide additional RGB comparisons. The earlier prototype also included DeepLabV3+, described below.
 
 - **[YOLOv8n-seg](https://docs.ultralytics.com/tasks/segment/)** — instance segmentation:
   one box plus one mask per object, in the smallest ("nano") size. Built for real-time use

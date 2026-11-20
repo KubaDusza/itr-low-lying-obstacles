@@ -1,0 +1,34 @@
+{
+  "development": {
+    "full": {
+      "mean_frame_iou": 0.7901732841681163,
+      "pooled_iou": 0.7779340936314634,
+      "tp": 249387,
+      "fp": 14142
+    },
+    "without_poop": {
+      "mean_frame_iou": 0.7867743500578581,
+      "pooled_iou": 0.7759525154396597,
+      "tp": 248647,
+      "fp": 14007
+    },
+    "added_tp": 740,
+    "added_fp": 135
+  },
+  "validation": {
+    "full": {
+      "mean_frame_iou": 0.6722386163260263,
+      "pooled_iou": 0.5952845117924038,
+      "tp": 2666649,
+      "fp": 731094
+    },
+    "without_poop": {
+      "mean_frame_iou": 0.6775674847133698,
+      "pooled_iou": 0.6087969448190854,
+      "tp": 2664121,
+      "fp": 627515
+    },
+    "added_tp": 2528,
+    "added_fp": 103579
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "completed_at_utc": "2026-11-20T23:05:28.612175+00:00",
+  "host": "morgoth",
+  "gpu_uuid": "GPU-8babf310-56d2-66c4-5cf8-cec9ed2cab1f",
+  "development_frames": 30,
+  "validation_frames": 300,
+  "development_phrases": 131,
+  "development_recipes": 643,
+  "validation_inference_phrases": 29,
+  "development_inference_seconds": 183.5,
+  "validation_inference_seconds": 510.0,
+  "observed_exit_codes": {
+    "development": 0,
+    "validation": 0
+  },
+  "weights_trained": false,
+  "ground_truth_used_for_inference": false,
+  "standalone_generation_verified_frames": 330,
+  "model": "bodhicitta/sam3",
+  "revision": "cba430d22f6fdc3f06ad3841274ec7bb55885f2f",
+  "feature_reuse_checks": {
+    "development": {
+      "first_batch": [
+        [
+          "ABEC_MM",
+          4
+        ],
+        [
+          "ABEC_RM",
+          14
+        ]
+      ],
+      "phrase": "something small on the floor",
+      "mask_logits_exact": true,
+      "confidence_logits_exact": true
+    },
+    "validation": {
+      "first_batch": [
+        [
+          "ABEC_CM",
+          0
+        ],
+        [
+          "ABEC_CM",
+          1
+        ]
+      ],
+      "phrase": "cable",
+      "mask_logits_exact": true,
+      "confidence_logits_exact": true
+    }
+  },
+  "sha256": {
+    "study30_config.json": "8b3c91e85708744b8337446c26ab5d75ff6186fc259a4df7f35b73026d6644cb",
+    "validation_config.json": "078a7a499b396f0a8dfc8e32aeb4a296cc7f8182e5226282b94c3356fc830723",
+    "study30/frozen_recipes.json": "d0e8c30518a53237ee9ea36ec132a2ea9eb1563afb42b083f947a8467f54bb0b",
+    "study30/selected_pipeline.json": "06bda53bb3d1c18b2ea0c5595c31441aae20565349fbca7eb0a5487f8d07e3ab"
+  }
+}

@@ -1,0 +1,425 @@
+{
+  "model": "bodhicitta/sam3",
+  "revision": "cba430d22f6fdc3f06ad3841274ec7bb55885f2f",
+  "frames": [
+    [
+      "ABEC_MM",
+      4
+    ],
+    [
+      "ABEC_RM",
+      14
+    ],
+    [
+      "ABEC_RM",
+      60
+    ],
+    [
+      "ABEC_RM",
+      84
+    ],
+    [
+      "BT_BM",
+      12
+    ],
+    [
+      "BT_BM",
+      24
+    ],
+    [
+      "BT_BM",
+      60
+    ],
+    [
+      "BT_LM",
+      28
+    ],
+    [
+      "BT_LM",
+      34
+    ],
+    [
+      "BT_LM",
+      88
+    ],
+    [
+      "FL_BM",
+      44
+    ],
+    [
+      "FL_LM",
+      16
+    ],
+    [
+      "FL_LM",
+      40
+    ],
+    [
+      "FL_LM",
+      64
+    ],
+    [
+      "HB_G",
+      64
+    ],
+    [
+      "HB_LM",
+      48
+    ],
+    [
+      "HB_LM",
+      52
+    ],
+    [
+      "HB_LM",
+      60
+    ],
+    [
+      "HB_LM",
+      92
+    ],
+    [
+      "HB_MM",
+      36
+    ],
+    [
+      "HB_MM",
+      60
+    ],
+    [
+      "HB_MM",
+      84
+    ],
+    [
+      "HB_MM",
+      94
+    ],
+    [
+      "HDCL_HW_B",
+      40
+    ],
+    [
+      "HDCL_HW_B",
+      64
+    ],
+    [
+      "HDCL_HW_B",
+      94
+    ],
+    [
+      "HDCL_RM_A",
+      4
+    ],
+    [
+      "HDCL_RM_B",
+      14
+    ],
+    [
+      "HL_LM",
+      24
+    ],
+    [
+      "MEB_HW_C",
+      34
+    ]
+  ],
+  "positive_broad": [
+    "something small on the floor",
+    "small object on the floor",
+    "small objects on the floor",
+    "object on the floor",
+    "objects on the floor",
+    "low lying object on the floor",
+    "low-lying object on the floor",
+    "loose item on the floor",
+    "small item on the floor",
+    "thing on the floor",
+    "things on the floor",
+    "floor obstacle",
+    "small object",
+    "small objects",
+    "loose object on the floor",
+    "small loose object on the floor",
+    "small items on the floor",
+    "low lying obstacle on the floor",
+    "small floor object"
+  ],
+  "positive_names": [
+    "rag",
+    "crayon box",
+    "flip flop",
+    "cord",
+    "poop",
+    "toy block",
+    "cable",
+    "crayon",
+    "LEGO brick",
+    "toy brick",
+    "yoga mat",
+    "banana",
+    "medicine bottle",
+    "sunglasses",
+    "glasses",
+    "string",
+    "chalk",
+    "keyboard",
+    "paper",
+    "phone case",
+    "pile of crayons",
+    "pile of chalk",
+    "towel",
+    "sock",
+    "sneaker",
+    "shoe",
+    "slipper",
+    "paper towel",
+    "tissue",
+    "crumpled paper",
+    "plastic block",
+    "building block",
+    "eraser",
+    "small plastic container",
+    "small bottle",
+    "banana peel"
+  ],
+  "positive_floor": [
+    "rag on the floor",
+    "crayon box on the floor",
+    "flip flop on the floor",
+    "cord on the floor",
+    "poop on the floor",
+    "toy block on the floor",
+    "cable on the floor",
+    "crayon on the floor",
+    "LEGO brick on the floor",
+    "toy brick on the floor",
+    "yoga mat on the floor",
+    "banana on the floor",
+    "medicine bottle on the floor",
+    "sunglasses on the floor",
+    "glasses on the floor",
+    "string on the floor",
+    "chalk on the floor",
+    "keyboard on the floor",
+    "paper on the floor",
+    "phone case on the floor",
+    "pile of crayons on the floor",
+    "pile of chalk on the floor",
+    "towel on the floor",
+    "sock on the floor",
+    "sneaker on the floor",
+    "shoe on the floor",
+    "slipper on the floor",
+    "paper towel on the floor",
+    "tissue on the floor",
+    "crumpled paper on the floor",
+    "plastic block on the floor",
+    "building block on the floor",
+    "eraser on the floor",
+    "small plastic container on the floor",
+    "small bottle on the floor",
+    "banana peel on the floor"
+  ],
+  "positive_category": [
+    "toy",
+    "toy on the floor",
+    "footwear on the floor",
+    "fabric on the floor",
+    "piece of paper on the floor",
+    "stationery on the floor",
+    "small plastic object on the floor",
+    "small container on the floor",
+    "small toy on the floor",
+    "cable bundle on the floor"
+  ],
+  "negative_groups": {
+    "furniture": [
+      "chair",
+      "table",
+      "desk",
+      "cabinet",
+      "sofa",
+      "furniture"
+    ],
+    "structure": [
+      "wall",
+      "door",
+      "baseboard",
+      "chair leg",
+      "table leg"
+    ],
+    "containers": [
+      "cardboard box",
+      "trash can",
+      "pallet"
+    ],
+    "relations": [
+      "object on a desk",
+      "object on a wall",
+      "hanging cable",
+      "hanging cloth"
+    ],
+    "unsafe_size": [
+      "big object",
+      "large object"
+    ]
+  },
+  "baseline_prompts": [
+    "cable",
+    "cable bundle",
+    "cloth",
+    "crayon",
+    "doormat",
+    "electrical wire",
+    "extension cord",
+    "paper towel",
+    "piece of paper",
+    "power cord",
+    "power strip",
+    "rag",
+    "shoe",
+    "slipper",
+    "small hand tool",
+    "tennis racket"
+  ],
+  "fixed_confidence": 0.6,
+  "fixed_mask_probability": 0.5,
+  "selection": "Prompt identities, positive union, and negative union subtraction/instance veto tuned only on 30 development references.",
+  "inventory_evidence": "inventory30/snippets_1.jpg through snippets_5.jpg; all 30 masked-object sheets visually inspected.",
+  "object_observations": "Blocks/LEGO, chalk/crayons and boxes, shoes/flip-flops/slippers, cords, cloth/towels/paper, bottles/containers, glasses, keyboard, mats, banana/peel-like toys, miscellaneous small objects. Uncertain identities retain broad descriptions.",
+  "negative_observations": "Chairs/wheels/legs, desks/tables, cabinets, walls/doors/baseboards, sofa, cardboard boxes, trash cans, pallets, hanging cables/cloth. Big/large object included as an explicitly risky ablation.",
+  "inference_prompts": [
+    "something small on the floor",
+    "small object on the floor",
+    "small objects on the floor",
+    "object on the floor",
+    "objects on the floor",
+    "low lying object on the floor",
+    "low-lying object on the floor",
+    "loose item on the floor",
+    "small item on the floor",
+    "thing on the floor",
+    "things on the floor",
+    "floor obstacle",
+    "small object",
+    "small objects",
+    "loose object on the floor",
+    "small loose object on the floor",
+    "small items on the floor",
+    "low lying obstacle on the floor",
+    "small floor object",
+    "rag",
+    "crayon box",
+    "flip flop",
+    "cord",
+    "poop",
+    "toy block",
+    "cable",
+    "crayon",
+    "LEGO brick",
+    "toy brick",
+    "yoga mat",
+    "banana",
+    "medicine bottle",
+    "sunglasses",
+    "glasses",
+    "string",
+    "chalk",
+    "keyboard",
+    "paper",
+    "phone case",
+    "pile of crayons",
+    "pile of chalk",
+    "towel",
+    "sock",
+    "sneaker",
+    "shoe",
+    "slipper",
+    "paper towel",
+    "tissue",
+    "crumpled paper",
+    "plastic block",
+    "building block",
+    "eraser",
+    "small plastic container",
+    "small bottle",
+    "banana peel",
+    "rag on the floor",
+    "crayon box on the floor",
+    "flip flop on the floor",
+    "cord on the floor",
+    "poop on the floor",
+    "toy block on the floor",
+    "cable on the floor",
+    "crayon on the floor",
+    "LEGO brick on the floor",
+    "toy brick on the floor",
+    "yoga mat on the floor",
+    "banana on the floor",
+    "medicine bottle on the floor",
+    "sunglasses on the floor",
+    "glasses on the floor",
+    "string on the floor",
+    "chalk on the floor",
+    "keyboard on the floor",
+    "paper on the floor",
+    "phone case on the floor",
+    "pile of crayons on the floor",
+    "pile of chalk on the floor",
+    "towel on the floor",
+    "sock on the floor",
+    "sneaker on the floor",
+    "shoe on the floor",
+    "slipper on the floor",
+    "paper towel on the floor",
+    "tissue on the floor",
+    "crumpled paper on the floor",
+    "plastic block on the floor",
+    "building block on the floor",
+    "eraser on the floor",
+    "small plastic container on the floor",
+    "small bottle on the floor",
+    "banana peel on the floor",
+    "toy",
+    "toy on the floor",
+    "footwear on the floor",
+    "fabric on the floor",
+    "piece of paper on the floor",
+    "stationery on the floor",
+    "small plastic object on the floor",
+    "small container on the floor",
+    "small toy on the floor",
+    "cable bundle on the floor",
+    "cable bundle",
+    "cloth",
+    "doormat",
+    "electrical wire",
+    "extension cord",
+    "piece of paper",
+    "power cord",
+    "power strip",
+    "small hand tool",
+    "tennis racket",
+    "chair",
+    "table",
+    "desk",
+    "cabinet",
+    "sofa",
+    "furniture",
+    "wall",
+    "door",
+    "baseboard",
+    "chair leg",
+    "table leg",
+    "cardboard box",
+    "trash can",
+    "pallet",
+    "object on a desk",
+    "object on a wall",
+    "hanging cable",
+    "hanging cloth",
+    "big object",
+    "large object"
+  ],
+  "selection_sample": "Seed 20261120: sample from the 70 reviewed training frames, balancing location counts subject to availability. No pilot frames forced into the sample."
+}

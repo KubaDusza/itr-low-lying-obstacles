@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SAM prompt development</title>
+<style>
+* { box-sizing: border-box; }
+body { background: white; color: #171717; margin: 24px auto; padding: 0 24px; max-width: 1450px; font: 17px/1.45 Inter,system-ui,sans-serif; }
+h1 { font-size: 30px; margin: 0 0 8px; } p { color: #454545; max-width: 85ch; margin: 8px 0 18px; }
+.toolbar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 22px 0; }
+select,button,textarea { font: inherit; border: 1px solid #999; border-radius: 4px; padding: 9px 12px; color: inherit; background: white; }
+button,select { min-height: 44px; } button { cursor: pointer; } button:hover { background: #eee; } button:disabled { cursor: default; opacity: .55; }
+main { display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr); gap: 28px; }
+#rgb img { width: 100%; height: auto; display: block; } figure { margin: 0; } figcaption { margin: 8px 0 18px; font-weight: 600; }
+form label { display: block; font-weight: 600; margin-bottom: 18px; } textarea { display: block; width: 100%; min-height: 110px; margin-top: 7px; resize: vertical; font-weight: 400; }
+details { margin-top: 20px; } summary { cursor: pointer; } details img { width: 100%; margin-top: 12px; }
+:focus-visible { outline: 3px solid #1767ab; outline-offset: 3px; } ::selection { background: #d4e9ff; }
+#message { min-height: 28px; color: #1c5942; } #message.error { color: #a22020; }
+@media(max-width:850px) { main { grid-template-columns: 1fr; } body { padding: 0 16px; } }
+</style>
+<h1>SAM prompt development</h1>
+<p>Review these 8 RGB frames. Name every loose floor object, including small pieces. Describe fixtures or other regions SAM should exclude. Your saved masks serve as references for scoring.</p>
+<div class="toolbar"><label for="frame">Frame</label><select id="frame"></select><span id="progress" role="status"></span></div>
+<main>
+ <section><figure><div id="rgb"></div><figcaption id="caption"></figcaption></figure>
+ <details><summary>Show saved reference mask</summary><div id="reference"></div></details></section>
+ <form id="form">
+  <label>Objects lying on the floor<textarea id="objects" placeholder="One object type per line, including LEGO bricks, crayons, cables, etc."></textarea></label>
+  <label>Things to exclude<textarea id="exclude" placeholder="Furniture, hanging cloth, fixtures, etc."></textarea></label>
+  <label>Notes or reference-mask issues<textarea id="notes" placeholder="Optional"></textarea></label>
+  <div class="toolbar"><button type="button" id="previous">Previous</button><button type="submit" id="save">Save and next</button></div>
+  <p id="message" role="status" aria-live="polite"></p>
+ </form>
+</main>
+<script>
+let frames=[], saved={}, index=0, dirty=false;
+const fieldIds=['objects','exclude','notes'];
+const selector=document.querySelector('#frame');
+const message=document.querySelector('#message');
+function show(next) {
+ index=next;
+ const row=frames[index];
+ selector.value=String(index);
+ for(const key of fieldIds) document.querySelector('#'+key).value=saved[row.id]?.[key]??'';
+ for(const type of ['rgb','reference']) {
+  const image=document.createElement('img'); image.src=`/image/${type}/${row.site}/${row.frame}`;
+  image.alt=type==='rgb'?`${row.id}, original RGB`:`${row.id}, saved reference mask`;
+  document.querySelector('#'+type).replaceChildren(image);
+ }
+ document.querySelector('#caption').textContent=row.id;
+ document.querySelector('#previous').disabled=index===0;
+ document.querySelector('#save').textContent=index===frames.length-1?'Save review':'Save and next';
+ document.querySelector('#progress').textContent=`${Object.keys(saved).length} of ${frames.length} saved`;
+ document.querySelector('details').open=false;
+ message.textContent=saved[row.id]?'Saved inventory loaded.':''; message.className=''; dirty=false;
+}
+function move(next) {
+ if(dirty&&!confirm('Leave this frame without saving your edits?')) { selector.value=String(index); return; }
+ show(next);
+}
+selector.onchange=()=>move(Number(selector.value));
+document.querySelector('#previous').onclick=()=>move(index-1);
+for(const key of fieldIds) document.querySelector('#'+key).oninput=()=>{dirty=true;message.textContent='Unsaved changes.';};
+document.querySelector('#form').onsubmit=async event=>{
+ event.preventDefault(); const button=document.querySelector('#save'); button.disabled=true;
+ const record={id:frames[index].id};
+ for(const key of fieldIds) record[key]=document.querySelector('#'+key).value;
+ try {
+  const response=await fetch('/api/inventory',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(record)});
+  const result=await response.json(); if(!response.ok) throw Error(result.error||'Save failed');
+  saved[record.id]=record; dirty=false;
+  if(index<frames.length-1) show(index+1);
+  else { show(index); message.textContent=`Saved. ${Object.keys(saved).length} of ${frames.length} frames reviewed.`; }
+ } catch(error) { message.textContent=error.message; message.className='error'; }
+ finally { button.disabled=false; }
+};
+window.addEventListener('beforeunload',event=>{if(dirty){event.preventDefault();event.returnValue='';}});
+fetch('/api/review').then(response=>{if(!response.ok)throw Error('Could not load review');return response.json();}).then(data=>{
+ frames=data.frames;saved=data.inventory;
+ frames.forEach((row,i)=>selector.add(new Option(row.id,String(i))));
+ const first=frames.findIndex(row=>!saved[row.id]);show(first<0?0:first);
+}).catch(error=>{message.textContent=error.message;message.className='error';});
+</script>
+</html>

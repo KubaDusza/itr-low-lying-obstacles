@@ -11,6 +11,7 @@ esac
 export OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=1 PYTHONUNBUFFERED=1
 exec 9>supervisor.lock
 flock -n 9 || exit 0
+rm -f supervisor.exit
 trap 'printf "%s\n" "$?" > supervisor.exit' EXIT
 for attempt in 1 2 3; do
   printf 'Supervisor attempt %s at %s\n' "$attempt" "$(date --iso-8601=seconds)"

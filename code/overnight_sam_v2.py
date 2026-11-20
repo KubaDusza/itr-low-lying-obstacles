@@ -192,11 +192,11 @@ def execute(work,cfg,job,smoke=False):
         candidates=list(fit.glob(f'isod/checkpoints_*/ckpt_epoch_{state["best"]}.pth'));assert candidates
         checkpoint=candidates[-1]
         if smoke:
-            run(work,[py,work/'code/esanet/predict_esanet.py']+COMMON+modality+['--dataset_dir',dataset,'--ckpt_path',checkpoint,'--pred_split','valid','--out',out/'pred'],out/'predict.log',env)
+            run(work,[py,work/'code/esanet/predict_esanet.py']+COMMON+modality+['--dataset_dir',dataset,'--ckpt_path',checkpoint,'--pred_split','valid','--out',out/'pred'],out/'predict.log',env,work/'esanet')
             assert len(list((out/'pred').glob('*/*.png')))==16
         else:
             for destination,data in [('pred',work/'esanet_test_all'),('gte',work/'esanet_gte')]:
-                run(work,[py,work/'code/esanet/predict_esanet.py']+COMMON+modality+['--dataset_dir',data,'--ckpt_path',checkpoint,'--pred_split','test','--out',out/destination],out/f'predict_{destination}.log',env)
+                run(work,[py,work/'code/esanet/predict_esanet.py']+COMMON+modality+['--dataset_dir',data,'--ckpt_path',checkpoint,'--pred_split','test','--out',out/destination],out/f'predict_{destination}.log',env,work/'esanet')
     elif kind=='unet':
         if fit.exists():shutil.move(fit,out/f'failed_fit_{int(time.time())}')
         command=[py,'-u','code/train_seg.py','--root',work,'--train-masks',work/'ISOD_sam_train_v2','--val-masks',work/'ISOD_reference_val_v1',

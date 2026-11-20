@@ -1,0 +1,8 @@
+{
+  "recipe": "../../results/sam_v2_20261121/recipe.json",
+  "controller": "../../code/overnight_sam_v2.py",
+  "queue_plan": "../../results/sam_v2_20261121/queue_plan.json",
+  "deployment": "Copy these configuration files, the approved recipe, and code/ into a GTE work directory; the absolute host paths are the recorded deployment and need adapting elsewhere. The public branch contains masks and metadata, not raw ISOD RGB/depth, Python environments, pretrained weights or private transfer credentials.",
+  "large_artifacts": "Checkpoints and full training logs stay on GTE; the run metadata records their host and output path.",
+  "data_source": "Raw RGB/depth source is downloaded separately; validation and test reference masks remain the published frozen versions."
+}

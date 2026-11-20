@@ -40,7 +40,7 @@ def main():
         if recipe['mode']=='subtract':prediction &= ~veto
         path=args.out/site/f'{frame}.png';path.parent.mkdir(parents=True,exist_ok=True)
         temporary=path.with_suffix('.tmp.png');assert cv2.imwrite(str(temporary),prediction.astype(np.uint8)*255);os.replace(temporary,path)
-        records.append(dict(site=site,frame=frame,path=str(path.relative_to(args.out)),sha256=hashlib.sha256(path.read_bytes()).hexdigest(),foreground_pixels=int(prediction.sum())))
+        records.append(dict(site=site,frame=frame,path=str(path.relative_to(args.out)),shape=list(map(int,shape)),sha256=hashlib.sha256(path.read_bytes()).hexdigest(),foreground_pixels=int(prediction.sum())))
     result=dict(input='Cached full-RGB SAM predictions and fixed text recipe only',reference_masks_read=False,
                 recipe_sha256=hashlib.sha256(args.recipe.read_bytes()).hexdigest(),cache_provenance=manifest,frames=records,complete=True)
     (args.out/'manifest.json').write_text(json.dumps(result,indent=2)+'\n')

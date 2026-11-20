@@ -1,5 +1,5 @@
 {
-  "status": "labeling_on_gte",
+  "status": "labeling_complete_training_gates_or_queue_active",
   "request": "Full three-prompt labeling and 15 SAM-supervised detector reruns; disconnect-safe overnight queue",
   "hosts": {
     "morgoth": "/mnt/gpu_storage/cs_courses/jdusza_itr/sam_v2_20261121",
@@ -27,5 +27,8 @@
     "rivendell": 310364
   },
   "shared_queue": "/home/GTL/jdusza/itr_sam_v2_queue_20261121",
-  "git_status": "preparing clean versioned branch"
+  "git_status": "code and metadata pushed; full dataset snapshot pending generation/audit",
+  "git_branch": "codex/sam-v2-overnight",
+  "git_code_commit": "8200134",
+  "dataset_publication": "Complete 2000 ISOD teacher masks, 1400-mask training subset and 320 GTE teacher masks verified for publication."
 }

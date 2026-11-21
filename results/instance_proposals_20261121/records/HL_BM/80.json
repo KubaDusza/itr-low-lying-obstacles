@@ -1,0 +1,86 @@
+{
+  "site": "HL_BM",
+  "frame": 80,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/80.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/HL_BM/80.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          182,
+          334,
+          293,
+          422
+        ],
+        "area_pixels": 7781,
+        "confidence": 0.96875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          0,
+          387,
+          9,
+          419
+        ],
+        "area_pixels": 182,
+        "confidence": 0.71875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "74e1e16a97689d9846ed94dfb260a96a4b01bc99dc1878b38f7402ee59b00634"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/HL_BM/80.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 1.0,
+        "sam_seed_ids": [
+          2
+        ],
+        "seed_pixels": 182
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 1.0,
+        "sam_seed_ids": [
+          1
+        ],
+        "seed_pixels": 7795
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "3ccc29f9135112143811101df6c3f2efa8274351c4d38994b1837ecfe2133c1b",
+    "sha256": "ffd489dc4bf0341037d3cc21c2658694a5eebd0b10b1b14fcc6c4743bc08b906"
+  },
+  "needs_review": [],
+  "human_instance_review_complete": false
+}

@@ -1,0 +1,43 @@
+{
+  "site": "HB_LM",
+  "frame": 48,
+  "dataset_split": "train",
+  "path": "ids/train/HB_LM/48.png",
+  "sha256": "8fb17a2c8aeecc2672de8284f328b04926286e58d5abe18239dc005cd6a4517b",
+  "source_reference": "data/ISOD_reference_train_v1/HB_LM/48.png",
+  "source_sha256": "e824ae5c778d90b2a279f42976b5ed22179d5ee1244f3db8e61769d4e6ae2978",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/dev_cache/HB_LM/48.npz",
+  "source_cache_sha256": "50039532e287c058eecbf3ecc5a146ac7a226c704a1c156ccd14ca0bee084775",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.9638728323699421,
+      "sam_seed_ids": [
+        2,
+        4
+      ],
+      "seed_pixels": 667,
+      "sam_prompt_hints": [
+        "cable",
+        "cable on the floor",
+        "cord on the floor",
+        "electrical wire",
+        "small object on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.83984375,
+      "category_verified": false,
+      "area_pixels": 1018
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

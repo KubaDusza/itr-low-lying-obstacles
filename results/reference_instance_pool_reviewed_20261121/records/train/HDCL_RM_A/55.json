@@ -1,0 +1,253 @@
+{
+  "site": "HDCL_RM_A",
+  "frame": 55,
+  "dataset_split": "train",
+  "path": "ids/train/HDCL_RM_A/55.png",
+  "sha256": "9c7aaebe972e85926415044b2efafeb062000b2ef10c47d35e4f8a83fc92359a",
+  "source_reference": "data/ISOD_reference_train_v1/HDCL_RM_A/55.png",
+  "source_sha256": "aa4a6f30421ee300a52cecfe64cfb292252128ecc45486cdec4b513118d9e25a",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HDCL_RM_A/55.npz",
+  "source_cache_sha256": "b2513d97d69e64af6a245a6821e9e5539cb4e71f0238708a32ce434840828eb3",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9966887417218543,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 301,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.890625,
+      "category_verified": false,
+      "area_pixels": 400
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9750692520775623,
+      "sam_seed_ids": [
+        10
+      ],
+      "seed_pixels": 352,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire"
+      ],
+      "sam_confidence_hint": 0.76171875,
+      "category_verified": false,
+      "area_pixels": 352
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 401,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.9140625,
+      "category_verified": false,
+      "area_pixels": 466
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.7276190476190476,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 382,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire"
+      ],
+      "sam_confidence_hint": 0.7890625,
+      "category_verified": false,
+      "area_pixels": 424
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9647495361781077,
+      "sam_seed_ids": [
+        12
+      ],
+      "seed_pixels": 1040,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.73828125,
+      "category_verified": false,
+      "area_pixels": 2343
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9855595667870036,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 1911,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.87890625,
+      "category_verified": false,
+      "area_pixels": 8720
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9379544352884149,
+      "sam_seed_ids": [
+        11
+      ],
+      "seed_pixels": 3870,
+      "sam_prompt_hints": [
+        "cable",
+        "cable bundle",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.75390625,
+      "category_verified": false,
+      "area_pixels": 5414
+    },
+    {
+      "id": 8,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 326
+    },
+    {
+      "id": 9,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 134
+    },
+    {
+      "id": 10,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 513
+    },
+    {
+      "id": 11,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 834
+    },
+    {
+      "id": 12,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 105
+    },
+    {
+      "id": 13,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 200
+    },
+    {
+      "id": 14,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 71
+    },
+    {
+      "id": 15,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 624
+    },
+    {
+      "id": 16,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 313
+    },
+    {
+      "id": 17,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 769
+    },
+    {
+      "id": 18,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 363
+    },
+    {
+      "id": 19,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1553
+    },
+    {
+      "id": 20,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 210
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

@@ -1,0 +1,159 @@
+{
+  "site": "HDCL_HW_B",
+  "frame": 1,
+  "dataset_split": "train",
+  "path": "ids/train/HDCL_HW_B/1.png",
+  "sha256": "09865188fd62dc866c0596ec0225ba339b20de8988967111a3388d4f925cbfd6",
+  "source_reference": "data/ISOD_reference_train_v1/HDCL_HW_B/1.png",
+  "source_sha256": "f804354a02166d553ae4da185fe838082b8bd2832f71b6270d9e0a0427f2db97",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HDCL_HW_B/1.npz",
+  "source_cache_sha256": "17fcab56ee70a62fb4d519304dd461c3be528925b1b2afe64de17767bd8ec4a9",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9438202247191011,
+      "sam_seed_ids": [
+        16
+      ],
+      "seed_pixels": 84,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.6875,
+      "category_verified": false,
+      "area_pixels": 84
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8721804511278195,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 116,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.84765625,
+      "category_verified": false,
+      "area_pixels": 116
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 218,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.91796875,
+      "category_verified": false,
+      "area_pixels": 257
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9152046783625731,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 313,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.88671875,
+      "category_verified": false,
+      "area_pixels": 336
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9805510534846029,
+      "sam_seed_ids": [
+        12
+      ],
+      "seed_pixels": 605,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.7421875,
+      "category_verified": false,
+      "area_pixels": 625
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9532994923857868,
+      "sam_seed_ids": [
+        11
+      ],
+      "seed_pixels": 936,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.74609375,
+      "category_verified": false,
+      "area_pixels": 962
+    },
+    {
+      "id": 7,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 31
+    },
+    {
+      "id": 8,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 53
+    },
+    {
+      "id": 9,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 47
+    },
+    {
+      "id": 10,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 286
+    },
+    {
+      "id": 11,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 222
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

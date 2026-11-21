@@ -1,0 +1,103 @@
+{
+  "site": "HL_BM",
+  "frame": 14,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/14.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/HL_BM/14.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          0,
+          71,
+          35,
+          175
+        ],
+        "area_pixels": 568,
+        "confidence": 0.73046875,
+        "prompts": [
+          "cable on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          231,
+          41,
+          307,
+          83
+        ],
+        "area_pixels": 665,
+        "confidence": 0.7265625,
+        "prompts": [
+          "cable on the floor"
+        ]
+      },
+      {
+        "id": 3,
+        "unit": "proposed_individual",
+        "review_ids": [
+          3
+        ],
+        "bbox_xyxy": [
+          67,
+          193,
+          93,
+          227
+        ],
+        "area_pixels": 274,
+        "confidence": 0.71875,
+        "prompts": [
+          "cable on the floor"
+        ]
+      },
+      {
+        "id": 4,
+        "unit": "proposed_individual",
+        "review_ids": [
+          4
+        ],
+        "bbox_xyxy": [
+          511,
+          139,
+          540,
+          158
+        ],
+        "area_pixels": 412,
+        "confidence": 0.71484375,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "65ce18cc20d4819958f3efa94ee771702ccdd62896433d16031091c7509215ba"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/HL_BM/14.png",
+    "objects": [],
+    "binary_union_preserved": true,
+    "source_sha256": "ba7f95dbae174114ba080e24bea153023404d1c522a78a4e5b318f143a1d63c1",
+    "sha256": "7bf80164ddf08fe7ff5e2dd1a49f4d6edd0d8f7391e09cf15d8e9daac7c47d4e"
+  },
+  "needs_review": [],
+  "human_instance_review_complete": false
+}

@@ -1,0 +1,84 @@
+{
+  "site": "HL_BM",
+  "frame": 81,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/81.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/HL_BM/81.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          253,
+          362,
+          362,
+          422
+        ],
+        "area_pixels": 5049,
+        "confidence": 0.953125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          12,
+          144,
+          51,
+          154
+        ],
+        "area_pixels": 285,
+        "confidence": 0.6875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "f97f52619e18311fbf2462a717991a1a031dcd489e9a387e566d8a9d9b04f5bc"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/HL_BM/81.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9610055423594616,
+        "sam_seed_ids": [
+          1
+        ],
+        "seed_pixels": 4855
+      },
+      {
+        "id": 2,
+        "unit": "unseeded_reference_region",
+        "seed_pixels": 0
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "6538923209bff83e8f1171f028260f0721b8ec431120797b614356757af7c1f6",
+    "sha256": "b3495a93516dbdbb5530821c750dca2afdcb6d192a31f278c7e1e1b115289acb"
+  },
+  "needs_review": [
+    "reference_missing_SAM_seed"
+  ],
+  "human_instance_review_complete": false
+}

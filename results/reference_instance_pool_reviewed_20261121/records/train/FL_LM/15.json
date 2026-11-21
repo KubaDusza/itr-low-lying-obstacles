@@ -1,0 +1,74 @@
+{
+  "site": "FL_LM",
+  "frame": 15,
+  "dataset_split": "train",
+  "path": "ids/train/FL_LM/15.png",
+  "sha256": "fcaca9367be5597dff6d3a7cfc1d4af8efb5e6ebd25e1ff9fbcdf4fbbfb3cd46",
+  "source_reference": "data/ISOD_reference_train_v1/FL_LM/15.png",
+  "source_sha256": "232e4163a4b1dd5a037a35cad34fadd9d8d26216da77afc3b5a7497d9d48b8c2",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/FL_LM/15.npz",
+  "source_cache_sha256": "8698fca0e19a70048597ca8a16d7a6b49ec5306cf377d72643e9f99fd4ef2dbe",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8573253833049403,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 2013,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.890625,
+      "category_verified": false,
+      "area_pixels": 2257
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8738145926069286,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 4515,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.9375,
+      "category_verified": false,
+      "area_pixels": 4778
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 43
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 22
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

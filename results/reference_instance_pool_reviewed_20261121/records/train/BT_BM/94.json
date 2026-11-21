@@ -1,0 +1,74 @@
+{
+  "site": "BT_BM",
+  "frame": 94,
+  "dataset_split": "train",
+  "path": "ids/train/BT_BM/94.png",
+  "sha256": "6d1df9081713001a3634bb2cd15991ed6554fbd0abcf13d102fc76db96fb8310",
+  "source_reference": "data/ISOD_reference_train_v1/BT_BM/94.png",
+  "source_sha256": "ef65610fcb6a5e84f465d699d5df4ed5c9a94c9cf43d5bc29cb8ee47f01ea55d",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_BM/94.npz",
+  "source_cache_sha256": "a3f2c799cdde9865afbef4ec34fcbeeff8949a2fadb9dc398195c72f14d7e948",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9459071325993298,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 5928,
+      "sam_prompt_hints": [
+        "cloth",
+        "fabric on the floor"
+      ],
+      "sam_confidence_hint": 0.7890625,
+      "category_verified": false,
+      "area_pixels": 6064
+    },
+    {
+      "id": 2,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 680
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 220
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 50
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 84
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

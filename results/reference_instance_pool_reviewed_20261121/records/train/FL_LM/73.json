@@ -1,0 +1,231 @@
+{
+  "site": "FL_LM",
+  "frame": 73,
+  "dataset_split": "train",
+  "path": "ids/train/FL_LM/73.png",
+  "sha256": "523b625544de29253dc555189646ea9c18d7be53276403b9363672d9ddf54a69",
+  "source_reference": "data/ISOD_reference_train_v1/FL_LM/73.png",
+  "source_sha256": "67401dcfb2a11ca9f3cd23171bf32a483e42ce9b0b3076b8467d36c41f99b3e4",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/FL_LM/73.npz",
+  "source_cache_sha256": "b91011c24b3bb1ba446a4093e73fb320bf6d208c39ed3e1fc36820761da9120d",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        10
+      ],
+      "seed_pixels": 142,
+      "sam_prompt_hints": [
+        "small box",
+        "toy"
+      ],
+      "sam_confidence_hint": 0.8828125,
+      "category_verified": false,
+      "area_pixels": 160
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9863013698630136,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 144,
+      "sam_prompt_hints": [
+        "small box",
+        "toy"
+      ],
+      "sam_confidence_hint": 0.88671875,
+      "category_verified": false,
+      "area_pixels": 185
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 151,
+      "sam_prompt_hints": [
+        "small box",
+        "toy"
+      ],
+      "sam_confidence_hint": 0.890625,
+      "category_verified": false,
+      "area_pixels": 226
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9822485207100592,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 166,
+      "sam_prompt_hints": [
+        "small box",
+        "toy"
+      ],
+      "sam_confidence_hint": 0.90234375,
+      "category_verified": false,
+      "area_pixels": 176
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 176,
+      "sam_prompt_hints": [
+        "small box",
+        "toy"
+      ],
+      "sam_confidence_hint": 0.890625,
+      "category_verified": false,
+      "area_pixels": 260
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9877049180327869,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 241,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.89453125,
+      "category_verified": false,
+      "area_pixels": 241
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9966996699669967,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 302,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.91796875,
+      "category_verified": false,
+      "area_pixels": 322
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9859484777517564,
+      "sam_seed_ids": [
+        13
+      ],
+      "seed_pixels": 421,
+      "sam_prompt_hints": [
+        "cloth",
+        "fabric on the floor",
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.72265625,
+      "category_verified": false,
+      "area_pixels": 493
+    },
+    {
+      "id": 9,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9897388059701493,
+      "sam_seed_ids": [
+        12
+      ],
+      "seed_pixels": 1061,
+      "sam_prompt_hints": [
+        "cloth",
+        "fabric on the floor",
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.734375,
+      "category_verified": false,
+      "area_pixels": 1227
+    },
+    {
+      "id": 10,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9857050032488629,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 1517,
+      "sam_prompt_hints": [
+        "doormat",
+        "fabric on the floor"
+      ],
+      "sam_confidence_hint": 0.9375,
+      "category_verified": false,
+      "area_pixels": 1517
+    },
+    {
+      "id": 11,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9512195121951219,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 1521,
+      "sam_prompt_hints": [
+        "cable",
+        "cable bundle",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.921875,
+      "category_verified": false,
+      "area_pixels": 1647
+    },
+    {
+      "id": 12,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9880887926367081,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 1825,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.90234375,
+      "category_verified": false,
+      "area_pixels": 1956
+    },
+    {
+      "id": 13,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9981825525040388,
+      "sam_seed_ids": [
+        11
+      ],
+      "seed_pixels": 4943,
+      "sam_prompt_hints": [
+        "cloth",
+        "fabric on the floor"
+      ],
+      "sam_confidence_hint": 0.796875,
+      "category_verified": false,
+      "area_pixels": 5437
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

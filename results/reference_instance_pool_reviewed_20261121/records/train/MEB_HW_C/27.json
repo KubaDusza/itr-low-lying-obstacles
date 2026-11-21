@@ -1,0 +1,207 @@
+{
+  "site": "MEB_HW_C",
+  "frame": 27,
+  "dataset_split": "train",
+  "path": "ids/train/MEB_HW_C/27.png",
+  "sha256": "0c894f9ba97cdc83affc896ec26153290d9568d3c0d4470e7262229ea2d7f112",
+  "source_reference": "data/ISOD_reference_train_v1/MEB_HW_C/27.png",
+  "source_sha256": "9b08cb280fc8b09215254c83b122e6853e9afb752a25cf59e2a0b4810251aff7",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/MEB_HW_C/27.npz",
+  "source_cache_sha256": "5fcde00de807c48313eb0d9621989803de0491f29d55e996e5b849bf9c3d2411",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9689119170984456,
+      "sam_seed_ids": [
+        11
+      ],
+      "seed_pixels": 187,
+      "sam_prompt_hints": [
+        "small box",
+        "toy"
+      ],
+      "sam_confidence_hint": 0.87890625,
+      "category_verified": false,
+      "area_pixels": 187
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9551020408163265,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 234,
+      "sam_prompt_hints": [
+        "small box",
+        "toy"
+      ],
+      "sam_confidence_hint": 0.89453125,
+      "category_verified": false,
+      "area_pixels": 234
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9959677419354839,
+      "sam_seed_ids": [
+        12
+      ],
+      "seed_pixels": 247,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.84375,
+      "category_verified": false,
+      "area_pixels": 269
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9705882352941176,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 264,
+      "sam_prompt_hints": [
+        "small box",
+        "toy"
+      ],
+      "sam_confidence_hint": 0.90234375,
+      "category_verified": false,
+      "area_pixels": 264
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9178571428571428,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 257,
+      "sam_prompt_hints": [
+        "small box",
+        "toy"
+      ],
+      "sam_confidence_hint": 0.91015625,
+      "category_verified": false,
+      "area_pixels": 263
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9839743589743589,
+      "sam_seed_ids": [
+        10
+      ],
+      "seed_pixels": 307,
+      "sam_prompt_hints": [
+        "small box",
+        "toy"
+      ],
+      "sam_confidence_hint": 0.890625,
+      "category_verified": false,
+      "area_pixels": 371
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9606060606060606,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 317,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.9140625,
+      "category_verified": false,
+      "area_pixels": 317
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9959183673469387,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 488,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.90234375,
+      "category_verified": false,
+      "area_pixels": 543
+    },
+    {
+      "id": 9,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9850746268656716,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 528,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.90234375,
+      "category_verified": false,
+      "area_pixels": 528
+    },
+    {
+      "id": 10,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9947368421052631,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 744,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.90625,
+      "category_verified": false,
+      "area_pixels": 744
+    },
+    {
+      "id": 11,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9986275048037332,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 3638,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.9765625,
+      "category_verified": false,
+      "area_pixels": 4009
+    },
+    {
+      "id": 12,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9970880438506338,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 5821,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.95703125,
+      "category_verified": false,
+      "area_pixels": 6261
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

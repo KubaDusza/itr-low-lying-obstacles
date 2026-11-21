@@ -1,0 +1,80 @@
+{
+  "site": "BT_BM",
+  "frame": 47,
+  "dataset_split": "train",
+  "path": "ids/train/BT_BM/47.png",
+  "sha256": "1a487ce2ef47a99222764a435a2549b65e619eaa7667176728b327a05b6db7c0",
+  "source_reference": "data/ISOD_reference_train_v1/BT_BM/47.png",
+  "source_sha256": "b26c4534b237b1445de022d9fc7e17d624e0670889a0957fc88a56cf1aae356e",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_BM/47.npz",
+  "source_cache_sha256": "a9e1263ff10d9e27f6d9f29b9da8ded350b5f83da1a560828bb666c102e52b80",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9230769230769231,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 204,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.69140625,
+      "category_verified": false,
+      "area_pixels": 204
+    },
+    {
+      "id": 2,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.7128712871287128,
+      "sam_seed_ids": [
+        4,
+        9
+      ],
+      "seed_pixels": 792,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.75,
+      "category_verified": false,
+      "area_pixels": 959
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9907063197026023,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 2665,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire"
+      ],
+      "sam_confidence_hint": 0.8203125,
+      "category_verified": false,
+      "area_pixels": 2831
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1873
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

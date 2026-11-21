@@ -1,0 +1,41 @@
+{
+  "site": "HL_BM",
+  "frame": 84,
+  "dataset_split": "val",
+  "path": "ids/val/HL_BM/84.png",
+  "sha256": "fb66e90c8ac6d7d3cec928d43a87873417768e43177aaa831462bb20a8d9bec5",
+  "source_reference": "data/ISOD_reference_val_v1/HL_BM/84.png",
+  "source_sha256": "5f75439c45776e029ac82a24a2ab0800dbeaabadd4854b12a61c3a52aad2365f",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/84.npz",
+  "source_cache_sha256": "432ae3f2e84fb8adc6cb60119847670317266c34487bb2d4c9d719b4e018314e",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.8532153578764418,
+      "sam_seed_ids": [
+        1,
+        2
+      ],
+      "seed_pixels": 5400,
+      "sam_prompt_hints": [
+        "cable",
+        "cable on the floor",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.6875,
+      "category_verified": false,
+      "area_pixels": 7516
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

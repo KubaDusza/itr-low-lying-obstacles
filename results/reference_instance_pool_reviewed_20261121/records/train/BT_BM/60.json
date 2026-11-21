@@ -1,0 +1,491 @@
+{
+  "site": "BT_BM",
+  "frame": 60,
+  "dataset_split": "train",
+  "path": "ids/train/BT_BM/60.png",
+  "sha256": "c29a7c0e0478fdccf4f8e7eabe418512204d9a5673d8316c9d7dad48e0319caf",
+  "source_reference": "data/ISOD_reference_train_v1/BT_BM/60.png",
+  "source_sha256": "f5e854dfd4d3a592c2fdcff7296fb5db84ba9d9dca59b50f02755630c2d41473",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/dev_cache/BT_BM/60.npz",
+  "source_cache_sha256": "4e8ea84be05bae74bce52904819d473decae869d82992c6834e6620cd4d93aba",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9615384615384616,
+      "sam_seed_ids": [
+        22
+      ],
+      "seed_pixels": 50,
+      "sam_prompt_hints": [
+        "building block",
+        "small object on the floor",
+        "toy block"
+      ],
+      "sam_confidence_hint": 0.640625,
+      "category_verified": false,
+      "area_pixels": 75
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9523809523809523,
+      "sam_seed_ids": [
+        14
+      ],
+      "seed_pixels": 60,
+      "sam_prompt_hints": [
+        "LEGO brick",
+        "building block",
+        "building block on the floor",
+        "plastic block",
+        "small object on the floor",
+        "toy",
+        "toy block",
+        "toy block on the floor",
+        "toy brick",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.796875,
+      "category_verified": false,
+      "area_pixels": 60
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8333333333333334,
+      "sam_seed_ids": [
+        17
+      ],
+      "seed_pixels": 55,
+      "sam_prompt_hints": [
+        "LEGO brick",
+        "building block",
+        "building block on the floor",
+        "plastic block",
+        "small object on the floor",
+        "toy",
+        "toy block",
+        "toy block on the floor",
+        "toy brick",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.7734375,
+      "category_verified": false,
+      "area_pixels": 55
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9154929577464789,
+      "sam_seed_ids": [
+        16
+      ],
+      "seed_pixels": 65,
+      "sam_prompt_hints": [
+        "LEGO brick",
+        "building block",
+        "building block on the floor",
+        "plastic block",
+        "small object on the floor",
+        "toy",
+        "toy block",
+        "toy block on the floor",
+        "toy brick",
+        "toy brick on the floor"
+      ],
+      "sam_confidence_hint": 0.79296875,
+      "category_verified": false,
+      "area_pixels": 65
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8732394366197183,
+      "sam_seed_ids": [
+        18
+      ],
+      "seed_pixels": 53,
+      "sam_prompt_hints": [
+        "LEGO brick",
+        "building block",
+        "building block on the floor",
+        "plastic block",
+        "small object on the floor",
+        "toy",
+        "toy block",
+        "toy block on the floor",
+        "toy brick"
+      ],
+      "sam_confidence_hint": 0.7578125,
+      "category_verified": false,
+      "area_pixels": 53
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9272727272727272,
+      "sam_seed_ids": [
+        19
+      ],
+      "seed_pixels": 97,
+      "sam_prompt_hints": [
+        "LEGO brick",
+        "building block",
+        "building block on the floor",
+        "plastic block",
+        "small object on the floor",
+        "toy",
+        "toy block",
+        "toy block on the floor",
+        "toy brick",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.73828125,
+      "category_verified": false,
+      "area_pixels": 105
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9918032786885246,
+      "sam_seed_ids": [
+        15
+      ],
+      "seed_pixels": 114,
+      "sam_prompt_hints": [
+        "LEGO brick",
+        "building block",
+        "building block on the floor",
+        "plastic block",
+        "small object on the floor",
+        "toy",
+        "toy block",
+        "toy block on the floor",
+        "toy brick",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.79296875,
+      "category_verified": false,
+      "area_pixels": 165
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9777777777777777,
+      "sam_seed_ids": [
+        23
+      ],
+      "seed_pixels": 131,
+      "sam_prompt_hints": [
+        "building block",
+        "building block on the floor",
+        "toy",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.62890625,
+      "category_verified": false,
+      "area_pixels": 182
+    },
+    {
+      "id": 9,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9786096256684492,
+      "sam_seed_ids": [
+        12
+      ],
+      "seed_pixels": 181,
+      "sam_prompt_hints": [
+        "LEGO brick",
+        "building block",
+        "building block on the floor",
+        "plastic block",
+        "small object on the floor",
+        "toy",
+        "toy block",
+        "toy block on the floor",
+        "toy brick",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.87109375,
+      "category_verified": false,
+      "area_pixels": 204
+    },
+    {
+      "id": 10,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9536784741144414,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 350,
+      "sam_prompt_hints": [
+        "small bottle",
+        "small bottle on the floor",
+        "small object on the floor",
+        "things on the floor",
+        "toy",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.8984375,
+      "category_verified": false,
+      "area_pixels": 367
+    },
+    {
+      "id": 11,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9348958333333334,
+      "sam_seed_ids": [
+        21
+      ],
+      "seed_pixels": 359,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.6875,
+      "category_verified": false,
+      "area_pixels": 365
+    },
+    {
+      "id": 12,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.913894324853229,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 467,
+      "sam_prompt_hints": [
+        "LEGO brick",
+        "building block",
+        "building block on the floor",
+        "plastic block",
+        "plastic block on the floor",
+        "small object on the floor",
+        "things on the floor",
+        "toy",
+        "toy block",
+        "toy block on the floor",
+        "toy brick",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.9375,
+      "category_verified": false,
+      "area_pixels": 467
+    },
+    {
+      "id": 13,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.9727564102564102,
+      "sam_seed_ids": [
+        13,
+        20,
+        24
+      ],
+      "seed_pixels": 607,
+      "sam_prompt_hints": [
+        "banana peel",
+        "banana peel on the floor",
+        "small object on the floor",
+        "things on the floor",
+        "toy",
+        "toy block",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.85546875,
+      "category_verified": false,
+      "area_pixels": 684
+    },
+    {
+      "id": 14,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9375951293759512,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 616,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor",
+        "toy",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.9296875,
+      "category_verified": false,
+      "area_pixels": 616
+    },
+    {
+      "id": 15,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9976744186046511,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 858,
+      "sam_prompt_hints": [
+        "LEGO brick",
+        "building block",
+        "building block on the floor",
+        "plastic block",
+        "plastic block on the floor",
+        "small object on the floor",
+        "toy",
+        "toy block",
+        "toy block on the floor",
+        "toy brick",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.9296875,
+      "category_verified": false,
+      "area_pixels": 1021
+    },
+    {
+      "id": 16,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9741657696447793,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 905,
+      "sam_prompt_hints": [
+        "cloth",
+        "paper on the floor",
+        "small object on the floor",
+        "sock",
+        "sock on the floor",
+        "things on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.94140625,
+      "category_verified": false,
+      "area_pixels": 971
+    },
+    {
+      "id": 17,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9781746031746031,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 986,
+      "sam_prompt_hints": [
+        "banana peel",
+        "banana peel on the floor",
+        "flip flop",
+        "flip flop on the floor",
+        "slipper",
+        "slipper on the floor",
+        "small object on the floor",
+        "things on the floor",
+        "toy",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.90625,
+      "category_verified": false,
+      "area_pixels": 1056
+    },
+    {
+      "id": 18,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9951259138911455,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 1225,
+      "sam_prompt_hints": [
+        "LEGO brick",
+        "building block",
+        "building block on the floor",
+        "chalk on the floor",
+        "plastic block",
+        "small object on the floor",
+        "things on the floor",
+        "toy",
+        "toy block",
+        "toy block on the floor",
+        "toy brick",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.9375,
+      "category_verified": false,
+      "area_pixels": 1440
+    },
+    {
+      "id": 19,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8960317460317461,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 1129,
+      "sam_prompt_hints": [
+        "cable",
+        "cable bundle on the floor",
+        "cable on the floor",
+        "cord",
+        "cord on the floor",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.90234375,
+      "category_verified": false,
+      "area_pixels": 1129
+    },
+    {
+      "id": 20,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.968736797634136,
+      "sam_seed_ids": [
+        11
+      ],
+      "seed_pixels": 2288,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.87890625,
+      "category_verified": false,
+      "area_pixels": 2363
+    },
+    {
+      "id": 21,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9949135300101729,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 2934,
+      "sam_prompt_hints": [
+        "rag on the floor",
+        "small object on the floor",
+        "things on the floor",
+        "towel on the floor",
+        "toy brick on the floor"
+      ],
+      "sam_confidence_hint": 0.89453125,
+      "category_verified": false,
+      "area_pixels": 3088
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

@@ -1,0 +1,366 @@
+{
+  "candidate": "Remove geometry-only positive fallback; retain SAM-supported region completion",
+  "status": "diagnostic trial; no GT labels or pipeline parameters changed",
+  "summary": {
+    "representative": {
+      "current": {
+        "mean_image_iou": 0.836775028750684,
+        "pooled_iou": 0.9124961791758135
+      },
+      "require_SAM_support_for_fallback": {
+        "mean_image_iou": 0.8288334915432172,
+        "pooled_iou": 0.8735183377492679
+      }
+    },
+    "all": {
+      "current": {
+        "mean_image_iou": 0.8535118620247153,
+        "pooled_iou": 0.9320027282738333
+      },
+      "require_SAM_support_for_fallback": {
+        "mean_image_iou": 0.8465630169681819,
+        "pooled_iou": 0.9062551550238408
+      }
+    }
+  },
+  "frames": [
+    {
+      "site": "ABEC_MM",
+      "frame": 37,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 12781,
+          "union": 12781,
+          "gt": 12781,
+          "pred": 12781,
+          "iou": 1.0
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 8726,
+          "union": 12781,
+          "gt": 12781,
+          "pred": 8726,
+          "iou": 0.6827321805805493
+        }
+      }
+    },
+    {
+      "site": "ABEC_RM",
+      "frame": 64,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 4077,
+          "union": 4096,
+          "gt": 4096,
+          "pred": 4077,
+          "iou": 0.995361328125
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 4077,
+          "union": 4096,
+          "gt": 4096,
+          "pred": 4077,
+          "iou": 0.995361328125
+        }
+      }
+    },
+    {
+      "site": "BT_BM",
+      "frame": 81,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 11073,
+          "union": 11073,
+          "gt": 11073,
+          "pred": 11073,
+          "iou": 1.0
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 11073,
+          "union": 11073,
+          "gt": 11073,
+          "pred": 11073,
+          "iou": 1.0
+        }
+      }
+    },
+    {
+      "site": "BT_LM",
+      "frame": 96,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 5062,
+          "union": 5334,
+          "gt": 5334,
+          "pred": 5062,
+          "iou": 0.9490063742032246
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 5062,
+          "union": 5334,
+          "gt": 5334,
+          "pred": 5062,
+          "iou": 0.9490063742032246
+        }
+      }
+    },
+    {
+      "site": "FL_BM",
+      "frame": 98,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 17163,
+          "union": 19900,
+          "gt": 18961,
+          "pred": 18102,
+          "iou": 0.862462311557789
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 17163,
+          "union": 19783,
+          "gt": 18961,
+          "pred": 17985,
+          "iou": 0.8675630591922358
+        }
+      }
+    },
+    {
+      "site": "FL_LM",
+      "frame": 78,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 10815,
+          "union": 13174,
+          "gt": 12445,
+          "pred": 11544,
+          "iou": 0.8209351753453773
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 10815,
+          "union": 13174,
+          "gt": 12445,
+          "pred": 11544,
+          "iou": 0.8209351753453773
+        }
+      }
+    },
+    {
+      "site": "HB_G",
+      "frame": 90,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 20142,
+          "union": 21020,
+          "gt": 21020,
+          "pred": 20142,
+          "iou": 0.9582302568981922
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 11248,
+          "union": 21020,
+          "gt": 21020,
+          "pred": 11248,
+          "iou": 0.5351094196003806
+        }
+      }
+    },
+    {
+      "site": "HB_LM",
+      "frame": 96,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 26915,
+          "union": 27124,
+          "gt": 27124,
+          "pred": 26915,
+          "iou": 0.9922946468072555
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 26915,
+          "union": 27124,
+          "gt": 27124,
+          "pred": 26915,
+          "iou": 0.9922946468072555
+        }
+      }
+    },
+    {
+      "site": "HB_MM",
+      "frame": 70,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 6676,
+          "union": 6676,
+          "gt": 6676,
+          "pred": 6676,
+          "iou": 1.0
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 6676,
+          "union": 6676,
+          "gt": 6676,
+          "pred": 6676,
+          "iou": 1.0
+        }
+      }
+    },
+    {
+      "site": "HDCL_HW_B",
+      "frame": 53,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 1855,
+          "union": 9113,
+          "gt": 1855,
+          "pred": 9113,
+          "iou": 0.20355536047404807
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 1808,
+          "union": 2025,
+          "gt": 1855,
+          "pred": 1978,
+          "iou": 0.8928395061728395
+        }
+      }
+    },
+    {
+      "site": "HDCL_RM_A",
+      "frame": 1,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 0,
+          "union": 846,
+          "gt": 0,
+          "pred": 846,
+          "iou": 0.0
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 0,
+          "union": 220,
+          "gt": 0,
+          "pred": 220,
+          "iou": 0.0
+        }
+      }
+    },
+    {
+      "site": "HDCL_RM_B",
+      "frame": 6,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 12588,
+          "union": 13164,
+          "gt": 13164,
+          "pred": 12588,
+          "iou": 0.9562443026435734
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 11730,
+          "union": 13164,
+          "gt": 13164,
+          "pred": 11730,
+          "iou": 0.8910665451230629
+        }
+      }
+    },
+    {
+      "site": "HL_LM",
+      "frame": 29,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 24840,
+          "union": 25431,
+          "gt": 24907,
+          "pred": 25364,
+          "iou": 0.9767606464551138
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 24840,
+          "union": 25431,
+          "gt": 24907,
+          "pred": 25364,
+          "iou": 0.9767606464551138
+        }
+      }
+    },
+    {
+      "site": "MEB_HW_C",
+      "frame": 53,
+      "selection_group": "representative",
+      "scores": {
+        "current": {
+          "inter": 10203,
+          "union": 10203,
+          "gt": 10203,
+          "pred": 10203,
+          "iou": 1.0
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 10203,
+          "union": 10203,
+          "gt": 10203,
+          "pred": 10203,
+          "iou": 1.0
+        }
+      }
+    },
+    {
+      "site": "FL_LM",
+      "frame": 64,
+      "selection_group": "targeted_scope_check",
+      "scores": {
+        "current": {
+          "inter": 18467,
+          "union": 19168,
+          "gt": 18467,
+          "pred": 19168,
+          "iou": 0.9634286310517529
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 18467,
+          "union": 19168,
+          "gt": 18467,
+          "pred": 19168,
+          "iou": 0.9634286310517529
+        }
+      }
+    },
+    {
+      "site": "HL_LM",
+      "frame": 63,
+      "selection_group": "targeted_large_foreground",
+      "scores": {
+        "current": {
+          "inter": 61935,
+          "union": 63334,
+          "gt": 62199,
+          "pred": 63070,
+          "iou": 0.9779107588341175
+        },
+        "require_SAM_support_for_fallback": {
+          "inter": 61935,
+          "union": 63334,
+          "gt": 62199,
+          "pred": 63070,
+          "iou": 0.9779107588341175
+        }
+      }
+    }
+  ],
+  "decision": "rejected: the candidate reduced pooled IoU from 0.9125 to 0.8735 on the 14 representative reviewed frames; keep the current global rule",
+  "pipeline_changed": false
+}

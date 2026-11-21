@@ -1,0 +1,40 @@
+{
+  "site": "BT_BM",
+  "frame": 48,
+  "dataset_split": "train",
+  "path": "ids/train/BT_BM/48.png",
+  "sha256": "7089d229b0d5dd931a1fd140a643bae567ec6ffd26ee0e60585d3be96087e0b1",
+  "source_reference": "data/ISOD_reference_train_v1/BT_BM/48.png",
+  "source_sha256": "ec080ed9b1bbeac6f8347c6956ddbd07ec06db6c472d72bb19302f2ed1763a7b",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_BM/48.npz",
+  "source_cache_sha256": "4431402d8c43ebd642e2a6ffc4e7e8818022a990a427ea8a595c3a72a3e5b145",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 2895
+    },
+    {
+      "id": 2,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 3582
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

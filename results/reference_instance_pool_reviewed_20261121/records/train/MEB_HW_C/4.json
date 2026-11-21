@@ -1,0 +1,117 @@
+{
+  "site": "MEB_HW_C",
+  "frame": 4,
+  "dataset_split": "train",
+  "path": "ids/train/MEB_HW_C/4.png",
+  "sha256": "550b40be983c0ada0954063af12dad4279bc015ef570f791cd75e77a2b96b88e",
+  "source_reference": "data/ISOD_reference_train_v1/MEB_HW_C/4.png",
+  "source_sha256": "0302908b66ee04b57294a9486d2e126e9721782400fc4e54ff6fc0c419e37282",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/MEB_HW_C/4.npz",
+  "source_cache_sha256": "1bd97a6d403a0502d3b00e7b857afa579d16016058213cfca66a2ca9569b333d",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.7606837606837606,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 178,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.74609375,
+      "category_verified": false,
+      "area_pixels": 178
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.927027027027027,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 343,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.85546875,
+      "category_verified": false,
+      "area_pixels": 343
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9209932279909706,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 408,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire"
+      ],
+      "sam_confidence_hint": 0.7578125,
+      "category_verified": false,
+      "area_pixels": 1677
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9149722735674677,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 495,
+      "sam_prompt_hints": [
+        "small box"
+      ],
+      "sam_confidence_hint": 0.70703125,
+      "category_verified": false,
+      "area_pixels": 495
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9718875502008032,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 726,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.6171875,
+      "category_verified": false,
+      "area_pixels": 758
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9962671090833679,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 4804,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.98046875,
+      "category_verified": false,
+      "area_pixels": 4962
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

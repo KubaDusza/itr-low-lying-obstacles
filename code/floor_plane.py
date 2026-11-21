@@ -10,7 +10,8 @@ def fit_floor_plane(inv, mask, trim=2.5, iters=4, step=4):
     of the pixel coordinates, whatever the focal length and principal point are: with
     X = z((u-cx)/fx, (v-cy)/fy, 1) and a plane n.X = d, one gets
     1/z = (n0(u-cx)/fx + n1(v-cy)/fy + n2)/d. So the floor can be recovered with three
-    numbers and no intrinsics, which matters because ISOD ships none.
+    numbers without intrinsics; exact ISOD recording calibration has not yet
+    been recovered from the inspected release and author code.
     """
     h, w = inv.shape
     u, v = np.meshgrid(np.linspace(-1, 1, w, dtype=np.float32),
@@ -37,9 +38,9 @@ def floor_gap(raw, st, seed_from=0.1):
     is floor in this dataset and in our own recordings. Along a pixel's ray the floor is
     at z_plane and the measurement is at z, so z_plane - z is how far the surface is in
     front of the floor: zero on the floor, positive on anything lying on it, and in
-    metres, which makes it comparable between near and far objects. That is HHA's "height
-    above ground" channel, and it is also exactly the quantity the dataset's own geometric
-    baseline thresholds.
+    metres. This is a camera-axis depth residual, not perpendicular physical
+    height above the floor or HHA's calibrated height-above-ground channel.
+    Its magnitude also depends on viewing geometry and floor-fit error.
 
     Returned together with the validity mask, because above the horizon the plane is
     behind the camera and the quantity is meaningless.

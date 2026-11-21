@@ -1,0 +1,237 @@
+{
+  "site": "MEB_HW_C",
+  "frame": 39,
+  "dataset_split": "train",
+  "path": "ids/train/MEB_HW_C/39.png",
+  "sha256": "85f8cf1c2b6df0e416c227db0e6dfadc62c935399512d5209944b76b6bae1336",
+  "source_reference": "data/ISOD_reference_train_v1/MEB_HW_C/39.png",
+  "source_sha256": "bad992842e5bcbf54827441ba92340da87235729f7bc2d7507bfb5daef47830e",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/MEB_HW_C/39.npz",
+  "source_cache_sha256": "0b1562c1bde01ae25aeb70fbb0069b119195abb438902a68020951689ca1d368",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9512195121951219,
+      "sam_seed_ids": [
+        13
+      ],
+      "seed_pixels": 39,
+      "sam_prompt_hints": [
+        "crayon"
+      ],
+      "sam_confidence_hint": 0.60546875,
+      "category_verified": false,
+      "area_pixels": 909
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8333333333333334,
+      "sam_seed_ids": [
+        12
+      ],
+      "seed_pixels": 50,
+      "sam_prompt_hints": [
+        "crayon"
+      ],
+      "sam_confidence_hint": 0.60546875,
+      "category_verified": false,
+      "area_pixels": 50
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8348623853211009,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 91,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.69140625,
+      "category_verified": false,
+      "area_pixels": 91
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9366197183098591,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 133,
+      "sam_prompt_hints": [
+        "cloth",
+        "piece of paper"
+      ],
+      "sam_confidence_hint": 0.68359375,
+      "category_verified": false,
+      "area_pixels": 133
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9272727272727272,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 153,
+      "sam_prompt_hints": [
+        "cloth",
+        "piece of paper"
+      ],
+      "sam_confidence_hint": 0.7265625,
+      "category_verified": false,
+      "area_pixels": 153
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9254385964912281,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 211,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.67578125,
+      "category_verified": false,
+      "area_pixels": 211
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9522292993630573,
+      "sam_seed_ids": [
+        10
+      ],
+      "seed_pixels": 299,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.67578125,
+      "category_verified": false,
+      "area_pixels": 299
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8990825688073395,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 294,
+      "sam_prompt_hints": [
+        "cloth"
+      ],
+      "sam_confidence_hint": 0.77734375,
+      "category_verified": false,
+      "area_pixels": 294
+    },
+    {
+      "id": 9,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9583975346687211,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 622,
+      "sam_prompt_hints": [
+        "cable"
+      ],
+      "sam_confidence_hint": 0.74609375,
+      "category_verified": false,
+      "area_pixels": 854
+    },
+    {
+      "id": 10,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8201342281879195,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 611,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.828125,
+      "category_verified": false,
+      "area_pixels": 611
+    },
+    {
+      "id": 11,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9613992762364294,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 797,
+      "sam_prompt_hints": [
+        "shoe",
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.69140625,
+      "category_verified": false,
+      "area_pixels": 1368
+    },
+    {
+      "id": 12,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9977588525324966,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 2226,
+      "sam_prompt_hints": [
+        "cloth",
+        "doormat",
+        "fabric on the floor",
+        "piece of paper"
+      ],
+      "sam_confidence_hint": 0.90625,
+      "category_verified": false,
+      "area_pixels": 2359
+    },
+    {
+      "id": 13,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 209
+    },
+    {
+      "id": 14,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 81
+    },
+    {
+      "id": 15,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 402
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

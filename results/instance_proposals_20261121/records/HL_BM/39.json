@@ -1,0 +1,77 @@
+{
+  "site": "HL_BM",
+  "frame": 39,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/39.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/HL_BM/39.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          180,
+          215,
+          470,
+          405
+        ],
+        "area_pixels": 3616,
+        "confidence": 0.7421875,
+        "prompts": [
+          "cable on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          207,
+          391,
+          250,
+          422
+        ],
+        "area_pixels": 750,
+        "confidence": 0.734375,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "5573166a113b3a85d2900203a7da01f660a3dbc6a256196f38daeb1b8c76de8f"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/HL_BM/39.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.8784145688269952,
+        "sam_seed_ids": [
+          2
+        ],
+        "seed_pixels": 3280
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "e8ca9f39bcb34132730f6aa00b6ad65b26a6f97a28854351dc82d4e03e560a43",
+    "sha256": "42298b00a83d1611a4a609738da7e973d9b99200c8fcf6ec7af241fee9ae59e8"
+  },
+  "needs_review": [],
+  "human_instance_review_complete": false
+}

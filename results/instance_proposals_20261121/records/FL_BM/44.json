@@ -1,0 +1,30 @@
+{
+  "site": "FL_BM",
+  "frame": 44,
+  "split": "development",
+  "dataset_split": "train",
+  "source_cache": "results/sam_prompt_v2/dev_cache/FL_BM/44.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/FL_BM/44.npz",
+    "objects": [],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "42fba2b373c2f539a5de76aaec7dfc19e4c3e45e78d7bb7d13732e8c3785e28e"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/FL_BM/44.png",
+    "objects": [],
+    "binary_union_preserved": true,
+    "source_sha256": "ba7f95dbae174114ba080e24bea153023404d1c522a78a4e5b318f143a1d63c1",
+    "sha256": "7bf80164ddf08fe7ff5e2dd1a49f4d6edd0d8f7391e09cf15d8e9daac7c47d4e"
+  },
+  "needs_review": [],
+  "human_instance_review_complete": false
+}

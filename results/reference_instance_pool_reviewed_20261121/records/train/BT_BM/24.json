@@ -1,0 +1,78 @@
+{
+  "site": "BT_BM",
+  "frame": 24,
+  "dataset_split": "train",
+  "path": "ids/train/BT_BM/24.png",
+  "sha256": "332f5fbe7ba6c199239cd9615bd94cc8674627f0f6f244f2b7a9520dd3e6ce09",
+  "source_reference": "data/ISOD_reference_train_v1/BT_BM/24.png",
+  "source_sha256": "d95f0aeb50d2fd04d4e3ab4ef8a6bb86bcd82c1b68e49d757eff9b2e96055b22",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/dev_cache/BT_BM/24.npz",
+  "source_cache_sha256": "f7ef0642720984a0f3633b93bcb1bca4ee336329fb50f2235ab7b203cc9dd6c0",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9555555555555556,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 602,
+      "sam_prompt_hints": [
+        "paper on the floor",
+        "piece of paper on the floor",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.84375,
+      "category_verified": false,
+      "area_pixels": 1187
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9976133651551312,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 836,
+      "sam_prompt_hints": [
+        "slipper on the floor",
+        "small object on the floor",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.94140625,
+      "category_verified": false,
+      "area_pixels": 1008
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9928825622775801,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 2232,
+      "sam_prompt_hints": [
+        "cable",
+        "cable on the floor",
+        "cord",
+        "electrical wire",
+        "power cord",
+        "small object on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.86328125,
+      "category_verified": false,
+      "area_pixels": 2391
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

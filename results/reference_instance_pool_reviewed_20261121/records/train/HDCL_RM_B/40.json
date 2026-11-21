@@ -1,0 +1,72 @@
+{
+  "site": "HDCL_RM_B",
+  "frame": 40,
+  "dataset_split": "train",
+  "path": "ids/train/HDCL_RM_B/40.png",
+  "sha256": "960a2a70208e384ef31b7d0a89fc9e3c4791ad7decc7781eedb011a602a04a19",
+  "source_reference": "data/ISOD_reference_train_v1/HDCL_RM_B/40.png",
+  "source_sha256": "92b760a77ed02d94b1959bfba060e34e7fd570fb1172bf38594779ef6d0a88f3",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HDCL_RM_B/40.npz",
+  "source_cache_sha256": "2fc38657dce76ca2603c76ff3d652a4db8a2e90bf173c129330db14ee2854905",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 177,
+      "sam_prompt_hints": [
+        "small box"
+      ],
+      "sam_confidence_hint": 0.66015625,
+      "category_verified": false,
+      "area_pixels": 304
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9895712630359212,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 1708,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.87109375,
+      "category_verified": false,
+      "area_pixels": 7698
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 749
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 3132
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

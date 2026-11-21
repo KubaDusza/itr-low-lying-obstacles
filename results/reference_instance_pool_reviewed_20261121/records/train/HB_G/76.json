@@ -1,0 +1,79 @@
+{
+  "site": "HB_G",
+  "frame": 76,
+  "dataset_split": "train",
+  "path": "ids/train/HB_G/76.png",
+  "sha256": "352ac098e1220dcb8d3f8dd318bd148e87d889dbf424490b1afe31ef21cd510c",
+  "source_reference": "data/ISOD_reference_train_v1/HB_G/76.png",
+  "source_sha256": "4fc52cebde03ffdee4260a984169ba203216214c4f7f714c0656ee7a71eb7129",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HB_G/76.npz",
+  "source_cache_sha256": "a5d7053e7621dce78e83946772e3e28af6dde1920cc8fe1efcbf2ef9ec35c8bc",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9985315712187959,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 680,
+      "sam_prompt_hints": [
+        "small box"
+      ],
+      "sam_confidence_hint": 0.73828125,
+      "category_verified": false,
+      "area_pixels": 733
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9954163483575248,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 1303,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.9296875,
+      "category_verified": false,
+      "area_pixels": 7742
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 3815
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 800
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 116
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

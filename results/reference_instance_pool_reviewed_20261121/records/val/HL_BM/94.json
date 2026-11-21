@@ -1,0 +1,135 @@
+{
+  "site": "HL_BM",
+  "frame": 94,
+  "dataset_split": "val",
+  "path": "ids/val/HL_BM/94.png",
+  "sha256": "655b351e4aba18de726799785e8a10d42c660d292e99df4309dd0b7f60ce76fa",
+  "source_reference": "data/ISOD_reference_val_v1/HL_BM/94.png",
+  "source_sha256": "8970c42e6b6e6f0997b54ab7421d28c545e4db6e2659c0e7d5b755f165d37b5b",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/94.npz",
+  "source_cache_sha256": "6de79f2b67a3d287414832d029a57bf6b47a0f364ad861247579bb28ea0ddac2",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8764705882352941,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 149,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.83984375,
+      "category_verified": false,
+      "area_pixels": 164
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9822695035460993,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 831,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.83203125,
+      "category_verified": false,
+      "area_pixels": 995
+    },
+    {
+      "id": 3,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.9561834561834562,
+      "sam_seed_ids": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        14,
+        16,
+        17,
+        18
+      ],
+      "seed_pixels": 2218,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.81640625,
+      "category_verified": false,
+      "area_pixels": 2466
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        11
+      ],
+      "seed_pixels": 5357,
+      "sam_prompt_hints": [
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.67578125,
+      "category_verified": false,
+      "area_pixels": 6218
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9815494322902243,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 28355,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "tennis racket"
+      ],
+      "sam_confidence_hint": 0.984375,
+      "category_verified": false,
+      "area_pixels": 29211
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": [
+      {
+        "parent_id": 18,
+        "review_ids": [
+          18
+        ],
+        "child_ids": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          12,
+          13,
+          14,
+          16,
+          17
+        ],
+        "parent_covered_fraction": 0.7380756578947368,
+        "residual_pixels": 637,
+        "reason": "children leave too much of the parent unresolved"
+      }
+    ]
+  },
+  "human_instance_review_complete": false
+}

@@ -1,0 +1,46 @@
+{
+  "site": "BT_LM",
+  "frame": 48,
+  "dataset_split": "train",
+  "path": "ids/train/BT_LM/48.png",
+  "sha256": "289d59e4977641d15c86f356f358c05f3f0493132a87440be3a48e83b61bb2ef",
+  "source_reference": "data/ISOD_reference_train_v1/BT_LM/48.png",
+  "source_sha256": "45de6704d5a5bef1b0bf2d138f0936594c2b0adbffbc80459e1aabb32950f000",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_LM/48.npz",
+  "source_cache_sha256": "0d5e80dd5d29c090ee7121686412cd19a2f139f0c8d7d37154238cb8c170a186",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.910355486862442,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 589,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.78125,
+      "category_verified": false,
+      "area_pixels": 636
+    },
+    {
+      "id": 2,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 37
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

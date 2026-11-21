@@ -1,0 +1,82 @@
+{
+  "site": "HB_LM",
+  "frame": 67,
+  "dataset_split": "train",
+  "path": "ids/train/HB_LM/67.png",
+  "sha256": "97b522aa1eff62995a2f2a7c0937e86dbdd2b9c41e7561e31a197cbf50ecbb3c",
+  "source_reference": "data/ISOD_reference_train_v1/HB_LM/67.png",
+  "source_sha256": "d8c28a2ad1283f09af52354048ff3fc3e8c955afca0e43b1a6c925e51f70736c",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HB_LM/67.npz",
+  "source_cache_sha256": "2c53419341c2e30f8ced1c0650cc0dbbd288402e31505f9e030c035d436f870d",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.927710843373494,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 847,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire"
+      ],
+      "sam_confidence_hint": 0.72265625,
+      "category_verified": false,
+      "area_pixels": 1508
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9782185919875535,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 5030,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.82421875,
+      "category_verified": false,
+      "area_pixels": 10686
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1452
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 817
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1939
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

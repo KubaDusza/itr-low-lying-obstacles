@@ -1,0 +1,73 @@
+{
+  "site": "BT_LM",
+  "frame": 51,
+  "dataset_split": "train",
+  "path": "ids/train/BT_LM/51.png",
+  "sha256": "d12e5850dac97dd7e55d2262be527bda52902064e06db35bd2220a40d663b5f4",
+  "source_reference": "data/ISOD_reference_train_v1/BT_LM/51.png",
+  "source_sha256": "da1477c8fc5bd0576363a3aabbe0a4ee674f3b092ddc669be45fe37c6d3c100b",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_LM/51.npz",
+  "source_cache_sha256": "70f24e29987dbbd1355d27290e56b554f60247fc26004ee5079b0bdef65e188a",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.988621997471555,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 782,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.82421875,
+      "category_verified": false,
+      "area_pixels": 854
+    },
+    {
+      "id": 2,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 91
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 163
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 361
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 2446
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

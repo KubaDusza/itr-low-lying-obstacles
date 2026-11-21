@@ -1,0 +1,168 @@
+{
+  "site": "HDCL_RM_B",
+  "frame": 66,
+  "dataset_split": "train",
+  "path": "ids/train/HDCL_RM_B/66.png",
+  "sha256": "527192e9fd471b020487cbc6ba3c20a3ba6e1fafbabbfba02199467cadc197ea",
+  "source_reference": "data/ISOD_reference_train_v1/HDCL_RM_B/66.png",
+  "source_sha256": "fa17d2a05926bd3111fca6297daffa1e8be385847c00f8d7e1ed4ee9793f8f42",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HDCL_RM_B/66.npz",
+  "source_cache_sha256": "f3a657d8c0559c4f68b0bd5875537891d0960e5fc08ff19b93dc06c243095be8",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 230,
+      "sam_prompt_hints": [
+        "cloth"
+      ],
+      "sam_confidence_hint": 0.73828125,
+      "category_verified": false,
+      "area_pixels": 274
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 947,
+      "sam_prompt_hints": [
+        "cloth",
+        "fabric on the floor",
+        "rag",
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.9296875,
+      "category_verified": false,
+      "area_pixels": 1228
+    },
+    {
+      "id": 3,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.9981447124304267,
+      "sam_seed_ids": [
+        4,
+        14
+      ],
+      "seed_pixels": 1076,
+      "sam_prompt_hints": [
+        "cloth",
+        "fabric on the floor",
+        "piece of paper",
+        "rag"
+      ],
+      "sam_confidence_hint": 0.921875,
+      "category_verified": false,
+      "area_pixels": 1266
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9974895397489539,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 1191,
+      "sam_prompt_hints": [
+        "cloth",
+        "fabric on the floor"
+      ],
+      "sam_confidence_hint": 0.93359375,
+      "category_verified": false,
+      "area_pixels": 1350
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9494117647058824,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 1614,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.92578125,
+      "category_verified": false,
+      "area_pixels": 5895
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9873567759778744,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 2499,
+      "sam_prompt_hints": [
+        "cloth",
+        "rag"
+      ],
+      "sam_confidence_hint": 0.8828125,
+      "category_verified": false,
+      "area_pixels": 2605
+    },
+    {
+      "id": 7,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 297
+    },
+    {
+      "id": 8,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 100
+    },
+    {
+      "id": 9,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 326
+    },
+    {
+      "id": 10,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 89
+    },
+    {
+      "id": 11,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 49
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

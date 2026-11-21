@@ -1,0 +1,526 @@
+{
+  "site": "BT_LM",
+  "frame": 20,
+  "dataset_split": "train",
+  "path": "ids/train/BT_LM/20.png",
+  "sha256": "0c4e4d545758f51bd7ecf43947d6c99ee739032c1e166f628bf65d2aab85f14b",
+  "source_reference": "data/ISOD_reference_train_v1/BT_LM/20.png",
+  "source_sha256": "e4cec5757cbc51091ac5469e7a3e9003042275fa7a6b6bfa833b5aa476a2c952",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_LM/20.npz",
+  "source_cache_sha256": "836f8cf45b3924f75c17b048887edf93b2a259963fef3acd3169db01914ec60b",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.7575757575757576,
+      "sam_seed_ids": [
+        26
+      ],
+      "seed_pixels": 25,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.65234375,
+      "category_verified": false,
+      "area_pixels": 25
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8333333333333334,
+      "sam_seed_ids": [
+        22
+      ],
+      "seed_pixels": 35,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.6875,
+      "category_verified": false,
+      "area_pixels": 35
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9529411764705882,
+      "sam_seed_ids": [
+        27
+      ],
+      "seed_pixels": 81,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.64453125,
+      "category_verified": false,
+      "area_pixels": 178
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8857142857142857,
+      "sam_seed_ids": [
+        25
+      ],
+      "seed_pixels": 93,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.6640625,
+      "category_verified": false,
+      "area_pixels": 188
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9576271186440678,
+      "sam_seed_ids": [
+        17
+      ],
+      "seed_pixels": 113,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.8125,
+      "category_verified": false,
+      "area_pixels": 113
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9155844155844156,
+      "sam_seed_ids": [
+        12
+      ],
+      "seed_pixels": 141,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.8359375,
+      "category_verified": false,
+      "area_pixels": 141
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9386503067484663,
+      "sam_seed_ids": [
+        11
+      ],
+      "seed_pixels": 153,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.8359375,
+      "category_verified": false,
+      "area_pixels": 153
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9058823529411765,
+      "sam_seed_ids": [
+        14
+      ],
+      "seed_pixels": 154,
+      "sam_prompt_hints": [
+        "crayon"
+      ],
+      "sam_confidence_hint": 0.828125,
+      "category_verified": false,
+      "area_pixels": 198
+    },
+    {
+      "id": 9,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8021390374331551,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 150,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.83984375,
+      "category_verified": false,
+      "area_pixels": 150
+    },
+    {
+      "id": 10,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9946808510638298,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 179,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.83984375,
+      "category_verified": false,
+      "area_pixels": 179
+    },
+    {
+      "id": 11,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9421052631578948,
+      "sam_seed_ids": [
+        15
+      ],
+      "seed_pixels": 179,
+      "sam_prompt_hints": [
+        "crayon"
+      ],
+      "sam_confidence_hint": 0.82421875,
+      "category_verified": false,
+      "area_pixels": 183
+    },
+    {
+      "id": 12,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9739583333333334,
+      "sam_seed_ids": [
+        13
+      ],
+      "seed_pixels": 187,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.828125,
+      "category_verified": false,
+      "area_pixels": 187
+    },
+    {
+      "id": 13,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9792746113989638,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 184,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.84765625,
+      "category_verified": false,
+      "area_pixels": 184
+    },
+    {
+      "id": 14,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.908675799086758,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 199,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.8671875,
+      "category_verified": false,
+      "area_pixels": 228
+    },
+    {
+      "id": 15,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9850746268656716,
+      "sam_seed_ids": [
+        19
+      ],
+      "seed_pixels": 264,
+      "sam_prompt_hints": [
+        "crayon"
+      ],
+      "sam_confidence_hint": 0.765625,
+      "category_verified": false,
+      "area_pixels": 304
+    },
+    {
+      "id": 16,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9855595667870036,
+      "sam_seed_ids": [
+        18
+      ],
+      "seed_pixels": 260,
+      "sam_prompt_hints": [
+        "crayon"
+      ],
+      "sam_confidence_hint": 0.796875,
+      "category_verified": false,
+      "area_pixels": 323
+    },
+    {
+      "id": 17,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9003436426116839,
+      "sam_seed_ids": [
+        29
+      ],
+      "seed_pixels": 262,
+      "sam_prompt_hints": [
+        "doormat"
+      ],
+      "sam_confidence_hint": 0.62109375,
+      "category_verified": false,
+      "area_pixels": 291
+    },
+    {
+      "id": 18,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9285714285714286,
+      "sam_seed_ids": [
+        16
+      ],
+      "seed_pixels": 286,
+      "sam_prompt_hints": [
+        "crayon"
+      ],
+      "sam_confidence_hint": 0.8203125,
+      "category_verified": false,
+      "area_pixels": 351
+    },
+    {
+      "id": 19,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.964968152866242,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 300,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.86328125,
+      "category_verified": false,
+      "area_pixels": 300
+    },
+    {
+      "id": 20,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.993920972644377,
+      "sam_seed_ids": [
+        10
+      ],
+      "seed_pixels": 326,
+      "sam_prompt_hints": [
+        "crayon"
+      ],
+      "sam_confidence_hint": 0.83984375,
+      "category_verified": false,
+      "area_pixels": 498
+    },
+    {
+      "id": 21,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8595988538681948,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 300,
+      "sam_prompt_hints": [
+        "crayon"
+      ],
+      "sam_confidence_hint": 0.84375,
+      "category_verified": false,
+      "area_pixels": 304
+    },
+    {
+      "id": 22,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9487179487179487,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 333,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.84765625,
+      "category_verified": false,
+      "area_pixels": 333
+    },
+    {
+      "id": 23,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9833729216152018,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 414,
+      "sam_prompt_hints": [
+        "crayon"
+      ],
+      "sam_confidence_hint": 0.88671875,
+      "category_verified": false,
+      "area_pixels": 452
+    },
+    {
+      "id": 24,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.990909090909091,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 436,
+      "sam_prompt_hints": [
+        "crayon"
+      ],
+      "sam_confidence_hint": 0.87109375,
+      "category_verified": false,
+      "area_pixels": 538
+    },
+    {
+      "id": 25,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9773242630385488,
+      "sam_seed_ids": [
+        24
+      ],
+      "seed_pixels": 431,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.6796875,
+      "category_verified": false,
+      "area_pixels": 451
+    },
+    {
+      "id": 26,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9082321187584346,
+      "sam_seed_ids": [
+        31
+      ],
+      "seed_pixels": 673,
+      "sam_prompt_hints": [
+        "electrical wire"
+      ],
+      "sam_confidence_hint": 0.609375,
+      "category_verified": false,
+      "area_pixels": 716
+    },
+    {
+      "id": 27,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9487726787620064,
+      "sam_seed_ids": [
+        28
+      ],
+      "seed_pixels": 800,
+      "sam_prompt_hints": [
+        "doormat"
+      ],
+      "sam_confidence_hint": 0.63671875,
+      "category_verified": false,
+      "area_pixels": 831
+    },
+    {
+      "id": 28,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 857
+    },
+    {
+      "id": 29,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 282
+    },
+    {
+      "id": 30,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 221
+    },
+    {
+      "id": 31,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 43
+    },
+    {
+      "id": 32,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 65
+    },
+    {
+      "id": 33,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 138
+    },
+    {
+      "id": 34,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1910
+    },
+    {
+      "id": 35,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 704
+    },
+    {
+      "id": 36,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 596
+    },
+    {
+      "id": 37,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 76
+    },
+    {
+      "id": 38,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 466
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

@@ -1,0 +1,37 @@
+{
+  "site": "HL_LM",
+  "frame": 93,
+  "dataset_split": "train",
+  "path": "ids/train/HL_LM/93.png",
+  "sha256": "eab58e7d05c78704ff14d6445c1b3f0dac5140543cbc433c6f3a43d004046736",
+  "source_reference": "data/ISOD_reference_train_v1/HL_LM/93.png",
+  "source_sha256": "2e8b313a72cf0fbf9205e05eff640f12f6a24c89b57b210117543b8544118fef",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HL_LM/93.npz",
+  "source_cache_sha256": "44630a2235516e059c3532ec9527786b705407d7edbb9f216e0c9b85a079928c",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9998910438003923,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 9177,
+      "sam_prompt_hints": [
+        "cloth"
+      ],
+      "sam_confidence_hint": 0.73046875,
+      "category_verified": false,
+      "area_pixels": 10347
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

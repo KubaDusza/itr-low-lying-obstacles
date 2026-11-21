@@ -1,0 +1,86 @@
+{
+  "site": "ABEC_MM",
+  "frame": 45,
+  "dataset_split": "train",
+  "path": "ids/train/ABEC_MM/45.png",
+  "sha256": "de892d41b75988b7fbda74f8bd77a2da73072e9cef48f9b6e9b9262726808250",
+  "source_reference": "data/ISOD_reference_train_v1/ABEC_MM/45.png",
+  "source_sha256": "fde6ad1da40c1e6a12f89fb48e88c5c67e9df71663f065a0db44dd2dcac24fdc",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/ABEC_MM/45.npz",
+  "source_cache_sha256": "03bc590f2e690df3e3d08200f5f0886dce1198af72c569c1cf1e3d25942f5f3d",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9743589743589743,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 190,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.765625,
+      "category_verified": false,
+      "area_pixels": 190
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 381,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.9296875,
+      "category_verified": false,
+      "area_pixels": 442
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 4929,
+      "sam_prompt_hints": [
+        "shoe",
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.96484375,
+      "category_verified": false,
+      "area_pixels": 5545
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 127
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 231
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

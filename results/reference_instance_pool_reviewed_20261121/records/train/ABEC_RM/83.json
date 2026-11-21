@@ -1,0 +1,31 @@
+{
+  "site": "ABEC_RM",
+  "frame": 83,
+  "dataset_split": "train",
+  "path": "ids/train/ABEC_RM/83.png",
+  "sha256": "54465ae640e24240211aeb58ef1ac5e5c01602c37fc2962589b6ca5d2041577e",
+  "source_reference": "data/ISOD_reference_train_v1/ABEC_RM/83.png",
+  "source_sha256": "010083cbc5f5b1ab29eed1c71c3e7cc70ff188f6a5e63ab58876e96ac66b3f20",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/ABEC_RM/83.npz",
+  "source_cache_sha256": "93f26950b762d5966aad2e6ca2c4f6014be6ecea2c7c49a6e3cfcf912151a000",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 531
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

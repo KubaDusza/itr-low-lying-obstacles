@@ -1,0 +1,176 @@
+{
+  "site": "ABEC_MM",
+  "frame": 83,
+  "dataset_split": "train",
+  "path": "ids/train/ABEC_MM/83.png",
+  "sha256": "33deb84d2cdd96bd49a9d298d32ffe1dacf5a46da724ff12ee79aa9d93254cf6",
+  "source_reference": "data/ISOD_reference_train_v1/ABEC_MM/83.png",
+  "source_sha256": "9ce9192c0d2ea6920bcdf480837d2f875ad16b0af89b7b9639040f8fcfdb835e",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/ABEC_MM/83.npz",
+  "source_cache_sha256": "85296fcfaf1235d7ff2d698507f64ccfffffeb865a4111e1dbb49ac5d2878c65",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9868421052631579,
+      "sam_seed_ids": [
+        11
+      ],
+      "seed_pixels": 75,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.671875,
+      "category_verified": false,
+      "area_pixels": 76
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9375,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 74,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.6953125,
+      "category_verified": false,
+      "area_pixels": 74
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 80,
+      "sam_prompt_hints": [
+        "small box",
+        "toy"
+      ],
+      "sam_confidence_hint": 0.69140625,
+      "category_verified": false,
+      "area_pixels": 103
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.987012987012987,
+      "sam_seed_ids": [
+        10
+      ],
+      "seed_pixels": 152,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.6875,
+      "category_verified": false,
+      "area_pixels": 153
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9941520467836257,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 170,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.7421875,
+      "category_verified": false,
+      "area_pixels": 203
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9888268156424581,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 156,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.734375,
+      "category_verified": false,
+      "area_pixels": 156
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9301470588235294,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 506,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.7109375,
+      "category_verified": false,
+      "area_pixels": 610
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9959718026183283,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 989,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.80078125,
+      "category_verified": false,
+      "area_pixels": 1295
+    },
+    {
+      "id": 9,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9989785495403473,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 2934,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.71484375,
+      "category_verified": false,
+      "area_pixels": 3611
+    },
+    {
+      "id": 10,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.8919627256843331,
+      "sam_seed_ids": [
+        3,
+        12
+      ],
+      "seed_pixels": 3063,
+      "sam_prompt_hints": [
+        "cable",
+        "cable bundle",
+        "electrical wire"
+      ],
+      "sam_confidence_hint": 0.74609375,
+      "category_verified": false,
+      "area_pixels": 6860
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

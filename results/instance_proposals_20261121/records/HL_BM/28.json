@@ -1,0 +1,104 @@
+{
+  "site": "HL_BM",
+  "frame": 28,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/28.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/HL_BM/28.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          416,
+          320,
+          445,
+          382
+        ],
+        "area_pixels": 1123,
+        "confidence": 0.91796875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          265,
+          170,
+          557,
+          287
+        ],
+        "area_pixels": 2451,
+        "confidence": 0.70703125,
+        "prompts": [
+          "cable on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "7191462c39438f3148d896bcb493d7e1a54dda9af5be0d7076485cdcd0e4ba34"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/HL_BM/28.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.8863198458574181,
+        "sam_seed_ids": [
+          6
+        ],
+        "seed_pixels": 460
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.943900267141585,
+        "sam_seed_ids": [
+          2
+        ],
+        "seed_pixels": 1060
+      },
+      {
+        "id": 3,
+        "unit": "unresolved_cluster",
+        "sam_reference_overlap": 0.8432330827067669,
+        "sam_seed_ids": [
+          4,
+          5
+        ],
+        "seed_pixels": 2102
+      },
+      {
+        "id": 4,
+        "unit": "unseeded_reference_region",
+        "seed_pixels": 0
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "a8720ba5d991a05cfff0e9d0e7581a4302b78b2a13b85bbff6d5143bee303461",
+    "sha256": "6d9aa4919f7dcbee45ff4ff485a8e9c9ba51683e6e3de9142f2e659a2ff7d357"
+  },
+  "needs_review": [
+    "reference_missing_SAM_seed",
+    "reference_unresolved_cluster"
+  ],
+  "human_instance_review_complete": false
+}

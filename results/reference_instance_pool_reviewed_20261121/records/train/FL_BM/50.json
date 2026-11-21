@@ -1,0 +1,58 @@
+{
+  "site": "FL_BM",
+  "frame": 50,
+  "dataset_split": "train",
+  "path": "ids/train/FL_BM/50.png",
+  "sha256": "f7252b0d830fc0495bbebde0ae896aa2a6a5d98cbbde5496ff6633fdf1383de7",
+  "source_reference": "data/ISOD_reference_train_v1/FL_BM/50.png",
+  "source_sha256": "6ac18cb4f4204b28ca7b08b1b956907730361f2010693db25be5da8cf5163722",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/FL_BM/50.npz",
+  "source_cache_sha256": "605dc081de8eb8b9f614f6eecfe1802a720233651e7cc64200fdcb754b3037c5",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 2711
+    },
+    {
+      "id": 2,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 2589
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 803
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1208
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

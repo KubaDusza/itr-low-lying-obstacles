@@ -1,0 +1,81 @@
+{
+  "site": "BT_BM",
+  "frame": 41,
+  "dataset_split": "train",
+  "path": "ids/train/BT_BM/41.png",
+  "sha256": "adaeda26088b76ee21ced8332a7766e6998b607cf14fb66bed5fa53fcc09bcef",
+  "source_reference": "data/ISOD_reference_train_v1/BT_BM/41.png",
+  "source_sha256": "40634eb58666332a75e6d9f3a5c59c2627c90301042a0ed092fda1551e3c1baa",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_BM/41.npz",
+  "source_cache_sha256": "1dcd53c9c50d529fc9a2c72a1a240cc7bc2ff4551f2e81a2a4929cf1ebc583ee",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9390862944162437,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 2775,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire"
+      ],
+      "sam_confidence_hint": 0.6484375,
+      "category_verified": false,
+      "area_pixels": 4813
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9811584089323099,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 5624,
+      "sam_prompt_hints": [
+        "cloth",
+        "fabric on the floor"
+      ],
+      "sam_confidence_hint": 0.71484375,
+      "category_verified": false,
+      "area_pixels": 5841
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 138
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 5966
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 301
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

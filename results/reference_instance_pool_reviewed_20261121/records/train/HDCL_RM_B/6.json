@@ -1,0 +1,93 @@
+{
+  "site": "HDCL_RM_B",
+  "frame": 6,
+  "dataset_split": "train",
+  "path": "ids/train/HDCL_RM_B/6.png",
+  "sha256": "f7a732c095e39e65aebd06e31e777534792c26acdaa521e13117ef9026280c91",
+  "source_reference": "data/ISOD_reference_train_reviewed_candidate_20261121/HDCL_RM_B/6.png",
+  "source_sha256": "e719d9c66831bbec251ddfff73afd1409316023dac7354cef2725e2c747dcd36",
+  "source_review_status": "human_quality_reviewed",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HDCL_RM_B/6.npz",
+  "source_cache_sha256": "3ac1ce000a84249bfcb4747d36495124db81757d02183573effd6ac8b03cf6e7",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9398496240601504,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 875,
+      "area_pixels": 875,
+      "category_verified": false
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8578401464307505,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 1406,
+      "area_pixels": 1406,
+      "category_verified": false
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "area_pixels": 576,
+      "category_verified": false
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "area_pixels": 384,
+      "category_verified": false
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "area_pixels": 21,
+      "category_verified": false
+    },
+    {
+      "id": 6,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "area_pixels": 28,
+      "category_verified": false
+    },
+    {
+      "id": 7,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "area_pixels": 589,
+      "category_verified": false
+    },
+    {
+      "id": 8,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "area_pixels": 9285,
+      "category_verified": false
+    }
+  ],
+  "parent_events": {
+    "duplicates": [
+      {
+        "kept_id": 7,
+        "merged_id": 9,
+        "mask_iou": 0.7785058977719528
+      }
+    ],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false,
+  "human_binary_review_complete": true
+}

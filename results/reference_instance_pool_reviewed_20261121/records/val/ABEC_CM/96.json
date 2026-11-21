@@ -1,0 +1,167 @@
+{
+  "site": "ABEC_CM",
+  "frame": 96,
+  "dataset_split": "val",
+  "path": "ids/val/ABEC_CM/96.png",
+  "sha256": "0b49c6ed7c0de83543bfce6b516facb52e79d1fdd31be49fa008e6bdeaac13f7",
+  "source_reference": "data/ISOD_reference_val_v1/ABEC_CM/96.png",
+  "source_sha256": "0ee326d235037b98bce891768d9ed1219613bab03466605a83f8a34addf195f8",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/ABEC_CM/96.npz",
+  "source_cache_sha256": "c76e1911eba5a3d26c74a89dc51eb572e59c0a3835048b93380c629637c895e9",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 71,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.63671875,
+      "category_verified": false,
+      "area_pixels": 75
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9166666666666666,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 99,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.6328125,
+      "category_verified": false,
+      "area_pixels": 123
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.7168141592920354,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 81,
+      "sam_prompt_hints": [
+        "slipper",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.8359375,
+      "category_verified": false,
+      "area_pixels": 81
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9504132231404959,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 115,
+      "sam_prompt_hints": [
+        "shoe",
+        "slipper",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.86328125,
+      "category_verified": false,
+      "area_pixels": 115
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9896373056994818,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 191,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.74609375,
+      "category_verified": false,
+      "area_pixels": 284
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9920948616600791,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 251,
+      "sam_prompt_hints": [
+        "shoe",
+        "slipper",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.87890625,
+      "category_verified": false,
+      "area_pixels": 347
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9645569620253165,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 762,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.91796875,
+      "category_verified": false,
+      "area_pixels": 764
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8810679611650486,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 726,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.890625,
+      "category_verified": false,
+      "area_pixels": 836
+    },
+    {
+      "id": 9,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9535423925667829,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 821,
+      "sam_prompt_hints": [
+        "slipper",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.78515625,
+      "category_verified": false,
+      "area_pixels": 937
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

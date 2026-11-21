@@ -1,0 +1,158 @@
+{
+  "site": "ABEC_CM",
+  "frame": 95,
+  "dataset_split": "val",
+  "path": "ids/val/ABEC_CM/95.png",
+  "sha256": "0f4f9a35f9198025935c97cbb2bacbd1a91044ad9092ebaa1bd45f50c99f77bd",
+  "source_reference": "data/ISOD_reference_val_v1/ABEC_CM/95.png",
+  "source_sha256": "3de1ec0b2c67f3134712e20584f7254c7ebdb0e13a6250686bbb571f7ef9caab",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/ABEC_CM/95.npz",
+  "source_cache_sha256": "f3041b73a1e75672f6a1603b55233ed74f324f604487db5834d9688814c3981b",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8522727272727273,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 75,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.7734375,
+      "category_verified": false,
+      "area_pixels": 75
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8369565217391305,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 77,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.8359375,
+      "category_verified": false,
+      "area_pixels": 77
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9387755102040817,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 92,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.82421875,
+      "category_verified": false,
+      "area_pixels": 92
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 179,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.859375,
+      "category_verified": false,
+      "area_pixels": 241
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.94,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 329,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.87109375,
+      "category_verified": false,
+      "area_pixels": 453
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9186046511627907,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 474,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.90625,
+      "category_verified": false,
+      "area_pixels": 475
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9064748201438849,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 504,
+      "sam_prompt_hints": [
+        "slipper",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.80859375,
+      "category_verified": false,
+      "area_pixels": 535
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9958490566037735,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 10556,
+      "sam_prompt_hints": [
+        "slipper",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.96875,
+      "category_verified": false,
+      "area_pixels": 10800
+    },
+    {
+      "id": 9,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 164
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

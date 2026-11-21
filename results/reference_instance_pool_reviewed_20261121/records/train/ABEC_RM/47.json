@@ -1,0 +1,40 @@
+{
+  "site": "ABEC_RM",
+  "frame": 47,
+  "dataset_split": "train",
+  "path": "ids/train/ABEC_RM/47.png",
+  "sha256": "e07f1fe1d4f79af85a98f99366453bd6b9eba8f76ef56b6c11f3c6cd42c6aa90",
+  "source_reference": "data/ISOD_reference_train_v1/ABEC_RM/47.png",
+  "source_sha256": "c82b58b6178f4e11c89bc158945a6e1f28bece4616b50c187950aaeccb7613d6",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/ABEC_RM/47.npz",
+  "source_cache_sha256": "7e7fd8cb338d2a228981773f4c95a34725ca5e8e7b765760684e17864fedd127",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 4048
+    },
+    {
+      "id": 2,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 4949
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

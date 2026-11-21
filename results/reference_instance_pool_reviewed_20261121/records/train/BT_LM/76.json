@@ -1,0 +1,168 @@
+{
+  "site": "BT_LM",
+  "frame": 76,
+  "dataset_split": "train",
+  "path": "ids/train/BT_LM/76.png",
+  "sha256": "375aeabd54a05f613e0bb4842e377fc476c8d79102b4a1481403fe3b215b5e3b",
+  "source_reference": "data/ISOD_reference_train_v1/BT_LM/76.png",
+  "source_sha256": "ce0ef8f99cd2d9a499ec605c34c5623059f07efd9a45ebeb94ac6616163821d3",
+  "source_review_status": "human_reviewed",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_LM/76.npz",
+  "source_cache_sha256": "66306f98736cc3d920fc09df31a177e0f2293d691781947090809c6cedda058b",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9506172839506173,
+      "sam_seed_ids": [
+        10
+      ],
+      "seed_pixels": 154,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.65625,
+      "category_verified": false,
+      "area_pixels": 319
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        12
+      ],
+      "seed_pixels": 220,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.62109375,
+      "category_verified": false,
+      "area_pixels": 436
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9067796610169492,
+      "sam_seed_ids": [
+        11
+      ],
+      "seed_pixels": 214,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.62109375,
+      "category_verified": false,
+      "area_pixels": 360
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9094650205761317,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 221,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.68359375,
+      "category_verified": false,
+      "area_pixels": 336
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9963768115942029,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 272,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.734375,
+      "category_verified": false,
+      "area_pixels": 495
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9969512195121951,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 327,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.83984375,
+      "category_verified": false,
+      "area_pixels": 357
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9209809264305178,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 333,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.8046875,
+      "category_verified": false,
+      "area_pixels": 360
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9171122994652406,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 343,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.82421875,
+      "category_verified": false,
+      "area_pixels": 437
+    },
+    {
+      "id": 9,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.8581460674157303,
+      "sam_seed_ids": [
+        5,
+        6,
+        9
+      ],
+      "seed_pixels": 611,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.76953125,
+      "category_verified": false,
+      "area_pixels": 611
+    },
+    {
+      "id": 10,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 61
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

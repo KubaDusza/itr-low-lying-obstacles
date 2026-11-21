@@ -1,0 +1,178 @@
+{
+  "site": "HDCL_HW_B",
+  "frame": 21,
+  "dataset_split": "train",
+  "path": "ids/train/HDCL_HW_B/21.png",
+  "sha256": "03d78c0403bd4f189a000df5b572e5d206282ceeaf0d84bb37d0981e60a13086",
+  "source_reference": "data/ISOD_reference_train_v1/HDCL_HW_B/21.png",
+  "source_sha256": "efba21143f2da491b34370352eb3f1692f3bad52cc21a8a5ccf1528799bc11d6",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HDCL_HW_B/21.npz",
+  "source_cache_sha256": "27e34ae7f30038d6c99e6fab66c277ad87f8e270094e3bf1787b7f8c0bbd860d",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9523809523809523,
+      "sam_seed_ids": [
+        11
+      ],
+      "seed_pixels": 80,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.80859375,
+      "category_verified": false,
+      "area_pixels": 80
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        13
+      ],
+      "seed_pixels": 98,
+      "sam_prompt_hints": [
+        "cable"
+      ],
+      "sam_confidence_hint": 0.6328125,
+      "category_verified": false,
+      "area_pixels": 98
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8018018018018018,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 89,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.8359375,
+      "category_verified": false,
+      "area_pixels": 89
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9551971326164874,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 533,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.859375,
+      "category_verified": false,
+      "area_pixels": 574
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9649923896499238,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 634,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.93359375,
+      "category_verified": false,
+      "area_pixels": 652
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9256243213897937,
+      "sam_seed_ids": [
+        12
+      ],
+      "seed_pixels": 1705,
+      "sam_prompt_hints": [
+        "slipper",
+        "toy"
+      ],
+      "sam_confidence_hint": 0.7421875,
+      "category_verified": false,
+      "area_pixels": 1791
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9571237159446181,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 2139,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.95703125,
+      "category_verified": false,
+      "area_pixels": 2196
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9952030700351775,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 3112,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.96484375,
+      "category_verified": false,
+      "area_pixels": 3201
+    },
+    {
+      "id": 9,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9972880130175376,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 5516,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.96875,
+      "category_verified": false,
+      "area_pixels": 5984
+    },
+    {
+      "id": 10,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 24
+    },
+    {
+      "id": 11,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 34
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

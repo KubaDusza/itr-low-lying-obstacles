@@ -1,0 +1,254 @@
+{
+  "site": "ABEC_CM",
+  "frame": 45,
+  "dataset_split": "val",
+  "path": "ids/val/ABEC_CM/45.png",
+  "sha256": "31f9a249b19ef3609e21f04a1d524723d3c931bc853a1dac9d409fa59197012c",
+  "source_reference": "data/ISOD_reference_val_v1/ABEC_CM/45.png",
+  "source_sha256": "9a85db6e5c5d988f868c34f67cf3f87f936ba6e163473c5721509f0a515614d8",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/ABEC_CM/45.npz",
+  "source_cache_sha256": "9694d208249d297655c915fd592b4d0fc884444820d2a87c4e9453901d2537de",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9133858267716536,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 116,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.8515625,
+      "category_verified": false,
+      "area_pixels": 116
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8177966101694916,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 193,
+      "sam_prompt_hints": [
+        "slipper",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.84375,
+      "category_verified": false,
+      "area_pixels": 193
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8275862068965517,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 240,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.91015625,
+      "category_verified": false,
+      "area_pixels": 262
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.996551724137931,
+      "sam_seed_ids": [
+        18
+      ],
+      "seed_pixels": 289,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.6328125,
+      "category_verified": false,
+      "area_pixels": 349
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9506578947368421,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 289,
+      "sam_prompt_hints": [
+        "slipper",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.90234375,
+      "category_verified": false,
+      "area_pixels": 306
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9893899204244032,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 373,
+      "sam_prompt_hints": [
+        "crayon",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.84375,
+      "category_verified": false,
+      "area_pixels": 491
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9915074309978769,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 467,
+      "sam_prompt_hints": [
+        "crayon",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.8203125,
+      "category_verified": false,
+      "area_pixels": 537
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9877551020408163,
+      "sam_seed_ids": [
+        12
+      ],
+      "seed_pixels": 476,
+      "sam_prompt_hints": [
+        "crayon",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.73046875,
+      "category_verified": false,
+      "area_pixels": 503
+    },
+    {
+      "id": 9,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9939024390243902,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 489,
+      "sam_prompt_hints": [
+        "crayon",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.85546875,
+      "category_verified": false,
+      "area_pixels": 607
+    },
+    {
+      "id": 10,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9698189134808853,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 476,
+      "sam_prompt_hints": [
+        "crayon",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.84765625,
+      "category_verified": false,
+      "area_pixels": 508
+    },
+    {
+      "id": 11,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.9047619047619048,
+      "sam_seed_ids": [
+        11,
+        13,
+        15,
+        16,
+        17,
+        19
+      ],
+      "seed_pixels": 684,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.75390625,
+      "category_verified": false,
+      "area_pixels": 762
+    },
+    {
+      "id": 12,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9796107506950881,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 1057,
+      "sam_prompt_hints": [
+        "slipper",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.92578125,
+      "category_verified": false,
+      "area_pixels": 1107
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [
+      {
+        "parent_id": 14,
+        "review_ids": [
+          14
+        ],
+        "child_ids": [
+          4,
+          6,
+          9,
+          12,
+          18
+        ],
+        "parent_covered_fraction": 0.9040424663127807,
+        "residual_pixels": 235
+      }
+    ],
+    "ambiguous": [
+      {
+        "parent_id": 15,
+        "review_ids": [
+          15
+        ],
+        "child_ids": [
+          11,
+          13,
+          16,
+          17,
+          19
+        ],
+        "parent_covered_fraction": 0.6569148936170213,
+        "residual_pixels": 258,
+        "reason": "children leave too much of the parent unresolved"
+      }
+    ]
+  },
+  "human_instance_review_complete": false
+}

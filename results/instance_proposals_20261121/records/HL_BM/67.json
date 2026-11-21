@@ -1,0 +1,551 @@
+{
+  "site": "HL_BM",
+  "frame": 67,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/67.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/HL_BM/67.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          449,
+          358,
+          538,
+          413
+        ],
+        "area_pixels": 1011,
+        "confidence": 0.95703125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          364,
+          368,
+          443,
+          407
+        ],
+        "area_pixels": 1026,
+        "confidence": 0.953125,
+        "prompts": [
+          "small object on the floor",
+          "things on the floor"
+        ]
+      },
+      {
+        "id": 3,
+        "unit": "proposed_individual",
+        "review_ids": [
+          3
+        ],
+        "bbox_xyxy": [
+          433,
+          337,
+          511,
+          360
+        ],
+        "area_pixels": 788,
+        "confidence": 0.9453125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 4,
+        "unit": "proposed_individual",
+        "review_ids": [
+          4
+        ],
+        "bbox_xyxy": [
+          369,
+          343,
+          440,
+          380
+        ],
+        "area_pixels": 847,
+        "confidence": 0.9453125,
+        "prompts": [
+          "small object on the floor",
+          "things on the floor"
+        ]
+      },
+      {
+        "id": 5,
+        "unit": "proposed_individual",
+        "review_ids": [
+          5
+        ],
+        "bbox_xyxy": [
+          304,
+          278,
+          333,
+          316
+        ],
+        "area_pixels": 341,
+        "confidence": 0.9375,
+        "prompts": [
+          "small object on the floor",
+          "things on the floor"
+        ]
+      },
+      {
+        "id": 6,
+        "unit": "proposed_individual",
+        "review_ids": [
+          6
+        ],
+        "bbox_xyxy": [
+          151,
+          226,
+          240,
+          267
+        ],
+        "area_pixels": 1645,
+        "confidence": 0.9375,
+        "prompts": [
+          "small object on the floor",
+          "things on the floor"
+        ]
+      },
+      {
+        "id": 7,
+        "unit": "proposed_individual",
+        "review_ids": [
+          7
+        ],
+        "bbox_xyxy": [
+          109,
+          284,
+          171,
+          321
+        ],
+        "area_pixels": 1730,
+        "confidence": 0.9296875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 8,
+        "unit": "proposed_individual",
+        "review_ids": [
+          8
+        ],
+        "bbox_xyxy": [
+          262,
+          377,
+          291,
+          422
+        ],
+        "area_pixels": 475,
+        "confidence": 0.92578125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 9,
+        "unit": "proposed_individual",
+        "review_ids": [
+          9
+        ],
+        "bbox_xyxy": [
+          364,
+          299,
+          422,
+          327
+        ],
+        "area_pixels": 460,
+        "confidence": 0.92578125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 10,
+        "unit": "proposed_individual",
+        "review_ids": [
+          10
+        ],
+        "bbox_xyxy": [
+          394,
+          325,
+          473,
+          338
+        ],
+        "area_pixels": 734,
+        "confidence": 0.92578125,
+        "prompts": [
+          "small object on the floor",
+          "things on the floor"
+        ]
+      },
+      {
+        "id": 11,
+        "unit": "proposed_individual",
+        "review_ids": [
+          11
+        ],
+        "bbox_xyxy": [
+          287,
+          320,
+          300,
+          375
+        ],
+        "area_pixels": 465,
+        "confidence": 0.921875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 12,
+        "unit": "proposed_individual",
+        "review_ids": [
+          12
+        ],
+        "bbox_xyxy": [
+          500,
+          188,
+          536,
+          202
+        ],
+        "area_pixels": 414,
+        "confidence": 0.91796875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 13,
+        "unit": "proposed_individual",
+        "review_ids": [
+          13
+        ],
+        "bbox_xyxy": [
+          376,
+          283,
+          420,
+          318
+        ],
+        "area_pixels": 377,
+        "confidence": 0.91796875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 14,
+        "unit": "proposed_individual",
+        "review_ids": [
+          14
+        ],
+        "bbox_xyxy": [
+          329,
+          201,
+          387,
+          240
+        ],
+        "area_pixels": 1872,
+        "confidence": 0.87890625,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 15,
+        "unit": "proposed_individual",
+        "review_ids": [
+          15
+        ],
+        "bbox_xyxy": [
+          0,
+          232,
+          123,
+          327
+        ],
+        "area_pixels": 3976,
+        "confidence": 0.8359375,
+        "prompts": [
+          "cable on the floor"
+        ]
+      },
+      {
+        "id": 16,
+        "unit": "proposed_individual",
+        "review_ids": [
+          16
+        ],
+        "bbox_xyxy": [
+          0,
+          174,
+          57,
+          199
+        ],
+        "area_pixels": 790,
+        "confidence": 0.81640625,
+        "prompts": [
+          "cable on the floor",
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 17,
+        "unit": "proposed_individual",
+        "review_ids": [
+          17
+        ],
+        "bbox_xyxy": [
+          80,
+          253,
+          98,
+          262
+        ],
+        "area_pixels": 133,
+        "confidence": 0.671875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 18,
+        "unit": "proposed_individual",
+        "review_ids": [
+          18
+        ],
+        "bbox_xyxy": [
+          322,
+          124,
+          393,
+          165
+        ],
+        "area_pixels": 1939,
+        "confidence": 0.671875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 19,
+        "unit": "proposed_individual",
+        "review_ids": [
+          19
+        ],
+        "bbox_xyxy": [
+          96,
+          241,
+          142,
+          284
+        ],
+        "area_pixels": 1032,
+        "confidence": 0.66796875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "5190e3fe99571cdb9d69c981f834dfe239b2ea4a2c25b8201c443e2ade87f493"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/HL_BM/67.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 1.0,
+        "sam_seed_ids": [
+          17
+        ],
+        "seed_pixels": 133
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9384164222873901,
+        "sam_seed_ids": [
+          5
+        ],
+        "seed_pixels": 320
+      },
+      {
+        "id": 3,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9682539682539683,
+        "sam_seed_ids": [
+          7
+        ],
+        "seed_pixels": 366
+      },
+      {
+        "id": 4,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9202898550724637,
+        "sam_seed_ids": [
+          13
+        ],
+        "seed_pixels": 381
+      },
+      {
+        "id": 5,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.8565217391304348,
+        "sam_seed_ids": [
+          10
+        ],
+        "seed_pixels": 394
+      },
+      {
+        "id": 6,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9290322580645162,
+        "sam_seed_ids": [
+          12
+        ],
+        "seed_pixels": 432
+      },
+      {
+        "id": 7,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9642857142857143,
+        "sam_seed_ids": [
+          9
+        ],
+        "seed_pixels": 459
+      },
+      {
+        "id": 8,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9877384196185286,
+        "sam_seed_ids": [
+          11
+        ],
+        "seed_pixels": 725
+      },
+      {
+        "id": 9,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9949238578680203,
+        "sam_seed_ids": [
+          4
+        ],
+        "seed_pixels": 784
+      },
+      {
+        "id": 10,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9380530973451328,
+        "sam_seed_ids": [
+          16
+        ],
+        "seed_pixels": 742
+      },
+      {
+        "id": 11,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9763872491145218,
+        "sam_seed_ids": [
+          3
+        ],
+        "seed_pixels": 827
+      },
+      {
+        "id": 12,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9556213017751479,
+        "sam_seed_ids": [
+          1
+        ],
+        "seed_pixels": 969
+      },
+      {
+        "id": 13,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9708171206225681,
+        "sam_seed_ids": [
+          2
+        ],
+        "seed_pixels": 998
+      },
+      {
+        "id": 14,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9941860465116279,
+        "sam_seed_ids": [
+          19
+        ],
+        "seed_pixels": 1026
+      },
+      {
+        "id": 15,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9957446808510638,
+        "sam_seed_ids": [
+          6
+        ],
+        "seed_pixels": 1638
+      },
+      {
+        "id": 16,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.992485549132948,
+        "sam_seed_ids": [
+          8
+        ],
+        "seed_pixels": 1717
+      },
+      {
+        "id": 17,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9989316239316239,
+        "sam_seed_ids": [
+          14
+        ],
+        "seed_pixels": 1870
+      },
+      {
+        "id": 18,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.960804538421867,
+        "sam_seed_ids": [
+          18
+        ],
+        "seed_pixels": 1863
+      },
+      {
+        "id": 19,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9760174418604651,
+        "sam_seed_ids": [
+          15
+        ],
+        "seed_pixels": 4029
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "1a5dd94b4db7a29744afd189999d03e32556faa5800d91deadf0c8aa0705a2c0",
+    "sha256": "e1d6f003c3973de89df2068b218f93de86e4f2d2723745849207b9a85fe83434"
+  },
+  "needs_review": [],
+  "human_instance_review_complete": false
+}

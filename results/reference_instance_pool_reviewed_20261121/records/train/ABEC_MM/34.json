@@ -1,0 +1,73 @@
+{
+  "site": "ABEC_MM",
+  "frame": 34,
+  "dataset_split": "train",
+  "path": "ids/train/ABEC_MM/34.png",
+  "sha256": "8cc38dbcb017cbe0f3860a525b7424e206a00063652faf0267e9b10ec6afce65",
+  "source_reference": "data/ISOD_reference_train_v1/ABEC_MM/34.png",
+  "source_sha256": "4ddd99f0cc22f03c52c96ff9e0b8c08829084792629b2c7eb2188691df3fc1b8",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/ABEC_MM/34.npz",
+  "source_cache_sha256": "16804c65a3b81243f2b7c57ea3d06ec42016a003da0a2f8bd1769ae92646759c",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9693669162695712,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 1424,
+      "sam_prompt_hints": [
+        "cable",
+        "cable bundle",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.80859375,
+      "category_verified": false,
+      "area_pixels": 1763
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9108858057630737,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 1707,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.6328125,
+      "category_verified": false,
+      "area_pixels": 2078
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 534
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1101
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

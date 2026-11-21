@@ -1,0 +1,161 @@
+{
+  "site": "HL_BM",
+  "frame": 53,
+  "dataset_split": "val",
+  "path": "ids/val/HL_BM/53.png",
+  "sha256": "b60b19c86feb47feac961764654e6b05bd78a57588fc88cdc8cd94d21ce4f43a",
+  "source_reference": "data/ISOD_reference_val_v1/HL_BM/53.png",
+  "source_sha256": "9235df69326c9c50af06c001d7ec52f82de8ba5fa1cbef8f5bc87cd8102fc644",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/53.npz",
+  "source_cache_sha256": "ac13dfcac1564e46fe6655971376fc82d255b7d950ef8fc85803ec0acb7fa499",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8916256157635468,
+      "sam_seed_ids": [
+        11
+      ],
+      "seed_pixels": 181,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.671875,
+      "category_verified": false,
+      "area_pixels": 252
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8921933085501859,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 240,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.76171875,
+      "category_verified": false,
+      "area_pixels": 240
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9701986754966887,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 879,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.73046875,
+      "category_verified": false,
+      "area_pixels": 1727
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9904761904761905,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 1144,
+      "sam_prompt_hints": [
+        "cable",
+        "cable bundle",
+        "cable on the floor",
+        "electrical wire",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.765625,
+      "category_verified": false,
+      "area_pixels": 1555
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8934294871794872,
+      "sam_seed_ids": [
+        10
+      ],
+      "seed_pixels": 2230,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.68359375,
+      "category_verified": false,
+      "area_pixels": 2278
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9808197582764057,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 3733,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.93359375,
+      "category_verified": false,
+      "area_pixels": 3880
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9379436219833706,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 4625,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.8359375,
+      "category_verified": false,
+      "area_pixels": 4628
+    },
+    {
+      "id": 8,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.9603535570239423,
+      "sam_seed_ids": [
+        2,
+        9,
+        13
+      ],
+      "seed_pixels": 11156,
+      "sam_prompt_hints": [
+        "cable",
+        "cable bundle",
+        "cable on the floor",
+        "electrical wire",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.8515625,
+      "category_verified": false,
+      "area_pixels": 16527
+    }
+  ],
+  "parent_events": {
+    "duplicates": [
+      {
+        "kept_id": 2,
+        "merged_id": 9,
+        "mask_iou": 0.9194878845162399
+      }
+    ],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

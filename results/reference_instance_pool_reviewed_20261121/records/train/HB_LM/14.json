@@ -1,0 +1,74 @@
+{
+  "site": "HB_LM",
+  "frame": 14,
+  "dataset_split": "train",
+  "path": "ids/train/HB_LM/14.png",
+  "sha256": "8e439056e0efa50dba050441c421cc7c15428dcef6b1df76d2510ac98f02810a",
+  "source_reference": "data/ISOD_reference_train_v1/HB_LM/14.png",
+  "source_sha256": "5ad530c89fa87a76c2a3b71ac2228458408d9c0a59807bb02ae225941c7eeca6",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HB_LM/14.npz",
+  "source_cache_sha256": "fd0e64bbf647afc0cab844666ec01977795bd0f05a4a343e79f43fd644226c44",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9944559944559944,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 2870,
+      "sam_prompt_hints": [
+        "paper towel",
+        "piece of paper"
+      ],
+      "sam_confidence_hint": 0.91015625,
+      "category_verified": false,
+      "area_pixels": 3003
+    },
+    {
+      "id": 2,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.6490267639902676,
+      "sam_seed_ids": [
+        2,
+        3,
+        5
+      ],
+      "seed_pixels": 9603,
+      "sam_prompt_hints": [
+        "paper towel",
+        "piece of paper"
+      ],
+      "sam_confidence_hint": 0.74609375,
+      "category_verified": false,
+      "area_pixels": 9603
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 2149
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1378
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

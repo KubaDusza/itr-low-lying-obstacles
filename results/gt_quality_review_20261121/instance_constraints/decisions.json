@@ -1,0 +1,39 @@
+{
+  "status": "user-confirmed grouping constraints, awaiting application to reference-instance candidate",
+  "constraints": [
+    {
+      "site": "FL_LM",
+      "frame": 78,
+      "decision": "all selected visible fragments are one individual floor obstacle",
+      "common_name": "sunglasses",
+      "reference_only": true,
+      "include": true,
+      "physical_instance_count": 1,
+      "original_foreground_gaps_preserved": true,
+      "mask": "instance_constraints/FL_LM_78_one_object.png",
+      "mask_sha256": "8ec3ac09a66b67dc2056914292cc7ba6283728798dda26d06f92ba434a537bdc",
+      "reviewed_binary_source": "data/ISOD_gt_quality_review_20261121/FL_LM/78.png",
+      "reviewed_binary_sha256": "b6435daf2fe3968cc9cd971b4ef99642290b85b841ec002a2f50bce8142cb0b2",
+      "foreground_pixels": 399,
+      "user_confirmed": true,
+      "automatically_applied_to_unattended_teacher": false
+    },
+    {
+      "site": "HB_LM",
+      "frame": 96,
+      "decision": "all selected visible fragments are one individual floor obstacle",
+      "common_name": "occluded loose floor item",
+      "reference_only": true,
+      "include": true,
+      "physical_instance_count": 1,
+      "original_foreground_gaps_preserved": true,
+      "mask": "instance_constraints/HB_LM_96_one_object.png",
+      "mask_sha256": "dfe58873426afc75a8fd5ec0146cd0a9ee904e3434be78825281c0b2f3e2e2c1",
+      "reviewed_binary_source": "data/ISOD_gt_quality_review_20261121/HB_LM/96.png",
+      "reviewed_binary_sha256": "4b8671cd3a95198ad66b202418e414bf1da7774858e84a5eac3910c047f698cd",
+      "foreground_pixels": 209,
+      "user_confirmed": true,
+      "automatically_applied_to_unattended_teacher": false
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "site": "HL_BM",
+  "frame": 29,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/29.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/HL_BM/29.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          429,
+          314,
+          458,
+          377
+        ],
+        "area_pixels": 1137,
+        "confidence": 0.91796875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          279,
+          164,
+          577,
+          281
+        ],
+        "area_pixels": 2506,
+        "confidence": 0.61328125,
+        "prompts": [
+          "cable on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "1978f79f23c7499885a730fd123d4a4f97d2c358ae306ae6dc22da5929c42491"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/HL_BM/29.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9384344766930519,
+        "sam_seed_ids": [
+          2
+        ],
+        "seed_pixels": 1067
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.8447725458898643,
+        "sam_seed_ids": [
+          3
+        ],
+        "seed_pixels": 2117
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "a5b5be91a39e855a6fae656647c6326c407dc99b4679a8c070f6aa74e85063a0",
+    "sha256": "24ca44e0929ac84e0680d15450a907d8c4a027b2aab9ed23fcd5295ad916a517"
+  },
+  "needs_review": [],
+  "human_instance_review_complete": false
+}

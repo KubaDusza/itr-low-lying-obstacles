@@ -1,0 +1,52 @@
+{
+  "site": "HB_MM",
+  "frame": 33,
+  "dataset_split": "train",
+  "path": "ids/train/HB_MM/33.png",
+  "sha256": "3ae46a64a8a116216b4e49b69302c00fa0b46b8e4ffb9eafdcb01ad0fb2f9c6d",
+  "source_reference": "data/ISOD_reference_train_v1/HB_MM/33.png",
+  "source_sha256": "a1fdfc3fd47c82559a0f6592c597a1032151757e47e2c2f3bdafc710d8150159",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HB_MM/33.npz",
+  "source_cache_sha256": "6a4afecc7c5e48e4370b9d97e5d5ab1b2d787f4a7e3235e8945fa22a0754b5d0",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9743589743589743,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 304,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.6484375,
+      "category_verified": false,
+      "area_pixels": 328
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9987337192474675,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 5521,
+      "sam_prompt_hints": [
+        "fabric on the floor"
+      ],
+      "sam_confidence_hint": 0.6171875,
+      "category_verified": false,
+      "area_pixels": 5815
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

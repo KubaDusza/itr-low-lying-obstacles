@@ -1,0 +1,43 @@
+{
+  "site": "FL_BM",
+  "frame": 98,
+  "dataset_split": "train",
+  "path": "ids/train/FL_BM/98.png",
+  "sha256": "57fc93bb7353835b57976a0ea774ac5110b07316802175d33f39bbe2c11d8c1a",
+  "source_reference": "data/ISOD_reference_train_reviewed_candidate_20261121/FL_BM/98.png",
+  "source_sha256": "50fd66b3a7312b5b1abd793e694a664d9a536743fcf2206e1abe34292d6351df",
+  "source_review_status": "human_quality_reviewed",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/FL_BM/98.npz",
+  "source_cache_sha256": "7f99318ea7a162be833f768d176904c11951153c01046f2e352c113fcec63994",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.9938025065417987,
+      "sam_seed_ids": [
+        2,
+        7,
+        9
+      ],
+      "seed_pixels": 7216,
+      "area_pixels": 18927,
+      "category_verified": false
+    },
+    {
+      "id": 2,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "area_pixels": 34,
+      "category_verified": false
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false,
+  "human_binary_review_complete": true
+}

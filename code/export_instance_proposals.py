@@ -19,7 +19,8 @@ REFERENCE_NAMES={'cable','cable bundle','cloth','crayon','doormat','electrical w
  'extension cord','paper towel','piece of paper','power cord','power strip','rag',
  'shoe','slipper','small hand tool','tennis racket','toy block','LEGO brick','toy brick',
  'plastic block','building block','chalk','tissue','towel','sock','flip flop','cord',
- 'paper','phone case','sunglasses','glasses','small bottle','banana peel','crumpled paper'}
+ 'paper','phone case','sunglasses','glasses','small bottle','banana peel','crumpled paper',
+ 'toy','fabric','small box'}
 REFERENCE_PROMPTS=set(PROMPTS)|REFERENCE_NAMES|{p+' on the floor' for p in REFERENCE_NAMES}
 
 

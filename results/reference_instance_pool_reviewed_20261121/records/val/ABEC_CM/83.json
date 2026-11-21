@@ -1,0 +1,182 @@
+{
+  "site": "ABEC_CM",
+  "frame": 83,
+  "dataset_split": "val",
+  "path": "ids/val/ABEC_CM/83.png",
+  "sha256": "b564a378e7710df559f15f9443cc92f80dce986866116a31c50270373dbaf686",
+  "source_reference": "data/ISOD_reference_val_v1/ABEC_CM/83.png",
+  "source_sha256": "12aac3bb34bfe572981121664e46261c13fc5aefe296d5b4d968982589e8c3f5",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/ABEC_CM/83.npz",
+  "source_cache_sha256": "6a32b5c7c10125128b3ff13813e46fd84b7271566c73b86ec968fc5d68b22269",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.5981873111782477,
+      "sam_seed_ids": [
+        20
+      ],
+      "seed_pixels": 198,
+      "sam_prompt_hints": [
+        "cable",
+        "cable on the floor",
+        "electrical wire"
+      ],
+      "sam_confidence_hint": 0.625,
+      "category_verified": false,
+      "area_pixels": 314
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9776536312849162,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 525,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.92578125,
+      "category_verified": false,
+      "area_pixels": 545
+    },
+    {
+      "id": 3,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.9706314243759178,
+      "sam_seed_ids": [
+        4,
+        5,
+        14
+      ],
+      "seed_pixels": 661,
+      "sam_prompt_hints": [
+        "shoe",
+        "slipper",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.875,
+      "category_verified": false,
+      "area_pixels": 712
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9738480697384807,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 782,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.9296875,
+      "category_verified": false,
+      "area_pixels": 838
+    },
+    {
+      "id": 5,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.847265221878225,
+      "sam_seed_ids": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16
+      ],
+      "seed_pixels": 821,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.73828125,
+      "category_verified": false,
+      "area_pixels": 916
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9023668639053254,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 1525,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.7421875,
+      "category_verified": false,
+      "area_pixels": 1599
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8874019381633594,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 1923,
+      "sam_prompt_hints": [
+        "cable",
+        "cable on the floor",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.88671875,
+      "category_verified": false,
+      "area_pixels": 1935
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9915074309978769,
+      "sam_seed_ids": [
+        19
+      ],
+      "seed_pixels": 2802,
+      "sam_prompt_hints": [
+        "cable on the floor"
+      ],
+      "sam_confidence_hint": 0.640625,
+      "category_verified": false,
+      "area_pixels": 5728
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": [
+      {
+        "parent_id": 13,
+        "review_ids": [
+          13
+        ],
+        "child_ids": [
+          7,
+          8,
+          9,
+          10,
+          12,
+          15,
+          16
+        ],
+        "parent_covered_fraction": 0.7324380165289256,
+        "residual_pixels": 259,
+        "reason": "children leave too much of the parent unresolved"
+      }
+    ]
+  },
+  "human_instance_review_complete": false
+}

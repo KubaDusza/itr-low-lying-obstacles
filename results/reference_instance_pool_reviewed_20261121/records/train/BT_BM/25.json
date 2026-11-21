@@ -1,0 +1,57 @@
+{
+  "site": "BT_BM",
+  "frame": 25,
+  "dataset_split": "train",
+  "path": "ids/train/BT_BM/25.png",
+  "sha256": "58d24a3a79c7714bafc05f244855a263ef798a2c44d22acd40c42f08b0b2afc7",
+  "source_reference": "data/ISOD_reference_train_v1/BT_BM/25.png",
+  "source_sha256": "96794ca27c1378d321060abdb1fe4cc33bf35d7cc6434e3c4b763d9d5a5c2fa4",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_BM/25.npz",
+  "source_cache_sha256": "c994f0d18ec8443fb94600227be142ebf71ad73854c24c5da395358ce399752f",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9956634865568084,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 2296,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.890625,
+      "category_verified": false,
+      "area_pixels": 2972
+    },
+    {
+      "id": 2,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 241
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1348
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

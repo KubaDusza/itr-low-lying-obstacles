@@ -1,0 +1,54 @@
+{
+  "site": "FL_LM",
+  "frame": 99,
+  "dataset_split": "train",
+  "path": "ids/train/FL_LM/99.png",
+  "sha256": "d81b665fae682b29457c3c5c11c9cbd5d1810149ffe2cc3c6b30e7d93348fa29",
+  "source_reference": "data/ISOD_reference_train_v1/FL_LM/99.png",
+  "source_sha256": "e8e96540b2f127035a401eeef6f4a149b59410448313f8964a22ce2daa55b9d9",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/FL_LM/99.npz",
+  "source_cache_sha256": "049fd72f6d35917e71a436ed9a6a62aea2577d0c2c5ed161090bef97be8eab81",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9905372405372406,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 3245,
+      "sam_prompt_hints": [
+        "cloth",
+        "fabric on the floor"
+      ],
+      "sam_confidence_hint": 0.92578125,
+      "category_verified": false,
+      "area_pixels": 3430
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9790295049987808,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 8030,
+      "sam_prompt_hints": [
+        "doormat",
+        "fabric on the floor"
+      ],
+      "sam_confidence_hint": 0.9296875,
+      "category_verified": false,
+      "area_pixels": 8030
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

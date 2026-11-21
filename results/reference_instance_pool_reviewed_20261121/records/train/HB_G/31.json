@@ -1,0 +1,90 @@
+{
+  "site": "HB_G",
+  "frame": 31,
+  "dataset_split": "train",
+  "path": "ids/train/HB_G/31.png",
+  "sha256": "0fdf2406f06a9897395ed76f3df35e1e144fe177ae6418696179c62be0349d84",
+  "source_reference": "data/ISOD_reference_train_v1/HB_G/31.png",
+  "source_sha256": "94f6562ce8f7562181002960f6d30f2312f3bc91dd2e3322569b5b979a5beab4",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HB_G/31.npz",
+  "source_cache_sha256": "961d8ca810928599cf2dff795738866044c7e93069ac10f7c1b12ec507ccc901",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9387060158910329,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 1654,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.9453125,
+      "category_verified": false,
+      "area_pixels": 1654
+    },
+    {
+      "id": 2,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.9915223000368596,
+      "sam_seed_ids": [
+        1,
+        4
+      ],
+      "seed_pixels": 2690,
+      "sam_prompt_hints": [
+        "fabric on the floor",
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.9765625,
+      "category_verified": false,
+      "area_pixels": 2890
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 82
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 471
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 250
+    },
+    {
+      "id": 6,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1168
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

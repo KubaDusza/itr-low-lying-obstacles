@@ -1,0 +1,112 @@
+{
+  "site": "HB_MM",
+  "frame": 36,
+  "dataset_split": "train",
+  "path": "ids/train/HB_MM/36.png",
+  "sha256": "b742e048e8ea16594e8f5230c6b6838a52f2eed6f2901f27868ee149a5baf234",
+  "source_reference": "data/ISOD_reference_train_v1/HB_MM/36.png",
+  "source_sha256": "832314e3c8db9e91c7b1d96eda92cb0723161dc6cb1d2c0bc9fc92252702ac1c",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/dev_cache/HB_MM/36.npz",
+  "source_cache_sha256": "a51faa3c06d39b988e7bf590c4649d4b8524322804aad561ad6b1795fa08bf84",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9746835443037974,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 77,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.828125,
+      "category_verified": false,
+      "area_pixels": 79
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9822485207100592,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 332,
+      "sam_prompt_hints": [
+        "flip flop",
+        "flip flop on the floor",
+        "shoe",
+        "shoe on the floor",
+        "slipper",
+        "slipper on the floor",
+        "small object on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.93359375,
+      "category_verified": false,
+      "area_pixels": 352
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9700934579439252,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 519,
+      "sam_prompt_hints": [
+        "flip flop",
+        "flip flop on the floor",
+        "shoe",
+        "shoe on the floor",
+        "slipper",
+        "slipper on the floor",
+        "small object on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.953125,
+      "category_verified": false,
+      "area_pixels": 519
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9967759269210102,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 1855,
+      "sam_prompt_hints": [
+        "flip flop",
+        "flip flop on the floor",
+        "shoe",
+        "shoe on the floor",
+        "slipper",
+        "slipper on the floor",
+        "small object on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.96484375,
+      "category_verified": false,
+      "area_pixels": 2028
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 96
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

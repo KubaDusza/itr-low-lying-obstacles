@@ -1,0 +1,233 @@
+{
+  "site": "HL_BM",
+  "frame": 71,
+  "dataset_split": "val",
+  "path": "ids/val/HL_BM/71.png",
+  "sha256": "b667136e7701215bb86b2b6ba37fcfb5114349d877bf6c7e83f6c25fb999823f",
+  "source_reference": "data/ISOD_reference_val_v1/HL_BM/71.png",
+  "source_sha256": "9802f5375e866a2249e22ad4feb6639caae024645a46c282c7407f83458ba58a",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/71.npz",
+  "source_cache_sha256": "0d663aac48290fc88beaf79005e7830daf3a0dffa1c3eeb453361a3c054c5eb0",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9659090909090909,
+      "sam_seed_ids": [
+        14
+      ],
+      "seed_pixels": 85,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.67578125,
+      "category_verified": false,
+      "area_pixels": 108
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9698275862068966,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 225,
+      "sam_prompt_hints": [
+        "slipper",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.859375,
+      "category_verified": false,
+      "area_pixels": 301
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9862595419847329,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 646,
+      "sam_prompt_hints": [
+        "slipper",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.9140625,
+      "category_verified": false,
+      "area_pixels": 749
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9627329192546584,
+      "sam_seed_ids": [
+        10
+      ],
+      "seed_pixels": 775,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.859375,
+      "category_verified": false,
+      "area_pixels": 811
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9403824521934758,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 836,
+      "sam_prompt_hints": [
+        "cloth",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.87890625,
+      "category_verified": false,
+      "area_pixels": 859
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.981346309813463,
+      "sam_seed_ids": [
+        13
+      ],
+      "seed_pixels": 1210,
+      "sam_prompt_hints": [
+        "cable bundle",
+        "cable on the floor",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.70703125,
+      "category_verified": false,
+      "area_pixels": 1400
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8099173553719008,
+      "sam_seed_ids": [
+        11
+      ],
+      "seed_pixels": 1062,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.71875,
+      "category_verified": false,
+      "area_pixels": 1265
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9616634178037686,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 1480,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.87109375,
+      "category_verified": false,
+      "area_pixels": 1483
+    },
+    {
+      "id": 9,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9470967741935484,
+      "sam_seed_ids": [
+        15
+      ],
+      "seed_pixels": 1468,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.62890625,
+      "category_verified": false,
+      "area_pixels": 1469
+    },
+    {
+      "id": 10,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.788785046728972,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 1266,
+      "sam_prompt_hints": [
+        "cloth",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.9296875,
+      "category_verified": false,
+      "area_pixels": 1266
+    },
+    {
+      "id": 11,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9848263787569302,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 3375,
+      "sam_prompt_hints": [
+        "cloth",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.953125,
+      "category_verified": false,
+      "area_pixels": 3983
+    },
+    {
+      "id": 12,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9639820683258618,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 6236,
+      "sam_prompt_hints": [
+        "cloth",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.94921875,
+      "category_verified": false,
+      "area_pixels": 6546
+    },
+    {
+      "id": 13,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9827184199698258,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 7165,
+      "sam_prompt_hints": [
+        "cloth",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.96484375,
+      "category_verified": false,
+      "area_pixels": 7348
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

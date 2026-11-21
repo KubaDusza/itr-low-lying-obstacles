@@ -1,0 +1,43 @@
+{
+  "decisions": [
+    {
+      "recording": "h52_floor_screws_150",
+      "item_id": "scr_small",
+      "component_connectivity": 8,
+      "individual_components": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "uncertain_components": [
+        5
+      ],
+      "reasoning": "RGB frame 2 and actual inventory support four spatially separate small fasteners; component 5 is an isolated four-pixel patch far outside that group. Preserve its accepted foreground but do not count it as a verified fifth fastener.",
+      "verification": "assistant visual audit, reference-only, no model predictions consulted",
+      "individual_masks_human_reviewed": false,
+      "frames": [
+        {
+          "frame": 0,
+          "source_id_sha256": "2c3781a14181ceed9a235b4f4152031a8bc821fbababb923d5b30c9f42afd6e3"
+        },
+        {
+          "frame": 1,
+          "source_id_sha256": "2c3781a14181ceed9a235b4f4152031a8bc821fbababb923d5b30c9f42afd6e3"
+        },
+        {
+          "frame": 2,
+          "source_id_sha256": "2c3781a14181ceed9a235b4f4152031a8bc821fbababb923d5b30c9f42afd6e3"
+        },
+        {
+          "frame": 3,
+          "source_id_sha256": "2c3781a14181ceed9a235b4f4152031a8bc821fbababb923d5b30c9f42afd6e3"
+        },
+        {
+          "frame": 4,
+          "source_id_sha256": "2c3781a14181ceed9a235b4f4152031a8bc821fbababb923d5b30c9f42afd6e3"
+        }
+      ]
+    }
+  ]
+}

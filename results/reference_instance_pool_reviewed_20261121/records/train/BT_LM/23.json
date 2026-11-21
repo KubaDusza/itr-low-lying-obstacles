@@ -1,0 +1,94 @@
+{
+  "site": "BT_LM",
+  "frame": 23,
+  "dataset_split": "train",
+  "path": "ids/train/BT_LM/23.png",
+  "sha256": "58d99c447862af2a47e250a4adcaa79f1af2c105f27be15bd3088bb59477e147",
+  "source_reference": "data/ISOD_reference_train_v1/BT_LM/23.png",
+  "source_sha256": "976e7c6ae0febcf1d96e81a553760d965a6cfe67dd52419e1d7f3d08c942cb9a",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_LM/23.npz",
+  "source_cache_sha256": "fb6343e7d9867742faf4739a6da1d0a2a1f574fa9d5c7a469e918236c4fdf9fc",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8356164383561644,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 122,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.61328125,
+      "category_verified": false,
+      "area_pixels": 208
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8846153846153846,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 230,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.71875,
+      "category_verified": false,
+      "area_pixels": 300
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9898305084745763,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 292,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.69140625,
+      "category_verified": false,
+      "area_pixels": 359
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 712
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1180
+    },
+    {
+      "id": 6,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1544
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

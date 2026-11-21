@@ -1,0 +1,185 @@
+{
+  "site": "ABEC_CM",
+  "frame": 22,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/ABEC_CM/22.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/ABEC_CM/22.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          153,
+          183,
+          216,
+          230
+        ],
+        "area_pixels": 1179,
+        "confidence": 0.94140625,
+        "prompts": [
+          "small object on the floor",
+          "things on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "unresolved_cluster",
+        "review_ids": [
+          2,
+          3,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13
+        ],
+        "bbox_xyxy": [
+          402,
+          303,
+          525,
+          379
+        ],
+        "area_pixels": 3448,
+        "confidence": 0.9296875,
+        "prompts": [
+          "small object on the floor",
+          "things on the floor"
+        ]
+      },
+      {
+        "id": 3,
+        "unit": "proposed_individual",
+        "review_ids": [
+          4
+        ],
+        "bbox_xyxy": [
+          0,
+          267,
+          27,
+          311
+        ],
+        "area_pixels": 850,
+        "confidence": 0.921875,
+        "prompts": [
+          "small object on the floor",
+          "things on the floor"
+        ]
+      },
+      {
+        "id": 4,
+        "unit": "proposed_individual",
+        "review_ids": [
+          9
+        ],
+        "bbox_xyxy": [
+          448,
+          303,
+          498,
+          311
+        ],
+        "area_pixels": 298,
+        "confidence": 0.81640625,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": [
+        {
+          "parent_id": 13,
+          "review_ids": [
+            13
+          ],
+          "child_ids": [
+            2,
+            3,
+            5,
+            6,
+            7,
+            8,
+            10,
+            11,
+            12
+          ],
+          "parent_covered_fraction": 0.8015826494724502,
+          "residual_pixels": 677,
+          "reason": "children leave too much of the parent unresolved"
+        }
+      ]
+    },
+    "sha256": "6602f204816f4caf059db44ca1a7e987e4d079186696111ea77e35a3b3e6c6bf"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/ABEC_CM/22.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9655172413793104,
+        "sam_seed_ids": [
+          5
+        ],
+        "seed_pixels": 168
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 1.0,
+        "sam_seed_ids": [
+          9
+        ],
+        "seed_pixels": 300
+      },
+      {
+        "id": 3,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9966101694915255,
+        "sam_seed_ids": [
+          1
+        ],
+        "seed_pixels": 1176
+      },
+      {
+        "id": 4,
+        "unit": "unresolved_cluster",
+        "sam_reference_overlap": 0.9947552447552448,
+        "sam_seed_ids": [
+          2,
+          3,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13
+        ],
+        "seed_pixels": 2997
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "b6be00bf3959be3b0cbed698299ba26c2ca5ded9b38acafaf54619ac707ff28a",
+    "sha256": "70aa46730fef9aef2d3c3942528e9ad59a0fa7575ce1b06c7de953e4b8b76936"
+  },
+  "needs_review": [
+    "automatic_unresolved_cluster",
+    "reference_unresolved_cluster",
+    "ambiguous_parent_relationship"
+  ],
+  "human_instance_review_complete": false
+}

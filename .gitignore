@@ -24,3 +24,18 @@ results/**/validation_automatic/
 !data/ISOD_sam_train_v2/
 !data/ISOD_sam_all_v2/
 !data/OWN_sam_v2/
+
+# Versioned reference masks and preserved human review records
+!data/ISOD_reference_train_v1/
+!data/ISOD_reference_val_v1/
+!data/ISOD_reference_test_v1/
+!data/ISOD_gt2/
+!data/ISOD_gt_quality_review_20261121/
+!data/ISOD_reference_train_reviewed_candidate_20261121/
+!data/OWN_manual/
+!data/ISOD_sam_review/
+data/ISOD_sam_review/*
+!data/ISOD_sam_review/review_drafts/
+!data/label_versions.json
+
+!results/sam_v2_20261121/cache_recovery/

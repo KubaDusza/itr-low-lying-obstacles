@@ -1,0 +1,24 @@
+{
+  "status": "fresh human spot-check; targeted cases separate from representative sample",
+  "groups": {
+    "representative": {
+      "frames": 14,
+      "edited_frames": 10,
+      "mean_image_iou": 0.836775028750684,
+      "pooled_iou": 0.9124961791758135,
+      "images_below_iou50": 2,
+      "removed_pixels": 10296,
+      "added_pixels": 5449
+    },
+    "all_reviewed": {
+      "frames": 16,
+      "edited_frames": 12,
+      "mean_image_iou": 0.8539485184589151,
+      "pooled_iou": 0.9324930708847536,
+      "images_below_iou50": 2,
+      "removed_pixels": 11994,
+      "added_pixels": 5713
+    }
+  },
+  "no_unreviewed_masks_promoted_to_verified_ground_truth": true
+}

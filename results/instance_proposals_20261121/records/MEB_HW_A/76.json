@@ -1,0 +1,99 @@
+{
+  "site": "MEB_HW_A",
+  "frame": 76,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/MEB_HW_A/76.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/MEB_HW_A/76.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          231,
+          94,
+          273,
+          120
+        ],
+        "area_pixels": 423,
+        "confidence": 0.90625,
+        "prompts": [
+          "cable on the floor",
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          282,
+          152,
+          307,
+          171
+        ],
+        "area_pixels": 253,
+        "confidence": 0.8828125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "ae32b2214ddee49666d885d8caa4bbfca5034bd6b6277b9d43726221477d32c2"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/MEB_HW_A/76.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9525691699604744,
+        "sam_seed_ids": [
+          2
+        ],
+        "seed_pixels": 241
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9766899766899767,
+        "sam_seed_ids": [
+          1
+        ],
+        "seed_pixels": 419
+      },
+      {
+        "id": 3,
+        "unit": "unseeded_reference_region",
+        "seed_pixels": 0
+      },
+      {
+        "id": 4,
+        "unit": "unseeded_reference_region",
+        "seed_pixels": 0
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "106d337835ca7360b5ef42c63cbb697b87f1de7a3bb651cf84ef4376fd2d78da",
+    "sha256": "0d1cc25770988165def84d3ee8aef5927ff6a987469f77485b97ebe9ad70d688"
+  },
+  "needs_review": [
+    "reference_missing_SAM_seed"
+  ],
+  "human_instance_review_complete": false
+}

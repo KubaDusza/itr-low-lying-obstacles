@@ -1,0 +1,188 @@
+{
+  "site": "MEB_HW_C",
+  "frame": 30,
+  "dataset_split": "train",
+  "path": "ids/train/MEB_HW_C/30.png",
+  "sha256": "fec045f2e2c82f01f77a52197dc62191bbf5f95a7b2df98e85db04b387ee8aa2",
+  "source_reference": "data/ISOD_reference_train_v1/MEB_HW_C/30.png",
+  "source_sha256": "8a66b7b24ec72d8d1fb8d6863e43c71e118503f4cf7ffd747c2fe1f91d0e56ee",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/MEB_HW_C/30.npz",
+  "source_cache_sha256": "75a5e48ea849137c08d03d5064b75ac4e84048f5eefbe447da43e07bf0d08ec4",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8924731182795699,
+      "sam_seed_ids": [
+        11
+      ],
+      "seed_pixels": 83,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.7734375,
+      "category_verified": false,
+      "area_pixels": 83
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9897260273972602,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 289,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.89453125,
+      "category_verified": false,
+      "area_pixels": 289
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9967213114754099,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 304,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.859375,
+      "category_verified": false,
+      "area_pixels": 304
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9495268138801262,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 301,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.85546875,
+      "category_verified": false,
+      "area_pixels": 322
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9491017964071856,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 317,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.90234375,
+      "category_verified": false,
+      "area_pixels": 317
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9623655913978495,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 358,
+      "sam_prompt_hints": [
+        "small box",
+        "toy"
+      ],
+      "sam_confidence_hint": 0.91015625,
+      "category_verified": false,
+      "area_pixels": 384
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9765807962529274,
+      "sam_seed_ids": [
+        10
+      ],
+      "seed_pixels": 394,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.82421875,
+      "category_verified": false,
+      "area_pixels": 400
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9827288428324698,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 569,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.9140625,
+      "category_verified": false,
+      "area_pixels": 569
+    },
+    {
+      "id": 9,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9974968710888611,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 797,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.91015625,
+      "category_verified": false,
+      "area_pixels": 857
+    },
+    {
+      "id": 10,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9997302400863232,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 3706,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.97265625,
+      "category_verified": false,
+      "area_pixels": 3836
+    },
+    {
+      "id": 11,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9977528089887641,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 7992,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.9765625,
+      "category_verified": false,
+      "area_pixels": 8224
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

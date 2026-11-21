@@ -1,0 +1,111 @@
+{
+  "site": "MEB_HW_C",
+  "frame": 51,
+  "dataset_split": "train",
+  "path": "ids/train/MEB_HW_C/51.png",
+  "sha256": "58a317328148d79c667bc92dddcba561de649e798fa523a343a102efb034b60e",
+  "source_reference": "data/ISOD_reference_train_v1/MEB_HW_C/51.png",
+  "source_sha256": "cc001649134daf20ff50ced7420e3188fa2cbb88eaa2180f8be856e4fa984ba4",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/MEB_HW_C/51.npz",
+  "source_cache_sha256": "3696147391aba0515c095940017ee319e56dc71259a643d07df6e7a2872786bd",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.788,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 394,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire"
+      ],
+      "sam_confidence_hint": 0.7421875,
+      "category_verified": false,
+      "area_pixels": 467
+    },
+    {
+      "id": 2,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.6985413290113452,
+      "sam_seed_ids": [
+        3,
+        5,
+        6
+      ],
+      "seed_pixels": 428,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.84375,
+      "category_verified": false,
+      "area_pixels": 428
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9834815756035579,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 774,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.9296875,
+      "category_verified": false,
+      "area_pixels": 774
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.984930032292788,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 913,
+      "sam_prompt_hints": [
+        "power strip"
+      ],
+      "sam_confidence_hint": 0.61328125,
+      "category_verified": false,
+      "area_pixels": 961
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9979669631512071,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 3927,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.9765625,
+      "category_verified": false,
+      "area_pixels": 4159
+    },
+    {
+      "id": 6,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 683
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

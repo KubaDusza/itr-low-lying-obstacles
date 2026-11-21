@@ -1,0 +1,102 @@
+{
+  "site": "ABEC_RM",
+  "frame": 60,
+  "dataset_split": "train",
+  "path": "ids/train/ABEC_RM/60.png",
+  "sha256": "6d2e0c79836a66c821d17143de9a01252b0628903658af53f4d67427ed07aff4",
+  "source_reference": "data/ISOD_reference_train_v1/ABEC_RM/60.png",
+  "source_sha256": "07fa6a13f77cc4388296557329a97ad67d6db8e425a9f6bce6aca9ce926eb1dc",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/dev_cache/ABEC_RM/60.npz",
+  "source_cache_sha256": "7f8dbcf8aa4179adbae82e0f4e7e04e9a60d19ad80e1961f0f0409d88583b073",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9169960474308301,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 232,
+      "sam_prompt_hints": [
+        "flip flop",
+        "flip flop on the floor",
+        "shoe on the floor",
+        "slipper",
+        "slipper on the floor",
+        "small object on the floor",
+        "sock on the floor",
+        "things on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.90625,
+      "category_verified": false,
+      "area_pixels": 263
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9226006191950464,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 298,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor",
+        "toy",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.93359375,
+      "category_verified": false,
+      "area_pixels": 298
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9544364508393285,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 398,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.94140625,
+      "category_verified": false,
+      "area_pixels": 398
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9730639730639731,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 578,
+      "sam_prompt_hints": [
+        "flip flop",
+        "slipper",
+        "small object on the floor",
+        "things on the floor",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.94140625,
+      "category_verified": false,
+      "area_pixels": 578
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

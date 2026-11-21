@@ -1,0 +1,157 @@
+{
+  "site": "HDCL_RM_B",
+  "frame": 84,
+  "dataset_split": "train",
+  "path": "ids/train/HDCL_RM_B/84.png",
+  "sha256": "8f4f602807462e18169cee1c047405e7163136987efc8dec9ef0fd0bd3c2e766",
+  "source_reference": "data/ISOD_reference_train_v1/HDCL_RM_B/84.png",
+  "source_sha256": "3af66a86df4e0c058b379feecdf537da53abb7afa1269dbd84070ff244c04a36",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HDCL_RM_B/84.npz",
+  "source_cache_sha256": "c730cef86e03379dae42c7f9191fa8c1c28406df87cf17ebe8bae99790fe8bc6",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9875518672199171,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 238,
+      "sam_prompt_hints": [
+        "small hand tool"
+      ],
+      "sam_confidence_hint": 0.890625,
+      "category_verified": false,
+      "area_pixels": 348
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9893992932862191,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 280,
+      "sam_prompt_hints": [
+        "small hand tool"
+      ],
+      "sam_confidence_hint": 0.859375,
+      "category_verified": false,
+      "area_pixels": 440
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 403,
+      "sam_prompt_hints": [
+        "small hand tool"
+      ],
+      "sam_confidence_hint": 0.8671875,
+      "category_verified": false,
+      "area_pixels": 713
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9907834101382489,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 430,
+      "sam_prompt_hints": [
+        "small hand tool"
+      ],
+      "sam_confidence_hint": 0.90234375,
+      "category_verified": false,
+      "area_pixels": 710
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 547,
+      "sam_prompt_hints": [
+        "small hand tool"
+      ],
+      "sam_confidence_hint": 0.828125,
+      "category_verified": false,
+      "area_pixels": 764
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9956896551724138,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 686,
+      "sam_prompt_hints": [
+        "small hand tool"
+      ],
+      "sam_confidence_hint": 0.83984375,
+      "category_verified": false,
+      "area_pixels": 978
+    },
+    {
+      "id": 7,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 492
+    },
+    {
+      "id": 8,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 470
+    },
+    {
+      "id": 9,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1124
+    },
+    {
+      "id": 10,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 825
+    },
+    {
+      "id": 11,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 694
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

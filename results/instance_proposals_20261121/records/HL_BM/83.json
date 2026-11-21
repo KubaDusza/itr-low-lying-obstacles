@@ -1,0 +1,91 @@
+{
+  "site": "HL_BM",
+  "frame": 83,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/83.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/HL_BM/83.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          0,
+          242,
+          430,
+          336
+        ],
+        "area_pixels": 5716,
+        "confidence": 0.80078125,
+        "prompts": [
+          "cable on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          78,
+          232,
+          215,
+          304
+        ],
+        "area_pixels": 7571,
+        "confidence": 0.6015625,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "e4c1ace7074709a4bb951b6c2d8448bc25fe85d71e2f8cbb6c263d6d1cc356bb"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/HL_BM/83.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "unresolved_cluster",
+        "sam_reference_overlap": 0.9569928885878768,
+        "sam_seed_ids": [
+          1,
+          2
+        ],
+        "seed_pixels": 5652
+      },
+      {
+        "id": 2,
+        "unit": "unseeded_reference_region",
+        "seed_pixels": 0
+      },
+      {
+        "id": 3,
+        "unit": "unseeded_reference_region",
+        "seed_pixels": 0
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "8a5935a7b1302064abff7a76aebb55d6aff12eed082316fbb2abd38369388027",
+    "sha256": "320875e681f51716b24615f1163065bea10ff3fb24a75c116c0a1f785ec697f1"
+  },
+  "needs_review": [
+    "reference_missing_SAM_seed",
+    "reference_unresolved_cluster"
+  ],
+  "human_instance_review_complete": false
+}

@@ -1,0 +1,54 @@
+{
+  "site": "MEB_HW_A",
+  "frame": 56,
+  "dataset_split": "val",
+  "path": "ids/val/MEB_HW_A/56.png",
+  "sha256": "69e9c5d01fcc3db68ec23d025119cc836ef88aa44c4406a6a21a9fb60d2feba3",
+  "source_reference": "data/ISOD_reference_val_v1/MEB_HW_A/56.png",
+  "source_sha256": "77520061c323a7125e95666388f512df25cc247f66002d3f7f2e28e386a1b691",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/MEB_HW_A/56.npz",
+  "source_cache_sha256": "91a6f7d4ae534c0125db8998b79f66fc98c574a37d60cef21810f9ae63afed65",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8850574712643678,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 154,
+      "sam_prompt_hints": [
+        "shoe",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.84375,
+      "category_verified": false,
+      "area_pixels": 154
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9969389707289076,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 5211,
+      "sam_prompt_hints": [
+        "shoe",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.97265625,
+      "category_verified": false,
+      "area_pixels": 5388
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

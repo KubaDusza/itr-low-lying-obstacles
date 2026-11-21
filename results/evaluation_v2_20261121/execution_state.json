@@ -1,0 +1,47 @@
+{
+  "updated_at": "2026-11-21T19:55:29.861332+00:00",
+  "gt_review": {
+    "completed": 16,
+    "total": 16,
+    "reference_instance_groups_confirmed": 2,
+    "new_binary_dataset": "data/ISOD_reference_train_reviewed_candidate_20261121",
+    "global_rule_change": "tested and rejected; retain existing rule"
+  },
+  "gt_quality_audit": {
+    "job": "21745587",
+    "completed": true,
+    "reviewed_comparisons": 370,
+    "reproduction_checks": 15
+  },
+  "reference_instance_export": {
+    "job": "21745499",
+    "completed": true,
+    "frames": 1700,
+    "quality": "assisted candidate, not fully verified physical instances"
+  },
+  "triton_training": {
+    "array": "21743050",
+    "gpus_max_concurrent": 2,
+    "jobs": 6,
+    "epochs": 500,
+    "source_binary_reference": "ISOD_reference_train_v1"
+  },
+  "depth_inference": {
+    "gate": "21745515",
+    "gate_passed": true,
+    "normal_gate_exact": true,
+    "jobs": [
+      "21745672",
+      "21745673",
+      "21745674"
+    ],
+    "inference_only": true
+  },
+  "gte": {
+    "recovery_rgb_seed0_running": true,
+    "cache_recovery_dependency": "after RGB recovery; same three prompts and pinned local SAM",
+    "morgoth_unreachable": true
+  },
+  "human_review_not_required_now": true,
+  "new_instance_training_started": false
+}

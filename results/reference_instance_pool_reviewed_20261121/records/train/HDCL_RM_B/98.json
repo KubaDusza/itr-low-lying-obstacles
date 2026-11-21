@@ -1,0 +1,72 @@
+{
+  "site": "HDCL_RM_B",
+  "frame": 98,
+  "dataset_split": "train",
+  "path": "ids/train/HDCL_RM_B/98.png",
+  "sha256": "e9add18da461aee538b6fa18f7522dfd30c94474150b7da22a45f464ec15d2ff",
+  "source_reference": "data/ISOD_reference_train_v1/HDCL_RM_B/98.png",
+  "source_sha256": "57d8833d06e39e541fdeb751bc63d8d4a749490668756c641f563c22a2b149af",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HDCL_RM_B/98.npz",
+  "source_cache_sha256": "8fc190da3060882b2555d6531d70e96c5214227a33e91a5ff3c291bf83efa6c4",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9930555555555556,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 143,
+      "sam_prompt_hints": [
+        "small box"
+      ],
+      "sam_confidence_hint": 0.68359375,
+      "category_verified": false,
+      "area_pixels": 198
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9956395348837209,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 685,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.66796875,
+      "category_verified": false,
+      "area_pixels": 1550
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 408
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 81
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

@@ -84,8 +84,11 @@ def read_cache(path, shape):
     with np.load(path) as data:
         if tuple(data["shape"]) != tuple(shape):
             raise ValueError(f"shape mismatch in {path}")
+        prompts, scores, masks = data["prompts"], data["scores"], data["masks"]
+        if not (len(prompts) == len(scores) == len(masks)):
+            raise ValueError(f"candidate count mismatch in {path}")
         return [(str(p), float(s), np.unpackbits(m, count=np.prod(shape)).reshape(shape) > 0)
-                for p, s, m in zip(data["prompts"], data["scores"], data["masks"], strict=True)]
+                for p, s, m in zip(prompts, scores, masks)]
 
 
 def reviews():

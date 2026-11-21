@@ -1,0 +1,79 @@
+{
+  "site": "HDCL_HW_B",
+  "frame": 41,
+  "dataset_split": "train",
+  "path": "ids/train/HDCL_HW_B/41.png",
+  "sha256": "c777eec2f237b72569e9f29845fb69ae61f96c05dff3ccb2b3c664017626f02c",
+  "source_reference": "data/ISOD_reference_train_v1/HDCL_HW_B/41.png",
+  "source_sha256": "351188ec3f61a4d8ecb6d154d4efd0497ce9d4fc1c9359870245dff723e47818",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HDCL_HW_B/41.npz",
+  "source_cache_sha256": "dca8b8f5eb53cf70813b965129202fcdca30812eac87ab9317a2cbbfaaf614c2",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 510,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.88671875,
+      "category_verified": false,
+      "area_pixels": 553
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.984375,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 693,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.91796875,
+      "category_verified": false,
+      "area_pixels": 728
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 150
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 428
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1329
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

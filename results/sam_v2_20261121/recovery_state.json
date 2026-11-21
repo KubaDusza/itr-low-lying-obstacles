@@ -1,0 +1,34 @@
+{
+  "status": "GTE transfer complete; recovery RGB seed running; full SAM cache recovery waiting for that seed",
+  "completed_new_native_runs": [
+    "depth_sam_v2_s0",
+    "depth_sam_v2_s1",
+    "depth_sam_v2_s2",
+    "rgb_sam_v2_s1",
+    "rgb_sam_v2_s2"
+  ],
+  "completed_predictions_downloaded": true,
+  "legacy_prediction_runs_downloaded": 30,
+  "recovery_rgb_job": "rgb_sam_v2_s0_recovery_glaurung",
+  "gpu": "GPU-3d7a47f1-aab2-a36f-8dca-f5c1e2e80b6e",
+  "recovery_rgb_child_pid": 110736,
+  "cache_recovery_pid": 112319,
+  "cache_recovery_root": "/data/dream/cs_courses/jdusza_itr/sam_v2_20261121/instance_cache_recovery_20261121",
+  "cache_recovery_gate": "Wait for RGB recovery training, scoring and VERIFIED completion; then verify reserved GPU is idle",
+  "cache_recovery_inputs": "Full RGB; original three fixed prompts; pinned SAM revision; no GT masks",
+  "frozen_semantic_labels_unchanged": true,
+  "unreachable_host": "morgoth",
+  "unreachable_completed_runs": [
+    "unet_sam_v2_s0",
+    "yolo_sam_v2_s0"
+  ],
+  "remaining_short_runs": [
+    "unet_sam_v2_s1",
+    "yolo_sam_v2_s1",
+    "unet_sam_v2_s2",
+    "yolo_sam_v2_s2"
+  ],
+  "remaining_short_run_gate": "Compatible Torch 2.14 runtime/GPU currently on unavailable Morgoth; do not silently change runtime relative to reference cohort",
+  "rgbd_jobs_delegated_to_triton": "21743050",
+  "requires_mac_or_VPN_for_server_jobs": false
+}

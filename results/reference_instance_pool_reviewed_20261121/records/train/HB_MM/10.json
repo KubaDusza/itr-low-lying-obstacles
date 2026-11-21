@@ -1,0 +1,93 @@
+{
+  "site": "HB_MM",
+  "frame": 10,
+  "dataset_split": "train",
+  "path": "ids/train/HB_MM/10.png",
+  "sha256": "cfefa77889eca31bcc9dae3a2a3621fee5caee55f31756d24b4c94e0ffed5753",
+  "source_reference": "data/ISOD_reference_train_v1/HB_MM/10.png",
+  "source_sha256": "257cfdb5c3e4d5406d71d0620854a83c4c67cc54c2a8f89ac2d876b4923598b6",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HB_MM/10.npz",
+  "source_cache_sha256": "15b7a59fd88d1ae787626396abb09ee745946eb9aa3f0a90a05c5869858d418d",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9833836858006042,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 651,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.93359375,
+      "category_verified": false,
+      "area_pixels": 651
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 918,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.9609375,
+      "category_verified": false,
+      "area_pixels": 1064
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9718181818181818,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 1069,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.890625,
+      "category_verified": false,
+      "area_pixels": 2119
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9983660130718954,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 1833,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.97265625,
+      "category_verified": false,
+      "area_pixels": 1981
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 99
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

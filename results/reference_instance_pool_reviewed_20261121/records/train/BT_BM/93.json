@@ -1,0 +1,86 @@
+{
+  "site": "BT_BM",
+  "frame": 93,
+  "dataset_split": "train",
+  "path": "ids/train/BT_BM/93.png",
+  "sha256": "79298fb9f10a1fa405449f94ebbe5e81fb2549045e99e2ea87c487243269d43c",
+  "source_reference": "data/ISOD_reference_train_v1/BT_BM/93.png",
+  "source_sha256": "302ca5326a48d0074016fa8e35b1d515c7150e44dde33e524a58be91e9509cca",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_BM/93.npz",
+  "source_cache_sha256": "1cfd16528df79b957fb2d08e9b819317c070919cf5b2fff637b1cb73db3f14b5",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9664804469273743,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 173,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.64453125,
+      "category_verified": false,
+      "area_pixels": 173
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 303,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.6484375,
+      "category_verified": false,
+      "area_pixels": 347
+    },
+    {
+      "id": 3,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.5802603036876356,
+      "sam_seed_ids": [
+        5,
+        6
+      ],
+      "seed_pixels": 535,
+      "sam_prompt_hints": [
+        "power cord",
+        "power strip"
+      ],
+      "sam_confidence_hint": 0.625,
+      "category_verified": false,
+      "area_pixels": 575
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9375576340403109,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 7117,
+      "sam_prompt_hints": [
+        "cloth",
+        "fabric on the floor",
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.79296875,
+      "category_verified": false,
+      "area_pixels": 7137
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

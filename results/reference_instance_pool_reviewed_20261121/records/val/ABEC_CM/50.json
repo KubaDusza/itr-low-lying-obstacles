@@ -1,0 +1,159 @@
+{
+  "site": "ABEC_CM",
+  "frame": 50,
+  "dataset_split": "val",
+  "path": "ids/val/ABEC_CM/50.png",
+  "sha256": "f63031661119910cdb1aa2b446911046dd08faf6359a97b0e65f06199e88c575",
+  "source_reference": "data/ISOD_reference_val_v1/ABEC_CM/50.png",
+  "source_sha256": "c4f8fd28450974d9e1ee377ed141d084aa9ed8eb45d6cc51ccc6a2f8b42df028",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/ABEC_CM/50.npz",
+  "source_cache_sha256": "088fdf3e5093140677fabfc6a85985290a4247d4756eab9ec8391be4710978df",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.7254901960784313,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 37,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.6875,
+      "category_verified": false,
+      "area_pixels": 45
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9058823529411765,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 75,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.796875,
+      "category_verified": false,
+      "area_pixels": 76
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.7272727272727273,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 64,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.80078125,
+      "category_verified": false,
+      "area_pixels": 64
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9065420560747663,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 97,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.86328125,
+      "category_verified": false,
+      "area_pixels": 100
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9262295081967213,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 113,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.79296875,
+      "category_verified": false,
+      "area_pixels": 149
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9141414141414141,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 181,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.828125,
+      "category_verified": false,
+      "area_pixels": 208
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9781659388646288,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 448,
+      "sam_prompt_hints": [
+        "shoe",
+        "slipper",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.92578125,
+      "category_verified": false,
+      "area_pixels": 448
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.75,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 645,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.87109375,
+      "category_verified": false,
+      "area_pixels": 645
+    },
+    {
+      "id": 9,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.973458904109589,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 1137,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.859375,
+      "category_verified": false,
+      "area_pixels": 1218
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

@@ -1,0 +1,86 @@
+{
+  "site": "HL_BM",
+  "frame": 79,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/79.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/HL_BM/79.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          184,
+          324,
+          302,
+          422
+        ],
+        "area_pixels": 8396,
+        "confidence": 0.97265625,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          0,
+          358,
+          16,
+          419
+        ],
+        "area_pixels": 625,
+        "confidence": 0.875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "7c235998513a1778095250771c541e2c23ebdd18c2a85a5604095721b7ea304f"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/HL_BM/79.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9984101748807631,
+        "sam_seed_ids": [
+          2
+        ],
+        "seed_pixels": 628
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9854813756991551,
+        "sam_seed_ids": [
+          1
+        ],
+        "seed_pixels": 8281
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "84e43da3c68036260ac4cad8fcf263f362dada22302023c5ebd69f508ef1bfd1",
+    "sha256": "78550b26e3518cdd46ad181fe9a0def0f26e45b230479ae26fd77631268122b5"
+  },
+  "needs_review": [],
+  "human_instance_review_complete": false
+}

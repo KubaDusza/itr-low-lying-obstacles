@@ -1,0 +1,156 @@
+{
+  "site": "HL_BM",
+  "frame": 21,
+  "dataset_split": "val",
+  "path": "ids/val/HL_BM/21.png",
+  "sha256": "a2cb4ac652d33d5a181637b9493e4c73ece2499025faad49c2f81ea0fa10567b",
+  "source_reference": "data/ISOD_reference_val_v1/HL_BM/21.png",
+  "source_sha256": "a13be9dd2f39372996f9e36cbc1b5d1278a89ba93cb71a4670bef93aab3e9cc6",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/21.npz",
+  "source_cache_sha256": "c5753c365f8c9871fc42aafdf0293799b3b8710c7a95d954083ee0bd14015fd9",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9333333333333333,
+      "sam_seed_ids": [
+        12
+      ],
+      "seed_pixels": 196,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.62890625,
+      "category_verified": false,
+      "area_pixels": 227
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.989501312335958,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 377,
+      "sam_prompt_hints": [
+        "slipper",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.81640625,
+      "category_verified": false,
+      "area_pixels": 521
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8500967117988395,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 879,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.87109375,
+      "category_verified": false,
+      "area_pixels": 942
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9877017678708686,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 1285,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.69921875,
+      "category_verified": false,
+      "area_pixels": 1573
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9740898655296819,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 2970,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.7890625,
+      "category_verified": false,
+      "area_pixels": 2974
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9352887259395051,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 5102,
+      "sam_prompt_hints": [
+        "cloth",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.875,
+      "category_verified": false,
+      "area_pixels": 5572
+    },
+    {
+      "id": 7,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.8556160653505787,
+      "sam_seed_ids": [
+        7,
+        10
+      ],
+      "seed_pixels": 12540,
+      "sam_prompt_hints": [
+        "cable",
+        "cable bundle",
+        "cable on the floor",
+        "electrical wire",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.71875,
+      "category_verified": false,
+      "area_pixels": 16303
+    },
+    {
+      "id": 8,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 58
+    },
+    {
+      "id": 9,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1207
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

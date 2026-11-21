@@ -1,0 +1,117 @@
+{
+  "site": "HB_LM",
+  "frame": 48,
+  "split": "development",
+  "dataset_split": "train",
+  "source_cache": "results/sam_prompt_v2/dev_cache/HB_LM/48.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/HB_LM/48.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          202,
+          394,
+          209,
+          408
+        ],
+        "area_pixels": 65,
+        "confidence": 0.84765625,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          602,
+          337,
+          640,
+          422
+        ],
+        "area_pixels": 678,
+        "confidence": 0.83984375,
+        "prompts": [
+          "cable on the floor",
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 3,
+        "unit": "proposed_individual",
+        "review_ids": [
+          3
+        ],
+        "bbox_xyxy": [
+          442,
+          415,
+          635,
+          422
+        ],
+        "area_pixels": 35,
+        "confidence": 0.734375,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 4,
+        "unit": "proposed_individual",
+        "review_ids": [
+          4
+        ],
+        "bbox_xyxy": [
+          629,
+          415,
+          640,
+          422
+        ],
+        "area_pixels": 68,
+        "confidence": 0.640625,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "f3f3e4971f4126e0773a01197dcbbce5316f89fb0d19fed1998cbe862cba3ef5"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/HB_LM/48.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "unresolved_cluster",
+        "sam_reference_overlap": 0.9638728323699421,
+        "sam_seed_ids": [
+          2,
+          4
+        ],
+        "seed_pixels": 667
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "e824ae5c778d90b2a279f42976b5ed22179d5ee1244f3db8e61769d4e6ae2978",
+    "sha256": "8fb17a2c8aeecc2672de8284f328b04926286e58d5abe18239dc005cd6a4517b"
+  },
+  "needs_review": [
+    "reference_unresolved_cluster"
+  ],
+  "human_instance_review_complete": false
+}

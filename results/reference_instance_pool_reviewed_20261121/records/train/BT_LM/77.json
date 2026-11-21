@@ -1,0 +1,100 @@
+{
+  "site": "BT_LM",
+  "frame": 77,
+  "dataset_split": "train",
+  "path": "ids/train/BT_LM/77.png",
+  "sha256": "570aeb5f44d2e6d11718dea32da6ad2096362723c84e5522b049ce82697535f2",
+  "source_reference": "data/ISOD_reference_train_v1/BT_LM/77.png",
+  "source_sha256": "a3a6640c6225c3f41529a7c5950b44c2f443d0f2560a75720eca995960d721e9",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_LM/77.npz",
+  "source_cache_sha256": "895433966cfe33c903feb60a6ca94fffc3670fd0ab580fef47c303ee7dfeb71a",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9393939393939394,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 217,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.71875,
+      "category_verified": false,
+      "area_pixels": 217
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9033078880407125,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 355,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.68359375,
+      "category_verified": false,
+      "area_pixels": 383
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.7182320441988951,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 390,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.640625,
+      "category_verified": false,
+      "area_pixels": 390
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9698206994496715,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 5463,
+      "sam_prompt_hints": [
+        "doormat"
+      ],
+      "sam_confidence_hint": 0.9296875,
+      "category_verified": false,
+      "area_pixels": 5497
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1548
+    },
+    {
+      "id": 6,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 27
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

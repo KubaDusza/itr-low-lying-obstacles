@@ -1,0 +1,65 @@
+{
+  "site": "HB_LM",
+  "frame": 53,
+  "dataset_split": "train",
+  "path": "ids/train/HB_LM/53.png",
+  "sha256": "c9d4a5607a4a7bb26d352b5a6fb5acf63fbc49f5e53f525026c1e60cb9ec89f6",
+  "source_reference": "data/ISOD_reference_train_v1/HB_LM/53.png",
+  "source_sha256": "186a5d6adb1bb4f5aa44adadf017077a3c7277e05fe7e77b0e1e506845f7d557",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HB_LM/53.npz",
+  "source_cache_sha256": "b5d992d19be71f0dfd3f4976fb81cda87493120574807661843bbc64ad9eec3c",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9964199099203142,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 8628,
+      "sam_prompt_hints": [
+        "paper towel",
+        "piece of paper"
+      ],
+      "sam_confidence_hint": 0.8828125,
+      "category_verified": false,
+      "area_pixels": 8643
+    },
+    {
+      "id": 2,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 2041
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 689
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 500
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

@@ -1,0 +1,372 @@
+{
+  "site": "MEB_HW_A",
+  "frame": 83,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/MEB_HW_A/83.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/MEB_HW_A/83.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          256,
+          246,
+          304,
+          280
+        ],
+        "area_pixels": 781,
+        "confidence": 0.93359375,
+        "prompts": [
+          "small object on the floor",
+          "things on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          387,
+          177,
+          409,
+          188
+        ],
+        "area_pixels": 132,
+        "confidence": 0.86328125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 3,
+        "unit": "proposed_individual",
+        "review_ids": [
+          3
+        ],
+        "bbox_xyxy": [
+          418,
+          215,
+          429,
+          224
+        ],
+        "area_pixels": 78,
+        "confidence": 0.8203125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 4,
+        "unit": "proposed_individual",
+        "review_ids": [
+          4
+        ],
+        "bbox_xyxy": [
+          400,
+          164,
+          453,
+          183
+        ],
+        "area_pixels": 315,
+        "confidence": 0.80859375,
+        "prompts": [
+          "cable on the floor",
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 5,
+        "unit": "proposed_individual",
+        "review_ids": [
+          5
+        ],
+        "bbox_xyxy": [
+          237,
+          189,
+          298,
+          220
+        ],
+        "area_pixels": 1301,
+        "confidence": 0.796875,
+        "prompts": [
+          "cable on the floor",
+          "small object on the floor",
+          "things on the floor"
+        ]
+      },
+      {
+        "id": 6,
+        "unit": "proposed_individual",
+        "review_ids": [
+          6
+        ],
+        "bbox_xyxy": [
+          376,
+          201,
+          389,
+          214
+        ],
+        "area_pixels": 128,
+        "confidence": 0.7421875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 7,
+        "unit": "proposed_individual",
+        "review_ids": [
+          7
+        ],
+        "bbox_xyxy": [
+          389,
+          211,
+          398,
+          221
+        ],
+        "area_pixels": 71,
+        "confidence": 0.73828125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 8,
+        "unit": "proposed_individual",
+        "review_ids": [
+          8
+        ],
+        "bbox_xyxy": [
+          447,
+          167,
+          470,
+          176
+        ],
+        "area_pixels": 124,
+        "confidence": 0.66015625,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 9,
+        "unit": "proposed_individual",
+        "review_ids": [
+          9
+        ],
+        "bbox_xyxy": [
+          531,
+          207,
+          547,
+          218
+        ],
+        "area_pixels": 97,
+        "confidence": 0.65234375,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 10,
+        "unit": "proposed_individual",
+        "review_ids": [
+          10
+        ],
+        "bbox_xyxy": [
+          398,
+          209,
+          410,
+          223
+        ],
+        "area_pixels": 128,
+        "confidence": 0.65234375,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 11,
+        "unit": "proposed_individual",
+        "review_ids": [
+          11
+        ],
+        "bbox_xyxy": [
+          466,
+          155,
+          482,
+          163
+        ],
+        "area_pixels": 60,
+        "confidence": 0.6328125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 12,
+        "unit": "proposed_individual",
+        "review_ids": [
+          12
+        ],
+        "bbox_xyxy": [
+          389,
+          202,
+          407,
+          212
+        ],
+        "area_pixels": 98,
+        "confidence": 0.62890625,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 13,
+        "unit": "proposed_individual",
+        "review_ids": [
+          13
+        ],
+        "bbox_xyxy": [
+          469,
+          173,
+          476,
+          179
+        ],
+        "area_pixels": 25,
+        "confidence": 0.62890625,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "635a13d54d3538806d3b788df15bdb3b01ffbe8491f03dcdb18df0524e2a5217"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/MEB_HW_A/83.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.971830985915493,
+        "sam_seed_ids": [
+          9
+        ],
+        "seed_pixels": 69
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.8717948717948718,
+        "sam_seed_ids": [
+          4
+        ],
+        "seed_pixels": 68
+      },
+      {
+        "id": 3,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9081632653061225,
+        "sam_seed_ids": [
+          14
+        ],
+        "seed_pixels": 89
+      },
+      {
+        "id": 4,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.8790322580645161,
+        "sam_seed_ids": [
+          10
+        ],
+        "seed_pixels": 109
+      },
+      {
+        "id": 5,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.984375,
+        "sam_seed_ids": [
+          8
+        ],
+        "seed_pixels": 126
+      },
+      {
+        "id": 6,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9609375,
+        "sam_seed_ids": [
+          12
+        ],
+        "seed_pixels": 122
+      },
+      {
+        "id": 7,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9621212121212122,
+        "sam_seed_ids": [
+          3
+        ],
+        "seed_pixels": 127
+      },
+      {
+        "id": 8,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9779179810725552,
+        "sam_seed_ids": [
+          5
+        ],
+        "seed_pixels": 310
+      },
+      {
+        "id": 9,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9884763124199744,
+        "sam_seed_ids": [
+          1
+        ],
+        "seed_pixels": 772
+      },
+      {
+        "id": 10,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.968558282208589,
+        "sam_seed_ids": [
+          7
+        ],
+        "seed_pixels": 1263
+      },
+      {
+        "id": 11,
+        "unit": "unseeded_reference_region",
+        "seed_pixels": 0
+      },
+      {
+        "id": 12,
+        "unit": "unseeded_reference_region",
+        "seed_pixels": 0
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "7467aef4405263b4109907423cb4d977c41ab8f1506d78f4fa2fb05123a4c6d8",
+    "sha256": "12e6276a6a85486c336c9162b8177a1a24f230ea9caced64efea0f6e872e9fd3"
+  },
+  "needs_review": [
+    "reference_missing_SAM_seed"
+  ],
+  "human_instance_review_complete": false
+}

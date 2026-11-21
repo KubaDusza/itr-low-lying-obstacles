@@ -1,0 +1,76 @@
+[
+  {
+    "id": "unet_sam_v2_s0",
+    "kind": "unet",
+    "seed": 0,
+    "epochs": 15
+  },
+  {
+    "id": "yolo_sam_v2_s0",
+    "kind": "yolo",
+    "seed": 0,
+    "epochs": 20
+  },
+  {
+    "id": "depth_sam_v2_s0",
+    "kind": "depth",
+    "seed": 0,
+    "epochs": 500
+  },
+  {
+    "id": "unet_sam_v2_s1",
+    "kind": "unet",
+    "seed": 1,
+    "epochs": 15
+  },
+  {
+    "id": "yolo_sam_v2_s1",
+    "kind": "yolo",
+    "seed": 1,
+    "epochs": 20
+  },
+  {
+    "id": "rgb_sam_v2_s1",
+    "kind": "rgb",
+    "seed": 1,
+    "epochs": 500
+  },
+  {
+    "id": "depth_sam_v2_s1",
+    "kind": "depth",
+    "seed": 1,
+    "epochs": 500
+  },
+  {
+    "id": "unet_sam_v2_s2",
+    "kind": "unet",
+    "seed": 2,
+    "epochs": 15
+  },
+  {
+    "id": "yolo_sam_v2_s2",
+    "kind": "yolo",
+    "seed": 2,
+    "epochs": 20
+  },
+  {
+    "id": "rgb_sam_v2_s2",
+    "kind": "rgb",
+    "seed": 2,
+    "epochs": 500
+  },
+  {
+    "id": "depth_sam_v2_s2",
+    "kind": "depth",
+    "seed": 2,
+    "epochs": 500
+  },
+  {
+    "id": "rgb_sam_v2_s0_recovery_glaurung",
+    "kind": "rgb",
+    "seed": 0,
+    "epochs": 500,
+    "recovery_of": "rgb_sam_v2_s0",
+    "reason": "Morgoth unreachable; use reserved idle Glaurung GPU with existing matched runtime"
+  }
+]

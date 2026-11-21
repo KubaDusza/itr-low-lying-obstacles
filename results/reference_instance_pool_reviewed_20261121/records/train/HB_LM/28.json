@@ -1,0 +1,74 @@
+{
+  "site": "HB_LM",
+  "frame": 28,
+  "dataset_split": "train",
+  "path": "ids/train/HB_LM/28.png",
+  "sha256": "a54b153290d1e832a0ad2e144bd0eb6fda0d84c11bcc28269a4fdcf8560c2a9f",
+  "source_reference": "data/ISOD_reference_train_v1/HB_LM/28.png",
+  "source_sha256": "865a0c55dc11348853b07f40deb5687d9d3e73de21c4f406fe993f928a7af179",
+  "source_review_status": "human_reviewed",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HB_LM/28.npz",
+  "source_cache_sha256": "8e13c895c9ee97cd1bc008cc74af239be9bd8513be020b75f44fa1f3f54dbf1b",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8996493121122201,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 3335,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire"
+      ],
+      "sam_confidence_hint": 0.78515625,
+      "category_verified": false,
+      "area_pixels": 4116
+    },
+    {
+      "id": 2,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 33
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 39
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 23
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 95
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

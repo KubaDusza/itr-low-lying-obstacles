@@ -1,0 +1,52 @@
+{
+  "site": "ABEC_RM",
+  "frame": 45,
+  "dataset_split": "train",
+  "path": "ids/train/ABEC_RM/45.png",
+  "sha256": "d6ab1abfa7015428f13a28059497d32c2224950a32c9827855056dcc993bb3f6",
+  "source_reference": "data/ISOD_reference_train_v1/ABEC_RM/45.png",
+  "source_sha256": "41c6e0558de118921c8038097f8e607441969ea39d88b3f85770e1bced2850af",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/ABEC_RM/45.npz",
+  "source_cache_sha256": "f2086c4ab5feb1799aaf98b293b1ec61acb865595123fe2b77c725b3735df548",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9727272727272728,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 1070,
+      "sam_prompt_hints": [
+        "doormat"
+      ],
+      "sam_confidence_hint": 0.859375,
+      "category_verified": false,
+      "area_pixels": 1070
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9994649545211343,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 3736,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.734375,
+      "category_verified": false,
+      "area_pixels": 3942
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

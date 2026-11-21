@@ -1,0 +1,198 @@
+{
+  "site": "MEB_HW_C",
+  "frame": 94,
+  "dataset_split": "train",
+  "path": "ids/train/MEB_HW_C/94.png",
+  "sha256": "c63bddd8f33c8bd7e4b1ba6cb08eddd7da30844316335bd9262baebfe8fa3ac1",
+  "source_reference": "data/ISOD_reference_train_v1/MEB_HW_C/94.png",
+  "source_sha256": "1319c46996e3231b9be75469948e8671611653ccd36836ec753bf48a63f481c9",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/MEB_HW_C/94.npz",
+  "source_cache_sha256": "738c47f84fd8a3d53a949000958e6a28a5992aba7a672a8ca695fe6dda32a89e",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8053097345132744,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 91,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.6640625,
+      "category_verified": false,
+      "area_pixels": 91
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9747899159663865,
+      "sam_seed_ids": [
+        10
+      ],
+      "seed_pixels": 116,
+      "sam_prompt_hints": [
+        "shoe"
+      ],
+      "sam_confidence_hint": 0.61328125,
+      "category_verified": false,
+      "area_pixels": 396
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.952755905511811,
+      "sam_seed_ids": [
+        9
+      ],
+      "seed_pixels": 121,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.65234375,
+      "category_verified": false,
+      "area_pixels": 151
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9931972789115646,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 146,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.8125,
+      "category_verified": false,
+      "area_pixels": 146
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.991130820399113,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 447,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.9140625,
+      "category_verified": false,
+      "area_pixels": 566
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.907258064516129,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 450,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.875,
+      "category_verified": false,
+      "area_pixels": 450
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9495912806539509,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 695,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.8046875,
+      "category_verified": false,
+      "area_pixels": 874
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9464068209500609,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 777,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.83203125,
+      "category_verified": false,
+      "area_pixels": 849
+    },
+    {
+      "id": 9,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.9147363233119763,
+      "sam_seed_ids": [
+        2,
+        5
+      ],
+      "seed_pixels": 1856,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.8984375,
+      "category_verified": false,
+      "area_pixels": 6352
+    },
+    {
+      "id": 10,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 108
+    },
+    {
+      "id": 11,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 53
+    },
+    {
+      "id": 12,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 28
+    },
+    {
+      "id": 13,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 802
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

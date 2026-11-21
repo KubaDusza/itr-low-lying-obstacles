@@ -1,0 +1,73 @@
+{
+  "site": "ABEC_MM",
+  "frame": 20,
+  "dataset_split": "train",
+  "path": "ids/train/ABEC_MM/20.png",
+  "sha256": "d7b6c89b2b65dcab99d1d85906955f6698dbc99e8e281932be1d734c2254df48",
+  "source_reference": "data/ISOD_reference_train_v1/ABEC_MM/20.png",
+  "source_sha256": "c877bebb55790a60c381779cc667d2e154df771b197843393a5d19f84032e142",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/ABEC_MM/20.npz",
+  "source_cache_sha256": "7717e757afc4fb5ce9ad9a741845033413ed480d22121ab97b9a90bf45e65b82",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.992619926199262,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 538,
+      "sam_prompt_hints": [
+        "small box"
+      ],
+      "sam_confidence_hint": 0.80078125,
+      "category_verified": false,
+      "area_pixels": 821
+    },
+    {
+      "id": 2,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 2291
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 802
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 347
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 736
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

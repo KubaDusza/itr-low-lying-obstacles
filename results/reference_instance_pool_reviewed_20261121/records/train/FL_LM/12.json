@@ -1,0 +1,57 @@
+{
+  "site": "FL_LM",
+  "frame": 12,
+  "dataset_split": "train",
+  "path": "ids/train/FL_LM/12.png",
+  "sha256": "1400aed7ec2354aa36dfb2c668f40dbeb6fccaa6bf051252617152fd55b25778",
+  "source_reference": "data/ISOD_reference_train_v1/FL_LM/12.png",
+  "source_sha256": "304fbf4d095ba42a13f691557bc7aaa7bfda333539661718a3a0916da37c5271",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/FL_LM/12.npz",
+  "source_cache_sha256": "b84df734923c87aa61b7b3aef783cfbf6f49ba606a749157baf83bb5fa167e7e",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8758561643835616,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 1023,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.94140625,
+      "category_verified": false,
+      "area_pixels": 1023
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8005673758865248,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 2822,
+      "sam_prompt_hints": [
+        "cable",
+        "cable bundle",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.91796875,
+      "category_verified": false,
+      "area_pixels": 2822
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

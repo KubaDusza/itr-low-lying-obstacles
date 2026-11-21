@@ -1,0 +1,52 @@
+{
+  "site": "HDCL_HW_B",
+  "frame": 53,
+  "dataset_split": "train",
+  "path": "ids/train/HDCL_HW_B/53.png",
+  "sha256": "5445649d42c72a1c129803b343af084742ecacc1b9d63ee8b5426b129fdbd5a5",
+  "source_reference": "data/ISOD_reference_train_reviewed_candidate_20261121/HDCL_HW_B/53.png",
+  "source_sha256": "ddd6d4506c49337c2647b5a3fd019c3fd61d77c4acae1766a8b2beb926c8d46f",
+  "source_review_status": "human_quality_reviewed",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HDCL_HW_B/53.npz",
+  "source_cache_sha256": "5d6c580c097cf186142fcb6b8b64fe8a9ff999c4b1b91ffa5d42eff814107513",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.944233206590621,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 745,
+      "area_pixels": 832,
+      "category_verified": false
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9819341126461212,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 924,
+      "area_pixels": 976,
+      "category_verified": false
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "area_pixels": 47,
+      "category_verified": false
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false,
+  "human_binary_review_complete": true
+}

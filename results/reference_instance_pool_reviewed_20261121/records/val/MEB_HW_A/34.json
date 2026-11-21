@@ -1,0 +1,85 @@
+{
+  "site": "MEB_HW_A",
+  "frame": 34,
+  "dataset_split": "val",
+  "path": "ids/val/MEB_HW_A/34.png",
+  "sha256": "50fc423e64d870a0dab5ea5f70700c4b3b5c782389c0f80d43f71e414bb498d6",
+  "source_reference": "data/ISOD_reference_val_v1/MEB_HW_A/34.png",
+  "source_sha256": "2c4a81812c62294aa63a951e15ee6a7dda901ec923d6e1df08b7cd37e68b07d5",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/MEB_HW_A/34.npz",
+  "source_cache_sha256": "8b88ee0bc8a85a905b147a085788973ddc7e57e328723572a14e87831dd46bed",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9896907216494846,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 96,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.828125,
+      "category_verified": false,
+      "area_pixels": 122
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8535031847133758,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 134,
+      "sam_prompt_hints": [
+        "cable on the floor",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.6484375,
+      "category_verified": false,
+      "area_pixels": 171
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.995850622406639,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 960,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.9375,
+      "category_verified": false,
+      "area_pixels": 1046
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9908963585434174,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 2830,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.92578125,
+      "category_verified": false,
+      "area_pixels": 2998
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

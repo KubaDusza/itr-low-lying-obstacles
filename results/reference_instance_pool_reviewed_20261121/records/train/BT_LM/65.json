@@ -1,0 +1,119 @@
+{
+  "site": "BT_LM",
+  "frame": 65,
+  "dataset_split": "train",
+  "path": "ids/train/BT_LM/65.png",
+  "sha256": "4fec0509f00cd45a582cbfb4bcfac0a101e9a454eeba66cddb8dbd12876a4fa2",
+  "source_reference": "data/ISOD_reference_train_v1/BT_LM/65.png",
+  "source_sha256": "1b7d963ea71b3de322e0c9a53fba080bf5a9955f2c08a3428a4b442a0348efc9",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_LM/65.npz",
+  "source_cache_sha256": "d483d45523b7f61d256b15f6640f8bcdc369a672b47d09eb866c8e837dccd416",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8007889546351085,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 406,
+      "sam_prompt_hints": [
+        "cable",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.66796875,
+      "category_verified": false,
+      "area_pixels": 406
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8359133126934984,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 540,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.82421875,
+      "category_verified": false,
+      "area_pixels": 860
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9094650205761317,
+      "sam_seed_ids": [
+        5
+      ],
+      "seed_pixels": 663,
+      "sam_prompt_hints": [
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.66796875,
+      "category_verified": false,
+      "area_pixels": 700
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9406444318824194,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 1664,
+      "sam_prompt_hints": [
+        "doormat",
+        "fabric on the floor"
+      ],
+      "sam_confidence_hint": 0.8125,
+      "category_verified": false,
+      "area_pixels": 1664
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9936554416788678,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 2036,
+      "sam_prompt_hints": [
+        "doormat"
+      ],
+      "sam_confidence_hint": 0.6796875,
+      "category_verified": false,
+      "area_pixels": 2129
+    },
+    {
+      "id": 6,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 142
+    },
+    {
+      "id": 7,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 573
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

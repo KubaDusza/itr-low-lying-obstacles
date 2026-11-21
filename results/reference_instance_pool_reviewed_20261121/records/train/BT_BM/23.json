@@ -1,0 +1,80 @@
+{
+  "site": "BT_BM",
+  "frame": 23,
+  "dataset_split": "train",
+  "path": "ids/train/BT_BM/23.png",
+  "sha256": "926e5e142722d71193e0280ecb6f917f9d4a95e639ef47f1541d566c1f6a681e",
+  "source_reference": "data/ISOD_reference_train_v1/BT_BM/23.png",
+  "source_sha256": "d160ac08ab3ce567df6f5da05e1e0b2add3cda93a6cbde9e6cd4761e4156a6f9",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/BT_BM/23.npz",
+  "source_cache_sha256": "60e07d486f9cf5f1c48f2c6e36f8432c562895ef50df936aadaacf1f9c2cd51c",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.7965921192758253,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 748,
+      "sam_prompt_hints": [
+        "cable"
+      ],
+      "sam_confidence_hint": 0.625,
+      "category_verified": false,
+      "area_pixels": 959
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9948805460750854,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 1749,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire"
+      ],
+      "sam_confidence_hint": 0.78125,
+      "category_verified": false,
+      "area_pixels": 2079
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 878
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 602
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 434
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

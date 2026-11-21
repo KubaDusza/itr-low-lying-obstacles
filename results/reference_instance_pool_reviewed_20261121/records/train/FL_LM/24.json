@@ -1,0 +1,97 @@
+{
+  "site": "FL_LM",
+  "frame": 24,
+  "dataset_split": "train",
+  "path": "ids/train/FL_LM/24.png",
+  "sha256": "eb9443e000b3ced61beb06a416fd89c38cbf15934e1524c245beda9c1b0fe567",
+  "source_reference": "data/ISOD_reference_train_v1/FL_LM/24.png",
+  "source_sha256": "e298a56d04d4cfc365ee5b59ac9c8d4f42991376d862759c7de136f591a3b043",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/FL_LM/24.npz",
+  "source_cache_sha256": "b83bdbafb1b83e83caae0b6e152c154865b8188242d2d5587333e6b7775601f3",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 245,
+      "sam_prompt_hints": [
+        "fabric on the floor",
+        "shoe",
+        "slipper"
+      ],
+      "sam_confidence_hint": 0.7890625,
+      "category_verified": false,
+      "area_pixels": 323
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9715189873417721,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 307,
+      "sam_prompt_hints": [
+        "doormat",
+        "fabric on the floor"
+      ],
+      "sam_confidence_hint": 0.8125,
+      "category_verified": false,
+      "area_pixels": 307
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9977871210444789,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 4509,
+      "sam_prompt_hints": [
+        "fabric on the floor"
+      ],
+      "sam_confidence_hint": 0.828125,
+      "category_verified": false,
+      "area_pixels": 4509
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 4225
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1169
+    },
+    {
+      "id": 6,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 4515
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

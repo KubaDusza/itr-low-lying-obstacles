@@ -1,0 +1,77 @@
+{
+  "site": "MEB_HW_A",
+  "frame": 6,
+  "dataset_split": "val",
+  "path": "ids/val/MEB_HW_A/6.png",
+  "sha256": "c1b67227805bee14fff3f88e888aeb0186544ed9865f5795832f59d6e5324e83",
+  "source_reference": "data/ISOD_reference_val_v1/MEB_HW_A/6.png",
+  "source_sha256": "2e12ba7dc27d946ff259c9ce6a4a7bbc96203c8a9111ac3dfbcc69dfb3c4c2a1",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/MEB_HW_A/6.npz",
+  "source_cache_sha256": "dd305322ca37e818b61c1549f7acde7eb11eb12070bc80e9e23cd12a956e3915",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9798657718120806,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 584,
+      "sam_prompt_hints": [
+        "slipper",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.91796875,
+      "category_verified": false,
+      "area_pixels": 661
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9975698663426489,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 821,
+      "sam_prompt_hints": [
+        "slipper",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.8984375,
+      "category_verified": false,
+      "area_pixels": 933
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9782270606531882,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 1887,
+      "sam_prompt_hints": [
+        "cable",
+        "cable bundle",
+        "cable on the floor",
+        "electrical wire",
+        "power cord",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.91796875,
+      "category_verified": false,
+      "area_pixels": 2101
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

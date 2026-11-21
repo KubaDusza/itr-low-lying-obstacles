@@ -1,0 +1,88 @@
+{
+  "site": "FL_LM",
+  "frame": 87,
+  "dataset_split": "train",
+  "path": "ids/train/FL_LM/87.png",
+  "sha256": "22057bbe0ac31a3fa91092e890b350b605cdf5ce6874d1356b0c808c9a059e73",
+  "source_reference": "data/ISOD_reference_train_v1/FL_LM/87.png",
+  "source_sha256": "a17193398abe62a76fb2d9a013af4d9782472dfd9b48ae9db0b8b5e811769804",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/FL_LM/87.npz",
+  "source_cache_sha256": "cc926b20a738e1f2ba725fc372e037cc662226ef6d00dc4f3a0c703b2be46a15",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9880749574105622,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 580,
+      "sam_prompt_hints": [
+        "doormat"
+      ],
+      "sam_confidence_hint": 0.609375,
+      "category_verified": false,
+      "area_pixels": 664
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9875776397515528,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 1590,
+      "sam_prompt_hints": [
+        "doormat"
+      ],
+      "sam_confidence_hint": 0.6796875,
+      "category_verified": false,
+      "area_pixels": 1787
+    },
+    {
+      "id": 3,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 233
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 158
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 399
+    },
+    {
+      "id": 6,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 279
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

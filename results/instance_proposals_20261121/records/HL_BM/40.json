@@ -1,0 +1,86 @@
+{
+  "site": "HL_BM",
+  "frame": 40,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/40.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/HL_BM/40.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          231,
+          212,
+          476,
+          422
+        ],
+        "area_pixels": 3518,
+        "confidence": 0.80859375,
+        "prompts": [
+          "cable on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          0,
+          37,
+          26,
+          64
+        ],
+        "area_pixels": 524,
+        "confidence": 0.73828125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "8a113e9a17c5b80cc324e64378685b4a7ef4493216f4b0ae333dbe7096cc7574"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/HL_BM/40.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9942748091603053,
+        "sam_seed_ids": [
+          3
+        ],
+        "seed_pixels": 521
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.8966160405009326,
+        "sam_seed_ids": [
+          2
+        ],
+        "seed_pixels": 3365
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "9f610c1d325c099e73e88dbf07b16a5eed05e7875aa66d8c69fcf981322ca1e3",
+    "sha256": "f1691819926ba09326d13a08512fb24a1857bd2c14feb4587e82f072bdca4a1f"
+  },
+  "needs_review": [],
+  "human_instance_review_complete": false
+}

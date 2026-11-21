@@ -1,0 +1,78 @@
+{
+  "site": "HB_G",
+  "frame": 86,
+  "dataset_split": "train",
+  "path": "ids/train/HB_G/86.png",
+  "sha256": "a704c084ee5f9e0d8199cb821abdf3903c47e8d548d10b34f2c2759f5c57e867",
+  "source_reference": "data/ISOD_reference_train_v1/HB_G/86.png",
+  "source_sha256": "395f2fd490796a0bd7317849dc78f111d67ee07f51afd6cf0cb6f1994b6975fb",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HB_G/86.npz",
+  "source_cache_sha256": "2b3ae81fd602fdf8598939c9e74cce4bf350f1965d7f8e32dd5e0b13f011ee62",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8913525498891353,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 402,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.8359375,
+      "category_verified": false,
+      "area_pixels": 402
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9939879759519038,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 496,
+      "sam_prompt_hints": [
+        "toy"
+      ],
+      "sam_confidence_hint": 0.83984375,
+      "category_verified": false,
+      "area_pixels": 518
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.822429906542056,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 528,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.7109375,
+      "category_verified": false,
+      "area_pixels": 528
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 3090
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

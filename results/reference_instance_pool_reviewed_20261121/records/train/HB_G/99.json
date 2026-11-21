@@ -1,0 +1,31 @@
+{
+  "site": "HB_G",
+  "frame": 99,
+  "dataset_split": "train",
+  "path": "ids/train/HB_G/99.png",
+  "sha256": "caa99b57f0a60468bbd91434dabd745c64031c90f9a11000d8106016dac9e851",
+  "source_reference": "data/ISOD_reference_train_v1/HB_G/99.png",
+  "source_sha256": "a0b6268ebcfe508bb05405edd51799d3a255584d6da99621b506873a73d3ef46",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HB_G/99.npz",
+  "source_cache_sha256": "c05254b8f154fc80a90bbf218c3c1d6d98b439070000f55a08eec6b5cd02278a",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1537
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

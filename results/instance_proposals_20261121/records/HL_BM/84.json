@@ -1,0 +1,62 @@
+{
+  "site": "HL_BM",
+  "frame": 84,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/HL_BM/84.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/HL_BM/84.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          6,
+          210,
+          490,
+          333
+        ],
+        "area_pixels": 6204,
+        "confidence": 0.6875,
+        "prompts": [
+          "cable on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "2f4ddf9a8aa055b4edd1765359efbfa8d1ff08764a7c01e363fa490c998c9292"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/HL_BM/84.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "unresolved_cluster",
+        "sam_reference_overlap": 0.8532153578764418,
+        "sam_seed_ids": [
+          1,
+          2
+        ],
+        "seed_pixels": 5400
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "5f75439c45776e029ac82a24a2ab0800dbeaabadd4854b12a61c3a52aad2365f",
+    "sha256": "fb66e90c8ac6d7d3cec928d43a87873417768e43177aaa831462bb20a8d9bec5"
+  },
+  "needs_review": [
+    "reference_unresolved_cluster"
+  ],
+  "human_instance_review_complete": false
+}

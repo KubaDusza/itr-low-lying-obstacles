@@ -1,0 +1,40 @@
+{
+  "site": "HDCL_HW_B",
+  "frame": 32,
+  "dataset_split": "train",
+  "path": "ids/train/HDCL_HW_B/32.png",
+  "sha256": "8a30344c4abac94bf5e186fcbf676ed82951a1f77c0014677734fa24fd0e39f3",
+  "source_reference": "data/ISOD_reference_train_v1/HDCL_HW_B/32.png",
+  "source_sha256": "bdcba31d27e0dd13c148c314d05fa535c8c35e796c4b829e9dc52f5bb043b5f8",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HDCL_HW_B/32.npz",
+  "source_cache_sha256": "a1a50a927a85d001093705b761f5317bed4d43e2a558f0ae556e2505058016ef",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 3469
+    },
+    {
+      "id": 2,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 1333
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

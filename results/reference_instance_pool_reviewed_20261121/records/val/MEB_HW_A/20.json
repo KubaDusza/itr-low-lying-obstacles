@@ -1,0 +1,56 @@
+{
+  "site": "MEB_HW_A",
+  "frame": 20,
+  "dataset_split": "val",
+  "path": "ids/val/MEB_HW_A/20.png",
+  "sha256": "d18b48506dea2d531b380cc2560d5d7a760a97174ebf71232c5109d27e5aa31b",
+  "source_reference": "data/ISOD_reference_val_v1/MEB_HW_A/20.png",
+  "source_sha256": "2c9bd3f45b1f7b2249c16f98beda8895cb2316d52281180ddaa54faa7d0e5e9b",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/MEB_HW_A/20.npz",
+  "source_cache_sha256": "c0aa14a5711e244282ad4300fdb0a5a14675c190a9cbf7789af2fdaaa42664f7",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.784037558685446,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 167,
+      "sam_prompt_hints": [
+        "cable",
+        "cable on the floor",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.8203125,
+      "category_verified": false,
+      "area_pixels": 211
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9984097535117943,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 3767,
+      "sam_prompt_hints": [
+        "slipper",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.96484375,
+      "category_verified": false,
+      "area_pixels": 4047
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

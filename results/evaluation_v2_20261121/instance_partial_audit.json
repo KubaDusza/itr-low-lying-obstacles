@@ -1,0 +1,129 @@
+{
+  "status": "integrity passed; quality unapproved",
+  "complete_export": false,
+  "completed_frames": 146,
+  "expected_frames": 330,
+  "dataset_splits": {
+    "val": 116,
+    "train": 30
+  },
+  "units": {
+    "automatic": {
+      "proposed_individual": 1700,
+      "unresolved_cluster": 29
+    },
+    "reference": {
+      "proposed_individual": 1560,
+      "unresolved_cluster": 35,
+      "unseeded_reference_region": 64
+    }
+  },
+  "flags": {
+    "automatic_unresolved_cluster": 25,
+    "reference_unresolved_cluster": 30,
+    "ambiguous_parent_relationship": 6,
+    "reference_missing_SAM_seed": 40
+  },
+  "all_reference_unions_preserved": true,
+  "automatic_pixels_added_outside_teacher": 0,
+  "automatic_teacher_union_changed_frames": [
+    {
+      "site": "ABEC_CM",
+      "frame": 23,
+      "dataset_split": "val",
+      "removed_pixels": 345
+    },
+    {
+      "site": "ABEC_CM",
+      "frame": 45,
+      "dataset_split": "val",
+      "removed_pixels": 137
+    },
+    {
+      "site": "ABEC_CM",
+      "frame": 62,
+      "dataset_split": "val",
+      "removed_pixels": 440
+    },
+    {
+      "site": "ABEC_CM",
+      "frame": 63,
+      "dataset_split": "val",
+      "removed_pixels": 553
+    },
+    {
+      "site": "ABEC_CM",
+      "frame": 64,
+      "dataset_split": "val",
+      "removed_pixels": 445
+    },
+    {
+      "site": "ABEC_CM",
+      "frame": 65,
+      "dataset_split": "val",
+      "removed_pixels": 398
+    },
+    {
+      "site": "ABEC_CM",
+      "frame": 66,
+      "dataset_split": "val",
+      "removed_pixels": 296
+    },
+    {
+      "site": "ABEC_RM",
+      "frame": 84,
+      "dataset_split": "train",
+      "removed_pixels": 201
+    },
+    {
+      "site": "BT_BM",
+      "frame": 12,
+      "dataset_split": "train",
+      "removed_pixels": 274
+    },
+    {
+      "site": "BT_LM",
+      "frame": 28,
+      "dataset_split": "train",
+      "removed_pixels": 385
+    },
+    {
+      "site": "BT_LM",
+      "frame": 34,
+      "dataset_split": "train",
+      "removed_pixels": 258
+    },
+    {
+      "site": "HB_LM",
+      "frame": 52,
+      "dataset_split": "train",
+      "removed_pixels": 122
+    },
+    {
+      "site": "HB_MM",
+      "frame": 84,
+      "dataset_split": "train",
+      "removed_pixels": 78
+    },
+    {
+      "site": "HL_BM",
+      "frame": 10,
+      "dataset_split": "val",
+      "removed_pixels": 231
+    },
+    {
+      "site": "HL_BM",
+      "frame": 11,
+      "dataset_split": "val",
+      "removed_pixels": 266
+    },
+    {
+      "site": "HL_BM",
+      "frame": 12,
+      "dataset_split": "val",
+      "removed_pixels": 264
+    }
+  ],
+  "original_reference_or_training_labels_modified": false,
+  "unflagged_does_not_mean_human_approved": true
+}

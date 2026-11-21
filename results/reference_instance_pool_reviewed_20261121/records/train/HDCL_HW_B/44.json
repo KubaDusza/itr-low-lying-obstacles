@@ -1,0 +1,40 @@
+{
+  "site": "HDCL_HW_B",
+  "frame": 44,
+  "dataset_split": "train",
+  "path": "ids/train/HDCL_HW_B/44.png",
+  "sha256": "c1deb405393f5cbac50060f8c6504045bd1328050e729b8fbccd37444d91241e",
+  "source_reference": "data/ISOD_reference_train_v1/HDCL_HW_B/44.png",
+  "source_sha256": "bce4db457380fc4d616ed46b41bb9f1d9e1b29f9306a189690e1663a087eebce",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/HDCL_HW_B/44.npz",
+  "source_cache_sha256": "125e5fbb99f96ac3e56a9a4e2f03e9904fe5efa5a1edcf13761366550240a04c",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9042769857433809,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 888,
+      "sam_prompt_hints": [
+        "cable",
+        "cable bundle",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.84375,
+      "category_verified": false,
+      "area_pixels": 888
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

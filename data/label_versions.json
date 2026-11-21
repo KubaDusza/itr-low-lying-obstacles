@@ -1,0 +1,50 @@
+{
+  "current_running_training": {
+    "reference": "ISOD_reference_train_v1",
+    "human_reviewed": 70,
+    "assisted": 1330,
+    "labels_frozen": true
+  },
+  "updated_candidate": {
+    "path": "ISOD_reference_train_reviewed_candidate_20261121",
+    "human_reviewed": 85,
+    "assisted": 1315,
+    "new_reviewed_frames": 16,
+    "new_unique_reviewed_training_frames": 15,
+    "promoted_to_running_jobs": false
+  },
+  "validation": {
+    "path": "ISOD_reference_val_v1",
+    "human_reviewed_frames": 300
+  },
+  "test": {
+    "path": "ISOD_reference_test_v1",
+    "human_reviewed_frames": 30,
+    "total_split_frames": 300,
+    "complete_test_ground_truth": false
+  },
+  "automatic_teacher": {
+    "path": "ISOD_sam_train_v2",
+    "frames": 1400,
+    "inputs": "RGB and fixed three prompts only; no original ISOD or human reference masks"
+  },
+  "reference_instances": {
+    "path": "results/reference_instance_pool_reviewed_20261121",
+    "frames": 1700,
+    "status": "assisted proposals; not fully reviewed physical-object ground truth",
+    "user_confirmed_groups": 2
+  },
+  "GTE": {
+    "path": "OWN_manual",
+    "frames": 320,
+    "static_recordings": 64,
+    "repeat_frames_per_recording": 5,
+    "reference": "manually corrected binary masks and item/group IDs"
+  },
+  "old_snapshots_preserved": true,
+  "raw_human_edits_preserved": [
+    "ISOD_gt2",
+    "ISOD_sam_review/review_drafts",
+    "ISOD_gt_quality_review_20261121"
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "site": "ABEC_RM",
+  "frame": 14,
+  "dataset_split": "train",
+  "path": "ids/train/ABEC_RM/14.png",
+  "sha256": "1461e6ca55401563ffb80e1ffb9b89647759163527758bd54b9471d1cb9a2198",
+  "source_reference": "data/ISOD_reference_train_v1/ABEC_RM/14.png",
+  "source_sha256": "3baa030826e7245760120cc6b3d99de68f135c05b8bb03a05f320558851c9092",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/dev_cache/ABEC_RM/14.npz",
+  "source_cache_sha256": "81217ff0be492e719fd163f4beb5451f5186fac3785b5e9243e16a0bbbeddd0c",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9523809523809523,
+      "sam_seed_ids": [
+        12
+      ],
+      "seed_pixels": 40,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.6953125,
+      "category_verified": false,
+      "area_pixels": 40
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.8611111111111112,
+      "sam_seed_ids": [
+        7
+      ],
+      "seed_pixels": 62,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.8203125,
+      "category_verified": false,
+      "area_pixels": 62
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        8
+      ],
+      "seed_pixels": 78,
+      "sam_prompt_hints": [
+        "building block on the floor",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.75,
+      "category_verified": false,
+      "area_pixels": 80
+    },
+    {
+      "id": 4,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.9479166666666666,
+      "sam_seed_ids": [
+        9,
+        10,
+        11
+      ],
+      "seed_pixels": 176,
+      "sam_prompt_hints": [
+        "building block",
+        "building block on the floor",
+        "small object on the floor",
+        "toy",
+        "toy block on the floor",
+        "toy brick on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.7265625,
+      "category_verified": false,
+      "area_pixels": 184
+    },
+    {
+      "id": 5,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.960352422907489,
+      "sam_seed_ids": [
+        6
+      ],
+      "seed_pixels": 218,
+      "sam_prompt_hints": [
+        "cable",
+        "cable on the floor",
+        "cord",
+        "electrical wire",
+        "power cord",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.82421875,
+      "category_verified": false,
+      "area_pixels": 240
+    },
+    {
+      "id": 6,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9671592775041051,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 589,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "toy on the floor"
+      ],
+      "sam_confidence_hint": 0.85546875,
+      "category_verified": false,
+      "area_pixels": 666
+    },
+    {
+      "id": 7,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9758064516129032,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 726,
+      "sam_prompt_hints": [
+        "cable",
+        "cable bundle",
+        "cable bundle on the floor",
+        "cable on the floor",
+        "cord",
+        "cord on the floor",
+        "electrical wire",
+        "power cord",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.8984375,
+      "category_verified": false,
+      "area_pixels": 760
+    },
+    {
+      "id": 8,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9709379128137384,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 735,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.94921875,
+      "category_verified": false,
+      "area_pixels": 846
+    },
+    {
+      "id": 9,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9936788874841972,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 786,
+      "sam_prompt_hints": [
+        "small object on the floor",
+        "toy brick on the floor"
+      ],
+      "sam_confidence_hint": 0.890625,
+      "category_verified": false,
+      "area_pixels": 798
+    },
+    {
+      "id": 10,
+      "unit": "unresolved_cluster",
+      "sam_reference_overlap": 0.973939393939394,
+      "sam_seed_ids": [
+        5,
+        13
+      ],
+      "seed_pixels": 3214,
+      "sam_prompt_hints": [
+        "cable",
+        "cable on the floor",
+        "cord",
+        "cord on the floor",
+        "electrical wire",
+        "power cord",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.8515625,
+      "category_verified": false,
+      "area_pixels": 7484
+    },
+    {
+      "id": 11,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 21
+    },
+    {
+      "id": 12,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 59
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

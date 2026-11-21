@@ -1,0 +1,302 @@
+{
+  "site": "ABEC_CM",
+  "frame": 34,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/ABEC_CM/34.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/ABEC_CM/34.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          324,
+          237,
+          374,
+          292
+        ],
+        "area_pixels": 1781,
+        "confidence": 0.8828125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          389,
+          97,
+          411,
+          117
+        ],
+        "area_pixels": 264,
+        "confidence": 0.8203125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 3,
+        "unit": "proposed_individual",
+        "review_ids": [
+          3
+        ],
+        "bbox_xyxy": [
+          369,
+          174,
+          391,
+          184
+        ],
+        "area_pixels": 122,
+        "confidence": 0.8203125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 4,
+        "unit": "proposed_individual",
+        "review_ids": [
+          4
+        ],
+        "bbox_xyxy": [
+          364,
+          179,
+          385,
+          188
+        ],
+        "area_pixels": 156,
+        "confidence": 0.80859375,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 5,
+        "unit": "proposed_individual",
+        "review_ids": [
+          5
+        ],
+        "bbox_xyxy": [
+          351,
+          169,
+          362,
+          177
+        ],
+        "area_pixels": 63,
+        "confidence": 0.79296875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 6,
+        "unit": "proposed_individual",
+        "review_ids": [
+          6
+        ],
+        "bbox_xyxy": [
+          356,
+          176,
+          364,
+          188
+        ],
+        "area_pixels": 77,
+        "confidence": 0.78515625,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 7,
+        "unit": "proposed_individual",
+        "review_ids": [
+          7
+        ],
+        "bbox_xyxy": [
+          413,
+          119,
+          433,
+          138
+        ],
+        "area_pixels": 270,
+        "confidence": 0.76171875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 8,
+        "unit": "proposed_individual",
+        "review_ids": [
+          8
+        ],
+        "bbox_xyxy": [
+          349,
+          177,
+          359,
+          186
+        ],
+        "area_pixels": 65,
+        "confidence": 0.72265625,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 9,
+        "unit": "proposed_individual",
+        "review_ids": [
+          9
+        ],
+        "bbox_xyxy": [
+          347,
+          173,
+          353,
+          182
+        ],
+        "area_pixels": 47,
+        "confidence": 0.69140625,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 10,
+        "unit": "proposed_individual",
+        "review_ids": [
+          10
+        ],
+        "bbox_xyxy": [
+          382,
+          91,
+          402,
+          97
+        ],
+        "area_pixels": 90,
+        "confidence": 0.67578125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "ed961a1390ed89b0607ae7cabf24497aa3f937e36823acbecbcf1839226d579a"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/ABEC_CM/34.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9361702127659575,
+        "sam_seed_ids": [
+          9
+        ],
+        "seed_pixels": 44
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9841269841269841,
+        "sam_seed_ids": [
+          5
+        ],
+        "seed_pixels": 59
+      },
+      {
+        "id": 3,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9384615384615385,
+        "sam_seed_ids": [
+          8
+        ],
+        "seed_pixels": 53
+      },
+      {
+        "id": 4,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 1.0,
+        "sam_seed_ids": [
+          6
+        ],
+        "seed_pixels": 60
+      },
+      {
+        "id": 5,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.6222222222222222,
+        "sam_seed_ids": [
+          10
+        ],
+        "seed_pixels": 56
+      },
+      {
+        "id": 6,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9672131147540983,
+        "sam_seed_ids": [
+          3
+        ],
+        "seed_pixels": 118
+      },
+      {
+        "id": 7,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.8653846153846154,
+        "sam_seed_ids": [
+          4
+        ],
+        "seed_pixels": 127
+      },
+      {
+        "id": 8,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.8981132075471698,
+        "sam_seed_ids": [
+          2
+        ],
+        "seed_pixels": 238
+      },
+      {
+        "id": 9,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.8222222222222222,
+        "sam_seed_ids": [
+          7
+        ],
+        "seed_pixels": 222
+      },
+      {
+        "id": 10,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9747332959011791,
+        "sam_seed_ids": [
+          1
+        ],
+        "seed_pixels": 1736
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "36ec5128beba5b7ee36b356437b14246f0263e823a76702d8bd9839ab80e3171",
+    "sha256": "43e0a0790cc1ee4306503c1d6b980b5b86f19b5034ccbd855dd169a981632e34"
+  },
+  "needs_review": [],
+  "human_instance_review_complete": false
+}

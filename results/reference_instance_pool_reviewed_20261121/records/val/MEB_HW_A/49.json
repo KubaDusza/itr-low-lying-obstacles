@@ -1,0 +1,124 @@
+{
+  "site": "MEB_HW_A",
+  "frame": 49,
+  "dataset_split": "val",
+  "path": "ids/val/MEB_HW_A/49.png",
+  "sha256": "2f1a908e0e4adda0e0dc2c279c424f0e467d60256d935273511729a89dbe5c6d",
+  "source_reference": "data/ISOD_reference_val_v1/MEB_HW_A/49.png",
+  "source_sha256": "f199dcdeb502a5fc3d9bf3aca5f61830f39461bb73b4ba1f196eb823c32f729a",
+  "source_review_status": "human_reviewed",
+  "source_cache": "results/sam_prompt_v2/validation_cache/MEB_HW_A/49.npz",
+  "source_cache_sha256": "2c52b36937ee67cac53ddfa1e68e016cc370dd3bf599203b8ad7d820a99a0394",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.5092592592592593,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 55,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.83203125,
+      "category_verified": false,
+      "area_pixels": 55
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9665071770334929,
+      "sam_seed_ids": [
+        2
+      ],
+      "seed_pixels": 202,
+      "sam_prompt_hints": [
+        "rag",
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.890625,
+      "category_verified": false,
+      "area_pixels": 278
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.7709251101321586,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 175,
+      "sam_prompt_hints": [
+        "small object on the floor"
+      ],
+      "sam_confidence_hint": 0.859375,
+      "category_verified": false,
+      "area_pixels": 177
+    },
+    {
+      "id": 4,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9729073999191266,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 2406,
+      "sam_prompt_hints": [
+        "cable",
+        "cable on the floor",
+        "electrical wire",
+        "power cord",
+        "small object on the floor",
+        "things on the floor"
+      ],
+      "sam_confidence_hint": 0.9375,
+      "category_verified": false,
+      "area_pixels": 3500
+    },
+    {
+      "id": 5,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 49
+    },
+    {
+      "id": 6,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 51
+    },
+    {
+      "id": 7,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 60
+    },
+    {
+      "id": 8,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 47
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

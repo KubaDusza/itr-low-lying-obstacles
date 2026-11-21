@@ -1,0 +1,185 @@
+{
+  "site": "ABEC_CM",
+  "frame": 56,
+  "split": "validation",
+  "dataset_split": "val",
+  "source_cache": "results/sam_prompt_v2/validation_cache/ABEC_CM/56.npz",
+  "automatic": {
+    "uses_reference_masks": false,
+    "path": "automatic/ABEC_CM/56.npz",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "review_ids": [
+          1
+        ],
+        "bbox_xyxy": [
+          218,
+          226,
+          249,
+          271
+        ],
+        "area_pixels": 1119,
+        "confidence": 0.9453125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "review_ids": [
+          2
+        ],
+        "bbox_xyxy": [
+          216,
+          149,
+          240,
+          164
+        ],
+        "area_pixels": 139,
+        "confidence": 0.90625,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 3,
+        "unit": "proposed_individual",
+        "review_ids": [
+          3
+        ],
+        "bbox_xyxy": [
+          233,
+          164,
+          258,
+          180
+        ],
+        "area_pixels": 210,
+        "confidence": 0.88671875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 4,
+        "unit": "proposed_individual",
+        "review_ids": [
+          4
+        ],
+        "bbox_xyxy": [
+          267,
+          119,
+          298,
+          136
+        ],
+        "area_pixels": 272,
+        "confidence": 0.8828125,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 5,
+        "unit": "proposed_individual",
+        "review_ids": [
+          5
+        ],
+        "bbox_xyxy": [
+          236,
+          120,
+          257,
+          133
+        ],
+        "area_pixels": 179,
+        "confidence": 0.87109375,
+        "prompts": [
+          "small object on the floor"
+        ]
+      },
+      {
+        "id": 6,
+        "unit": "proposed_individual",
+        "review_ids": [
+          6
+        ],
+        "bbox_xyxy": [
+          427,
+          75,
+          440,
+          86
+        ],
+        "area_pixels": 113,
+        "confidence": 0.69921875,
+        "prompts": [
+          "small object on the floor"
+        ]
+      }
+    ],
+    "teacher_union_preserved": true,
+    "teacher_pixels_removed_by_parent_resolution": 0,
+    "parent_events": {
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    "sha256": "6773c2902f33284b48b8d9c5923b64de64484548be097bb438a960a599ac9b06"
+  },
+  "reference": {
+    "uses_reference_masks": true,
+    "path": "reference/ABEC_CM/56.png",
+    "objects": [
+      {
+        "id": 1,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9424460431654677,
+        "sam_seed_ids": [
+          2
+        ],
+        "seed_pixels": 131
+      },
+      {
+        "id": 2,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.8166666666666667,
+        "sam_seed_ids": [
+          5
+        ],
+        "seed_pixels": 147
+      },
+      {
+        "id": 3,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9238095238095239,
+        "sam_seed_ids": [
+          3
+        ],
+        "seed_pixels": 194
+      },
+      {
+        "id": 4,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9963235294117647,
+        "sam_seed_ids": [
+          4
+        ],
+        "seed_pixels": 271
+      },
+      {
+        "id": 5,
+        "unit": "proposed_individual",
+        "sam_reference_overlap": 0.9821268990169795,
+        "sam_seed_ids": [
+          1
+        ],
+        "seed_pixels": 1099
+      }
+    ],
+    "binary_union_preserved": true,
+    "source_sha256": "bc019992f9602b3d5b983e9139b0713f16c61d8b0abd2eb6648191fc405271db",
+    "sha256": "e3243e3bfc10f4f182c76cd3ccb1e59cb7717df2b00dca41518ac9d3f14ddc27"
+  },
+  "needs_review": [],
+  "human_instance_review_complete": false
+}

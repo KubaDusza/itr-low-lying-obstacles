@@ -1,0 +1,20 @@
+{
+  "pipeline_gate_job": "21745515",
+  "pipeline_gate_status": "COMPLETED, exit 0, 59 seconds",
+  "normal_gate_reproduction_changed_pixels": 0,
+  "normal_gate_reproduction_total_pixels": 74137600,
+  "gate_results_are_scientific_results": false,
+  "scientific_jobs": {
+    "0": "21745672",
+    "1": "21745673",
+    "2": "21745674"
+  },
+  "dependencies": "Each job runs only after the corresponding reference RGB-D training task completes; pipeline gate already passed",
+  "intervention_variants": [
+    "normal depth",
+    "missing raw depth",
+    "permuted depth within capture configuration"
+  ],
+  "inference_only": true,
+  "training_restarted": false
+}

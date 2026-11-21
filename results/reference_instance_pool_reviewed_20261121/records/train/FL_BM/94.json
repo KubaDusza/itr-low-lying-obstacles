@@ -1,0 +1,78 @@
+{
+  "site": "FL_BM",
+  "frame": 94,
+  "dataset_split": "train",
+  "path": "ids/train/FL_BM/94.png",
+  "sha256": "6681516324efd38cce49925f2c3929e497508cfc81db90a9d03d801f5151ce6d",
+  "source_reference": "data/ISOD_reference_train_v1/FL_BM/94.png",
+  "source_sha256": "b6c2728e0b0bc2072ab242036f07b5087fbd0039fb28c5cc53a287ae306b9b71",
+  "source_review_status": "isod_sam_prelabel",
+  "source_cache": "data/ISOD_sam_review/source-full-crayon/FL_BM/94.npz",
+  "source_cache_sha256": "336de78729f7d516a9ca3d51a3c8d17a61ae3889318260aa000d661104169c21",
+  "uses_accepted_reference_mask": true,
+  "binary_union_preserved": true,
+  "objects": [
+    {
+      "id": 1,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        4
+      ],
+      "seed_pixels": 161,
+      "sam_prompt_hints": [
+        "crayon"
+      ],
+      "sam_confidence_hint": 0.72265625,
+      "category_verified": false,
+      "area_pixels": 271
+    },
+    {
+      "id": 2,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 1.0,
+      "sam_seed_ids": [
+        3
+      ],
+      "seed_pixels": 355,
+      "sam_prompt_hints": [
+        "crayon"
+      ],
+      "sam_confidence_hint": 0.74609375,
+      "category_verified": false,
+      "area_pixels": 590
+    },
+    {
+      "id": 3,
+      "unit": "proposed_individual",
+      "sam_reference_overlap": 0.9181787059226293,
+      "sam_seed_ids": [
+        1
+      ],
+      "seed_pixels": 2682,
+      "sam_prompt_hints": [
+        "cable",
+        "electrical wire",
+        "power cord"
+      ],
+      "sam_confidence_hint": 0.9609375,
+      "category_verified": false,
+      "area_pixels": 2682
+    },
+    {
+      "id": 4,
+      "unit": "unseeded_reference_region",
+      "seed_pixels": 0,
+      "sam_prompt_hints": [],
+      "sam_confidence_hint": null,
+      "category_verified": false,
+      "area_pixels": 2539
+    }
+  ],
+  "parent_events": {
+    "duplicates": [],
+    "parent_proposals": [],
+    "ambiguous": []
+  },
+  "human_instance_review_complete": false
+}

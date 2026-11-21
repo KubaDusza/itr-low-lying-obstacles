@@ -1,0 +1,28 @@
+{
+  "status": "submitted_gate_pending",
+  "reason": "Aalto VPN connection currently unreachable after retrieving GTE assets",
+  "target": "code.triton.aalto.fi",
+  "remote_base": "/scratch/work/duszaj1/itr_20261121/production",
+  "local_bundle": "/private/tmp/itr-triton-production",
+  "bundle_bytes": 1324859583,
+  "gate": "two-epoch real-data RGB-D run, input hash checks and inference verification",
+  "full_jobs": "RGB-D reference/SAM x seeds 0,1,2; 500 epochs; maximum two GPUs; afterok gate",
+  "reference_repeat_reason": "Match the Torch 2.10 environment used for the new RGB-D SAM runs; preserve earlier Torch 2.14 references",
+  "new_instance_YOLO": "not scheduled; instance conversion and representative user review required",
+  "GTE": "No new training launched; RGB/depth workers verified active; Morgoth unreachable",
+  "model_initialization_sha256": "1a18502bb7d4fa647cd74a63e607b09293f6944833a86f9ee7c9e5d8af9ab3a0",
+  "gate_job": "21743068",
+  "array_job": "21743050",
+  "queue_reason": "gate: Priority; array: Dependency",
+  "scratch_cleanup": "uv package cache: 2896 files, 650.3 MiB; no datasets, models or environments deleted",
+  "scratch_available_reported": "2.9 GiB",
+  "source_code_sha256": "486afc80a4a6256615d983dd0dce91526f180070691376925d28075ee00e88ff",
+  "previous_failed_gate": "21743060",
+  "failure_fixed": "Preserve helper-package path in the training subprocess environment",
+  "runtime_helpers": {
+    "mock": "5.2.0",
+    "cityscapesScripts": "2.3.0"
+  },
+  "gate_status": "queued for resources",
+  "cleanup_verified": "650.3 MiB package cache removed; datasets/models/environments retained"
+}

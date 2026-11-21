@@ -1,0 +1,23 @@
+{
+  "status": "development proposal, not deployed to training; current review IDs unchanged",
+  "uses_ground_truth": false,
+  "frames": 30,
+  "parameters": {
+    "duplicate_iou": 0.7,
+    "min_duplicate_area_ratio": 0.8,
+    "min_children": 3,
+    "child_containment": 0.9,
+    "max_child_parent_area_ratio": 0.5,
+    "max_child_mutual_overlap": 0.15,
+    "min_parent_coverage": 0.85
+  },
+  "safety_checks_passed": 6,
+  "confirmed_parent_regressions_passed": 2,
+  "ready_for_training": false,
+  "ambiguous_relationships": "Raw parent/child proposals remain available for review; they must not both be exported as final training instances",
+  "previous_instances": 431,
+  "proposed_instances": 425,
+  "duplicate_merges": 0,
+  "parent_proposals": 6,
+  "ambiguous": 1
+}

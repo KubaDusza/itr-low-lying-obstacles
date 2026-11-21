@@ -1,0 +1,471 @@
+{
+  "status": "development proposal, not deployed to training; current review IDs unchanged",
+  "uses_ground_truth": false,
+  "frames": 30,
+  "parameters": {
+    "duplicate_iou": 0.7,
+    "min_duplicate_area_ratio": 0.8,
+    "min_children": 3,
+    "child_containment": 0.9,
+    "max_child_parent_area_ratio": 0.5,
+    "max_child_mutual_overlap": 0.15,
+    "min_parent_coverage": 0.85
+  },
+  "safety_checks_passed": 6,
+  "confirmed_parent_regressions_passed": 2,
+  "ready_for_training": false,
+  "ambiguous_relationships": "Raw parent/child proposals remain available for review; they must not both be exported as final training instances",
+  "previous_instances": 431,
+  "proposed_instances": 425,
+  "duplicate_merges": 0,
+  "parent_proposals": 6,
+  "ambiguous": 1,
+  "results": [
+    {
+      "site": "ABEC_MM",
+      "frame": 4,
+      "raw_candidates": 17,
+      "previous_instances": 12,
+      "proposed_instances": 12,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "ABEC_RM",
+      "frame": 14,
+      "raw_candidates": 16,
+      "previous_instances": 11,
+      "proposed_instances": 11,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "ABEC_RM",
+      "frame": 60,
+      "raw_candidates": 8,
+      "previous_instances": 4,
+      "proposed_instances": 4,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "ABEC_RM",
+      "frame": 84,
+      "raw_candidates": 27,
+      "previous_instances": 25,
+      "proposed_instances": 24,
+      "duplicates": [],
+      "parent_proposals": [
+        {
+          "parent_id": 21,
+          "review_ids": [
+            21
+          ],
+          "child_ids": [
+            1,
+            4,
+            5,
+            6,
+            10,
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "parent_covered_fraction": 0.9590464547677262,
+          "residual_pixels": 201
+        }
+      ],
+      "ambiguous": []
+    },
+    {
+      "site": "BT_BM",
+      "frame": 12,
+      "raw_candidates": 19,
+      "previous_instances": 16,
+      "proposed_instances": 15,
+      "duplicates": [],
+      "parent_proposals": [
+        {
+          "parent_id": 15,
+          "review_ids": [
+            15
+          ],
+          "child_ids": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "parent_covered_fraction": 0.9288311688311688,
+          "residual_pixels": 274
+        }
+      ],
+      "ambiguous": []
+    },
+    {
+      "site": "BT_BM",
+      "frame": 24,
+      "raw_candidates": 4,
+      "previous_instances": 3,
+      "proposed_instances": 3,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "BT_BM",
+      "frame": 60,
+      "raw_candidates": 30,
+      "previous_instances": 21,
+      "proposed_instances": 21,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "BT_LM",
+      "frame": 28,
+      "raw_candidates": 42,
+      "previous_instances": 36,
+      "proposed_instances": 35,
+      "duplicates": [],
+      "parent_proposals": [
+        {
+          "parent_id": 27,
+          "review_ids": [
+            27
+          ],
+          "child_ids": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            17,
+            18,
+            19,
+            20,
+            21,
+            24,
+            26,
+            28,
+            29,
+            30,
+            32,
+            35
+          ],
+          "parent_covered_fraction": 0.8895857088559483,
+          "residual_pixels": 581
+        }
+      ],
+      "ambiguous": []
+    },
+    {
+      "site": "BT_LM",
+      "frame": 34,
+      "raw_candidates": 29,
+      "previous_instances": 26,
+      "proposed_instances": 25,
+      "duplicates": [],
+      "parent_proposals": [
+        {
+          "parent_id": 20,
+          "review_ids": [
+            20
+          ],
+          "child_ids": [
+            2,
+            4,
+            5,
+            6,
+            7,
+            8,
+            13,
+            14,
+            15,
+            23,
+            24,
+            26
+          ],
+          "parent_covered_fraction": 0.9593892649142137,
+          "residual_pixels": 258
+        }
+      ],
+      "ambiguous": []
+    },
+    {
+      "site": "BT_LM",
+      "frame": 88,
+      "raw_candidates": 18,
+      "previous_instances": 14,
+      "proposed_instances": 14,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "FL_BM",
+      "frame": 44,
+      "raw_candidates": 0,
+      "previous_instances": 0,
+      "proposed_instances": 0,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "FL_LM",
+      "frame": 16,
+      "raw_candidates": 4,
+      "previous_instances": 3,
+      "proposed_instances": 3,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "FL_LM",
+      "frame": 40,
+      "raw_candidates": 18,
+      "previous_instances": 15,
+      "proposed_instances": 15,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "FL_LM",
+      "frame": 64,
+      "raw_candidates": 16,
+      "previous_instances": 16,
+      "proposed_instances": 16,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "HB_G",
+      "frame": 64,
+      "raw_candidates": 13,
+      "previous_instances": 12,
+      "proposed_instances": 12,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "HB_LM",
+      "frame": 48,
+      "raw_candidates": 5,
+      "previous_instances": 4,
+      "proposed_instances": 4,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "HB_LM",
+      "frame": 52,
+      "raw_candidates": 37,
+      "previous_instances": 26,
+      "proposed_instances": 25,
+      "duplicates": [],
+      "parent_proposals": [
+        {
+          "parent_id": 26,
+          "review_ids": [
+            26
+          ],
+          "child_ids": [
+            8,
+            9,
+            12,
+            18,
+            19,
+            22
+          ],
+          "parent_covered_fraction": 0.9265502709211318,
+          "residual_pixels": 122
+        }
+      ],
+      "ambiguous": [
+        {
+          "parent_id": 20,
+          "review_ids": [
+            20
+          ],
+          "child_ids": [
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "parent_covered_fraction": 0.75424660882317,
+          "residual_pixels": 2011,
+          "reason": "children leave too much of the parent unresolved"
+        }
+      ]
+    },
+    {
+      "site": "HB_LM",
+      "frame": 60,
+      "raw_candidates": 6,
+      "previous_instances": 5,
+      "proposed_instances": 5,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "HB_LM",
+      "frame": 92,
+      "raw_candidates": 11,
+      "previous_instances": 6,
+      "proposed_instances": 6,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "HB_MM",
+      "frame": 36,
+      "raw_candidates": 5,
+      "previous_instances": 5,
+      "proposed_instances": 5,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "HB_MM",
+      "frame": 60,
+      "raw_candidates": 36,
+      "previous_instances": 35,
+      "proposed_instances": 35,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "HB_MM",
+      "frame": 84,
+      "raw_candidates": 18,
+      "previous_instances": 14,
+      "proposed_instances": 13,
+      "duplicates": [],
+      "parent_proposals": [
+        {
+          "parent_id": 12,
+          "review_ids": [
+            12
+          ],
+          "child_ids": [
+            1,
+            2,
+            4,
+            5,
+            7,
+            9
+          ],
+          "parent_covered_fraction": 0.9572602739726027,
+          "residual_pixels": 78
+        }
+      ],
+      "ambiguous": []
+    },
+    {
+      "site": "HB_MM",
+      "frame": 94,
+      "raw_candidates": 7,
+      "previous_instances": 7,
+      "proposed_instances": 7,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "HDCL_HW_B",
+      "frame": 40,
+      "raw_candidates": 11,
+      "previous_instances": 7,
+      "proposed_instances": 7,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "HDCL_HW_B",
+      "frame": 64,
+      "raw_candidates": 4,
+      "previous_instances": 4,
+      "proposed_instances": 4,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "HDCL_HW_B",
+      "frame": 94,
+      "raw_candidates": 11,
+      "previous_instances": 9,
+      "proposed_instances": 9,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "HDCL_RM_A",
+      "frame": 4,
+      "raw_candidates": 45,
+      "previous_instances": 45,
+      "proposed_instances": 45,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "HDCL_RM_B",
+      "frame": 14,
+      "raw_candidates": 14,
+      "previous_instances": 12,
+      "proposed_instances": 12,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "HL_LM",
+      "frame": 24,
+      "raw_candidates": 4,
+      "previous_instances": 4,
+      "proposed_instances": 4,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    },
+    {
+      "site": "MEB_HW_C",
+      "frame": 34,
+      "raw_candidates": 36,
+      "previous_instances": 34,
+      "proposed_instances": 34,
+      "duplicates": [],
+      "parent_proposals": [],
+      "ambiguous": []
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "status": "review_in_progress",
+  "frames": {
+    "BT_LM/34": {
+      "whole_pile_parent_mask": 20,
+      "action": "exclude parent from individual-instance targets; retain as parent metadata",
+      "contained_smaller_proposals": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        13,
+        14,
+        15,
+        23,
+        24,
+        26
+      ],
+      "verification": "user observation confirmed visually and by >=85% child containment",
+      "individual_masks_approved": false,
+      "remaining_checks": "duplicates, fragments, missed blocks and parent-only pixels; do not assume all children are correct",
+      "frame_review_complete": false
+    },
+    "BT_BM/12": {
+      "whole_pile_parent_mask": 15,
+      "action": "exclude parent from individual-instance targets; retain as parent metadata",
+      "contained_smaller_proposals": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "verification": "user observation confirmed visually and by >=85% child containment",
+      "individual_masks_approved": false,
+      "remaining_checks": "duplicates, fragments, missed blocks and parent-only pixels; do not assume all children are correct",
+      "frame_review_complete": false
+    }
+  }
+}

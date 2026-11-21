@@ -1,0 +1,35 @@
+{
+  "status": "development validation only; instance training still gated on review",
+  "known_parent_cases_confirmed": [
+    "BT_LM/34 mask 20",
+    "BT_BM/12 mask 15"
+  ],
+  "new_parent_cases_visually_checked": [
+    {
+      "site": "ABEC_RM",
+      "frame": 84,
+      "mask": 21
+    },
+    {
+      "site": "BT_LM",
+      "frame": 28,
+      "mask": 27
+    },
+    {
+      "site": "HB_LM",
+      "frame": 52,
+      "mask": 26
+    },
+    {
+      "site": "HB_MM",
+      "frame": 84,
+      "mask": 12
+    }
+  ],
+  "inspection_result": "The four additional parents cover groups of separate small items. Individual child masks are not all approved.",
+  "ambiguous_case": "HB_LM/52 mask 20 retained for adjudication because children cover only 75.4%",
+  "existing_binary_masks_modified": false,
+  "existing_review_ids_modified": false,
+  "new_model_inference": false,
+  "scope": "30 training-development images; no assertion of physical-instance accuracy on the complete dataset"
+}

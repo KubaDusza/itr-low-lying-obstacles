@@ -74,9 +74,25 @@ def main():
             ck=torch.load(previous,map_location="cpu",weights_only=False)
             shutil.copy2(persistent/"best_resume.pth",dest/f"ckpt_epoch_{ck['best_miou_epoch']}.pth")
     done=threading.Event()
+    def persist_history():
+        for pattern in ('*.csv','*.json'):
+            for source in fit.rglob(pattern):
+                target=persistent/'history'/source.relative_to(fit)
+                target.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copy2(source,target)
     def persist_checkpoint():
         import torch
-        while not done.wait(180):
+        last_copy=0
+        while not done.wait(30):
+            if (work/'status.json').exists():
+                shutil.copy2(work/'status.json',persistent/'progress.json')
+            persist_history()
+            log=work/'runs'/job['id']/'training.log'
+            if log.exists():
+                with log.open('rb') as stream:
+                    stream.seek(max(0,log.stat().st_size-8192))
+                    (persistent/'training_tail.txt').write_bytes(stream.read())
+            if time.time()-last_copy<180:continue
             candidates=list(fit.glob("isod/checkpoints_*/ckpt_latest.pth"))
             if not candidates:continue
             source=max(candidates,key=lambda x:x.stat().st_mtime)
@@ -95,6 +111,7 @@ def main():
                     torch.save(selected_state,persistent/"best_resume.partial")
                     (persistent/"best_resume.partial").replace(persistent/"best_resume.pth")
                 tmp.replace(previous)
+                last_copy=time.time()
                 for older in source.parent.glob('ckpt_epoch_*.pth'):
                     if older != best and time.time()-older.stat().st_mtime>10:
                         older.unlink()
@@ -117,9 +134,14 @@ def main():
             shutil.copytree(output/name,persistent/name,dirs_exist_ok=True)
         for source in output.glob('*.json'):shutil.copy2(source,persistent/source.name)
         for source in output.glob('*.log'):shutil.copy2(source,persistent/source.name)
+        persist_history()
         shutil.copy2(work/'status.json',persistent/'status.json')
         controller.write(persistent/'runtime.json',dict(torch=torch.__version__,cuda=torch.version.cuda,
-                          gpu=torch.cuda.get_device_name(),job=job,slurm_job=os.environ['SLURM_JOB_ID']))
+                          gpu=torch.cuda.get_device_name(),job=job,slurm_job=os.environ['SLURM_JOB_ID'],
+                          input_archives=json.loads((a.base/'checksums.json').read_text()),
+                          runner_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                          controller_sha256=hashlib.sha256((work/'code/overnight_sam_v2.py').read_bytes()).hexdigest(),
+                          checkpoint_policy='periodic latest plus best model; final selected model; CSV histories retained'))
         (persistent/'VERIFIED').touch()
         (persistent/'FAILED.json').unlink(missing_ok=True)
         for name in ('resume.pth','best_resume.pth','resume.partial'):

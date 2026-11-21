@@ -1,0 +1,13 @@
+{
+  "torch": "2.10.0",
+  "cuda": "12.9",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "job": {
+    "id": "real_data_gate",
+    "kind": "rgbd",
+    "seed": 0,
+    "epochs": 2,
+    "label_source": "sam"
+  },
+  "slurm_job": "21743068"
+}

@@ -1,5 +1,5 @@
 {
-  "status": "submitted_gate_pending",
+  "status": "real_data_gate_passed_full_array_waiting_for_resources",
   "reason": "Aalto VPN connection currently unreachable after retrieving GTE assets",
   "target": "code.triton.aalto.fi",
   "remote_base": "/scratch/work/duszaj1/itr_20261121/production",
@@ -14,15 +14,17 @@
   "gate_job": "21743068",
   "array_job": "21743050",
   "queue_reason": "gate: Priority; array: Dependency",
-  "scratch_cleanup": "uv package cache: 2896 files, 650.3 MiB; no datasets, models or environments deleted",
+  "scratch_cleanup": "650.3 MiB uv package cache plus 300151567 bytes vLLM compiled-code cache",
   "scratch_available_reported": "2.9 GiB",
-  "source_code_sha256": "486afc80a4a6256615d983dd0dce91526f180070691376925d28075ee00e88ff",
+  "source_code_sha256": "3e3186ed7d5a83ec3cb043980aed7e7e63e4391b424dfdec4a4c6ee5eb1fd795",
   "previous_failed_gate": "21743060",
   "failure_fixed": "Preserve helper-package path in the training subprocess environment",
   "runtime_helpers": {
     "mock": "5.2.0",
     "cityscapesScripts": "2.3.0"
   },
-  "gate_status": "queued for resources",
-  "cleanup_verified": "650.3 MiB package cache removed; datasets/models/environments retained"
+  "gate_status": "COMPLETED, exit 0, 2m55s; VERIFIED marker present",
+  "cleanup_verified": "650.3 MiB package cache removed; datasets/models/environments retained",
+  "scratch_available_bytes_last_check": 3522494464,
+  "requires_laptop_or_VPN": false
 }

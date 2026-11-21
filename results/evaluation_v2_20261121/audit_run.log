@@ -1,0 +1,167 @@
+{
+  "reference_counts": {
+    "ISOD_reference_train_v1": 1400,
+    "ISOD_reference_val_v1": 300,
+    "ISOD_reference_test_v1": 30,
+    "ISOD_sam_train_v2": 1400
+  },
+  "gte": {
+    "frames": 320,
+    "recordings": 64,
+    "reference_fingerprint_sha256": "17a31afe1f817b5556cb881c4e1d3f35cb08686d8baafc62332c9bc345083859",
+    "empty_frames": 20,
+    "empty_recordings": 4,
+    "item_or_group_observations": 1220,
+    "distinct_item_or_group_recordings": 244,
+    "multi_enabled_observations": 90,
+    "observations_under_20_pixels": 5,
+    "foreground_pixels_without_id": 0,
+    "id_pixels_outside_foreground": 0,
+    "both_backgrounds_available_for": [
+      [
+        "h25",
+        "cables",
+        75
+      ],
+      [
+        "h25",
+        "cables",
+        150
+      ],
+      [
+        "h25",
+        "cables",
+        250
+      ],
+      [
+        "h25",
+        "chess",
+        75
+      ],
+      [
+        "h25",
+        "chess",
+        150
+      ],
+      [
+        "h25",
+        "chess",
+        250
+      ],
+      [
+        "h25",
+        "empty",
+        null
+      ],
+      [
+        "h25",
+        "rags",
+        75
+      ],
+      [
+        "h25",
+        "rags",
+        150
+      ],
+      [
+        "h25",
+        "rags",
+        250
+      ],
+      [
+        "h52",
+        "cables",
+        75
+      ],
+      [
+        "h52",
+        "cables",
+        150
+      ],
+      [
+        "h52",
+        "cables",
+        250
+      ],
+      [
+        "h52",
+        "chess",
+        75
+      ],
+      [
+        "h52",
+        "chess",
+        150
+      ],
+      [
+        "h52",
+        "chess",
+        250
+      ],
+      [
+        "h52",
+        "empty",
+        null
+      ],
+      [
+        "h52",
+        "rags",
+        75
+      ],
+      [
+        "h52",
+        "rags",
+        150
+      ],
+      [
+        "h52",
+        "rags",
+        250
+      ]
+    ],
+    "notes": [
+      "Five frames are repeats of a static scene, not five independent scenes.",
+      "Median mask depth can be floor leakage; it is not validated object distance.",
+      "Capture configurations change camera height and tilt together."
+    ]
+  },
+  "inventory": {
+    "authority": "data_collection/items.csv",
+    "inventory_sha256": "9e27193c552d56f010bbc6c21a145c86c8d5ac0d3a3339046710696da805b27a",
+    "obsolete_for_measurements": "data_collection/objects.csv is the earlier planned inventory",
+    "inventory_entries": 29,
+    "sets": {
+      "cables": 4,
+      "tapes": 5,
+      "hexkeys": 5,
+      "random": 4,
+      "screws": 3,
+      "chess": 4,
+      "rags": 4
+    },
+    "multi_enabled_entries": [
+      {
+        "item_id": "scr_eyebolt",
+        "label": "big screw (eye bolt)",
+        "notes": "longest single fastener"
+      },
+      {
+        "item_id": "scr_small",
+        "label": "small screws",
+        "notes": "the four small fasteners as one class: a machine screw, a short screw, a wood screw and a small bolt. They were not always laid out in the same order and at 2.5 m they are a few pixels each, so which is which would be invented"
+      },
+      {
+        "item_id": "scr_pile",
+        "label": "pile of screws",
+        "notes": "loose heap; counted as one object"
+      }
+    ],
+    "missing_dimension_fields": {
+      "height_mm": 29,
+      "long_mm": 29,
+      "short_mm": 29
+    },
+    "warning": "Some IDs designate multiple physical objects; dimensions are not implied by item names."
+  },
+  "problems": []
+}

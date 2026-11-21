@@ -1,0 +1,407 @@
+{
+  "scope": "read-only input integrity and analysis eligibility; not prediction quality",
+  "splits": {
+    "test": [
+      "HDCL_HW_A",
+      "MEB_CM",
+      "MEB_HW_B"
+    ],
+    "val": [
+      "ABEC_CM",
+      "HL_BM",
+      "MEB_HW_A"
+    ],
+    "train": [
+      "ABEC_MM",
+      "ABEC_RM",
+      "BT_BM",
+      "BT_LM",
+      "FL_BM",
+      "FL_LM",
+      "HB_G",
+      "HB_LM",
+      "HB_MM",
+      "HDCL_HW_B",
+      "HDCL_RM_A",
+      "HDCL_RM_B",
+      "HL_LM",
+      "MEB_HW_C"
+    ]
+  },
+  "references": {
+    "ISOD_reference_train_v1": {
+      "frames": 1400,
+      "status_counts": {
+        "isod_sam_prelabel": 1330,
+        "human_reviewed": 70
+      },
+      "shapes": {
+        "[422, 640]": 1400
+      },
+      "empty_frames": 9,
+      "empty_frame_ids": [
+        {
+          "site": "ABEC_RM",
+          "frame": 31
+        },
+        {
+          "site": "BT_BM",
+          "frame": 50
+        },
+        {
+          "site": "FL_BM",
+          "frame": 43
+        },
+        {
+          "site": "FL_BM",
+          "frame": 44
+        },
+        {
+          "site": "HB_LM",
+          "frame": 49
+        },
+        {
+          "site": "HB_LM",
+          "frame": 50
+        },
+        {
+          "site": "HB_LM",
+          "frame": 87
+        },
+        {
+          "site": "HB_MM",
+          "frame": 24
+        },
+        {
+          "site": "HDCL_RM_A",
+          "frame": 0
+        }
+      ]
+    },
+    "ISOD_reference_val_v1": {
+      "frames": 300,
+      "status_counts": {
+        "human_reviewed": 300
+      },
+      "shapes": {
+        "[422, 640]": 300
+      },
+      "empty_frames": 1,
+      "empty_frame_ids": [
+        {
+          "site": "HL_BM",
+          "frame": 14
+        }
+      ]
+    },
+    "ISOD_reference_test_v1": {
+      "frames": 30,
+      "status_counts": {
+        "human_reviewed": 30
+      },
+      "shapes": {
+        "[422, 640]": 30
+      },
+      "empty_frames": 0,
+      "empty_frame_ids": []
+    },
+    "ISOD_sam_train_v2": {
+      "frames": 1400,
+      "status_counts": {
+        "unattended_sam_three_prompt_v2": 1400
+      },
+      "shapes": {
+        "[422, 640]": 1400
+      },
+      "empty_frames": 5,
+      "empty_frame_ids": [
+        {
+          "site": "FL_BM",
+          "frame": 43
+        },
+        {
+          "site": "FL_BM",
+          "frame": 44
+        },
+        {
+          "site": "HB_LM",
+          "frame": 87
+        },
+        {
+          "site": "HDCL_HW_B",
+          "frame": 42
+        },
+        {
+          "site": "HDCL_HW_B",
+          "frame": 43
+        }
+      ]
+    }
+  },
+  "problems": [],
+  "isod_raw_catalogue": {
+    "HDCL_HW_A": {
+      "split": "test",
+      "rgb": 100,
+      "depth": 100
+    },
+    "MEB_CM": {
+      "split": "test",
+      "rgb": 100,
+      "depth": 100
+    },
+    "MEB_HW_B": {
+      "split": "test",
+      "rgb": 100,
+      "depth": 100
+    },
+    "ABEC_CM": {
+      "split": "val",
+      "rgb": 100,
+      "depth": 100
+    },
+    "HL_BM": {
+      "split": "val",
+      "rgb": 100,
+      "depth": 100
+    },
+    "MEB_HW_A": {
+      "split": "val",
+      "rgb": 100,
+      "depth": 100
+    },
+    "ABEC_MM": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    },
+    "ABEC_RM": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    },
+    "BT_BM": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    },
+    "BT_LM": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    },
+    "FL_BM": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    },
+    "FL_LM": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    },
+    "HB_G": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    },
+    "HB_LM": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    },
+    "HB_MM": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    },
+    "HDCL_HW_B": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    },
+    "HDCL_RM_A": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    },
+    "HDCL_RM_B": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    },
+    "HL_LM": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    },
+    "MEB_HW_C": {
+      "split": "train",
+      "rgb": 100,
+      "depth": 100
+    }
+  },
+  "isod_test_coverage": {
+    "reviewed_frames": 30,
+    "total_split_frames": 300,
+    "status": "provisional until coverage is expanded"
+  },
+  "gte_inventory": {
+    "authority": "data_collection/items.csv",
+    "inventory_sha256": "9e27193c552d56f010bbc6c21a145c86c8d5ac0d3a3339046710696da805b27a",
+    "obsolete_for_measurements": "data_collection/objects.csv is the earlier planned inventory",
+    "inventory_entries": 29,
+    "sets": {
+      "cables": 4,
+      "tapes": 5,
+      "hexkeys": 5,
+      "random": 4,
+      "screws": 3,
+      "chess": 4,
+      "rags": 4
+    },
+    "multi_enabled_entries": [
+      {
+        "item_id": "scr_eyebolt",
+        "label": "big screw (eye bolt)",
+        "notes": "longest single fastener"
+      },
+      {
+        "item_id": "scr_small",
+        "label": "small screws",
+        "notes": "the four small fasteners as one class: a machine screw, a short screw, a wood screw and a small bolt. They were not always laid out in the same order and at 2.5 m they are a few pixels each, so which is which would be invented"
+      },
+      {
+        "item_id": "scr_pile",
+        "label": "pile of screws",
+        "notes": "loose heap; counted as one object"
+      }
+    ],
+    "missing_dimension_fields": {
+      "height_mm": 29,
+      "long_mm": 29,
+      "short_mm": 29
+    },
+    "warning": "Some IDs designate multiple physical objects; dimensions are not implied by item names."
+  },
+  "gte_references": {
+    "frames": 320,
+    "recordings": 64,
+    "reference_fingerprint_sha256": "17a31afe1f817b5556cb881c4e1d3f35cb08686d8baafc62332c9bc345083859",
+    "empty_frames": 20,
+    "empty_recordings": 4,
+    "item_or_group_observations": 1220,
+    "distinct_item_or_group_recordings": 244,
+    "multi_enabled_observations": 90,
+    "observations_under_20_pixels": 5,
+    "foreground_pixels_without_id": 0,
+    "id_pixels_outside_foreground": 0,
+    "both_backgrounds_available_for": [
+      [
+        "h25",
+        "cables",
+        75
+      ],
+      [
+        "h25",
+        "cables",
+        150
+      ],
+      [
+        "h25",
+        "cables",
+        250
+      ],
+      [
+        "h25",
+        "chess",
+        75
+      ],
+      [
+        "h25",
+        "chess",
+        150
+      ],
+      [
+        "h25",
+        "chess",
+        250
+      ],
+      [
+        "h25",
+        "empty",
+        null
+      ],
+      [
+        "h25",
+        "rags",
+        75
+      ],
+      [
+        "h25",
+        "rags",
+        150
+      ],
+      [
+        "h25",
+        "rags",
+        250
+      ],
+      [
+        "h52",
+        "cables",
+        75
+      ],
+      [
+        "h52",
+        "cables",
+        150
+      ],
+      [
+        "h52",
+        "cables",
+        250
+      ],
+      [
+        "h52",
+        "chess",
+        75
+      ],
+      [
+        "h52",
+        "chess",
+        150
+      ],
+      [
+        "h52",
+        "chess",
+        250
+      ],
+      [
+        "h52",
+        "empty",
+        null
+      ],
+      [
+        "h52",
+        "rags",
+        75
+      ],
+      [
+        "h52",
+        "rags",
+        150
+      ],
+      [
+        "h52",
+        "rags",
+        250
+      ]
+    ],
+    "notes": [
+      "Five frames are repeats of a static scene, not five independent scenes.",
+      "Median mask depth can be floor leakage; it is not validated object distance.",
+      "Capture configurations change camera height and tilt together."
+    ]
+  }
+}

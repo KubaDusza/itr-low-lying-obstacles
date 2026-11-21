@@ -1,0 +1,22 @@
+{
+  "checked_on": "2026-11-21",
+  "camera_model": {
+    "name": "Intel RealSense D455",
+    "source": "https://arxiv.org/pdf/2306.08814",
+    "confirmed_by": "camera overview and collection-device figure"
+  },
+  "local_release_checks": {
+    "path": "data/ISOD",
+    "notebook": "read_isod.ipynb",
+    "calibration_terms_in_notebook": [],
+    "other_metadata": "per-site imu/imu.csv contains angular velocity, acceleration and orientation; no identified camera calibration file"
+  },
+  "author_pipeline": {
+    "repository": "https://github.com/mszuyx/pc_groundPlaneSegmentation",
+    "commit": "7e8e9f7a1fe23e666ac18605fc06a8fc8bdabb22",
+    "finding": "Launch includes external realsense2_camera/launch/rs_d455_camera_dc.launch; checked src/launch files did not reveal intrinsics. The referenced external/custom camera launch has not been recovered.",
+    "camera_height_default": "A launch default of 1.0 m is not a per-image measurement; ISOD capture height varies."
+  },
+  "status": "Exact recording intrinsics and image transform remain unverified; absence in inspected sources is not proof they cannot be recovered.",
+  "analysis_consequence": "Pixel area and measured depth can be reported with qualifications. Accurate physical dimensions require verified calibration and original-to-released image transforms; no nominal D455 calibration substituted."
+}

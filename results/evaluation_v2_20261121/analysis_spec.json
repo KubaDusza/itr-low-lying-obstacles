@@ -1,0 +1,300 @@
+{
+  "protocol_id": "floor-hazard-analysis-v2-20261121",
+  "status": "planned; input integrity audit completed; new evaluation and crop inference not yet run",
+  "plan": "methodology_report/RESULTS_RUN_PLAN.md#4-revised-evaluation-and-execution-plan--november-21",
+  "prior_results_seen": true,
+  "task": {
+    "prediction_class": "floor obstacle",
+    "analysis_scope": [
+      "low_profile_target",
+      "raised_control",
+      "large_floor_item",
+      "uncertain_scope"
+    ],
+    "labels": "visible individual hazards; explicit clusters when individual separation is unresolved",
+    "categories": "analysis metadata; unknown allowed"
+  },
+  "cohorts": {
+    "ISOD": {
+      "train": 1400,
+      "validation": 300,
+      "test_split": 300,
+      "test_human_reviewed_current": 30,
+      "split_unit": "location",
+      "reference_train_human_reviewed": 70,
+      "reference_train_assisted": 1330,
+      "test_expansion_status": "pending; generated proposals must remain distinguishable from reviewed references"
+    },
+    "GTE": {
+      "frames": 320,
+      "static_recordings": 64,
+      "repeats_per_recording": 5,
+      "empty_frames": 20,
+      "empty_recordings": 4,
+      "inventory_entries": 29,
+      "reference_item_or_group_observations": 1220,
+      "physical_dimensions_status": "unverified; actual inventory dimension fields are blank",
+      "external_training_or_tuning": false
+    }
+  },
+  "label_sources": {
+    "reference": "Original ISOD labels, assisted mask construction and saved human corrections; version and review status preserved",
+    "automatic": {
+      "inputs": [
+        "full RGB",
+        "fixed text prompts"
+      ],
+      "prompts": [
+        "small object on the floor",
+        "cable on the floor",
+        "things on the floor"
+      ],
+      "confidence_threshold": 0.6,
+      "mask_probability_threshold": 0.5,
+      "uses_reference_masks_at_generation": false,
+      "weights_retrained": false,
+      "instance_conversion": "pending development-only duplicate/overlap reconciliation; retain accepted mask union",
+      "development_frames": 30,
+      "validation_check_frames": 300,
+      "disclosure": "validation-informed ablation means this is not a purely 30-label or annotation-free end-to-end experiment"
+    }
+  },
+  "domains": {
+    "isod_full": "Reference-complete frame domain; expanded review status reported",
+    "gte_full": "Diagnostic full-scene predictions; recording props explicitly identified; legacy full-frame IoU kept as historical protocol",
+    "gte_crop": {
+      "status": "ROI definitions and retention audit pending",
+      "purpose": "controlled localization and false-alert comparison within collection area",
+      "roi_source": "capture geometry and RGB; not prediction errors or per-target tight boxes",
+      "retain_all_comparison_targets": true,
+      "match_RGB_depth_and_methods": true,
+      "preserve_full_frame_preprocessing_pixel_scale": true,
+      "zoom_to_fill": false,
+      "save_transform_and_padding": true,
+      "no_retraining": true,
+      "select_thresholds_on_GTE": false,
+      "record_ineligible_frames_and_targets": true
+    }
+  },
+  "nuisance_policy": {
+    "objects": [
+      "poster as recording surface",
+      "tape measure",
+      "distance markers",
+      "documented recording fixtures"
+    ],
+    "define_before_prediction_review": true,
+    "all_methods_same": true,
+    "target_pixels_take_priority": true,
+    "entire_poster_interior_as_ignore": false,
+    "matching": "retain candidate extent for target localization; do not clip a broad mask to each target",
+    "separate_prop_prediction": "may be neutral for false-alert counting only after verified target matching",
+    "merged_semantic_mask": "cannot establish individual target detections within a poster-sized component",
+    "full_frame_prop_ambiguity": "diagnostic, not clean precision or AP until handling is tested"
+  },
+  "shared_metrics": {
+    "frozen_operating_points": true,
+    "reference_ID_aware_component_metrics": {
+      "source": "https://segmentmeifyoucan.github.io/segment-me-presentation/",
+      "primary_overlap_threshold": 0.5,
+      "sensitivity_thresholds": [
+        0.25,
+        0.75
+      ],
+      "companion_mean_F1_thresholds": [
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75
+      ],
+      "outputs": [
+        "localization recall",
+        "component false alerts",
+        "component F1"
+      ],
+      "adapter_status": "pending implementation and verification; not unchanged public benchmark protocol"
+    },
+    "mask": [
+      "pooled obstacle IoU",
+      "pixel precision",
+      "pixel recall",
+      "per-reference coverage"
+    ],
+    "empty_scene": [
+      "false components per frame and recording",
+      "fraction with any false alert",
+      "false-positive pixel fraction"
+    ],
+    "undefined_ratios": "unavailable with denominator; no invented perfect scores",
+    "native_instance_metrics": {
+      "source": "https://cocodataset.org/dataset/detection-eval.htm",
+      "outputs": [
+        "box AP50",
+        "box AP50:95",
+        "mask AP50",
+        "mask AP50:95",
+        "recall"
+      ],
+      "requires": [
+        "native masks",
+        "boxes",
+        "confidence scores",
+        "fully specified evaluation domain"
+      ],
+      "binary_maps_do_not_establish_AP": true
+    }
+  },
+  "measurements": {
+    "nominal_GTE_ground_distance_m": [
+      0.75,
+      1.5,
+      2.5
+    ],
+    "apparent_area_bins_px": [
+      {
+        "label": "under100",
+        "min_inclusive": 0,
+        "max_exclusive": 100
+      },
+      {
+        "label": "100to999",
+        "min_inclusive": 100,
+        "max_exclusive": 1000
+      },
+      {
+        "label": "1000plus",
+        "min_inclusive": 1000,
+        "max_exclusive": null
+      }
+    ],
+    "depth": {
+      "record": [
+        "valid fraction",
+        "nonzero mask depth median",
+        "source and quality",
+        "object versus local floor residual difference",
+        "local floor residual spread",
+        "residual separation AUC"
+      ],
+      "local_floor_ring_px": [
+        4,
+        20
+      ],
+      "min_valid_object_pixels": 10,
+      "min_local_floor_pixels": 40,
+      "invalid_depth_value": 0,
+      "residual_is_physical_height": false,
+      "missing_objects_retained_in_detection_denominator": true
+    },
+    "colour": {
+      "space": "CIELAB",
+      "measure": "local object/floor colour difference as appearance proxy",
+      "local_floor_ring_px": [
+        4,
+        20
+      ],
+      "exclude_other_objects_and_props": true,
+      "implies_visual_invisibility": false
+    },
+    "physical_dimensions": "Require validated recording calibration, alignment, units, visible extent quality, or actual manual measurements; unknown otherwise"
+  },
+  "pairing_and_uncertainty": {
+    "comparisons": [
+      "RGB-D minus RGB within ESANet and seed",
+      "reference minus automatic within architecture/input/seed",
+      "same item across nominal distance",
+      "same item/configuration across recorded backgrounds",
+      "full-frame versus fixed-scale crop"
+    ],
+    "average_repeats_before_recording_summaries": true,
+    "independent_sample_claims": "No claim that repeats, repeated views of one item, or seeds are independent scenes",
+    "seed_reporting": "matched completed seeds, per-seed points, mean and spread",
+    "default_GTE_statistics": "descriptive paired effects with counts",
+    "optional_bootstrap": "exploratory; object-set/capture-family clusters on GTE, recording/site clusters on ISOD",
+    "generalization_limits": [
+      "three ISOD test locations",
+      "one GTE room",
+      "seven GTE object sets",
+      "poster comparisons cover three object sets"
+    ]
+  },
+  "figures": {
+    "fixed_illustration_seed": 0,
+    "fixed_frame_within_GTE_recording": 2,
+    "main": [
+      "paired depth and supervision effects",
+      "distance plot with object counts",
+      "matched distance sensor/prediction panel",
+      "matched background or shape panel"
+    ],
+    "supporting": [
+      "teacher development and held-out labels",
+      "failure and counterexample gallery",
+      "all-frame and seed consistency"
+    ],
+    "selection_categories": [
+      "representative or median",
+      "strongest verified depth gain",
+      "strongest verified depth loss",
+      "both fail"
+    ],
+    "selection_from_complete_table": true,
+    "disclose_outcome_selected_examples": true,
+    "common_channel_scales": true,
+    "mark_invalid_depth": true,
+    "verify_captions_across_repeats_and_seeds": true
+  },
+  "required_evaluator_checks": [
+    "all-positive frame",
+    "whole-poster component",
+    "correct target plus separate poster prediction",
+    "tape-only prediction",
+    "target overlaps ignore",
+    "merged targets",
+    "crop removes target",
+    "crop preserves object scale",
+    "19-pixel target retained",
+    "empty prediction versus inference failure",
+    "alignment round trip",
+    "pixel-count equivalence on unchanged legacy domain"
+  ],
+  "execution_order": [
+    "input audit and protocol freeze",
+    "reference instances, scope, props, crop retention, expanded test review",
+    "verified evaluator and native/probability inference exports",
+    "evaluate existing models and produce paired evidence",
+    "one matched YOLO-seg instance training pair then expand only after validation"
+  ],
+  "existing_runs": {
+    "modification": "none as part of this planning step",
+    "fresh_completion_state": "not established by local launch metadata",
+    "reuse": "ESANet modality runs, U-Net and existing YOLO checkpoints; new exports do not require retraining"
+  },
+  "compute": {
+    "GPU_work": "GTE or Triton; no Mac training/inference",
+    "triton_access_verified": true,
+    "triton_compute_probe_job": 21742386,
+    "triton_migration": "not performed; storage, real-data timing and resume checks pending"
+  },
+  "artifacts": {
+    "input_audit": "results/evaluation_v2_20261121/input_audit.json",
+    "reference_observations": "results/evaluation_v2_20261121/gte_reference_observations.csv",
+    "planned_outputs": [
+      "reference_objects.csv",
+      "object_scores.csv",
+      "frame_scores.csv",
+      "paired_effects.csv",
+      "figures/manifest.json",
+      "report figures",
+      "supporting gallery"
+    ],
+    "new_results_status": "not generated"
+  }
+}

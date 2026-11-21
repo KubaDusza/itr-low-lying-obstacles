@@ -1,0 +1,60 @@
+{
+  "kind": "synthetic_training_compute_only",
+  "limitations": "Excludes input loading, augmentation, validation and checkpoint I/O; random initialization.",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "torch": "2.10.0",
+  "cuda": "12.9",
+  "source_commit": "820c5bb633e49e69dcd075d4330165bb540a0cc9",
+  "batch": 8,
+  "height": 448,
+  "width": 640,
+  "cudnn_benchmark": false,
+  "cudnn_allow_tf32": true,
+  "matmul_allow_tf32": false,
+  "measurements": [
+    {
+      "modality": "rgb",
+      "precision": "fp32",
+      "steps": 30,
+      "median_step_s": 0.08072972355876118,
+      "mean_step_s": 0.08077986164328953,
+      "images_per_s": 99.09609060133839,
+      "train_compute_s_per_1400_images": 14.127701622783206,
+      "peak_allocated_bytes": 3893769728,
+      "final_loss": 2.240813732147217
+    },
+    {
+      "modality": "rgb",
+      "precision": "amp_fp16",
+      "steps": 30,
+      "median_step_s": 0.05511255341116339,
+      "mean_step_s": 0.05536817900526027,
+      "images_per_s": 145.15749143968262,
+      "train_compute_s_per_1400_images": 9.644696846953593,
+      "peak_allocated_bytes": 2278615040,
+      "final_loss": 2.1424009799957275
+    },
+    {
+      "modality": "rgbd",
+      "precision": "fp32",
+      "steps": 30,
+      "median_step_s": 0.1292852059705183,
+      "mean_step_s": 0.12938960917138806,
+      "images_per_s": 61.87869632836637,
+      "train_compute_s_per_1400_images": 22.6249110448407,
+      "peak_allocated_bytes": 6013441536,
+      "final_loss": 2.1647539138793945
+    },
+    {
+      "modality": "rgbd",
+      "precision": "amp_fp16",
+      "steps": 30,
+      "median_step_s": 0.08832068392075598,
+      "mean_step_s": 0.08834827685883889,
+      "images_per_s": 90.57900873115797,
+      "train_compute_s_per_1400_images": 15.456119686132297,
+      "peak_allocated_bytes": 3479468032,
+      "final_loss": 2.384265661239624
+    }
+  ]
+}

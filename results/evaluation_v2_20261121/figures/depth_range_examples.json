@@ -1,0 +1,41 @@
+{
+  "selection": "Fixed object set, capture configuration and frame index across all three distances; not selected for a model win",
+  "depth_scale_m": [
+    0.4,
+    3
+  ],
+  "residual_scale_mm": [
+    -50,
+    50
+  ],
+  "records": [
+    {
+      "recording": "h52_floor_rags_075",
+      "frame": 2,
+      "nominal_floor_distance_m": 0.75,
+      "target_pixels": 30574,
+      "target_depth_valid_fraction": 0.9991168967096226,
+      "prediction_seed": 0,
+      "all_metrics_use_full_frames": true
+    },
+    {
+      "recording": "h52_floor_rags_150",
+      "frame": 2,
+      "nominal_floor_distance_m": 1.5,
+      "target_pixels": 7650,
+      "target_depth_valid_fraction": 1.0,
+      "prediction_seed": 0,
+      "all_metrics_use_full_frames": true
+    },
+    {
+      "recording": "h52_floor_rags_250",
+      "frame": 2,
+      "nominal_floor_distance_m": 2.5,
+      "target_pixels": 2619,
+      "target_depth_valid_fraction": 0.997709049255441,
+      "prediction_seed": 0,
+      "all_metrics_use_full_frames": true
+    }
+  ],
+  "physical_item_heights_not_measured": true
+}

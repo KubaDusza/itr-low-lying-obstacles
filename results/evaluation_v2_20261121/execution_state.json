@@ -43,5 +43,32 @@
     "morgoth_unreachable": true
   },
   "human_review_not_required_now": true,
-  "new_instance_training_started": false
+  "new_instance_training_started": false,
+  "automated_final_analysis": {
+    "job": "21745879",
+    "dependencies": [
+      "21743050",
+      "21745673",
+      "21745674"
+    ],
+    "gate_job": "21745835",
+    "gate_passed": true,
+    "output": "/scratch/work/duszaj1/itr_20261121/production/analysis_final",
+    "requires_laptop_or_VPN": false
+  },
+  "analysis_gate": {
+    "job": "21745835",
+    "completed": true,
+    "exit_code": 0,
+    "elapsed": "2m10s",
+    "source_runs_scored": 42
+  },
+  "first_reference_RGBD_seed0": {
+    "job": "21743050_0",
+    "completed": true,
+    "exit_code": 0,
+    "elapsed": "5h40m47s"
+  },
+  "analysis_runner_sha256": "2cc364b8c240305aae077055c8812ec75e28609d01d5befd2c5e31889983d972",
+  "keep_deployed_analysis_runner_unchanged_until_completion": true
 }

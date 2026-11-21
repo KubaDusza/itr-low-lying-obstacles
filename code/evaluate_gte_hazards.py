@@ -31,6 +31,13 @@ def sources(root):
     runs = [(p.parent.name, p) for p in sorted((root/'results/frozen_v1').glob('*/runs/*/gte'))]
     runs += [(p.parent.name, p) for p in sorted((root/'results/sam_v2_20261121').glob('*/runs/*/gte'))
              if (p.parent/'VERIFIED').exists()]
+    production=root/'results/triton_20261121/production'
+    runs += [(p.parent.name,p) for p in sorted((production/'runs').glob('*/gte'))
+             if (p.parent/'VERIFIED').exists() and p.parent.name!='real_data_gate']
+    for run in sorted((production/'depth_ablations').glob('rgbd_reference210_s*')):
+        if (run/'VERIFIED').exists():
+            runs += [(run.name+'__'+variant,run/variant/'gte') for variant in
+                     ('normal','missing_raw_depth','permuted_depth')]
     runs += [('floor_plane', root/'results/frozen_v1/floor_plane_v1/GTE-Floor'),
              ('sam_direct', root/'results/frozen_v1/sam_direct_v1/predictions/GTE-Floor'),
              ('sam_three_prompt_v2', root/'data/OWN_sam_v2')]

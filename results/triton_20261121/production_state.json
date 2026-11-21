@@ -1,5 +1,5 @@
 {
-  "status": "running_reference_and_SAM_RGBD_seed0_remaining_seeds_queued",
+  "status": "reference_seed0_complete_SAM_seed0_and_reference_seed1_running_remaining_queued",
   "reason": "No VPN needed for running Slurm jobs",
   "target": "code.triton.aalto.fi",
   "remote_base": "/scratch/work/duszaj1/itr_20261121/production",
@@ -26,5 +26,8 @@
   "gate_status": "COMPLETED, exit 0, 2m55s; VERIFIED marker present",
   "cleanup_verified": "650.3 MiB package cache removed; datasets/models/environments retained",
   "scratch_available_bytes_last_check": 3522494464,
-  "requires_laptop_or_VPN": false
+  "requires_laptop_or_VPN": false,
+  "first_reference_seed0": "COMPLETED, exit 0; depth interventions also completed",
+  "final_analysis_job": "21745879",
+  "final_analysis_gate": "21745835 passed on 42 verified source outputs"
 }

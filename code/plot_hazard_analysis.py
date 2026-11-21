@@ -21,11 +21,14 @@ def save(fig,name):
 
 
 def modality_plots(frames):
+    available={r['model'] for r in frames}
+    matched=all(f'rgbd_reference210_s{s}' in available for s in range(3))
     fig,axes=plt.subplots(1,3,figsize=(11,3.5));rows=[]
     for mode,label,color,marker in [('rgb','RGB','#222222','o'),('depth','Depth','#777777','s'),('rgbd','RGB-D','#0072B2','^')]:
         values=defaultdict(list)
         for seed in range(3):
-            selected=[r for r in frames if r['model']==f'esanet_full_{mode}_reference_s{seed}' and r['empty_reference']=='False']
+            model=f'rgbd_reference210_s{seed}' if mode=='rgbd' and matched else f'esanet_full_{mode}_reference_s{seed}'
+            selected=[r for r in frames if r['model']==model and r['empty_reference']=='False']
             for d in [.75,1.5,2.5]:
                 group=[r for r in selected if float(r['nominal_distance_m'])==d]
                 assert len(group)==100
@@ -44,7 +47,7 @@ def modality_plots(frames):
         ax.set_title(title,fontsize=10);ax.set_xticks([.75,1.5,2.5]);ax.set_xlabel('Nominal floor distance (m)')
         ax.grid(axis='y',color='.9');ax.spines[['top','right']].set_visible(False)
     axes[0].set_ylim(0,1);axes[1].set_ylim(0,1);axes[2].set_ylim(bottom=0);axes[0].legend(frameon=False)
-    fig.suptitle('ESANet reference-trained models: all three modalities, three seeds',fontsize=12)
+    fig.suptitle(('Matched-runtime ESANet reference cohort' if matched else 'Frozen-v1 ESANet reference cohort')+': three modalities, three seeds',fontsize=12)
     fig.text(.5,-.02,'Full-frame diagnostic; recording props included. Error bars: seed s.d. (n=3), not scene confidence intervals.\nID-aware localization at 0.50; fastener separation provisional; no predicted-component size filter.',ha='center',fontsize=8)
     fig.tight_layout();save(fig,'modalities_by_distance')
     with (OUT/'modality_distance_values.csv').open('w') as f:
@@ -52,11 +55,13 @@ def modality_plots(frames):
 
 
 def size_plots(objects):
+    matched=all(any(r['model']==f'rgbd_reference210_s{s}' for r in objects) for s in range(3))
     fig,axes=plt.subplots(1,2,figsize=(8,3.5));counts={}
     for stem,label,color in [('esanet_full_rgb_reference','ESANet RGB','#222222'),('esanet_full_depth_reference','ESANet D','#777777'),('esanet_full_rgbd_reference','ESANet RGB-D','#0072B2')]:
         series=[]
         for seed in range(3):
-            rows=[r for r in objects if r['model']==f'{stem}_s{seed}']
+            model=f'rgbd_reference210_s{seed}' if stem=='esanet_full_rgbd_reference' and matched else f'{stem}_s{seed}'
+            rows=[r for r in objects if r['model']==model]
             bins=[[],[],[]]
             for r in rows:
                 area=int(r['area_pixels']);bins[0 if area<100 else 1 if area<1000 else 2].append(r)
@@ -127,8 +132,11 @@ def instance_qa():
 
 
 if __name__=='__main__':
+    import argparse
+    p=argparse.ArgumentParser();p.add_argument('--skip-instance-qa',action='store_true');args=p.parse_args()
     OUT.mkdir(parents=True,exist_ok=True)
     base=ROOT/'results/evaluation_v2_20261121/gte_full_diagnostic'
     frames=list(csv.DictReader((base/'frames.csv').open()));objects=list(csv.DictReader((base/'objects.csv').open()))
-    modality_plots(frames);size_plots(objects);instance_qa()
+    modality_plots(frames);size_plots(objects)
+    if not args.skip_instance_qa:instance_qa()
     print('Wrote modality/range, size/teacher and instance QA figures with source tables')

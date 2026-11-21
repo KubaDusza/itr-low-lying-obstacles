@@ -28,7 +28,7 @@ def audit(root,base):
             assert o['category_verified'] is False
             units[o['unit']]+=1
         source_status[r['source_review_status']]+=1
-        pending=[o['id'] for o in r['objects'] if o['unit']!='proposed_individual']
+        pending=[o['id'] for o in r['objects'] if o['unit'] not in ('proposed_individual','human_confirmed_individual')]
         if pending:uncertain.append(dict(site=r['site'],frame=r['frame'],dataset_split=r['dataset_split'],uncertain_ids=pending))
     return dict(status='integrity verified; instance quality remains unapproved',frames=len(rows),
         dataset_splits=dict(Counter(r['dataset_split'] for r in rows)),reference_source_status=dict(source_status),

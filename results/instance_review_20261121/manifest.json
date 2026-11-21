@@ -1,0 +1,2400 @@
+{
+  "status": "awaiting_human_instance_review_not_training_labels",
+  "prompts": [
+    "small object on the floor",
+    "cable on the floor",
+    "things on the floor"
+  ],
+  "confidence": 0.6,
+  "proposed_duplicate_iou": 0.8,
+  "uses_reference_masks": false,
+  "source": "existing 30-frame training development cache; no additional SAM inference",
+  "frames": [
+    {
+      "site": "ABEC_MM",
+      "frame": 4,
+      "raw_candidates": 17,
+      "proposed_instances": 12,
+      "union_preserved": true,
+      "objects": [
+        {
+          "id": 1,
+          "box": [
+            444,
+            330,
+            590,
+            422
+          ],
+          "pixels": 10633,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.9609375,
+              "cache_index": 13
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.74609375,
+              "cache_index": 302
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "box": [
+            0,
+            240,
+            73,
+            271
+          ],
+          "pixels": 1768,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.9453125,
+              "cache_index": 21
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.6796875,
+              "cache_index": 307
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "box": [
+            293,
+            138,
+            347,
+            167
+          ],
+          "pixels": 953,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.9375,
+              "cache_index": 4
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.671875,
+              "cache_index": 312
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "box": [
+            316,
+            259,
+            344,
+            287
+          ],
+          "pixels": 443,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.9375,
+              "cache_index": 20
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.640625,
+              "cache_index": 305
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "box": [
+            454,
+            78,
+            478,
+            85
+          ],
+          "pixels": 138,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.859375,
+              "cache_index": 38
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "box": [
+            314,
+            77,
+            356,
+            87
+          ],
+          "pixels": 260,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.84375,
+              "cache_index": 14
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "box": [
+            559,
+            79,
+            587,
+            86
+          ],
+          "pixels": 166,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.8359375,
+              "cache_index": 8
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "box": [
+            442,
+            92,
+            464,
+            101
+          ],
+          "pixels": 120,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.82421875,
+              "cache_index": 37
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "box": [
+            293,
+            85,
+            360,
+            111
+          ],
+          "pixels": 783,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.80859375,
+              "cache_index": 35
+            },
+            {
+              "prompt": "cable on the floor",
+              "score": 0.796875,
+              "cache_index": 697
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "box": [
+            541,
+            24,
+            640,
+            152
+          ],
+          "pixels": 1237,
+          "sources": [
+            {
+              "prompt": "cable on the floor",
+              "score": 0.74609375,
+              "cache_index": 694
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "box": [
+            402,
+            76,
+            416,
+            82
+          ],
+          "pixels": 57,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.71484375,
+              "cache_index": 36
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "box": [
+            544,
+            135,
+            631,
+            152
+          ],
+          "pixels": 819,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.6328125,
+              "cache_index": 18
+            }
+          ]
+        }
+      ],
+      "panel": "ABEC_MM_4.png",
+      "tiles": "ABEC_MM_4_objects.png"
+    },
+    {
+      "site": "BT_BM",
+      "frame": 12,
+      "raw_candidates": 19,
+      "proposed_instances": 16,
+      "union_preserved": true,
+      "objects": [
+        {
+          "id": 1,
+          "box": [
+            215,
+            313,
+            296,
+            366
+          ],
+          "pixels": 2422,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.9375,
+              "cache_index": 24
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.69140625,
+              "cache_index": 428
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "box": [
+            82,
+            252,
+            184,
+            308
+          ],
+          "pixels": 2906,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.9296875,
+              "cache_index": 36
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.73828125,
+              "cache_index": 436
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "box": [
+            458,
+            262,
+            485,
+            278
+          ],
+          "pixels": 341,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.9140625,
+              "cache_index": 41
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "box": [
+            461,
+            283,
+            489,
+            314
+          ],
+          "pixels": 459,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.91015625,
+              "cache_index": 17
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "box": [
+            533,
+            327,
+            558,
+            353
+          ],
+          "pixels": 464,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.90625,
+              "cache_index": 30
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "box": [
+            521,
+            332,
+            538,
+            356
+          ],
+          "pixels": 350,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.89453125,
+              "cache_index": 19
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "box": [
+            525,
+            286,
+            547,
+            302
+          ],
+          "pixels": 259,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.89453125,
+              "cache_index": 22
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "box": [
+            334,
+            407,
+            420,
+            422
+          ],
+          "pixels": 762,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.89453125,
+              "cache_index": 33
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.64453125,
+              "cache_index": 435
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "box": [
+            416,
+            293,
+            444,
+            322
+          ],
+          "pixels": 557,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.89453125,
+              "cache_index": 46
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "box": [
+            438,
+            268,
+            453,
+            299
+          ],
+          "pixels": 348,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.87109375,
+              "cache_index": 53
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "box": [
+            480,
+            283,
+            500,
+            302
+          ],
+          "pixels": 326,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.86328125,
+              "cache_index": 57
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "box": [
+            418,
+            271,
+            431,
+            286
+          ],
+          "pixels": 132,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.82421875,
+              "cache_index": 26
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "box": [
+            427,
+            283,
+            442,
+            302
+          ],
+          "pixels": 227,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.73046875,
+              "cache_index": 31
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "box": [
+            453,
+            289,
+            467,
+            303
+          ],
+          "pixels": 145,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.69921875,
+              "cache_index": 27
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "box": [
+            416,
+            262,
+            558,
+            356
+          ],
+          "pixels": 3850,
+          "sources": [
+            {
+              "prompt": "things on the floor",
+              "score": 0.6953125,
+              "cache_index": 424
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "box": [
+            4,
+            207,
+            33,
+            223
+          ],
+          "pixels": 321,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.671875,
+              "cache_index": 29
+            }
+          ]
+        }
+      ],
+      "panel": "BT_BM_12.png",
+      "tiles": "BT_BM_12_objects.png"
+    },
+    {
+      "site": "BT_LM",
+      "frame": 34,
+      "raw_candidates": 29,
+      "proposed_instances": 26,
+      "union_preserved": true,
+      "objects": [
+        {
+          "id": 1,
+          "box": [
+            147,
+            280,
+            193,
+            303
+          ],
+          "pixels": 741,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.9296875,
+              "cache_index": 81
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.67578125,
+              "cache_index": 814
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "box": [
+            282,
+            360,
+            306,
+            384
+          ],
+          "pixels": 443,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.90625,
+              "cache_index": 109
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "box": [
+            509,
+            122,
+            640,
+            294
+          ],
+          "pixels": 12226,
+          "sources": [
+            {
+              "prompt": "things on the floor",
+              "score": 0.90234375,
+              "cache_index": 798
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "box": [
+            387,
+            336,
+            411,
+            360
+          ],
+          "pixels": 448,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.88671875,
+              "cache_index": 46
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "box": [
+            358,
+            365,
+            387,
+            406
+          ],
+          "pixels": 786,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.88671875,
+              "cache_index": 106
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "box": [
+            307,
+            360,
+            323,
+            390
+          ],
+          "pixels": 379,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.8828125,
+              "cache_index": 26
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "box": [
+            291,
+            319,
+            311,
+            341
+          ],
+          "pixels": 312,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.8828125,
+              "cache_index": 72
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "box": [
+            333,
+            358,
+            358,
+            406
+          ],
+          "pixels": 1072,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.8828125,
+              "cache_index": 110
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "box": [
+            473,
+            152,
+            495,
+            166
+          ],
+          "pixels": 105,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.859375,
+              "cache_index": 75
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "box": [
+            291,
+            204,
+            305,
+            217
+          ],
+          "pixels": 118,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.85546875,
+              "cache_index": 59
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "box": [
+            482,
+            169,
+            493,
+            183
+          ],
+          "pixels": 96,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.85546875,
+              "cache_index": 114
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "box": [
+            549,
+            92,
+            592,
+            114
+          ],
+          "pixels": 616,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.84765625,
+              "cache_index": 34
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.6015625,
+              "cache_index": 787
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "box": [
+            332,
+            315,
+            365,
+            343
+          ],
+          "pixels": 520,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.8359375,
+              "cache_index": 38
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "box": [
+            310,
+            331,
+            340,
+            353
+          ],
+          "pixels": 521,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.8359375,
+              "cache_index": 44
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "box": [
+            373,
+            323,
+            395,
+            346
+          ],
+          "pixels": 318,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.828125,
+              "cache_index": 108
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "box": [
+            482,
+            145,
+            500,
+            152
+          ],
+          "pixels": 69,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.8125,
+              "cache_index": 25
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "box": [
+            496,
+            154,
+            509,
+            161
+          ],
+          "pixels": 66,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.796875,
+              "cache_index": 87
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "box": [
+            382,
+            186,
+            424,
+            217
+          ],
+          "pixels": 817,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.79296875,
+              "cache_index": 47
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.63671875,
+              "cache_index": 828
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "box": [
+            509,
+            132,
+            538,
+            139
+          ],
+          "pixels": 108,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.7890625,
+              "cache_index": 55
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "box": [
+            282,
+            315,
+            411,
+            406
+          ],
+          "pixels": 6353,
+          "sources": [
+            {
+              "prompt": "things on the floor",
+              "score": 0.77734375,
+              "cache_index": 834
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "box": [
+            262,
+            101,
+            284,
+            138
+          ],
+          "pixels": 644,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.75,
+              "cache_index": 43
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "box": [
+            502,
+            134,
+            535,
+            145
+          ],
+          "pixels": 149,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.72265625,
+              "cache_index": 111
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "box": [
+            340,
+            325,
+            373,
+            359
+          ],
+          "pixels": 596,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.70703125,
+              "cache_index": 95
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "box": [
+            360,
+            335,
+            387,
+            365
+          ],
+          "pixels": 496,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.703125,
+              "cache_index": 57
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "box": [
+            376,
+            151,
+            456,
+            195
+          ],
+          "pixels": 1528,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.69140625,
+              "cache_index": 107
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "box": [
+            322,
+            354,
+            360,
+            391
+          ],
+          "pixels": 329,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.625,
+              "cache_index": 79
+            }
+          ]
+        }
+      ],
+      "panel": "BT_LM_34.png",
+      "tiles": "BT_LM_34_objects.png"
+    },
+    {
+      "site": "FL_LM",
+      "frame": 40,
+      "raw_candidates": 18,
+      "proposed_instances": 15,
+      "union_preserved": true,
+      "objects": [
+        {
+          "id": 1,
+          "box": [
+            421,
+            350,
+            553,
+            422
+          ],
+          "pixels": 4507,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.9609375,
+              "cache_index": 1
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.71875,
+              "cache_index": 326
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "box": [
+            211,
+            224,
+            262,
+            264
+          ],
+          "pixels": 807,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.94921875,
+              "cache_index": 6
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.65234375,
+              "cache_index": 328
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "box": [
+            321,
+            160,
+            351,
+            185
+          ],
+          "pixels": 485,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.9375,
+              "cache_index": 32
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.62890625,
+              "cache_index": 349
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "box": [
+            333,
+            234,
+            362,
+            252
+          ],
+          "pixels": 395,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.93359375,
+              "cache_index": 31
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "box": [
+            450,
+            105,
+            569,
+            162
+          ],
+          "pixels": 2951,
+          "sources": [
+            {
+              "prompt": "cable on the floor",
+              "score": 0.9296875,
+              "cache_index": 736
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "box": [
+            416,
+            218,
+            438,
+            246
+          ],
+          "pixels": 381,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.921875,
+              "cache_index": 33
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "box": [
+            440,
+            220,
+            460,
+            239
+          ],
+          "pixels": 284,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.91796875,
+              "cache_index": 2
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "box": [
+            400,
+            202,
+            416,
+            218
+          ],
+          "pixels": 208,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.91796875,
+              "cache_index": 25
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "box": [
+            373,
+            243,
+            394,
+            262
+          ],
+          "pixels": 251,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.91796875,
+              "cache_index": 28
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "box": [
+            367,
+            223,
+            382,
+            242
+          ],
+          "pixels": 218,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.9140625,
+              "cache_index": 26
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "box": [
+            365,
+            208,
+            382,
+            222
+          ],
+          "pixels": 184,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.90234375,
+              "cache_index": 34
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "box": [
+            78,
+            246,
+            93,
+            259
+          ],
+          "pixels": 140,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.88671875,
+              "cache_index": 22
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "box": [
+            64,
+            261,
+            78,
+            271
+          ],
+          "pixels": 67,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.80859375,
+              "cache_index": 5
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "box": [
+            60,
+            253,
+            67,
+            262
+          ],
+          "pixels": 50,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.6796875,
+              "cache_index": 8
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "box": [
+            93,
+            167,
+            247,
+            248
+          ],
+          "pixels": 3210,
+          "sources": [
+            {
+              "prompt": "things on the floor",
+              "score": 0.62890625,
+              "cache_index": 352
+            }
+          ]
+        }
+      ],
+      "panel": "FL_LM_40.png",
+      "tiles": "FL_LM_40_objects.png"
+    },
+    {
+      "site": "HB_G",
+      "frame": 64,
+      "raw_candidates": 13,
+      "proposed_instances": 12,
+      "union_preserved": true,
+      "objects": [
+        {
+          "id": 1,
+          "box": [
+            48,
+            155,
+            100,
+            177
+          ],
+          "pixels": 774,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.91796875,
+              "cache_index": 34
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "box": [
+            489,
+            396,
+            551,
+            422
+          ],
+          "pixels": 875,
+          "sources": [
+            {
+              "prompt": "cable on the floor",
+              "score": 0.875,
+              "cache_index": 1132
+            },
+            {
+              "prompt": "small object on the floor",
+              "score": 0.80859375,
+              "cache_index": 26
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "box": [
+            151,
+            4,
+            171,
+            15
+          ],
+          "pixels": 147,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.80859375,
+              "cache_index": 15
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "box": [
+            133,
+            35,
+            173,
+            59
+          ],
+          "pixels": 558,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.796875,
+              "cache_index": 51
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "box": [
+            262,
+            67,
+            273,
+            78
+          ],
+          "pixels": 81,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.78515625,
+              "cache_index": 70
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "box": [
+            329,
+            384,
+            356,
+            422
+          ],
+          "pixels": 723,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.76953125,
+              "cache_index": 33
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "box": [
+            285,
+            67,
+            298,
+            74
+          ],
+          "pixels": 37,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.72265625,
+              "cache_index": 72
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "box": [
+            178,
+            19,
+            187,
+            26
+          ],
+          "pixels": 56,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.71875,
+              "cache_index": 35
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "box": [
+            153,
+            111,
+            197,
+            135
+          ],
+          "pixels": 750,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.6953125,
+              "cache_index": 44
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "box": [
+            431,
+            200,
+            447,
+            214
+          ],
+          "pixels": 148,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.68359375,
+              "cache_index": 47
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "box": [
+            409,
+            263,
+            416,
+            270
+          ],
+          "pixels": 33,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.6796875,
+              "cache_index": 71
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "box": [
+            114,
+            57,
+            191,
+            125
+          ],
+          "pixels": 280,
+          "sources": [
+            {
+              "prompt": "cable on the floor",
+              "score": 0.6015625,
+              "cache_index": 1144
+            }
+          ]
+        }
+      ],
+      "panel": "HB_G_64.png",
+      "tiles": "HB_G_64_objects.png"
+    },
+    {
+      "site": "HB_MM",
+      "frame": 94,
+      "raw_candidates": 7,
+      "proposed_instances": 7,
+      "union_preserved": true,
+      "objects": [
+        {
+          "id": 1,
+          "box": [
+            607,
+            274,
+            640,
+            299
+          ],
+          "pixels": 411,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.859375,
+              "cache_index": 11
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "box": [
+            556,
+            280,
+            640,
+            357
+          ],
+          "pixels": 2299,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.83984375,
+              "cache_index": 4
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "box": [
+            573,
+            280,
+            636,
+            354
+          ],
+          "pixels": 967,
+          "sources": [
+            {
+              "prompt": "cable on the floor",
+              "score": 0.80078125,
+              "cache_index": 470
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "box": [
+            587,
+            405,
+            640,
+            422
+          ],
+          "pixels": 551,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.7890625,
+              "cache_index": 5
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "box": [
+            480,
+            226,
+            487,
+            234
+          ],
+          "pixels": 42,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.7421875,
+              "cache_index": 8
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "box": [
+            629,
+            246,
+            640,
+            255
+          ],
+          "pixels": 78,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.66015625,
+              "cache_index": 25
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "box": [
+            600,
+            236,
+            620,
+            245
+          ],
+          "pixels": 115,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.65234375,
+              "cache_index": 27
+            }
+          ]
+        }
+      ],
+      "panel": "HB_MM_94.png",
+      "tiles": "HB_MM_94_objects.png"
+    },
+    {
+      "site": "HDCL_HW_B",
+      "frame": 40,
+      "raw_candidates": 11,
+      "proposed_instances": 7,
+      "union_preserved": true,
+      "objects": [
+        {
+          "id": 1,
+          "box": [
+            144,
+            256,
+            192,
+            328
+          ],
+          "pixels": 2693,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.953125,
+              "cache_index": 27
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.6875,
+              "cache_index": 363
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "box": [
+            162,
+            200,
+            242,
+            224
+          ],
+          "pixels": 1397,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.9453125,
+              "cache_index": 0
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.66796875,
+              "cache_index": 342
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "box": [
+            262,
+            132,
+            320,
+            147
+          ],
+          "pixels": 570,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.90234375,
+              "cache_index": 21
+            },
+            {
+              "prompt": "cable on the floor",
+              "score": 0.875,
+              "cache_index": 758
+            },
+            {
+              "prompt": "things on the floor",
+              "score": 0.625,
+              "cache_index": 336
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "box": [
+            75,
+            130,
+            91,
+            141
+          ],
+          "pixels": 133,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.87109375,
+              "cache_index": 19
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "box": [
+            144,
+            105,
+            167,
+            116
+          ],
+          "pixels": 188,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.8671875,
+              "cache_index": 18
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "box": [
+            49,
+            132,
+            60,
+            142
+          ],
+          "pixels": 88,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.828125,
+              "cache_index": 5
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "box": [
+            100,
+            94,
+            111,
+            103
+          ],
+          "pixels": 79,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.76953125,
+              "cache_index": 10
+            }
+          ]
+        }
+      ],
+      "panel": "HDCL_HW_B_40.png",
+      "tiles": "HDCL_HW_B_40_objects.png"
+    },
+    {
+      "site": "MEB_HW_C",
+      "frame": 34,
+      "raw_candidates": 36,
+      "proposed_instances": 34,
+      "union_preserved": true,
+      "objects": [
+        {
+          "id": 1,
+          "box": [
+            396,
+            292,
+            422,
+            311
+          ],
+          "pixels": 336,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.91796875,
+              "cache_index": 16
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "box": [
+            213,
+            217,
+            253,
+            236
+          ],
+          "pixels": 395,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.91015625,
+              "cache_index": 3
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "box": [
+            307,
+            318,
+            333,
+            343
+          ],
+          "pixels": 417,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.91015625,
+              "cache_index": 5
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "box": [
+            389,
+            229,
+            413,
+            239
+          ],
+          "pixels": 183,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.91015625,
+              "cache_index": 14
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "box": [
+            256,
+            229,
+            302,
+            249
+          ],
+          "pixels": 553,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.90234375,
+              "cache_index": 23
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "box": [
+            353,
+            340,
+            371,
+            359
+          ],
+          "pixels": 278,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.90234375,
+              "cache_index": 72
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "box": [
+            353,
+            303,
+            382,
+            324
+          ],
+          "pixels": 395,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.90234375,
+              "cache_index": 81
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "box": [
+            338,
+            300,
+            362,
+            319
+          ],
+          "pixels": 280,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.890625,
+              "cache_index": 38
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "box": [
+            296,
+            296,
+            311,
+            312
+          ],
+          "pixels": 209,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.88671875,
+              "cache_index": 61
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "box": [
+            376,
+            295,
+            393,
+            309
+          ],
+          "pixels": 200,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.88671875,
+              "cache_index": 91
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "box": [
+            358,
+            204,
+            373,
+            211
+          ],
+          "pixels": 88,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.87109375,
+              "cache_index": 69
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "box": [
+            273,
+            305,
+            291,
+            321
+          ],
+          "pixels": 209,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.87109375,
+              "cache_index": 84
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "box": [
+            191,
+            157,
+            216,
+            167
+          ],
+          "pixels": 163,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.8671875,
+              "cache_index": 64
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "box": [
+            373,
+            281,
+            396,
+            299
+          ],
+          "pixels": 248,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.8671875,
+              "cache_index": 74
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "box": [
+            144,
+            403,
+            215,
+            422
+          ],
+          "pixels": 653,
+          "sources": [
+            {
+              "prompt": "cable on the floor",
+              "score": 0.86328125,
+              "cache_index": 2016
+            },
+            {
+              "prompt": "small object on the floor",
+              "score": 0.625,
+              "cache_index": 65
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "box": [
+            227,
+            158,
+            287,
+            174
+          ],
+          "pixels": 510,
+          "sources": [
+            {
+              "prompt": "cable on the floor",
+              "score": 0.84375,
+              "cache_index": 2022
+            },
+            {
+              "prompt": "small object on the floor",
+              "score": 0.62109375,
+              "cache_index": 30
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "box": [
+            418,
+            164,
+            427,
+            170
+          ],
+          "pixels": 50,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.828125,
+              "cache_index": 1
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "box": [
+            396,
+            173,
+            409,
+            180
+          ],
+          "pixels": 65,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.80859375,
+              "cache_index": 90
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "box": [
+            411,
+            169,
+            418,
+            176
+          ],
+          "pixels": 38,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.8046875,
+              "cache_index": 67
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "box": [
+            380,
+            176,
+            398,
+            182
+          ],
+          "pixels": 91,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.80078125,
+              "cache_index": 57
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "box": [
+            331,
+            154,
+            340,
+            160
+          ],
+          "pixels": 49,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.7734375,
+              "cache_index": 52
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "box": [
+            149,
+            135,
+            167,
+            141
+          ],
+          "pixels": 78,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.71875,
+              "cache_index": 35
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "box": [
+            0,
+            361,
+            7,
+            382
+          ],
+          "pixels": 100,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.71484375,
+              "cache_index": 31
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "box": [
+            344,
+            160,
+            380,
+            179
+          ],
+          "pixels": 517,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.703125,
+              "cache_index": 26
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "box": [
+            342,
+            155,
+            347,
+            161
+          ],
+          "pixels": 28,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.6953125,
+              "cache_index": 43
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "box": [
+            284,
+            130,
+            293,
+            136
+          ],
+          "pixels": 46,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.6484375,
+              "cache_index": 88
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "box": [
+            380,
+            163,
+            396,
+            169
+          ],
+          "pixels": 60,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.64453125,
+              "cache_index": 4
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "box": [
+            329,
+            131,
+            355,
+            143
+          ],
+          "pixels": 126,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.64453125,
+              "cache_index": 82
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "box": [
+            262,
+            141,
+            272,
+            144
+          ],
+          "pixels": 27,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.64453125,
+              "cache_index": 87
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "box": [
+            382,
+            167,
+            396,
+            173
+          ],
+          "pixels": 71,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.640625,
+              "cache_index": 86
+            }
+          ]
+        },
+        {
+          "id": 31,
+          "box": [
+            251,
+            123,
+            264,
+            130
+          ],
+          "pixels": 68,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.6171875,
+              "cache_index": 22
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "box": [
+            218,
+            120,
+            229,
+            123
+          ],
+          "pixels": 32,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.6171875,
+              "cache_index": 76
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "box": [
+            255,
+            129,
+            267,
+            136
+          ],
+          "pixels": 67,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.61328125,
+              "cache_index": 42
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "box": [
+            329,
+            141,
+            333,
+            146
+          ],
+          "pixels": 17,
+          "sources": [
+            {
+              "prompt": "small object on the floor",
+              "score": 0.60546875,
+              "cache_index": 9
+            }
+          ]
+        }
+      ],
+      "panel": "MEB_HW_C_34.png",
+      "tiles": "MEB_HW_C_34_objects.png"
+    }
+  ]
+}

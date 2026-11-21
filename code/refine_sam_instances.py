@@ -19,11 +19,12 @@ CABLE='cable on the floor'
 def area(mask):return int(mask.sum())
 
 
-def load_groups(path):
+def load_groups(path, prompts=None):
+    prompts=PROMPTS if prompts is None else set(prompts)
     with np.load(path,allow_pickle=False) as data:
         h,w=map(int,data['shape']);candidates=[]
         for i,(phrase,score) in enumerate(zip(data['prompts'],data['scores'])):
-            if phrase not in PROMPTS or score<.6:continue
+            if phrase not in prompts or score<.6:continue
             mask=np.unpackbits(data['masks'][i])[:h*w].reshape(h,w).astype(bool)
             if mask.any():candidates.append(dict(mask=mask,prompt=str(phrase),score=float(score),cache_index=i))
     groups=[]

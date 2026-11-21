@@ -1,0 +1,25 @@
+{
+  "job_id": "21745179",
+  "host": "code.triton.aalto.fi",
+  "purpose": "330 independent automatic/reference instance proposals",
+  "output": "/scratch/work/duszaj1/itr_instance_20261121/v2/proposals",
+  "cpu_only": true,
+  "time_limit_minutes": 60,
+  "supersedes_job": "21745123",
+  "superseded_reason": "20-minute limit too short; prior export had no per-frame metadata checkpoint",
+  "dataset_splits": {
+    "train_development": 30,
+    "validation": 300
+  },
+  "proposal_quality": "not human approved",
+  "original_training_labels_changed": false,
+  "automatic_inputs": [
+    "RGB",
+    "fixed three-prompt SAM masks"
+  ],
+  "reference_inputs": [
+    "accepted binary references",
+    "SAM-assisted seeds"
+  ],
+  "gate": "Review unresolved instances and audit full output before any instance training or evaluation"
+}

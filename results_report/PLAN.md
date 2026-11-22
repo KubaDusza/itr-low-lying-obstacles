@@ -1,5 +1,7 @@
 # Results report: revision plan (2026-11-22, deadline 23:59)
 
+> Status 2026-11-22 evening: plan executed; current state and decisions in `../HANDOFF_CLAUDE_20261122.md`.
+
 ## 1. What is wrong with the current version
 
 Most of the numbers are correct. The problem is that the report presents metrics instead of findings.

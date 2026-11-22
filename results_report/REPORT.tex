@@ -261,12 +261,10 @@ ISOD training statistics, which are also applied to GTE-Floor. U-Net uses
 a MobileNetV2 encoder \cite{sandler2018mobilenetv2}; its validation loss
 levels off within 15 epochs. The YOLO models start from COCO weights and
 train for 60 epochs with the standard Ultralytics schedule; box targets
-enclose each annotated object. Every run keeps the checkpoint with the
-best score on the 300 ISOD validation frames (Table~\ref{tab:models}).
-Appendix~\ref{app:configuration} lists all settings.
+enclose each annotated object (Table~\ref{tab:models}).
 
 \begin{table}[H]
-\caption{Models and training. Checkpoints are chosen on the 300 ISOD validation frames (IoU: obstacle IoU).}
+\caption{Models and training. Checkpoints are chosen on the 300 ISOD validation frames (IoU: obstacle IoU); Appendix~\ref{app:configuration} lists all settings.}
 \label{tab:models}
 \centering\footnotesize
 \setlength{\tabcolsep}{2.5pt}

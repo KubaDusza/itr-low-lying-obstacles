@@ -1,0 +1,30 @@
+{
+  "updated_at": "2026-11-22T08:39:29.375142+00:00",
+  "pipeline_gate": false,
+  "full_RGBD_training_and_depth_interventions_required": true,
+  "matched_runtime_reference_modalities_complete": true,
+  "automatic_supervision_paired_seeds": {
+    "rgb": [
+      1,
+      2
+    ],
+    "depth": [
+      0,
+      1,
+      2
+    ],
+    "rgbd": [
+      0,
+      1,
+      2
+    ]
+  },
+  "missing_RGB_seed0_is_not_replaced_with_an_old_teacher_version": true,
+  "domain": "full-frame diagnostic; recording props included; no cropped-input experiment claimed",
+  "labels": "Frozen-v1 binary training sources; new manual corrections retained separately for future jobs",
+  "component_reference_status": "ID-aware GTE references with proposed fastener separation; uncertainty explicit",
+  "source_run_count": 53,
+  "slurm_job": "21745879",
+  "runner_sha256": "2cc364b8c240305aae077055c8812ec75e28609d01d5befd2c5e31889983d972",
+  "analysis_archive_sha256": "db7e392d3331a04246365c97809c088209b170caecd1db80f362529428a86de7"
+}

@@ -1,0 +1,14 @@
+{
+  "job": {
+    "id": "rgbd_sam210_s1",
+    "kind": "rgbd",
+    "seed": 1,
+    "epochs": 500,
+    "label_source": "sam"
+  },
+  "recipe_sha256": "4bdcd53c6fe4b1e968a3b48d17d6322dc548a8bc0c5cfb1728f67b34fd93dde2",
+  "labels_manifest_sha256": "3187959fdb01af4156006f130ff64989249aa25193efd59f29debb9c1863f0e1",
+  "python": "/appl/scibuilder-mamba/aalto-rhel9/prod/software/scicomp-pytorch-env/2026.1/354b404/bin/python",
+  "gpu_uuid": "0",
+  "host": "gpu14"
+}

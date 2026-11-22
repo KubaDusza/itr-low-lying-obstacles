@@ -1,0 +1,53 @@
+{
+  "updated_at": "2026-11-22T09:15:43.752539+00:00",
+  "deadline_supplied_by_user": "2026-11-22 17:59 Europe/Paris",
+  "format": "IEEEtran conference, two columns",
+  "combined_pages": 8,
+  "results_and_conclusion_pages": [
+    5,
+    6
+  ],
+  "results_length_within_two_to_four_columns": true,
+  "conclusion_or_future_work_present": true,
+  "original_introduction_and_state_of_art_verbatim": true,
+  "completed_experiments_and_label_sources_described": true,
+  "all_figures_and_tables_referenced": true,
+  "figure_table_labels": [
+    "fig:pipeline",
+    "fig:collection",
+    "tab:collection",
+    "tab:models",
+    "fig:objects",
+    "fig:range-size",
+    "tab:results",
+    "fig:cloth-depth"
+  ],
+  "captions_explain_units_colors_seeds_and_scope": true,
+  "graphs_and_tables_support_results": true,
+  "strengths_limits_and_future_work_present": true,
+  "no_undefined_references": true,
+  "no_overfull_boxes": true,
+  "no_type3_fonts": true,
+  "review": "All pages rendered and inspected; results pages inspected at full render resolution. Qualitative captions checked against all seed/repeat rows.",
+  "scientific_limits": [
+    "30 reviewed ISOD test frames, not all 300",
+    "Assisted reference training labels; not fully manually annotated",
+    "Validation-informed automatic prompt selection",
+    "Full-frame GTE diagnostic includes recording props",
+    "GTE IDs include groups/proposed fastener splits; not native instance AP",
+    "One external room; five repeats/recording",
+    "Automatic RGB comparison uses two completed matching seeds",
+    "Latest manual corrections were not used by these models"
+  ],
+  "submission_status": "Not submitted; reviewable draft",
+  "pdf_sha256": "176bc6413b16a77dd37f9fff777eff49ded54fd0a90b534d7ccad00c57c21c29",
+  "main_tex_sha256": "1014ec3035fd252db497289a1cc77e23348d4585cfd265335f9c647ffd506f90",
+  "results_tex_sha256": "502250df6d02ea865a6e9034af840e127bc87332b4b80f7bab9a6378b59573d7",
+  "supporting_examples_rendered_and_inspected": true,
+  "coverage_localization_and_false_components_separated": true,
+  "localization_sensitivity_thresholds": [
+    0.25,
+    0.5,
+    0.75
+  ]
+}

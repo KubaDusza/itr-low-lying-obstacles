@@ -1,0 +1,11 @@
+{
+  "scene_domain": "Full-frame diagnostic, recording props included; not cropped-input results.",
+  "appearance": "Euclidean difference between median object/floor CIELAB vectors derived from uncalibrated camera RGB. Not a physical contrast measurement or detection threshold.",
+  "neighborhood": "Reference floor, at least 4 px from any annotated foreground and within 20 px of the target; >=10 object pixels and >=40 floor pixels.",
+  "depth": "Previously verified valid-depth and floor-residual measurements; camera-axis residual is not height.",
+  "confounds": "One room; object type/size/material/distance/viewpoint and height/tilt can covary. Nearby floor may contain unannotated setup details.",
+  "item_observations": 1220,
+  "matched_background_item_configuration_pairs": 72,
+  "static_repeats": 5,
+  "model_seeds": 3
+}

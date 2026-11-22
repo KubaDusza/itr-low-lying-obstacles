@@ -1,0 +1,58 @@
+{
+  "ISOD_sam_all_v2": {
+    "frames": 2000,
+    "hash_mismatches": []
+  },
+  "ISOD_sam_train_v2": {
+    "frames": 1400,
+    "hash_mismatches": []
+  },
+  "ISOD_reference_train_v1": {
+    "frames": 1400,
+    "hash_mismatches": []
+  },
+  "ISOD_reference_val_v1": {
+    "frames": 300,
+    "hash_mismatches": []
+  },
+  "ISOD_reference_test_v1": {
+    "frames": 30,
+    "hash_mismatches": []
+  },
+  "training_subset_matches_full_teacher": true,
+  "run_label_sources": [
+    {
+      "run": "rgbd_reference210_s0",
+      "training_manifest_matches": true,
+      "verified": true
+    },
+    {
+      "run": "rgbd_reference210_s1",
+      "training_manifest_matches": true,
+      "verified": true
+    },
+    {
+      "run": "rgbd_reference210_s2",
+      "training_manifest_matches": true,
+      "verified": true
+    },
+    {
+      "run": "rgbd_sam210_s0",
+      "training_manifest_matches": true,
+      "verified": true
+    },
+    {
+      "run": "rgbd_sam210_s1",
+      "training_manifest_matches": true,
+      "verified": true
+    },
+    {
+      "run": "rgbd_sam210_s2",
+      "training_manifest_matches": true,
+      "verified": true
+    }
+  ],
+  "teacher_quality_source": "Exact deployed ISOD_sam_all_v2 masks; fresh generation differs slightly from earlier cached prompt-ablation outputs. Cause not independently established; no mask version was replaced.",
+  "earlier_three_prompt_validation_pooled_iou": 0.6087969448190854,
+  "current_quality_csv": "automatic_teacher_quality.csv"
+}

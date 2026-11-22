@@ -1,0 +1,3228 @@
+{
+  "ISOD": {
+    "pooled": {
+      "IoU": 0.7073536648303508,
+      "precision": 0.7824332218150921,
+      "recall": 0.8805486247030524,
+      "frames": 30
+    },
+    "by_group": {
+      "HDCL_HW_A": {
+        "IoU": 0.7426107428922384,
+        "precision": 0.8309027048695287,
+        "recall": 0.8748216331370461,
+        "frames": 10
+      },
+      "MEB_CM": {
+        "IoU": 0.6639459252646346,
+        "precision": 0.7181350009196248,
+        "recall": 0.897947450123613,
+        "frames": 10
+      },
+      "MEB_HW_B": {
+        "IoU": 0.6999986252027826,
+        "precision": 0.7757049924587517,
+        "recall": 0.8776361489601917,
+        "frames": 10
+      }
+    },
+    "frames": [
+      {
+        "group": "HDCL_HW_A",
+        "frame": 4,
+        "inter": 7852,
+        "union": 11907,
+        "pred": 8995,
+        "gt": 10764
+      },
+      {
+        "group": "HDCL_HW_A",
+        "frame": 14,
+        "inter": 16559,
+        "union": 22879,
+        "pred": 17908,
+        "gt": 21530
+      },
+      {
+        "group": "HDCL_HW_A",
+        "frame": 24,
+        "inter": 9335,
+        "union": 13719,
+        "pred": 12447,
+        "gt": 10607
+      },
+      {
+        "group": "HDCL_HW_A",
+        "frame": 34,
+        "inter": 7395,
+        "union": 9475,
+        "pred": 8939,
+        "gt": 7931
+      },
+      {
+        "group": "HDCL_HW_A",
+        "frame": 44,
+        "inter": 7507,
+        "union": 11022,
+        "pred": 10263,
+        "gt": 8266
+      },
+      {
+        "group": "HDCL_HW_A",
+        "frame": 54,
+        "inter": 12661,
+        "union": 13691,
+        "pred": 13319,
+        "gt": 13033
+      },
+      {
+        "group": "HDCL_HW_A",
+        "frame": 64,
+        "inter": 7911,
+        "union": 10405,
+        "pred": 10039,
+        "gt": 8277
+      },
+      {
+        "group": "HDCL_HW_A",
+        "frame": 74,
+        "inter": 8935,
+        "union": 11272,
+        "pred": 10495,
+        "gt": 9712
+      },
+      {
+        "group": "HDCL_HW_A",
+        "frame": 84,
+        "inter": 6273,
+        "union": 8948,
+        "pred": 8518,
+        "gt": 6703
+      },
+      {
+        "group": "HDCL_HW_A",
+        "frame": 94,
+        "inter": 2629,
+        "union": 3913,
+        "pred": 3851,
+        "gt": 2691
+      },
+      {
+        "group": "MEB_CM",
+        "frame": 4,
+        "inter": 3613,
+        "union": 5728,
+        "pred": 5141,
+        "gt": 4200
+      },
+      {
+        "group": "MEB_CM",
+        "frame": 14,
+        "inter": 2765,
+        "union": 4938,
+        "pred": 3735,
+        "gt": 3968
+      },
+      {
+        "group": "MEB_CM",
+        "frame": 24,
+        "inter": 3667,
+        "union": 6851,
+        "pred": 5752,
+        "gt": 4766
+      },
+      {
+        "group": "MEB_CM",
+        "frame": 34,
+        "inter": 3217,
+        "union": 5850,
+        "pred": 5717,
+        "gt": 3350
+      },
+      {
+        "group": "MEB_CM",
+        "frame": 44,
+        "inter": 6334,
+        "union": 8994,
+        "pred": 8559,
+        "gt": 6769
+      },
+      {
+        "group": "MEB_CM",
+        "frame": 54,
+        "inter": 2246,
+        "union": 3350,
+        "pred": 3100,
+        "gt": 2496
+      },
+      {
+        "group": "MEB_CM",
+        "frame": 64,
+        "inter": 7340,
+        "union": 8962,
+        "pred": 8161,
+        "gt": 8141
+      },
+      {
+        "group": "MEB_CM",
+        "frame": 74,
+        "inter": 5972,
+        "union": 7383,
+        "pred": 6715,
+        "gt": 6640
+      },
+      {
+        "group": "MEB_CM",
+        "frame": 84,
+        "inter": 4505,
+        "union": 8956,
+        "pred": 8930,
+        "gt": 4531
+      },
+      {
+        "group": "MEB_CM",
+        "frame": 94,
+        "inter": 7195,
+        "union": 9557,
+        "pred": 9434,
+        "gt": 7318
+      },
+      {
+        "group": "MEB_HW_B",
+        "frame": 4,
+        "inter": 4572,
+        "union": 6012,
+        "pred": 5921,
+        "gt": 4663
+      },
+      {
+        "group": "MEB_HW_B",
+        "frame": 14,
+        "inter": 10592,
+        "union": 12046,
+        "pred": 11766,
+        "gt": 10872
+      },
+      {
+        "group": "MEB_HW_B",
+        "frame": 24,
+        "inter": 7292,
+        "union": 11647,
+        "pred": 11379,
+        "gt": 7560
+      },
+      {
+        "group": "MEB_HW_B",
+        "frame": 34,
+        "inter": 12309,
+        "union": 20921,
+        "pred": 17934,
+        "gt": 15296
+      },
+      {
+        "group": "MEB_HW_B",
+        "frame": 44,
+        "inter": 17760,
+        "union": 31573,
+        "pred": 21769,
+        "gt": 27564
+      },
+      {
+        "group": "MEB_HW_B",
+        "frame": 54,
+        "inter": 3169,
+        "union": 6135,
+        "pred": 6096,
+        "gt": 3208
+      },
+      {
+        "group": "MEB_HW_B",
+        "frame": 64,
+        "inter": 14594,
+        "union": 16951,
+        "pred": 16675,
+        "gt": 14870
+      },
+      {
+        "group": "MEB_HW_B",
+        "frame": 74,
+        "inter": 17601,
+        "union": 21410,
+        "pred": 21204,
+        "gt": 17807
+      },
+      {
+        "group": "MEB_HW_B",
+        "frame": 84,
+        "inter": 5922,
+        "union": 8217,
+        "pred": 8188,
+        "gt": 5951
+      },
+      {
+        "group": "MEB_HW_B",
+        "frame": 94,
+        "inter": 8022,
+        "union": 10564,
+        "pred": 10346,
+        "gt": 8240
+      }
+    ]
+  },
+  "GTE-Floor": {
+    "pooled": {
+      "IoU": 0.5377413353682562,
+      "precision": 0.618070563848095,
+      "recall": 0.8053527544351073,
+      "frames": 320
+    },
+    "by_group": {
+      "h25_floor_cables_075": {
+        "IoU": 0.5474332898211954,
+        "precision": 0.6094151308971297,
+        "recall": 0.8433203429462198,
+        "frames": 5
+      },
+      "h25_floor_cables_150": {
+        "IoU": 0.47884069134851476,
+        "precision": 0.5122975095933452,
+        "recall": 0.8799823047998231,
+        "frames": 5
+      },
+      "h25_floor_cables_250": {
+        "IoU": 0.3525772141542238,
+        "precision": 0.4555364693446089,
+        "recall": 0.6093680954485197,
+        "frames": 5
+      },
+      "h25_floor_chess_075": {
+        "IoU": 0.394831013916501,
+        "precision": 0.394831013916501,
+        "recall": 1.0,
+        "frames": 5
+      },
+      "h25_floor_chess_150": {
+        "IoU": 0.19435517675003494,
+        "precision": 0.19487251330905014,
+        "recall": 0.9865248226950355,
+        "frames": 5
+      },
+      "h25_floor_chess_250": {
+        "IoU": 0.07317897583234748,
+        "precision": 0.07815884476534296,
+        "recall": 0.5345679012345679,
+        "frames": 5
+      },
+      "h25_floor_empty": {
+        "IoU": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "frames": 5
+      },
+      "h25_floor_hexkeys_075": {
+        "IoU": 0.30593875797186665,
+        "precision": 0.44994345772633537,
+        "recall": 0.488728323699422,
+        "frames": 5
+      },
+      "h25_floor_hexkeys_150": {
+        "IoU": 0.11526288922919857,
+        "precision": 0.16223595344158642,
+        "recall": 0.28474148802017657,
+        "frames": 5
+      },
+      "h25_floor_hexkeys_250": {
+        "IoU": 0.07484838812639642,
+        "precision": 0.09398797595190381,
+        "recall": 0.26876790830945557,
+        "frames": 5
+      },
+      "h25_floor_rags_075": {
+        "IoU": 0.6909028569829196,
+        "precision": 0.8887638730118725,
+        "recall": 0.7563019417103902,
+        "frames": 5
+      },
+      "h25_floor_rags_150": {
+        "IoU": 0.7403278472245127,
+        "precision": 0.7423846535472135,
+        "recall": 0.9962716378162451,
+        "frames": 5
+      },
+      "h25_floor_rags_250": {
+        "IoU": 0.4575686389663779,
+        "precision": 0.4576358296622614,
+        "recall": 0.9996792301523657,
+        "frames": 5
+      },
+      "h25_floor_random_075": {
+        "IoU": 0.6448686371100164,
+        "precision": 0.6617380681578836,
+        "recall": 0.9619718309859155,
+        "frames": 5
+      },
+      "h25_floor_random_150": {
+        "IoU": 0.4207132388861749,
+        "precision": 0.42798926548056854,
+        "recall": 0.9611607142857143,
+        "frames": 5
+      },
+      "h25_floor_random_250": {
+        "IoU": 0.24309773605742685,
+        "precision": 0.24767932489451477,
+        "recall": 0.929287598944591,
+        "frames": 5
+      },
+      "h25_floor_screws_075": {
+        "IoU": 0.37592181252776546,
+        "precision": 0.37689292713344025,
+        "recall": 0.9931924882629108,
+        "frames": 5
+      },
+      "h25_floor_screws_150": {
+        "IoU": 0.0983722576079264,
+        "precision": 0.11069082221779813,
+        "recall": 0.46919831223628694,
+        "frames": 5
+      },
+      "h25_floor_screws_250": {
+        "IoU": 0.04248056135027498,
+        "precision": 0.049480892423238346,
+        "recall": 0.2309278350515464,
+        "frames": 5
+      },
+      "h25_floor_tapes_075": {
+        "IoU": 0.8137365975403511,
+        "precision": 0.8191299461174837,
+        "recall": 0.9919735788630905,
+        "frames": 5
+      },
+      "h25_floor_tapes_150": {
+        "IoU": 0.5928004881025015,
+        "precision": 0.597503228583728,
+        "recall": 0.9868969019807009,
+        "frames": 5
+      },
+      "h25_floor_tapes_250": {
+        "IoU": 0.4270080125073285,
+        "precision": 0.44756247439573943,
+        "recall": 0.9028925619834711,
+        "frames": 5
+      },
+      "h25_poster_cables_075": {
+        "IoU": 0.42484014615208954,
+        "precision": 0.6513347921225383,
+        "recall": 0.5498983927581748,
+        "frames": 5
+      },
+      "h25_poster_cables_150": {
+        "IoU": 0.4810321958278066,
+        "precision": 0.5263352332700021,
+        "recall": 0.8482245375292367,
+        "frames": 5
+      },
+      "h25_poster_cables_250": {
+        "IoU": 0.3614076050700467,
+        "precision": 0.42066778827488027,
+        "recall": 0.719535141117875,
+        "frames": 5
+      },
+      "h25_poster_chess_075": {
+        "IoU": 0.5534045393858478,
+        "precision": 0.554144385026738,
+        "recall": 0.9975932611311673,
+        "frames": 5
+      },
+      "h25_poster_chess_150": {
+        "IoU": 0.3294564443389509,
+        "precision": 0.340112717471208,
+        "recall": 0.9131578947368421,
+        "frames": 5
+      },
+      "h25_poster_chess_250": {
+        "IoU": 0.0425760836151245,
+        "precision": 0.045686953653306946,
+        "recall": 0.38472222222222224,
+        "frames": 5
+      },
+      "h25_poster_empty": {
+        "IoU": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "frames": 5
+      },
+      "h25_poster_rags_075": {
+        "IoU": 0.6937256115208431,
+        "precision": 0.9015472809099516,
+        "recall": 0.7505884893639996,
+        "frames": 5
+      },
+      "h25_poster_rags_150": {
+        "IoU": 0.6464824674710942,
+        "precision": 0.8123193856141879,
+        "recall": 0.76,
+        "frames": 5
+      },
+      "h25_poster_rags_250": {
+        "IoU": 0.31538736165655124,
+        "precision": 0.3803823630726834,
+        "recall": 0.6486049926578561,
+        "frames": 5
+      },
+      "h52_floor_cables_075": {
+        "IoU": 0.4996782949633055,
+        "precision": 0.49996479333688754,
+        "recall": 0.998854501607717,
+        "frames": 5
+      },
+      "h52_floor_cables_150": {
+        "IoU": 0.4614141220152359,
+        "precision": 0.46464141821112004,
+        "recall": 0.9851699982914744,
+        "frames": 5
+      },
+      "h52_floor_cables_250": {
+        "IoU": 0.3327987897125567,
+        "precision": 0.3465998613474507,
+        "recall": 0.893138449045879,
+        "frames": 5
+      },
+      "h52_floor_chess_075": {
+        "IoU": 0.28426892950391647,
+        "precision": 0.28426892950391647,
+        "recall": 1.0,
+        "frames": 5
+      },
+      "h52_floor_chess_150": {
+        "IoU": 0.13582855418050105,
+        "precision": 0.13582855418050105,
+        "recall": 1.0,
+        "frames": 5
+      },
+      "h52_floor_chess_250": {
+        "IoU": 0.057564057564057566,
+        "precision": 0.059934218540626145,
+        "recall": 0.5927710843373494,
+        "frames": 5
+      },
+      "h52_floor_empty": {
+        "IoU": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "frames": 5
+      },
+      "h52_floor_hexkeys_075": {
+        "IoU": 0.21422828176892153,
+        "precision": 0.3618968877340105,
+        "recall": 0.3442696629213483,
+        "frames": 5
+      },
+      "h52_floor_hexkeys_150": {
+        "IoU": 0.16060582763127546,
+        "precision": 0.20458329252766624,
+        "recall": 0.4276356192425793,
+        "frames": 5
+      },
+      "h52_floor_hexkeys_250": {
+        "IoU": 0.06515365403409708,
+        "precision": 0.07767995857068877,
+        "recall": 0.28776978417266186,
+        "frames": 5
+      },
+      "h52_floor_rags_075": {
+        "IoU": 0.7396852427870552,
+        "precision": 0.8659329630910484,
+        "recall": 0.8353502976385164,
+        "frames": 5
+      },
+      "h52_floor_rags_150": {
+        "IoU": 0.7359476362506312,
+        "precision": 0.7411152619946408,
+        "recall": 0.9906143790849673,
+        "frames": 5
+      },
+      "h52_floor_rags_250": {
+        "IoU": 0.5834203477550279,
+        "precision": 0.5899554698618189,
+        "recall": 0.9813669339442536,
+        "frames": 5
+      },
+      "h52_floor_random_075": {
+        "IoU": 0.5328654868799582,
+        "precision": 0.5543714855795393,
+        "recall": 0.9321387723980176,
+        "frames": 5
+      },
+      "h52_floor_random_150": {
+        "IoU": 0.3067762495806776,
+        "precision": 0.3089005235602094,
+        "recall": 0.9780748663101604,
+        "frames": 5
+      },
+      "h52_floor_random_250": {
+        "IoU": 0.1883499546690843,
+        "precision": 0.19112235510579575,
+        "recall": 0.9284916201117318,
+        "frames": 5
+      },
+      "h52_floor_screws_075": {
+        "IoU": 0.30459110473457673,
+        "precision": 0.31403002736483987,
+        "recall": 0.910182207931404,
+        "frames": 5
+      },
+      "h52_floor_screws_150": {
+        "IoU": 0.14132966334956595,
+        "precision": 0.14423076923076922,
+        "recall": 0.8754098360655738,
+        "frames": 5
+      },
+      "h52_floor_screws_250": {
+        "IoU": 0.03251077164120642,
+        "precision": 0.03449709060681629,
+        "recall": 0.36086956521739133,
+        "frames": 5
+      },
+      "h52_floor_tapes_075": {
+        "IoU": 0.7750037574522803,
+        "precision": 0.7767159283000552,
+        "recall": 0.997163730124624,
+        "frames": 5
+      },
+      "h52_floor_tapes_150": {
+        "IoU": 0.5447438456420493,
+        "precision": 0.5500041985053321,
+        "recall": 0.9827456864216054,
+        "frames": 5
+      },
+      "h52_floor_tapes_250": {
+        "IoU": 0.3866965620328849,
+        "precision": 0.39199939389347677,
+        "recall": 0.9661998132586368,
+        "frames": 5
+      },
+      "h52_poster_cables_075": {
+        "IoU": 0.5076589560950044,
+        "precision": 0.6123211309694845,
+        "recall": 0.7481130419519045,
+        "frames": 5
+      },
+      "h52_poster_cables_150": {
+        "IoU": 0.45091143139553597,
+        "precision": 0.5012521081412582,
+        "recall": 0.8178444861371691,
+        "frames": 5
+      },
+      "h52_poster_cables_250": {
+        "IoU": 0.3274863370095232,
+        "precision": 0.36812095350206003,
+        "recall": 0.7479073243647235,
+        "frames": 5
+      },
+      "h52_poster_chess_075": {
+        "IoU": 0.47622132953220164,
+        "precision": 0.4768392370572207,
+        "recall": 0.9972862957937585,
+        "frames": 5
+      },
+      "h52_poster_chess_150": {
+        "IoU": 0.2544841330676069,
+        "precision": 0.2560542958506864,
+        "recall": 0.9764705882352941,
+        "frames": 5
+      },
+      "h52_poster_chess_250": {
+        "IoU": 0.05621401964104301,
+        "precision": 0.05864342910975035,
+        "recall": 0.5757225433526012,
+        "frames": 5
+      },
+      "h52_poster_empty": {
+        "IoU": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "frames": 5
+      },
+      "h52_poster_rags_075": {
+        "IoU": 0.6671610215698676,
+        "precision": 0.9393232205367561,
+        "recall": 0.6972079772079772,
+        "frames": 5
+      },
+      "h52_poster_rags_150": {
+        "IoU": 0.6333589026261168,
+        "precision": 0.7917477507967398,
+        "recall": 0.7599621007038441,
+        "frames": 5
+      },
+      "h52_poster_rags_250": {
+        "IoU": 0.3871996996996997,
+        "precision": 0.4381437825209727,
+        "recall": 0.7690587138863001,
+        "frames": 5
+      }
+    },
+    "frames": [
+      {
+        "group": "h25_floor_cables_075",
+        "frame": 0,
+        "inter": 10708,
+        "union": 19099,
+        "pred": 16977,
+        "gt": 12830
+      },
+      {
+        "group": "h25_floor_cables_075",
+        "frame": 1,
+        "inter": 10853,
+        "union": 19826,
+        "pred": 17849,
+        "gt": 12830
+      },
+      {
+        "group": "h25_floor_cables_075",
+        "frame": 2,
+        "inter": 10726,
+        "union": 20271,
+        "pred": 18167,
+        "gt": 12830
+      },
+      {
+        "group": "h25_floor_cables_075",
+        "frame": 3,
+        "inter": 10707,
+        "union": 19687,
+        "pred": 17564,
+        "gt": 12830
+      },
+      {
+        "group": "h25_floor_cables_075",
+        "frame": 4,
+        "inter": 11105,
+        "union": 19940,
+        "pred": 18215,
+        "gt": 12830
+      },
+      {
+        "group": "h25_floor_cables_150",
+        "frame": 0,
+        "inter": 3869,
+        "union": 8093,
+        "pred": 7441,
+        "gt": 4521
+      },
+      {
+        "group": "h25_floor_cables_150",
+        "frame": 1,
+        "inter": 4069,
+        "union": 8488,
+        "pred": 8036,
+        "gt": 4521
+      },
+      {
+        "group": "h25_floor_cables_150",
+        "frame": 2,
+        "inter": 3985,
+        "union": 8381,
+        "pred": 7845,
+        "gt": 4521
+      },
+      {
+        "group": "h25_floor_cables_150",
+        "frame": 3,
+        "inter": 3913,
+        "union": 8083,
+        "pred": 7475,
+        "gt": 4521
+      },
+      {
+        "group": "h25_floor_cables_150",
+        "frame": 4,
+        "inter": 4056,
+        "union": 8497,
+        "pred": 8032,
+        "gt": 4521
+      },
+      {
+        "group": "h25_floor_cables_250",
+        "frame": 0,
+        "inter": 1431,
+        "union": 3784,
+        "pred": 2952,
+        "gt": 2263
+      },
+      {
+        "group": "h25_floor_cables_250",
+        "frame": 1,
+        "inter": 1390,
+        "union": 4063,
+        "pred": 3190,
+        "gt": 2263
+      },
+      {
+        "group": "h25_floor_cables_250",
+        "frame": 2,
+        "inter": 1399,
+        "union": 3865,
+        "pred": 3001,
+        "gt": 2263
+      },
+      {
+        "group": "h25_floor_cables_250",
+        "frame": 3,
+        "inter": 1321,
+        "union": 3827,
+        "pred": 2885,
+        "gt": 2263
+      },
+      {
+        "group": "h25_floor_cables_250",
+        "frame": 4,
+        "inter": 1354,
+        "union": 4017,
+        "pred": 3108,
+        "gt": 2263
+      },
+      {
+        "group": "h25_floor_chess_075",
+        "frame": 0,
+        "inter": 993,
+        "union": 2443,
+        "pred": 2443,
+        "gt": 993
+      },
+      {
+        "group": "h25_floor_chess_075",
+        "frame": 1,
+        "inter": 993,
+        "union": 2736,
+        "pred": 2736,
+        "gt": 993
+      },
+      {
+        "group": "h25_floor_chess_075",
+        "frame": 2,
+        "inter": 993,
+        "union": 2512,
+        "pred": 2512,
+        "gt": 993
+      },
+      {
+        "group": "h25_floor_chess_075",
+        "frame": 3,
+        "inter": 993,
+        "union": 2588,
+        "pred": 2588,
+        "gt": 993
+      },
+      {
+        "group": "h25_floor_chess_075",
+        "frame": 4,
+        "inter": 993,
+        "union": 2296,
+        "pred": 2296,
+        "gt": 993
+      },
+      {
+        "group": "h25_floor_chess_150",
+        "frame": 0,
+        "inter": 280,
+        "union": 1337,
+        "pred": 1335,
+        "gt": 282
+      },
+      {
+        "group": "h25_floor_chess_150",
+        "frame": 1,
+        "inter": 280,
+        "union": 1386,
+        "pred": 1384,
+        "gt": 282
+      },
+      {
+        "group": "h25_floor_chess_150",
+        "frame": 2,
+        "inter": 280,
+        "union": 1445,
+        "pred": 1443,
+        "gt": 282
+      },
+      {
+        "group": "h25_floor_chess_150",
+        "frame": 3,
+        "inter": 275,
+        "union": 1477,
+        "pred": 1470,
+        "gt": 282
+      },
+      {
+        "group": "h25_floor_chess_150",
+        "frame": 4,
+        "inter": 276,
+        "union": 1512,
+        "pred": 1506,
+        "gt": 282
+      },
+      {
+        "group": "h25_floor_chess_250",
+        "frame": 0,
+        "inter": 86,
+        "union": 1327,
+        "pred": 1251,
+        "gt": 162
+      },
+      {
+        "group": "h25_floor_chess_250",
+        "frame": 1,
+        "inter": 77,
+        "union": 1132,
+        "pred": 1047,
+        "gt": 162
+      },
+      {
+        "group": "h25_floor_chess_250",
+        "frame": 2,
+        "inter": 85,
+        "union": 1182,
+        "pred": 1105,
+        "gt": 162
+      },
+      {
+        "group": "h25_floor_chess_250",
+        "frame": 3,
+        "inter": 79,
+        "union": 1131,
+        "pred": 1048,
+        "gt": 162
+      },
+      {
+        "group": "h25_floor_chess_250",
+        "frame": 4,
+        "inter": 106,
+        "union": 1145,
+        "pred": 1089,
+        "gt": 162
+      },
+      {
+        "group": "h25_floor_empty",
+        "frame": 0,
+        "inter": 0,
+        "union": 1335,
+        "pred": 1335,
+        "gt": 0
+      },
+      {
+        "group": "h25_floor_empty",
+        "frame": 1,
+        "inter": 0,
+        "union": 1161,
+        "pred": 1161,
+        "gt": 0
+      },
+      {
+        "group": "h25_floor_empty",
+        "frame": 2,
+        "inter": 0,
+        "union": 1178,
+        "pred": 1178,
+        "gt": 0
+      },
+      {
+        "group": "h25_floor_empty",
+        "frame": 3,
+        "inter": 0,
+        "union": 1186,
+        "pred": 1186,
+        "gt": 0
+      },
+      {
+        "group": "h25_floor_empty",
+        "frame": 4,
+        "inter": 0,
+        "union": 1086,
+        "pred": 1086,
+        "gt": 0
+      },
+      {
+        "group": "h25_floor_hexkeys_075",
+        "frame": 0,
+        "inter": 1362,
+        "union": 4293,
+        "pred": 2887,
+        "gt": 2768
+      },
+      {
+        "group": "h25_floor_hexkeys_075",
+        "frame": 1,
+        "inter": 1346,
+        "union": 4584,
+        "pred": 3162,
+        "gt": 2768
+      },
+      {
+        "group": "h25_floor_hexkeys_075",
+        "frame": 2,
+        "inter": 1357,
+        "union": 4628,
+        "pred": 3217,
+        "gt": 2768
+      },
+      {
+        "group": "h25_floor_hexkeys_075",
+        "frame": 3,
+        "inter": 1351,
+        "union": 4159,
+        "pred": 2742,
+        "gt": 2768
+      },
+      {
+        "group": "h25_floor_hexkeys_075",
+        "frame": 4,
+        "inter": 1348,
+        "union": 4445,
+        "pred": 3025,
+        "gt": 2768
+      },
+      {
+        "group": "h25_floor_hexkeys_150",
+        "frame": 0,
+        "inter": 227,
+        "union": 1908,
+        "pred": 1342,
+        "gt": 793
+      },
+      {
+        "group": "h25_floor_hexkeys_150",
+        "frame": 1,
+        "inter": 224,
+        "union": 1864,
+        "pred": 1295,
+        "gt": 793
+      },
+      {
+        "group": "h25_floor_hexkeys_150",
+        "frame": 2,
+        "inter": 229,
+        "union": 1779,
+        "pred": 1215,
+        "gt": 793
+      },
+      {
+        "group": "h25_floor_hexkeys_150",
+        "frame": 3,
+        "inter": 220,
+        "union": 2167,
+        "pred": 1594,
+        "gt": 793
+      },
+      {
+        "group": "h25_floor_hexkeys_150",
+        "frame": 4,
+        "inter": 229,
+        "union": 2077,
+        "pred": 1513,
+        "gt": 793
+      },
+      {
+        "group": "h25_floor_hexkeys_250",
+        "frame": 0,
+        "inter": 127,
+        "union": 1264,
+        "pred": 1042,
+        "gt": 349
+      },
+      {
+        "group": "h25_floor_hexkeys_250",
+        "frame": 1,
+        "inter": 68,
+        "union": 1292,
+        "pred": 1011,
+        "gt": 349
+      },
+      {
+        "group": "h25_floor_hexkeys_250",
+        "frame": 2,
+        "inter": 80,
+        "union": 1330,
+        "pred": 1061,
+        "gt": 349
+      },
+      {
+        "group": "h25_floor_hexkeys_250",
+        "frame": 3,
+        "inter": 74,
+        "union": 1165,
+        "pred": 890,
+        "gt": 349
+      },
+      {
+        "group": "h25_floor_hexkeys_250",
+        "frame": 4,
+        "inter": 120,
+        "union": 1215,
+        "pred": 986,
+        "gt": 349
+      },
+      {
+        "group": "h25_floor_rags_075",
+        "frame": 0,
+        "inter": 19740,
+        "union": 28524,
+        "pred": 22153,
+        "gt": 26111
+      },
+      {
+        "group": "h25_floor_rags_075",
+        "frame": 1,
+        "inter": 19751,
+        "union": 28561,
+        "pred": 22201,
+        "gt": 26111
+      },
+      {
+        "group": "h25_floor_rags_075",
+        "frame": 2,
+        "inter": 19747,
+        "union": 28687,
+        "pred": 22323,
+        "gt": 26111
+      },
+      {
+        "group": "h25_floor_rags_075",
+        "frame": 3,
+        "inter": 19750,
+        "union": 28520,
+        "pred": 22159,
+        "gt": 26111
+      },
+      {
+        "group": "h25_floor_rags_075",
+        "frame": 4,
+        "inter": 19751,
+        "union": 28621,
+        "pred": 22261,
+        "gt": 26111
+      },
+      {
+        "group": "h25_floor_rags_150",
+        "frame": 0,
+        "inter": 4485,
+        "union": 6010,
+        "pred": 5989,
+        "gt": 4506
+      },
+      {
+        "group": "h25_floor_rags_150",
+        "frame": 1,
+        "inter": 4493,
+        "union": 6046,
+        "pred": 6033,
+        "gt": 4506
+      },
+      {
+        "group": "h25_floor_rags_150",
+        "frame": 2,
+        "inter": 4495,
+        "union": 6065,
+        "pred": 6054,
+        "gt": 4506
+      },
+      {
+        "group": "h25_floor_rags_150",
+        "frame": 3,
+        "inter": 4489,
+        "union": 6127,
+        "pred": 6110,
+        "gt": 4506
+      },
+      {
+        "group": "h25_floor_rags_150",
+        "frame": 4,
+        "inter": 4484,
+        "union": 6071,
+        "pred": 6049,
+        "gt": 4506
+      },
+      {
+        "group": "h25_floor_rags_250",
+        "frame": 0,
+        "inter": 1245,
+        "union": 2752,
+        "pred": 2750,
+        "gt": 1247
+      },
+      {
+        "group": "h25_floor_rags_250",
+        "frame": 1,
+        "inter": 1247,
+        "union": 2769,
+        "pred": 2769,
+        "gt": 1247
+      },
+      {
+        "group": "h25_floor_rags_250",
+        "frame": 2,
+        "inter": 1247,
+        "union": 2768,
+        "pred": 2768,
+        "gt": 1247
+      },
+      {
+        "group": "h25_floor_rags_250",
+        "frame": 3,
+        "inter": 1247,
+        "union": 2648,
+        "pred": 2648,
+        "gt": 1247
+      },
+      {
+        "group": "h25_floor_rags_250",
+        "frame": 4,
+        "inter": 1247,
+        "union": 2685,
+        "pred": 2685,
+        "gt": 1247
+      },
+      {
+        "group": "h25_floor_random_075",
+        "frame": 0,
+        "inter": 3137,
+        "union": 4810,
+        "pred": 4681,
+        "gt": 3266
+      },
+      {
+        "group": "h25_floor_random_075",
+        "frame": 1,
+        "inter": 3143,
+        "union": 4960,
+        "pred": 4837,
+        "gt": 3266
+      },
+      {
+        "group": "h25_floor_random_075",
+        "frame": 2,
+        "inter": 3143,
+        "union": 4749,
+        "pred": 4626,
+        "gt": 3266
+      },
+      {
+        "group": "h25_floor_random_075",
+        "frame": 3,
+        "inter": 3144,
+        "union": 4812,
+        "pred": 4690,
+        "gt": 3266
+      },
+      {
+        "group": "h25_floor_random_075",
+        "frame": 4,
+        "inter": 3142,
+        "union": 5029,
+        "pred": 4905,
+        "gt": 3266
+      },
+      {
+        "group": "h25_floor_random_150",
+        "frame": 0,
+        "inter": 847,
+        "union": 2133,
+        "pred": 2084,
+        "gt": 896
+      },
+      {
+        "group": "h25_floor_random_150",
+        "frame": 1,
+        "inter": 853,
+        "union": 2024,
+        "pred": 1981,
+        "gt": 896
+      },
+      {
+        "group": "h25_floor_random_150",
+        "frame": 2,
+        "inter": 848,
+        "union": 2059,
+        "pred": 2011,
+        "gt": 896
+      },
+      {
+        "group": "h25_floor_random_150",
+        "frame": 3,
+        "inter": 892,
+        "union": 2067,
+        "pred": 2063,
+        "gt": 896
+      },
+      {
+        "group": "h25_floor_random_150",
+        "frame": 4,
+        "inter": 866,
+        "union": 1952,
+        "pred": 1922,
+        "gt": 896
+      },
+      {
+        "group": "h25_floor_random_250",
+        "frame": 0,
+        "inter": 355,
+        "union": 1535,
+        "pred": 1511,
+        "gt": 379
+      },
+      {
+        "group": "h25_floor_random_250",
+        "frame": 1,
+        "inter": 342,
+        "union": 1549,
+        "pred": 1512,
+        "gt": 379
+      },
+      {
+        "group": "h25_floor_random_250",
+        "frame": 2,
+        "inter": 357,
+        "union": 1439,
+        "pred": 1417,
+        "gt": 379
+      },
+      {
+        "group": "h25_floor_random_250",
+        "frame": 3,
+        "inter": 358,
+        "union": 1312,
+        "pred": 1291,
+        "gt": 379
+      },
+      {
+        "group": "h25_floor_random_250",
+        "frame": 4,
+        "inter": 349,
+        "union": 1409,
+        "pred": 1379,
+        "gt": 379
+      },
+      {
+        "group": "h25_floor_screws_075",
+        "frame": 0,
+        "inter": 845,
+        "union": 2119,
+        "pred": 2112,
+        "gt": 852
+      },
+      {
+        "group": "h25_floor_screws_075",
+        "frame": 1,
+        "inter": 846,
+        "union": 2004,
+        "pred": 1998,
+        "gt": 852
+      },
+      {
+        "group": "h25_floor_screws_075",
+        "frame": 2,
+        "inter": 844,
+        "union": 2336,
+        "pred": 2328,
+        "gt": 852
+      },
+      {
+        "group": "h25_floor_screws_075",
+        "frame": 3,
+        "inter": 847,
+        "union": 2494,
+        "pred": 2489,
+        "gt": 852
+      },
+      {
+        "group": "h25_floor_screws_075",
+        "frame": 4,
+        "inter": 849,
+        "union": 2302,
+        "pred": 2299,
+        "gt": 852
+      },
+      {
+        "group": "h25_floor_screws_150",
+        "frame": 0,
+        "inter": 107,
+        "union": 1119,
+        "pred": 989,
+        "gt": 237
+      },
+      {
+        "group": "h25_floor_screws_150",
+        "frame": 1,
+        "inter": 101,
+        "union": 1005,
+        "pred": 869,
+        "gt": 237
+      },
+      {
+        "group": "h25_floor_screws_150",
+        "frame": 2,
+        "inter": 119,
+        "union": 1277,
+        "pred": 1159,
+        "gt": 237
+      },
+      {
+        "group": "h25_floor_screws_150",
+        "frame": 3,
+        "inter": 117,
+        "union": 1212,
+        "pred": 1092,
+        "gt": 237
+      },
+      {
+        "group": "h25_floor_screws_150",
+        "frame": 4,
+        "inter": 112,
+        "union": 1039,
+        "pred": 914,
+        "gt": 237
+      },
+      {
+        "group": "h25_floor_screws_250",
+        "frame": 0,
+        "inter": 47,
+        "union": 1010,
+        "pred": 863,
+        "gt": 194
+      },
+      {
+        "group": "h25_floor_screws_250",
+        "frame": 1,
+        "inter": 45,
+        "union": 1112,
+        "pred": 963,
+        "gt": 194
+      },
+      {
+        "group": "h25_floor_screws_250",
+        "frame": 2,
+        "inter": 43,
+        "union": 942,
+        "pred": 791,
+        "gt": 194
+      },
+      {
+        "group": "h25_floor_screws_250",
+        "frame": 3,
+        "inter": 44,
+        "union": 1166,
+        "pred": 1016,
+        "gt": 194
+      },
+      {
+        "group": "h25_floor_screws_250",
+        "frame": 4,
+        "inter": 45,
+        "union": 1043,
+        "pred": 894,
+        "gt": 194
+      },
+      {
+        "group": "h25_floor_tapes_075",
+        "frame": 0,
+        "inter": 9920,
+        "union": 12204,
+        "pred": 12132,
+        "gt": 9992
+      },
+      {
+        "group": "h25_floor_tapes_075",
+        "frame": 1,
+        "inter": 9904,
+        "union": 12124,
+        "pred": 12036,
+        "gt": 9992
+      },
+      {
+        "group": "h25_floor_tapes_075",
+        "frame": 2,
+        "inter": 9919,
+        "union": 12166,
+        "pred": 12093,
+        "gt": 9992
+      },
+      {
+        "group": "h25_floor_tapes_075",
+        "frame": 3,
+        "inter": 9900,
+        "union": 12235,
+        "pred": 12143,
+        "gt": 9992
+      },
+      {
+        "group": "h25_floor_tapes_075",
+        "frame": 4,
+        "inter": 9916,
+        "union": 12174,
+        "pred": 12098,
+        "gt": 9992
+      },
+      {
+        "group": "h25_floor_tapes_150",
+        "frame": 0,
+        "inter": 1944,
+        "union": 3326,
+        "pred": 3301,
+        "gt": 1969
+      },
+      {
+        "group": "h25_floor_tapes_150",
+        "frame": 1,
+        "inter": 1945,
+        "union": 3335,
+        "pred": 3311,
+        "gt": 1969
+      },
+      {
+        "group": "h25_floor_tapes_150",
+        "frame": 2,
+        "inter": 1943,
+        "union": 3196,
+        "pred": 3170,
+        "gt": 1969
+      },
+      {
+        "group": "h25_floor_tapes_150",
+        "frame": 3,
+        "inter": 1940,
+        "union": 3280,
+        "pred": 3251,
+        "gt": 1969
+      },
+      {
+        "group": "h25_floor_tapes_150",
+        "frame": 4,
+        "inter": 1944,
+        "union": 3253,
+        "pred": 3228,
+        "gt": 1969
+      },
+      {
+        "group": "h25_floor_tapes_250",
+        "frame": 0,
+        "inter": 891,
+        "union": 2241,
+        "pred": 2164,
+        "gt": 968
+      },
+      {
+        "group": "h25_floor_tapes_250",
+        "frame": 1,
+        "inter": 921,
+        "union": 2052,
+        "pred": 2005,
+        "gt": 968
+      },
+      {
+        "group": "h25_floor_tapes_250",
+        "frame": 2,
+        "inter": 851,
+        "union": 1881,
+        "pred": 1764,
+        "gt": 968
+      },
+      {
+        "group": "h25_floor_tapes_250",
+        "frame": 3,
+        "inter": 874,
+        "union": 2125,
+        "pred": 2031,
+        "gt": 968
+      },
+      {
+        "group": "h25_floor_tapes_250",
+        "frame": 4,
+        "inter": 833,
+        "union": 1935,
+        "pred": 1800,
+        "gt": 968
+      },
+      {
+        "group": "h25_poster_cables_075",
+        "frame": 0,
+        "inter": 6605,
+        "union": 14011,
+        "pred": 9790,
+        "gt": 10826
+      },
+      {
+        "group": "h25_poster_cables_075",
+        "frame": 1,
+        "inter": 5438,
+        "union": 13859,
+        "pred": 8471,
+        "gt": 10826
+      },
+      {
+        "group": "h25_poster_cables_075",
+        "frame": 2,
+        "inter": 7932,
+        "union": 14932,
+        "pred": 12038,
+        "gt": 10826
+      },
+      {
+        "group": "h25_poster_cables_075",
+        "frame": 3,
+        "inter": 5025,
+        "union": 13730,
+        "pred": 7929,
+        "gt": 10826
+      },
+      {
+        "group": "h25_poster_cables_075",
+        "frame": 4,
+        "inter": 4766,
+        "union": 13532,
+        "pred": 7472,
+        "gt": 10826
+      },
+      {
+        "group": "h25_poster_cables_150",
+        "frame": 0,
+        "inter": 4217,
+        "union": 8849,
+        "pred": 8363,
+        "gt": 4703
+      },
+      {
+        "group": "h25_poster_cables_150",
+        "frame": 1,
+        "inter": 3851,
+        "union": 8251,
+        "pred": 7399,
+        "gt": 4703
+      },
+      {
+        "group": "h25_poster_cables_150",
+        "frame": 2,
+        "inter": 4037,
+        "union": 8030,
+        "pred": 7364,
+        "gt": 4703
+      },
+      {
+        "group": "h25_poster_cables_150",
+        "frame": 3,
+        "inter": 3985,
+        "union": 7806,
+        "pred": 7088,
+        "gt": 4703
+      },
+      {
+        "group": "h25_poster_cables_150",
+        "frame": 4,
+        "inter": 3856,
+        "union": 8529,
+        "pred": 7682,
+        "gt": 4703
+      },
+      {
+        "group": "h25_poster_cables_250",
+        "frame": 0,
+        "inter": 1297,
+        "union": 3743,
+        "pred": 3233,
+        "gt": 1807
+      },
+      {
+        "group": "h25_poster_cables_250",
+        "frame": 1,
+        "inter": 1315,
+        "union": 3425,
+        "pred": 2933,
+        "gt": 1807
+      },
+      {
+        "group": "h25_poster_cables_250",
+        "frame": 2,
+        "inter": 1275,
+        "union": 3754,
+        "pred": 3222,
+        "gt": 1807
+      },
+      {
+        "group": "h25_poster_cables_250",
+        "frame": 3,
+        "inter": 1300,
+        "union": 3540,
+        "pred": 3033,
+        "gt": 1807
+      },
+      {
+        "group": "h25_poster_cables_250",
+        "frame": 4,
+        "inter": 1314,
+        "union": 3526,
+        "pred": 3033,
+        "gt": 1807
+      },
+      {
+        "group": "h25_poster_chess_075",
+        "frame": 0,
+        "inter": 830,
+        "union": 1504,
+        "pred": 1503,
+        "gt": 831
+      },
+      {
+        "group": "h25_poster_chess_075",
+        "frame": 1,
+        "inter": 826,
+        "union": 1506,
+        "pred": 1501,
+        "gt": 831
+      },
+      {
+        "group": "h25_poster_chess_075",
+        "frame": 2,
+        "inter": 829,
+        "union": 1530,
+        "pred": 1528,
+        "gt": 831
+      },
+      {
+        "group": "h25_poster_chess_075",
+        "frame": 3,
+        "inter": 829,
+        "union": 1517,
+        "pred": 1515,
+        "gt": 831
+      },
+      {
+        "group": "h25_poster_chess_075",
+        "frame": 4,
+        "inter": 831,
+        "union": 1433,
+        "pred": 1433,
+        "gt": 831
+      },
+      {
+        "group": "h25_poster_chess_150",
+        "frame": 0,
+        "inter": 279,
+        "union": 918,
+        "pred": 893,
+        "gt": 304
+      },
+      {
+        "group": "h25_poster_chess_150",
+        "frame": 1,
+        "inter": 262,
+        "union": 792,
+        "pred": 750,
+        "gt": 304
+      },
+      {
+        "group": "h25_poster_chess_150",
+        "frame": 2,
+        "inter": 284,
+        "union": 837,
+        "pred": 817,
+        "gt": 304
+      },
+      {
+        "group": "h25_poster_chess_150",
+        "frame": 3,
+        "inter": 298,
+        "union": 854,
+        "pred": 848,
+        "gt": 304
+      },
+      {
+        "group": "h25_poster_chess_150",
+        "frame": 4,
+        "inter": 265,
+        "union": 812,
+        "pred": 773,
+        "gt": 304
+      },
+      {
+        "group": "h25_poster_chess_250",
+        "frame": 0,
+        "inter": 56,
+        "union": 1195,
+        "pred": 1107,
+        "gt": 144
+      },
+      {
+        "group": "h25_poster_chess_250",
+        "frame": 1,
+        "inter": 42,
+        "union": 1533,
+        "pred": 1431,
+        "gt": 144
+      },
+      {
+        "group": "h25_poster_chess_250",
+        "frame": 2,
+        "inter": 60,
+        "union": 1177,
+        "pred": 1093,
+        "gt": 144
+      },
+      {
+        "group": "h25_poster_chess_250",
+        "frame": 3,
+        "inter": 61,
+        "union": 1386,
+        "pred": 1303,
+        "gt": 144
+      },
+      {
+        "group": "h25_poster_chess_250",
+        "frame": 4,
+        "inter": 58,
+        "union": 1215,
+        "pred": 1129,
+        "gt": 144
+      },
+      {
+        "group": "h25_poster_empty",
+        "frame": 0,
+        "inter": 0,
+        "union": 560,
+        "pred": 560,
+        "gt": 0
+      },
+      {
+        "group": "h25_poster_empty",
+        "frame": 1,
+        "inter": 0,
+        "union": 594,
+        "pred": 594,
+        "gt": 0
+      },
+      {
+        "group": "h25_poster_empty",
+        "frame": 2,
+        "inter": 0,
+        "union": 612,
+        "pred": 612,
+        "gt": 0
+      },
+      {
+        "group": "h25_poster_empty",
+        "frame": 3,
+        "inter": 0,
+        "union": 494,
+        "pred": 494,
+        "gt": 0
+      },
+      {
+        "group": "h25_poster_empty",
+        "frame": 4,
+        "inter": 0,
+        "union": 668,
+        "pred": 668,
+        "gt": 0
+      },
+      {
+        "group": "h25_poster_rags_075",
+        "frame": 0,
+        "inter": 13906,
+        "union": 19982,
+        "pred": 15366,
+        "gt": 18522
+      },
+      {
+        "group": "h25_poster_rags_075",
+        "frame": 1,
+        "inter": 13904,
+        "union": 20191,
+        "pred": 15573,
+        "gt": 18522
+      },
+      {
+        "group": "h25_poster_rags_075",
+        "frame": 2,
+        "inter": 13905,
+        "union": 19933,
+        "pred": 15316,
+        "gt": 18522
+      },
+      {
+        "group": "h25_poster_rags_075",
+        "frame": 3,
+        "inter": 13901,
+        "union": 20072,
+        "pred": 15451,
+        "gt": 18522
+      },
+      {
+        "group": "h25_poster_rags_075",
+        "frame": 4,
+        "inter": 13896,
+        "union": 20023,
+        "pred": 15397,
+        "gt": 18522
+      },
+      {
+        "group": "h25_poster_rags_150",
+        "frame": 0,
+        "inter": 4104,
+        "union": 6326,
+        "pred": 5030,
+        "gt": 5400
+      },
+      {
+        "group": "h25_poster_rags_150",
+        "frame": 1,
+        "inter": 4104,
+        "union": 6352,
+        "pred": 5056,
+        "gt": 5400
+      },
+      {
+        "group": "h25_poster_rags_150",
+        "frame": 2,
+        "inter": 4104,
+        "union": 6330,
+        "pred": 5034,
+        "gt": 5400
+      },
+      {
+        "group": "h25_poster_rags_150",
+        "frame": 3,
+        "inter": 4104,
+        "union": 6423,
+        "pred": 5127,
+        "gt": 5400
+      },
+      {
+        "group": "h25_poster_rags_150",
+        "frame": 4,
+        "inter": 4104,
+        "union": 6310,
+        "pred": 5014,
+        "gt": 5400
+      },
+      {
+        "group": "h25_poster_rags_250",
+        "frame": 0,
+        "inter": 881,
+        "union": 2920,
+        "pred": 2439,
+        "gt": 1362
+      },
+      {
+        "group": "h25_poster_rags_250",
+        "frame": 1,
+        "inter": 881,
+        "union": 2873,
+        "pred": 2392,
+        "gt": 1362
+      },
+      {
+        "group": "h25_poster_rags_250",
+        "frame": 2,
+        "inter": 881,
+        "union": 2747,
+        "pred": 2266,
+        "gt": 1362
+      },
+      {
+        "group": "h25_poster_rags_250",
+        "frame": 3,
+        "inter": 894,
+        "union": 2677,
+        "pred": 2209,
+        "gt": 1362
+      },
+      {
+        "group": "h25_poster_rags_250",
+        "frame": 4,
+        "inter": 880,
+        "union": 2788,
+        "pred": 2306,
+        "gt": 1362
+      },
+      {
+        "group": "h52_floor_cables_075",
+        "frame": 0,
+        "inter": 9942,
+        "union": 19827,
+        "pred": 19817,
+        "gt": 9952
+      },
+      {
+        "group": "h52_floor_cables_075",
+        "frame": 1,
+        "inter": 9938,
+        "union": 19856,
+        "pred": 19842,
+        "gt": 9952
+      },
+      {
+        "group": "h52_floor_cables_075",
+        "frame": 2,
+        "inter": 9943,
+        "union": 19778,
+        "pred": 19769,
+        "gt": 9952
+      },
+      {
+        "group": "h52_floor_cables_075",
+        "frame": 3,
+        "inter": 9937,
+        "union": 19964,
+        "pred": 19949,
+        "gt": 9952
+      },
+      {
+        "group": "h52_floor_cables_075",
+        "frame": 4,
+        "inter": 9943,
+        "union": 20045,
+        "pred": 20036,
+        "gt": 9952
+      },
+      {
+        "group": "h52_floor_cables_150",
+        "frame": 0,
+        "inter": 5739,
+        "union": 12456,
+        "pred": 12342,
+        "gt": 5853
+      },
+      {
+        "group": "h52_floor_cables_150",
+        "frame": 1,
+        "inter": 5778,
+        "union": 12563,
+        "pred": 12488,
+        "gt": 5853
+      },
+      {
+        "group": "h52_floor_cables_150",
+        "frame": 2,
+        "inter": 5825,
+        "union": 12672,
+        "pred": 12644,
+        "gt": 5853
+      },
+      {
+        "group": "h52_floor_cables_150",
+        "frame": 3,
+        "inter": 5716,
+        "union": 12342,
+        "pred": 12205,
+        "gt": 5853
+      },
+      {
+        "group": "h52_floor_cables_150",
+        "frame": 4,
+        "inter": 5773,
+        "union": 12451,
+        "pred": 12371,
+        "gt": 5853
+      },
+      {
+        "group": "h52_floor_cables_250",
+        "frame": 0,
+        "inter": 2193,
+        "union": 6554,
+        "pred": 6284,
+        "gt": 2463
+      },
+      {
+        "group": "h52_floor_cables_250",
+        "frame": 1,
+        "inter": 2200,
+        "union": 6584,
+        "pred": 6321,
+        "gt": 2463
+      },
+      {
+        "group": "h52_floor_cables_250",
+        "frame": 2,
+        "inter": 2192,
+        "union": 6475,
+        "pred": 6204,
+        "gt": 2463
+      },
+      {
+        "group": "h52_floor_cables_250",
+        "frame": 3,
+        "inter": 2193,
+        "union": 6652,
+        "pred": 6382,
+        "gt": 2463
+      },
+      {
+        "group": "h52_floor_cables_250",
+        "frame": 4,
+        "inter": 2221,
+        "union": 6785,
+        "pred": 6543,
+        "gt": 2463
+      },
+      {
+        "group": "h52_floor_chess_075",
+        "frame": 0,
+        "inter": 871,
+        "union": 3198,
+        "pred": 3198,
+        "gt": 871
+      },
+      {
+        "group": "h52_floor_chess_075",
+        "frame": 1,
+        "inter": 871,
+        "union": 3078,
+        "pred": 3078,
+        "gt": 871
+      },
+      {
+        "group": "h52_floor_chess_075",
+        "frame": 2,
+        "inter": 871,
+        "union": 2994,
+        "pred": 2994,
+        "gt": 871
+      },
+      {
+        "group": "h52_floor_chess_075",
+        "frame": 3,
+        "inter": 871,
+        "union": 2923,
+        "pred": 2923,
+        "gt": 871
+      },
+      {
+        "group": "h52_floor_chess_075",
+        "frame": 4,
+        "inter": 871,
+        "union": 3127,
+        "pred": 3127,
+        "gt": 871
+      },
+      {
+        "group": "h52_floor_chess_150",
+        "frame": 0,
+        "inter": 270,
+        "union": 2024,
+        "pred": 2024,
+        "gt": 270
+      },
+      {
+        "group": "h52_floor_chess_150",
+        "frame": 1,
+        "inter": 270,
+        "union": 2003,
+        "pred": 2003,
+        "gt": 270
+      },
+      {
+        "group": "h52_floor_chess_150",
+        "frame": 2,
+        "inter": 270,
+        "union": 1978,
+        "pred": 1978,
+        "gt": 270
+      },
+      {
+        "group": "h52_floor_chess_150",
+        "frame": 3,
+        "inter": 270,
+        "union": 1982,
+        "pred": 1982,
+        "gt": 270
+      },
+      {
+        "group": "h52_floor_chess_150",
+        "frame": 4,
+        "inter": 270,
+        "union": 1952,
+        "pred": 1952,
+        "gt": 270
+      },
+      {
+        "group": "h52_floor_chess_250",
+        "frame": 0,
+        "inter": 96,
+        "union": 1644,
+        "pred": 1574,
+        "gt": 166
+      },
+      {
+        "group": "h52_floor_chess_250",
+        "frame": 1,
+        "inter": 102,
+        "union": 1826,
+        "pred": 1762,
+        "gt": 166
+      },
+      {
+        "group": "h52_floor_chess_250",
+        "frame": 2,
+        "inter": 96,
+        "union": 1696,
+        "pred": 1626,
+        "gt": 166
+      },
+      {
+        "group": "h52_floor_chess_250",
+        "frame": 3,
+        "inter": 102,
+        "union": 1699,
+        "pred": 1635,
+        "gt": 166
+      },
+      {
+        "group": "h52_floor_chess_250",
+        "frame": 4,
+        "inter": 96,
+        "union": 1682,
+        "pred": 1612,
+        "gt": 166
+      },
+      {
+        "group": "h52_floor_empty",
+        "frame": 0,
+        "inter": 0,
+        "union": 1422,
+        "pred": 1422,
+        "gt": 0
+      },
+      {
+        "group": "h52_floor_empty",
+        "frame": 1,
+        "inter": 0,
+        "union": 1568,
+        "pred": 1568,
+        "gt": 0
+      },
+      {
+        "group": "h52_floor_empty",
+        "frame": 2,
+        "inter": 0,
+        "union": 1612,
+        "pred": 1612,
+        "gt": 0
+      },
+      {
+        "group": "h52_floor_empty",
+        "frame": 3,
+        "inter": 0,
+        "union": 1521,
+        "pred": 1521,
+        "gt": 0
+      },
+      {
+        "group": "h52_floor_empty",
+        "frame": 4,
+        "inter": 0,
+        "union": 1473,
+        "pred": 1473,
+        "gt": 0
+      },
+      {
+        "group": "h52_floor_hexkeys_075",
+        "frame": 0,
+        "inter": 1225,
+        "union": 5814,
+        "pred": 3479,
+        "gt": 3560
+      },
+      {
+        "group": "h52_floor_hexkeys_075",
+        "frame": 1,
+        "inter": 1226,
+        "union": 5631,
+        "pred": 3297,
+        "gt": 3560
+      },
+      {
+        "group": "h52_floor_hexkeys_075",
+        "frame": 2,
+        "inter": 1223,
+        "union": 5794,
+        "pred": 3457,
+        "gt": 3560
+      },
+      {
+        "group": "h52_floor_hexkeys_075",
+        "frame": 3,
+        "inter": 1224,
+        "union": 5687,
+        "pred": 3351,
+        "gt": 3560
+      },
+      {
+        "group": "h52_floor_hexkeys_075",
+        "frame": 4,
+        "inter": 1230,
+        "union": 5679,
+        "pred": 3349,
+        "gt": 3560
+      },
+      {
+        "group": "h52_floor_hexkeys_150",
+        "frame": 0,
+        "inter": 502,
+        "union": 2892,
+        "pred": 2417,
+        "gt": 977
+      },
+      {
+        "group": "h52_floor_hexkeys_150",
+        "frame": 1,
+        "inter": 418,
+        "union": 2595,
+        "pred": 2036,
+        "gt": 977
+      },
+      {
+        "group": "h52_floor_hexkeys_150",
+        "frame": 2,
+        "inter": 284,
+        "union": 2462,
+        "pred": 1769,
+        "gt": 977
+      },
+      {
+        "group": "h52_floor_hexkeys_150",
+        "frame": 3,
+        "inter": 454,
+        "union": 2527,
+        "pred": 2004,
+        "gt": 977
+      },
+      {
+        "group": "h52_floor_hexkeys_150",
+        "frame": 4,
+        "inter": 431,
+        "union": 2531,
+        "pred": 1985,
+        "gt": 977
+      },
+      {
+        "group": "h52_floor_hexkeys_250",
+        "frame": 0,
+        "inter": 39,
+        "union": 1889,
+        "pred": 1511,
+        "gt": 417
+      },
+      {
+        "group": "h52_floor_hexkeys_250",
+        "frame": 1,
+        "inter": 115,
+        "union": 1830,
+        "pred": 1528,
+        "gt": 417
+      },
+      {
+        "group": "h52_floor_hexkeys_250",
+        "frame": 2,
+        "inter": 217,
+        "union": 1832,
+        "pred": 1632,
+        "gt": 417
+      },
+      {
+        "group": "h52_floor_hexkeys_250",
+        "frame": 3,
+        "inter": 149,
+        "union": 1772,
+        "pred": 1504,
+        "gt": 417
+      },
+      {
+        "group": "h52_floor_hexkeys_250",
+        "frame": 4,
+        "inter": 80,
+        "union": 1886,
+        "pred": 1549,
+        "gt": 417
+      },
+      {
+        "group": "h52_floor_rags_075",
+        "frame": 0,
+        "inter": 23862,
+        "union": 34379,
+        "pred": 27667,
+        "gt": 30574
+      },
+      {
+        "group": "h52_floor_rags_075",
+        "frame": 1,
+        "inter": 26332,
+        "union": 34667,
+        "pred": 30425,
+        "gt": 30574
+      },
+      {
+        "group": "h52_floor_rags_075",
+        "frame": 2,
+        "inter": 24629,
+        "union": 34582,
+        "pred": 28637,
+        "gt": 30574
+      },
+      {
+        "group": "h52_floor_rags_075",
+        "frame": 3,
+        "inter": 28999,
+        "union": 34777,
+        "pred": 33202,
+        "gt": 30574
+      },
+      {
+        "group": "h52_floor_rags_075",
+        "frame": 4,
+        "inter": 23878,
+        "union": 34236,
+        "pred": 27540,
+        "gt": 30574
+      },
+      {
+        "group": "h52_floor_rags_150",
+        "frame": 0,
+        "inter": 7579,
+        "union": 10302,
+        "pred": 10231,
+        "gt": 7650
+      },
+      {
+        "group": "h52_floor_rags_150",
+        "frame": 1,
+        "inter": 7579,
+        "union": 10386,
+        "pred": 10315,
+        "gt": 7650
+      },
+      {
+        "group": "h52_floor_rags_150",
+        "frame": 2,
+        "inter": 7575,
+        "union": 10302,
+        "pred": 10227,
+        "gt": 7650
+      },
+      {
+        "group": "h52_floor_rags_150",
+        "frame": 3,
+        "inter": 7569,
+        "union": 10271,
+        "pred": 10190,
+        "gt": 7650
+      },
+      {
+        "group": "h52_floor_rags_150",
+        "frame": 4,
+        "inter": 7589,
+        "union": 10225,
+        "pred": 10164,
+        "gt": 7650
+      },
+      {
+        "group": "h52_floor_rags_250",
+        "frame": 0,
+        "inter": 2564,
+        "union": 4396,
+        "pred": 4341,
+        "gt": 2619
+      },
+      {
+        "group": "h52_floor_rags_250",
+        "frame": 1,
+        "inter": 2567,
+        "union": 4418,
+        "pred": 4366,
+        "gt": 2619
+      },
+      {
+        "group": "h52_floor_rags_250",
+        "frame": 2,
+        "inter": 2571,
+        "union": 4369,
+        "pred": 4321,
+        "gt": 2619
+      },
+      {
+        "group": "h52_floor_rags_250",
+        "frame": 3,
+        "inter": 2568,
+        "union": 4363,
+        "pred": 4312,
+        "gt": 2619
+      },
+      {
+        "group": "h52_floor_rags_250",
+        "frame": 4,
+        "inter": 2581,
+        "union": 4481,
+        "pred": 4443,
+        "gt": 2619
+      },
+      {
+        "group": "h52_floor_random_075",
+        "frame": 0,
+        "inter": 2448,
+        "union": 4613,
+        "pred": 4438,
+        "gt": 2623
+      },
+      {
+        "group": "h52_floor_random_075",
+        "frame": 1,
+        "inter": 2444,
+        "union": 4696,
+        "pred": 4517,
+        "gt": 2623
+      },
+      {
+        "group": "h52_floor_random_075",
+        "frame": 2,
+        "inter": 2445,
+        "union": 4621,
+        "pred": 4443,
+        "gt": 2623
+      },
+      {
+        "group": "h52_floor_random_075",
+        "frame": 3,
+        "inter": 2441,
+        "union": 4421,
+        "pred": 4239,
+        "gt": 2623
+      },
+      {
+        "group": "h52_floor_random_075",
+        "frame": 4,
+        "inter": 2447,
+        "union": 4591,
+        "pred": 4415,
+        "gt": 2623
+      },
+      {
+        "group": "h52_floor_random_150",
+        "frame": 0,
+        "inter": 724,
+        "union": 2443,
+        "pred": 2419,
+        "gt": 748
+      },
+      {
+        "group": "h52_floor_random_150",
+        "frame": 1,
+        "inter": 727,
+        "union": 2341,
+        "pred": 2320,
+        "gt": 748
+      },
+      {
+        "group": "h52_floor_random_150",
+        "frame": 2,
+        "inter": 742,
+        "union": 2480,
+        "pred": 2474,
+        "gt": 748
+      },
+      {
+        "group": "h52_floor_random_150",
+        "frame": 3,
+        "inter": 728,
+        "union": 2278,
+        "pred": 2258,
+        "gt": 748
+      },
+      {
+        "group": "h52_floor_random_150",
+        "frame": 4,
+        "inter": 737,
+        "union": 2382,
+        "pred": 2371,
+        "gt": 748
+      },
+      {
+        "group": "h52_floor_random_250",
+        "frame": 0,
+        "inter": 331,
+        "union": 1627,
+        "pred": 1600,
+        "gt": 358
+      },
+      {
+        "group": "h52_floor_random_250",
+        "frame": 1,
+        "inter": 331,
+        "union": 1831,
+        "pred": 1804,
+        "gt": 358
+      },
+      {
+        "group": "h52_floor_random_250",
+        "frame": 2,
+        "inter": 335,
+        "union": 1800,
+        "pred": 1777,
+        "gt": 358
+      },
+      {
+        "group": "h52_floor_random_250",
+        "frame": 3,
+        "inter": 331,
+        "union": 1688,
+        "pred": 1661,
+        "gt": 358
+      },
+      {
+        "group": "h52_floor_random_250",
+        "frame": 4,
+        "inter": 334,
+        "union": 1878,
+        "pred": 1854,
+        "gt": 358
+      },
+      {
+        "group": "h52_floor_screws_075",
+        "frame": 0,
+        "inter": 811,
+        "union": 2731,
+        "pred": 2609,
+        "gt": 933
+      },
+      {
+        "group": "h52_floor_screws_075",
+        "frame": 1,
+        "inter": 847,
+        "union": 2836,
+        "pred": 2750,
+        "gt": 933
+      },
+      {
+        "group": "h52_floor_screws_075",
+        "frame": 2,
+        "inter": 847,
+        "union": 2838,
+        "pred": 2752,
+        "gt": 933
+      },
+      {
+        "group": "h52_floor_screws_075",
+        "frame": 3,
+        "inter": 893,
+        "union": 2759,
+        "pred": 2719,
+        "gt": 933
+      },
+      {
+        "group": "h52_floor_screws_075",
+        "frame": 4,
+        "inter": 848,
+        "union": 2776,
+        "pred": 2691,
+        "gt": 933
+      },
+      {
+        "group": "h52_floor_screws_150",
+        "frame": 0,
+        "inter": 257,
+        "union": 1840,
+        "pred": 1792,
+        "gt": 305
+      },
+      {
+        "group": "h52_floor_screws_150",
+        "frame": 1,
+        "inter": 256,
+        "union": 1974,
+        "pred": 1925,
+        "gt": 305
+      },
+      {
+        "group": "h52_floor_screws_150",
+        "frame": 2,
+        "inter": 268,
+        "union": 1827,
+        "pred": 1790,
+        "gt": 305
+      },
+      {
+        "group": "h52_floor_screws_150",
+        "frame": 3,
+        "inter": 286,
+        "union": 1953,
+        "pred": 1934,
+        "gt": 305
+      },
+      {
+        "group": "h52_floor_screws_150",
+        "frame": 4,
+        "inter": 268,
+        "union": 1852,
+        "pred": 1815,
+        "gt": 305
+      },
+      {
+        "group": "h52_floor_screws_250",
+        "frame": 0,
+        "inter": 51,
+        "union": 1428,
+        "pred": 1341,
+        "gt": 138
+      },
+      {
+        "group": "h52_floor_screws_250",
+        "frame": 1,
+        "inter": 49,
+        "union": 1620,
+        "pred": 1531,
+        "gt": 138
+      },
+      {
+        "group": "h52_floor_screws_250",
+        "frame": 2,
+        "inter": 47,
+        "union": 1489,
+        "pred": 1398,
+        "gt": 138
+      },
+      {
+        "group": "h52_floor_screws_250",
+        "frame": 3,
+        "inter": 51,
+        "union": 1580,
+        "pred": 1493,
+        "gt": 138
+      },
+      {
+        "group": "h52_floor_screws_250",
+        "frame": 4,
+        "inter": 51,
+        "union": 1542,
+        "pred": 1455,
+        "gt": 138
+      },
+      {
+        "group": "h52_floor_tapes_075",
+        "frame": 0,
+        "inter": 9296,
+        "union": 12032,
+        "pred": 12020,
+        "gt": 9308
+      },
+      {
+        "group": "h52_floor_tapes_075",
+        "frame": 1,
+        "inter": 9287,
+        "union": 11860,
+        "pred": 11839,
+        "gt": 9308
+      },
+      {
+        "group": "h52_floor_tapes_075",
+        "frame": 2,
+        "inter": 9272,
+        "union": 11947,
+        "pred": 11911,
+        "gt": 9308
+      },
+      {
+        "group": "h52_floor_tapes_075",
+        "frame": 3,
+        "inter": 9264,
+        "union": 11919,
+        "pred": 11875,
+        "gt": 9308
+      },
+      {
+        "group": "h52_floor_tapes_075",
+        "frame": 4,
+        "inter": 9289,
+        "union": 12123,
+        "pred": 12104,
+        "gt": 9308
+      },
+      {
+        "group": "h52_floor_tapes_150",
+        "frame": 0,
+        "inter": 2623,
+        "union": 4741,
+        "pred": 4698,
+        "gt": 2666
+      },
+      {
+        "group": "h52_floor_tapes_150",
+        "frame": 1,
+        "inter": 2621,
+        "union": 4858,
+        "pred": 4813,
+        "gt": 2666
+      },
+      {
+        "group": "h52_floor_tapes_150",
+        "frame": 2,
+        "inter": 2619,
+        "union": 4734,
+        "pred": 4687,
+        "gt": 2666
+      },
+      {
+        "group": "h52_floor_tapes_150",
+        "frame": 3,
+        "inter": 2617,
+        "union": 4851,
+        "pred": 4802,
+        "gt": 2666
+      },
+      {
+        "group": "h52_floor_tapes_150",
+        "frame": 4,
+        "inter": 2620,
+        "union": 4864,
+        "pred": 4818,
+        "gt": 2666
+      },
+      {
+        "group": "h52_floor_tapes_250",
+        "frame": 0,
+        "inter": 1037,
+        "union": 2680,
+        "pred": 2646,
+        "gt": 1071
+      },
+      {
+        "group": "h52_floor_tapes_250",
+        "frame": 1,
+        "inter": 1035,
+        "union": 2511,
+        "pred": 2475,
+        "gt": 1071
+      },
+      {
+        "group": "h52_floor_tapes_250",
+        "frame": 2,
+        "inter": 1032,
+        "union": 2686,
+        "pred": 2647,
+        "gt": 1071
+      },
+      {
+        "group": "h52_floor_tapes_250",
+        "frame": 3,
+        "inter": 1039,
+        "union": 2758,
+        "pred": 2726,
+        "gt": 1071
+      },
+      {
+        "group": "h52_floor_tapes_250",
+        "frame": 4,
+        "inter": 1031,
+        "union": 2745,
+        "pred": 2705,
+        "gt": 1071
+      },
+      {
+        "group": "h52_poster_cables_075",
+        "frame": 0,
+        "inter": 8472,
+        "union": 16609,
+        "pred": 13687,
+        "gt": 11394
+      },
+      {
+        "group": "h52_poster_cables_075",
+        "frame": 1,
+        "inter": 8505,
+        "union": 16802,
+        "pred": 13913,
+        "gt": 11394
+      },
+      {
+        "group": "h52_poster_cables_075",
+        "frame": 2,
+        "inter": 8594,
+        "union": 16948,
+        "pred": 14148,
+        "gt": 11394
+      },
+      {
+        "group": "h52_poster_cables_075",
+        "frame": 3,
+        "inter": 8525,
+        "union": 16682,
+        "pred": 13813,
+        "gt": 11394
+      },
+      {
+        "group": "h52_poster_cables_075",
+        "frame": 4,
+        "inter": 8524,
+        "union": 16913,
+        "pred": 14043,
+        "gt": 11394
+      },
+      {
+        "group": "h52_poster_cables_150",
+        "frame": 0,
+        "inter": 4076,
+        "union": 8953,
+        "pred": 8232,
+        "gt": 4797
+      },
+      {
+        "group": "h52_poster_cables_150",
+        "frame": 1,
+        "inter": 3708,
+        "union": 8503,
+        "pred": 7414,
+        "gt": 4797
+      },
+      {
+        "group": "h52_poster_cables_150",
+        "frame": 2,
+        "inter": 3584,
+        "union": 8470,
+        "pred": 7257,
+        "gt": 4797
+      },
+      {
+        "group": "h52_poster_cables_150",
+        "frame": 3,
+        "inter": 3876,
+        "union": 8410,
+        "pred": 7489,
+        "gt": 4797
+      },
+      {
+        "group": "h52_poster_cables_150",
+        "frame": 4,
+        "inter": 4372,
+        "union": 9167,
+        "pred": 8742,
+        "gt": 4797
+      },
+      {
+        "group": "h52_poster_cables_250",
+        "frame": 0,
+        "inter": 1816,
+        "union": 6060,
+        "pred": 5200,
+        "gt": 2676
+      },
+      {
+        "group": "h52_poster_cables_250",
+        "frame": 1,
+        "inter": 2056,
+        "union": 6071,
+        "pred": 5451,
+        "gt": 2676
+      },
+      {
+        "group": "h52_poster_cables_250",
+        "frame": 2,
+        "inter": 2262,
+        "union": 6269,
+        "pred": 5855,
+        "gt": 2676
+      },
+      {
+        "group": "h52_poster_cables_250",
+        "frame": 3,
+        "inter": 1586,
+        "union": 5799,
+        "pred": 4709,
+        "gt": 2676
+      },
+      {
+        "group": "h52_poster_cables_250",
+        "frame": 4,
+        "inter": 2287,
+        "union": 6358,
+        "pred": 5969,
+        "gt": 2676
+      },
+      {
+        "group": "h52_poster_chess_075",
+        "frame": 0,
+        "inter": 735,
+        "union": 1562,
+        "pred": 1560,
+        "gt": 737
+      },
+      {
+        "group": "h52_poster_chess_075",
+        "frame": 1,
+        "inter": 735,
+        "union": 1508,
+        "pred": 1506,
+        "gt": 737
+      },
+      {
+        "group": "h52_poster_chess_075",
+        "frame": 2,
+        "inter": 735,
+        "union": 1458,
+        "pred": 1456,
+        "gt": 737
+      },
+      {
+        "group": "h52_poster_chess_075",
+        "frame": 3,
+        "inter": 735,
+        "union": 1562,
+        "pred": 1560,
+        "gt": 737
+      },
+      {
+        "group": "h52_poster_chess_075",
+        "frame": 4,
+        "inter": 735,
+        "union": 1627,
+        "pred": 1625,
+        "gt": 737
+      },
+      {
+        "group": "h52_poster_chess_150",
+        "frame": 0,
+        "inter": 329,
+        "union": 1247,
+        "pred": 1236,
+        "gt": 340
+      },
+      {
+        "group": "h52_poster_chess_150",
+        "frame": 1,
+        "inter": 333,
+        "union": 1361,
+        "pred": 1354,
+        "gt": 340
+      },
+      {
+        "group": "h52_poster_chess_150",
+        "frame": 2,
+        "inter": 332,
+        "union": 1201,
+        "pred": 1193,
+        "gt": 340
+      },
+      {
+        "group": "h52_poster_chess_150",
+        "frame": 3,
+        "inter": 334,
+        "union": 1173,
+        "pred": 1167,
+        "gt": 340
+      },
+      {
+        "group": "h52_poster_chess_150",
+        "frame": 4,
+        "inter": 332,
+        "union": 1541,
+        "pred": 1533,
+        "gt": 340
+      },
+      {
+        "group": "h52_poster_chess_250",
+        "frame": 0,
+        "inter": 111,
+        "union": 1777,
+        "pred": 1715,
+        "gt": 173
+      },
+      {
+        "group": "h52_poster_chess_250",
+        "frame": 1,
+        "inter": 118,
+        "union": 1735,
+        "pred": 1680,
+        "gt": 173
+      },
+      {
+        "group": "h52_poster_chess_250",
+        "frame": 2,
+        "inter": 89,
+        "union": 1638,
+        "pred": 1554,
+        "gt": 173
+      },
+      {
+        "group": "h52_poster_chess_250",
+        "frame": 3,
+        "inter": 89,
+        "union": 2001,
+        "pred": 1917,
+        "gt": 173
+      },
+      {
+        "group": "h52_poster_chess_250",
+        "frame": 4,
+        "inter": 91,
+        "union": 1708,
+        "pred": 1626,
+        "gt": 173
+      },
+      {
+        "group": "h52_poster_empty",
+        "frame": 0,
+        "inter": 0,
+        "union": 935,
+        "pred": 935,
+        "gt": 0
+      },
+      {
+        "group": "h52_poster_empty",
+        "frame": 1,
+        "inter": 0,
+        "union": 945,
+        "pred": 945,
+        "gt": 0
+      },
+      {
+        "group": "h52_poster_empty",
+        "frame": 2,
+        "inter": 0,
+        "union": 891,
+        "pred": 891,
+        "gt": 0
+      },
+      {
+        "group": "h52_poster_empty",
+        "frame": 3,
+        "inter": 0,
+        "union": 1018,
+        "pred": 1018,
+        "gt": 0
+      },
+      {
+        "group": "h52_poster_empty",
+        "frame": 4,
+        "inter": 0,
+        "union": 936,
+        "pred": 936,
+        "gt": 0
+      },
+      {
+        "group": "h52_poster_rags_075",
+        "frame": 0,
+        "inter": 24472,
+        "union": 36712,
+        "pred": 26084,
+        "gt": 35100
+      },
+      {
+        "group": "h52_poster_rags_075",
+        "frame": 1,
+        "inter": 24472,
+        "union": 36666,
+        "pred": 26038,
+        "gt": 35100
+      },
+      {
+        "group": "h52_poster_rags_075",
+        "frame": 2,
+        "inter": 24472,
+        "union": 36666,
+        "pred": 26038,
+        "gt": 35100
+      },
+      {
+        "group": "h52_poster_rags_075",
+        "frame": 3,
+        "inter": 24472,
+        "union": 36646,
+        "pred": 26018,
+        "gt": 35100
+      },
+      {
+        "group": "h52_poster_rags_075",
+        "frame": 4,
+        "inter": 24472,
+        "union": 36714,
+        "pred": 26086,
+        "gt": 35100
+      },
+      {
+        "group": "h52_poster_rags_150",
+        "frame": 0,
+        "inter": 5631,
+        "union": 8708,
+        "pred": 6951,
+        "gt": 7388
+      },
+      {
+        "group": "h52_poster_rags_150",
+        "frame": 1,
+        "inter": 5594,
+        "union": 8942,
+        "pred": 7148,
+        "gt": 7388
+      },
+      {
+        "group": "h52_poster_rags_150",
+        "frame": 2,
+        "inter": 5607,
+        "union": 8879,
+        "pred": 7098,
+        "gt": 7388
+      },
+      {
+        "group": "h52_poster_rags_150",
+        "frame": 3,
+        "inter": 5622,
+        "union": 8963,
+        "pred": 7197,
+        "gt": 7388
+      },
+      {
+        "group": "h52_poster_rags_150",
+        "frame": 4,
+        "inter": 5619,
+        "union": 8832,
+        "pred": 7063,
+        "gt": 7388
+      },
+      {
+        "group": "h52_poster_rags_250",
+        "frame": 0,
+        "inter": 1661,
+        "union": 4212,
+        "pred": 3727,
+        "gt": 2146
+      },
+      {
+        "group": "h52_poster_rags_250",
+        "frame": 1,
+        "inter": 1647,
+        "union": 4283,
+        "pred": 3784,
+        "gt": 2146
+      },
+      {
+        "group": "h52_poster_rags_250",
+        "frame": 2,
+        "inter": 1628,
+        "union": 4128,
+        "pred": 3610,
+        "gt": 2146
+      },
+      {
+        "group": "h52_poster_rags_250",
+        "frame": 3,
+        "inter": 1653,
+        "union": 4384,
+        "pred": 3891,
+        "gt": 2146
+      },
+      {
+        "group": "h52_poster_rags_250",
+        "frame": 4,
+        "inter": 1663,
+        "union": 4305,
+        "pred": 3822,
+        "gt": 2146
+      }
+    ]
+  }
+}

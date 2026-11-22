@@ -1,8 +1,8 @@
 # ITR Results Report experiment plan
 
-**Current protocol: Section 4, revised November 21.** Sections 1–3 retain execution history, including superseded full-frame GTE scoring instructions. The new object-level, prop-aware and cropped-input analysis is planned; the input audit is complete. New crop results, expanded test references and instance-training results are not yet available.
+**Execution update, November 22:** the six matched-runtime RGB-D reference/automatic runs, three depth-intervention jobs and final full-frame diagnostic analysis have completed successfully. The IEEE draft is `results_report/REPORT.pdf`; the results/conclusion occupy pages 5–6. Section 4 remains the broader analysis plan: prop-aware crop inference, expanded reviewed test references and instance-training results are still unavailable and are not claimed by the draft. Earlier sections retain execution history. Actual completed-cohort evidence is in `results/results_report_20261122`.
 
-Draft for review, 14 November 2026. The [Result Report](https://gatech.instructure.com/courses/529862/assignments/2496814) is due 22 November at 23:59 in France. The report adds 2–4 IEEE columns of results and a conclusion or future-work section. The experiment design comes from the [submitted methodology](REPORT.md). This plan specifies the dataset freeze, the fresh runs, and what to show.
+Draft for review, 14 November 2026. The latest assignment details supplied by Jakub give the [Result Report](https://gatech.instructure.com/courses/529862/assignments/2496814) deadline as **22 November at 17:59**, superseding the earlier 23:59 note. The report adds 2–4 IEEE columns of results and a conclusion or future-work section. The experiment design comes from the [submitted methodology](REPORT.md). This plan specifies the dataset freeze, the fresh runs, and what to show.
 
 ## 1. Freeze the reference labels
 

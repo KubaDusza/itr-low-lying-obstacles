@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-21T19:55:29.861332+00:00",
+  "updated_at": "2026-11-22T09:15:43.752539+00:00",
   "gt_review": {
     "completed": 16,
     "total": 16,
@@ -24,7 +24,9 @@
     "gpus_max_concurrent": 2,
     "jobs": 6,
     "epochs": 500,
-    "source_binary_reference": "ISOD_reference_train_v1"
+    "source_binary_reference": "ISOD_reference_train_v1",
+    "completed_jobs": 6,
+    "status": "COMPLETED; all exit 0; all six histories contain 500 epochs"
   },
   "depth_inference": {
     "gate": "21745515",
@@ -35,7 +37,8 @@
       "21745673",
       "21745674"
     ],
-    "inference_only": true
+    "inference_only": true,
+    "status": "COMPLETED, all three seeds exit 0"
   },
   "gte": {
     "recovery_rgb_seed0_running": true,
@@ -54,7 +57,12 @@
     "gate_job": "21745835",
     "gate_passed": true,
     "output": "/scratch/work/duszaj1/itr_20261121/production/analysis_final",
-    "requires_laptop_or_VPN": false
+    "requires_laptop_or_VPN": false,
+    "status": "COMPLETED",
+    "exit_code": 0,
+    "elapsed": "3m59s",
+    "source_outputs": 53,
+    "downloaded": true
   },
   "analysis_gate": {
     "job": "21745835",
@@ -70,5 +78,22 @@
     "elapsed": "5h40m47s"
   },
   "analysis_runner_sha256": "2cc364b8c240305aae077055c8812ec75e28609d01d5befd2c5e31889983d972",
-  "keep_deployed_analysis_runner_unchanged_until_completion": true
+  "keep_deployed_analysis_runner_unchanged_until_completion": true,
+  "report": {
+    "path": "results_report/REPORT.pdf",
+    "status": "reviewable IEEE draft; not submitted",
+    "results_pages": [
+      5,
+      6
+    ],
+    "rubric_check": "results_report/rubric_check.json",
+    "pdf_sha256": "176bc6413b16a77dd37f9fff777eff49ded54fd0a90b534d7ccad00c57c21c29",
+    "coverage_and_localization_separated": true
+  },
+  "remaining_scope": [
+    "prop-aware/cropped-input inference",
+    "expanded reviewed ISOD test coverage",
+    "native instance training/AP",
+    "four optional new-teacher U-Net/YOLO repetitions blocked by GTE runtime"
+  ]
 }

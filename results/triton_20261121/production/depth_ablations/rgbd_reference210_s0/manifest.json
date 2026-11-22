@@ -1,0 +1,44 @@
+{
+  "source_run": "rgbd_reference210_s0",
+  "checkpoint_sha256": "d06a68ee6f1235d87a54b10a5495023ac6296160f90c25792b1dee0b9eb6ad13",
+  "pipeline_gate": false,
+  "scientific_results_eligible": true,
+  "seed": 0,
+  "domain": "full-frame diagnostic, recording props included",
+  "interpretation": "model reliance under interventions; not an isolated causal effect of depth training",
+  "permutation": "cyclic derangement across object sets within height/background/nominal-distance/frame-index; 20 empty frames unchanged",
+  "normal_reproduction": {
+    "changed_pixels": 0,
+    "total_pixels": 74137600,
+    "exact": true,
+    "note": "A new GPU allocation may change borderline floating-point decisions; all intervention effects use the fresh same-job normal baseline"
+  },
+  "variants": {
+    "normal": {
+      "IoU": 0.4516689398209299,
+      "precision": 0.6173103215089014,
+      "recall": 0.6273210084033614,
+      "frames": 320
+    },
+    "missing_raw_depth": {
+      "IoU": 0.17433479055921183,
+      "precision": 0.6272464899347614,
+      "recall": 0.19448366013071897,
+      "frames": 320
+    },
+    "permuted_depth": {
+      "IoU": 0.4266020660420157,
+      "precision": 0.6085766776102646,
+      "recall": 0.5879148459383754,
+      "frames": 320
+    }
+  },
+  "rgb_identical_all_variants": true,
+  "runtime": {
+    "torch": "2.10.0",
+    "cuda": "12.9",
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "slurm_job": "21745672",
+    "runner_sha256": "9731c6eb93da8821b1af2034469861512d6fdf2761138141bb35215d0581c88e"
+  }
+}

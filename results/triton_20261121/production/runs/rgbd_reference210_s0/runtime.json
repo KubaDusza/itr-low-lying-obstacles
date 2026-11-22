@@ -1,0 +1,21 @@
+{
+  "torch": "2.10.0",
+  "cuda": "12.9",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "job": {
+    "id": "rgbd_reference210_s0",
+    "kind": "rgbd",
+    "seed": 0,
+    "epochs": 500,
+    "label_source": "reference"
+  },
+  "slurm_job": "21743095",
+  "input_archives": {
+    "data.tar.gz": "85b72c95d5970283bb1ace5a72806398c2630687d1a22c5ba9b912a26652578f",
+    "source.tar.gz": "b6a1770ccface82c8d58a9c5a0e406ba0771cd9f74c880a9d197fce04d404224",
+    "depth_stats.json": "5cbf084d3b20f8df5cf6843bcce85ba09894a3a2f996ad248a9cca9c88253cf8"
+  },
+  "runner_sha256": "3e3186ed7d5a83ec3cb043980aed7e7e63e4391b424dfdec4a4c6ee5eb1fd795",
+  "controller_sha256": "b0b3a9f043caf53bb6a485cc710bd74a161f86e4421e41f35b9d17050fff8cf2",
+  "checkpoint_policy": "periodic latest plus best model; final selected model; CSV histories retained"
+}

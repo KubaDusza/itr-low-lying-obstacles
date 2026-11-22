@@ -1,0 +1,642 @@
+{
+  "rgb_reference": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "models": [
+      "esanet_full_rgb_reference_s0",
+      "esanet_full_rgb_reference_s1",
+      "esanet_full_rgb_reference_s2"
+    ],
+    "metrics": {
+      "pixel_iou": {
+        "mean": 0.48581559871009633,
+        "sd": 0.07500600383646283,
+        "n": 3,
+        "values": [
+          0.5148929182988905,
+          0.4006243895939386,
+          0.5419294882374599
+        ]
+      },
+      "coverage_recall50": {
+        "mean": 0.628498727735369,
+        "sd": 0.004907710310937882,
+        "n": 3,
+        "values": [
+          0.6305343511450382,
+          0.6229007633587786,
+          0.6320610687022901
+        ]
+      },
+      "micro_localization_recall": {
+        "mean": 0.4539440203562341,
+        "sd": 0.017744329131410816,
+        "n": 3,
+        "values": [
+          0.47404580152671755,
+          0.4404580152671756,
+          0.44732824427480916
+        ]
+      },
+      "macro_recording_localization_recall": {
+        "mean": 0.46657407407407403,
+        "sd": 0.017254211628760154,
+        "n": 3,
+        "values": [
+          0.4862777777777778,
+          0.45416666666666666,
+          0.45927777777777773
+        ]
+      },
+      "false_components_per_frame": {
+        "mean": 3.654166666666667,
+        "sd": 0.7622459446978599,
+        "n": 3,
+        "values": [
+          2.94375,
+          3.559375,
+          4.459375
+        ]
+      }
+    }
+  },
+  "rgb_automatic": {
+    "seeds": [
+      1,
+      2
+    ],
+    "models": [
+      "rgb_sam_v2_s1",
+      "rgb_sam_v2_s2"
+    ],
+    "metrics": {
+      "pixel_iou": {
+        "mean": 0.46788116760679055,
+        "sd": 0.030246363513875812,
+        "n": 2,
+        "values": [
+          0.4892685763536855,
+          0.44649375885989556
+        ]
+      },
+      "coverage_recall50": {
+        "mean": 0.751908396946565,
+        "sd": 0.04318209350757542,
+        "n": 2,
+        "values": [
+          0.7213740458015268,
+          0.7824427480916031
+        ]
+      },
+      "micro_localization_recall": {
+        "mean": 0.600763358778626,
+        "sd": 0.002159104675378712,
+        "n": 2,
+        "values": [
+          0.6022900763358778,
+          0.5992366412213741
+        ]
+      },
+      "macro_recording_localization_recall": {
+        "mean": 0.6065277777777777,
+        "sd": 0.004674761497844406,
+        "n": 2,
+        "values": [
+          0.6098333333333332,
+          0.6032222222222221
+        ]
+      },
+      "false_components_per_frame": {
+        "mean": 5.7625,
+        "sd": 0.8883028938656,
+        "n": 2,
+        "values": [
+          5.134375,
+          6.390625
+        ]
+      }
+    }
+  },
+  "depth_reference": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "models": [
+      "esanet_full_depth_reference_s0",
+      "esanet_full_depth_reference_s1",
+      "esanet_full_depth_reference_s2"
+    ],
+    "metrics": {
+      "pixel_iou": {
+        "mean": 0.1411920138127173,
+        "sd": 0.011676918133294599,
+        "n": 3,
+        "values": [
+          0.13227354529094182,
+          0.1368936167436597,
+          0.1544088794035503
+        ]
+      },
+      "coverage_recall50": {
+        "mean": 0.38269720101781174,
+        "sd": 0.011458860304526898,
+        "n": 3,
+        "values": [
+          0.3893129770992366,
+          0.3893129770992366,
+          0.36946564885496186
+        ]
+      },
+      "micro_localization_recall": {
+        "mean": 0.0984732824427481,
+        "sd": 0.011850515035312996,
+        "n": 3,
+        "values": [
+          0.08702290076335878,
+          0.11068702290076336,
+          0.09770992366412214
+        ]
+      },
+      "macro_recording_localization_recall": {
+        "mean": 0.09992592592592592,
+        "sd": 0.012403869036642931,
+        "n": 3,
+        "values": [
+          0.08788888888888889,
+          0.11266666666666666,
+          0.09922222222222223
+        ]
+      },
+      "false_components_per_frame": {
+        "mean": 8.236458333333333,
+        "sd": 1.349219730143438,
+        "n": 3,
+        "values": [
+          7.496875,
+          9.79375,
+          7.41875
+        ]
+      }
+    }
+  },
+  "depth_automatic": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "models": [
+      "depth_sam_v2_s0",
+      "depth_sam_v2_s1",
+      "depth_sam_v2_s2"
+    ],
+    "metrics": {
+      "pixel_iou": {
+        "mean": 0.12633757873293736,
+        "sd": 0.01774666486478427,
+        "n": 3,
+        "values": [
+          0.11600570866964995,
+          0.14682942188023534,
+          0.1161776056489268
+        ]
+      },
+      "coverage_recall50": {
+        "mean": 0.3633587786259542,
+        "sd": 0.02091937344434307,
+        "n": 3,
+        "values": [
+          0.3709923664122137,
+          0.33969465648854963,
+          0.3793893129770992
+        ]
+      },
+      "micro_localization_recall": {
+        "mean": 0.09720101781170483,
+        "sd": 0.01963084124375156,
+        "n": 3,
+        "values": [
+          0.11145038167938931,
+          0.10534351145038168,
+          0.07480916030534351
+        ]
+      },
+      "macro_recording_localization_recall": {
+        "mean": 0.09877777777777778,
+        "sd": 0.02095615646599253,
+        "n": 3,
+        "values": [
+          0.11455555555555555,
+          0.10677777777777778,
+          0.075
+        ]
+      },
+      "false_components_per_frame": {
+        "mean": 8.821875,
+        "sd": 1.415856079373889,
+        "n": 3,
+        "values": [
+          10.290625,
+          7.465625,
+          8.709375
+        ]
+      }
+    }
+  },
+  "rgbd_reference": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "models": [
+      "rgbd_reference210_s0",
+      "rgbd_reference210_s1",
+      "rgbd_reference210_s2"
+    ],
+    "metrics": {
+      "pixel_iou": {
+        "mean": 0.5536160155827766,
+        "sd": 0.0882947138865426,
+        "n": 3,
+        "values": [
+          0.4516689398209299,
+          0.6035639765467207,
+          0.6056151303806792
+        ]
+      },
+      "coverage_recall50": {
+        "mean": 0.6427480916030535,
+        "sd": 0.06157708241106298,
+        "n": 3,
+        "values": [
+          0.5717557251908397,
+          0.6748091603053435,
+          0.6816793893129771
+        ]
+      },
+      "micro_localization_recall": {
+        "mean": 0.5068702290076336,
+        "sd": 0.0456549818452082,
+        "n": 3,
+        "values": [
+          0.4541984732824427,
+          0.5351145038167939,
+          0.5312977099236641
+        ]
+      },
+      "macro_recording_localization_recall": {
+        "mean": 0.5232222222222223,
+        "sd": 0.0457846205781099,
+        "n": 3,
+        "values": [
+          0.47044444444444444,
+          0.5522777777777779,
+          0.5469444444444445
+        ]
+      },
+      "false_components_per_frame": {
+        "mean": 2.844791666666667,
+        "sd": 0.59900905582331,
+        "n": 3,
+        "values": [
+          3.428125,
+          2.875,
+          2.23125
+        ]
+      }
+    }
+  },
+  "rgbd_automatic": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "models": [
+      "rgbd_sam210_s0",
+      "rgbd_sam210_s1",
+      "rgbd_sam210_s2"
+    ],
+    "metrics": {
+      "pixel_iou": {
+        "mean": 0.49783758551211904,
+        "sd": 0.03714397263196869,
+        "n": 3,
+        "values": [
+          0.46426797349418986,
+          0.5377413353682562,
+          0.49150344767391113
+        ]
+      },
+      "coverage_recall50": {
+        "mean": 0.7531806615776082,
+        "sd": 0.03426055343152326,
+        "n": 3,
+        "values": [
+          0.7137404580152672,
+          0.7755725190839695,
+          0.7702290076335878
+        ]
+      },
+      "micro_localization_recall": {
+        "mean": 0.6066157760814249,
+        "sd": 0.015650406427157034,
+        "n": 3,
+        "values": [
+          0.5885496183206107,
+          0.6160305343511451,
+          0.6152671755725191
+        ]
+      },
+      "macro_recording_localization_recall": {
+        "mean": 0.6140185185185186,
+        "sd": 0.015087433792272799,
+        "n": 3,
+        "values": [
+          0.5968888888888889,
+          0.6253333333333334,
+          0.6198333333333335
+        ]
+      },
+      "false_components_per_frame": {
+        "mean": 6.03125,
+        "sd": 0.7929560497751437,
+        "n": 3,
+        "values": [
+          6.490625,
+          6.4875,
+          5.115625
+        ]
+      }
+    }
+  },
+  "unet_reference": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "models": [
+      "unet_full_reference_s0",
+      "unet_full_reference_s1",
+      "unet_full_reference_s2"
+    ],
+    "metrics": {
+      "pixel_iou": {
+        "mean": 0.485475937797133,
+        "sd": 0.014975179745600803,
+        "n": 3,
+        "values": [
+          0.4945780730531578,
+          0.49365748022161277,
+          0.4681922601166284
+        ]
+      },
+      "coverage_recall50": {
+        "mean": 0.5203562340966922,
+        "sd": 0.01717698608828264,
+        "n": 3,
+        "values": [
+          0.5145038167938931,
+          0.5396946564885496,
+          0.5068702290076336
+        ]
+      },
+      "micro_localization_recall": {
+        "mean": 0.4440203562340967,
+        "sd": 0.015425388871478544,
+        "n": 3,
+        "values": [
+          0.4351145038167939,
+          0.4618320610687023,
+          0.4351145038167939
+        ]
+      },
+      "macro_recording_localization_recall": {
+        "mean": 0.4547037037037038,
+        "sd": 0.015300420930759897,
+        "n": 3,
+        "values": [
+          0.44488888888888894,
+          0.4723333333333333,
+          0.4468888888888889
+        ]
+      },
+      "false_components_per_frame": {
+        "mean": 3.1833333333333336,
+        "sd": 1.5361602818255435,
+        "n": 3,
+        "values": [
+          2.0625,
+          2.553125,
+          4.934375
+        ]
+      }
+    }
+  },
+  "yolo_reference": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "models": [
+      "yolo_full_reference_s0",
+      "yolo_full_reference_s1",
+      "yolo_full_reference_s2"
+    ],
+    "metrics": {
+      "pixel_iou": {
+        "mean": 0.4589588761799163,
+        "sd": 0.010428199502797117,
+        "n": 3,
+        "values": [
+          0.45010212269806227,
+          0.4563221426463049,
+          0.4704523631953817
+        ]
+      },
+      "coverage_recall50": {
+        "mean": 0.6,
+        "sd": 0.02598785424511329,
+        "n": 3,
+        "values": [
+          0.5946564885496183,
+          0.6282442748091603,
+          0.5770992366412214
+        ]
+      },
+      "micro_localization_recall": {
+        "mean": 0.47099236641221376,
+        "sd": 0.033370218312052516,
+        "n": 3,
+        "values": [
+          0.47480916030534354,
+          0.5022900763358779,
+          0.43587786259541983
+        ]
+      },
+      "macro_recording_localization_recall": {
+        "mean": 0.480537037037037,
+        "sd": 0.034910172795462546,
+        "n": 3,
+        "values": [
+          0.4819444444444444,
+          0.5147222222222222,
+          0.4449444444444444
+        ]
+      },
+      "false_components_per_frame": {
+        "mean": 1.0135416666666666,
+        "sd": 0.36758732664270855,
+        "n": 3,
+        "values": [
+          1.125,
+          0.603125,
+          1.3125
+        ]
+      }
+    }
+  },
+  "sam_three_prompt_v2": {
+    "seeds": [],
+    "models": [
+      "sam_three_prompt_v2"
+    ],
+    "metrics": {
+      "pixel_iou": {
+        "mean": 0.4184799878192482,
+        "sd": null,
+        "n": 1,
+        "values": [
+          0.4184799878192482
+        ]
+      },
+      "coverage_recall50": {
+        "mean": 0.9450381679389313,
+        "sd": null,
+        "n": 1,
+        "values": [
+          0.9450381679389313
+        ]
+      },
+      "micro_localization_recall": {
+        "mean": 0.8404580152671756,
+        "sd": null,
+        "n": 1,
+        "values": [
+          0.8404580152671756
+        ]
+      },
+      "macro_recording_localization_recall": {
+        "mean": 0.8393333333333334,
+        "sd": null,
+        "n": 1,
+        "values": [
+          0.8393333333333334
+        ]
+      },
+      "false_components_per_frame": {
+        "mean": 2.540625,
+        "sd": null,
+        "n": 1,
+        "values": [
+          2.540625
+        ]
+      }
+    }
+  },
+  "floor_plane": {
+    "seeds": [],
+    "models": [
+      "floor_plane"
+    ],
+    "metrics": {
+      "pixel_iou": {
+        "mean": 0.03801378829715185,
+        "sd": null,
+        "n": 1,
+        "values": [
+          0.03801378829715185
+        ]
+      },
+      "coverage_recall50": {
+        "mean": 0.6946564885496184,
+        "sd": null,
+        "n": 1,
+        "values": [
+          0.6946564885496184
+        ]
+      },
+      "micro_localization_recall": {
+        "mean": 0.05725190839694656,
+        "sd": null,
+        "n": 1,
+        "values": [
+          0.05725190839694656
+        ]
+      },
+      "macro_recording_localization_recall": {
+        "mean": 0.05633333333333334,
+        "sd": null,
+        "n": 1,
+        "values": [
+          0.05633333333333334
+        ]
+      },
+      "false_components_per_frame": {
+        "mean": 344.015625,
+        "sd": null,
+        "n": 1,
+        "values": [
+          344.015625
+        ]
+      }
+    }
+  },
+  "limits": {
+    "gte": "Full-frame diagnostic: recording props included; 64 recordings in one room, five repeat frames each.",
+    "isod": "Only 30 reviewed test frames, 10/site, of the 300-frame test split; provisional evidence.",
+    "instances": "GTE IDs include individuals and groups; not native instance AP.",
+    "automatic": "RGB-only generation, but prompt development/validation used reviewed references.",
+    "new_corrections": "16 recent corrections are saved separately; running models used the frozen 70 reviewed + 1330 assisted reference labels."
+  },
+  "source_analysis_completion": {
+    "updated_at": "2026-11-22T08:39:29.375142+00:00",
+    "pipeline_gate": false,
+    "full_RGBD_training_and_depth_interventions_required": true,
+    "matched_runtime_reference_modalities_complete": true,
+    "automatic_supervision_paired_seeds": {
+      "rgb": [
+        1,
+        2
+      ],
+      "depth": [
+        0,
+        1,
+        2
+      ],
+      "rgbd": [
+        0,
+        1,
+        2
+      ]
+    },
+    "missing_RGB_seed0_is_not_replaced_with_an_old_teacher_version": true,
+    "domain": "full-frame diagnostic; recording props included; no cropped-input experiment claimed",
+    "labels": "Frozen-v1 binary training sources; new manual corrections retained separately for future jobs",
+    "component_reference_status": "ID-aware GTE references with proposed fastener separation; uncertainty explicit",
+    "source_run_count": 53,
+    "slurm_job": "21745879",
+    "runner_sha256": "2cc364b8c240305aae077055c8812ec75e28609d01d5befd2c5e31889983d972",
+    "analysis_archive_sha256": "db7e392d3331a04246365c97809c088209b170caecd1db80f362529428a86de7"
+  },
+  "source_summary_sha256": "72c2bcf185611306150775cb01c93c5a5864d53606835202464ef8491646055d",
+  "matched_reference_unit_recording_pairs": 262
+}

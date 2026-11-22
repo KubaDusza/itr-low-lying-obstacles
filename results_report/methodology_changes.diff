@@ -1,0 +1,207 @@
+--- Saved methodology (2026-10-25): Section III
++++ Current results report: Section III
+@@ -3,29 +3,26 @@
+ \subsection{Task and experimental
+ design}\label{task-and-experimental-design}
+ 
+-The task is to locate small, low-lying floor objects that can obstruct
+-an indoor mobile robot. Each model receives a color image (RGB), a depth
+-image (D), or their aligned combination (RGB-D), and predicts a binary
+-obstacle mask at the original image resolution.
++We run two comparisons. The first tests depth. ESANet
++\cite{seichter2021efficient} has RGB, depth and RGB-D versions within one
++model family; because ESANet predicts pixel
++masks, this comparison is made on segmentation. We did not find a
++detector with matched RGB, depth and RGB-D versions. To place ESANet
++among common choices, we compare three RGB models with different outputs:
++U-Net (pixel mask), YOLOv8n-seg (one mask per object) and the YOLOv8n
++detector (one box per object), and
++a depth-only floor-plane fit without training (Table~\ref{tab:models}).
++All outputs are scored as obstacle regions in the same way
++(Section~\ref{evaluation}).
+ 
+-Training uses the published ISOD dataset of RGB-D floor scenes, with
+-separate recording locations for training, validation and testing. We
+-also test the methods on our own GTE-Floor dataset.
+-
+-To determine whether depth improves obstacle segmentation, we compare
+-RGB, D and RGB-D inputs using ESANet, which has versions for each of
+-these modalities. We also compare established RGB segmentation networks
+-and a depth-only geometric method to assess the capabilities of methods
+-specific to each modality (Table \ref{tab:models}). To test whether
+-automatic labeling provides effective training data, we compare each
+-network trained using ground truth with the same network trained using
+-uncorrected SAM 3 masks (Fig. \ref{fig:pipeline}). We also compare SAM
+-3's masks with ground truth to measure labeling accuracy directly.
++The second comparison tests labels. Every trained model is trained once
++on reference labels and once on automatic SAM~3 labels, with everything
++else fixed (Fig.~\ref{fig:pipeline}). SAM~3's own masks are also scored directly.
+ 
+ \begin{figure}[H]
+ \centering
+ \includegraphics[width=\columnwidth]{figures/supervision_pipeline.pdf}
+-\caption{Comparison of reference and automatic training labels. The same model is trained on the same images with each set of labels. Both trained models and SAM 3's own masks are evaluated against reference test masks.}
++\caption{Label comparison: the same model is trained on the same images with each label source and tested on the same frames.}
+ \label{fig:pipeline}
+ \end{figure}
+ 
+@@ -50,14 +47,11 @@
+ location stays in one partition to prevent overlap between training and
+ test scenes.
+ 
+-The ISOD dataset provides a binary drivable/not-drivable mask. The
+-not-drivable class includes both floor obstacles and walls or furniture,
+-so it cannot be used directly as an obstacle mask. To create ground
+-truth for low-lying obstacles, we find connected regions outside the
+-drivable-floor mask, discard the largest region as background, and
+-retain the others if they contain at least 20 pixels. These candidate
+-masks are reviewed and corrected for missed obstacles and incorrectly
+-included walls or furniture.
++ISOD's not-drivable mask also covers walls and furniture. We initialize
++obstacle masks with SAM proposals inside that mask and correct them
++manually: 70 of the 1,400 training frames, all 300 validation frames and
++30 of the 300 test frames were checked by hand, and the remaining frames
++keep the proposals. We call these reference labels.
+ 
+ \subsubsection{GTE-Floor}\label{gte-floor}
+ 
+@@ -69,7 +63,7 @@
+ lists the collection conditions; Fig. \ref{fig:collection} shows the
+ mounts and examples, and the appendix shows the object sets. We
+ initialize reference masks with SAM labels and refine them manually.
+-Object-type annotations let us compare how often cables and cloths are
++Figure~\ref{fig:objects} presents the object inventory. Object-type annotations let us compare how often cables and cloths are
+ detected, although both share one obstacle class.
+ 
+ \begin{table}[H]
+@@ -94,90 +88,58 @@
+ 
+ \subsection{Models and training}\label{models-and-training}
+ 
+-We compare ESANet's RGB, D and RGB-D versions using the authors'
+-ResNet-34 NBt1D models \cite{seichter2021efficient}. The RGB-D version
+-is larger, so we report model size and inference time alongside
+-accuracy.
+-
+-To compare established methods for individual modalities, we also
+-evaluate U-Net and YOLOv8n-seg using RGB, and a geometric method using D
+-(Table \ref{tab:models}). The geometric method fits a floor plane to
+-detect objects protruding from the floor.
++ESANet uses the authors' ResNet-34 configuration, preprocessing and
++500-epoch schedule \cite{seichter2021efficient}; depth is normalized with
++ISOD training statistics, which are also applied to GTE-Floor. U-Net uses
++a MobileNetV2 encoder \cite{sandler2018mobilenetv2}; its validation loss
++levels off within 15 epochs. The YOLO models start from COCO weights and
++train for 60 epochs with the standard Ultralytics schedule; box targets
++enclose each annotated object (Table~\ref{tab:models}).
+ 
+ \begin{table}[H]
+-\caption{Methods compared for small floor-obstacle detection}
++\caption{Models and training.}
+ \label{tab:models}
+-\centering
+-\footnotesize
+-\begin{tabularx}{\columnwidth}{@{}l*{3}{>{\centering\arraybackslash}X}>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X@{}}
++\centering\footnotesize
++\setlength{\tabcolsep}{2.5pt}
++\begin{tabular}{lllrl}
+ \toprule
+-Method & RGB & D & RGB-D \\
++Method & Output & Input & Epochs & Chosen by\\
+ \midrule
+-ESANet & Yes & Yes & Yes \\
+-U-Net & Yes & -- & -- \\
+-YOLOv8n-seg & Yes & -- & -- \\
+-Floor-plane fit & -- & Yes & -- \\
++ESANet & Pixel mask & RGB/D/RGB-D & 500 & val.\ IoU\\
++U-Net & Pixel mask & RGB & 15 & val.\ IoU\\
++YOLOv8n-seg & Obj.\ masks & RGB & 60 & val.\ IoU\\
++YOLOv8n & Boxes & RGB & 60 & val.\ AP\footnotemark\\
++Floor plane & Pixel mask & D & -- & --\\
++SAM 3 & Obj.\ masks & RGB & -- & --\\
+ \bottomrule
+-\end{tabularx}
+-
++\end{tabular}
++\par\smallskip{\footnotesize Checkpoints use the 300 ISOD validation frames; IoU is obstacle IoU. Settings: Appendix~\ref{app:configuration}.}
+ \end{table}
+-
+-We follow the ESANet authors' preprocessing and weight initialization.
+-RGB images use the normalization required by the pretrained encoder.
+-Depth values are normalized using the mean and standard deviation of
+-valid readings from ISOD training images; these same values are used on
+-GTE-Floor. Missing depth readings follow the authors' raw-depth
+-preprocessing.
+-
+-ESANet uses \(640\times448\) inputs, batch size 8, SGD with learning
+-rate 0.01, momentum 0.9, weight decay \(10^{-4}\) and a OneCycle
+-learning-rate schedule. Class weights account for the imbalance between
+-obstacle and background pixels using the authors' median-frequency
+-method. We train for 500 epochs, following the published training
+-duration, and select the checkpoint with the best validation obstacle
+-IoU. Learning curves are checked for convergence before comparing input
+-types.
+-
+-U-Net uses an ImageNet-pretrained MobileNetV2 encoder, batch size 8,
+-AdamW with learning rate \(3\times10^{-4}\) and cross-entropy plus soft
+-Dice loss. YOLOv8n-seg uses pretrained RGB weights, 640-pixel inputs and
+-batch size 16. For YOLO, training masks are converted to polygons; its
+-predicted object masks are combined for evaluation.
++\footnotetext{Ultralytics fitness: 0.9 AP50:95 + 0.1 AP50, where AP50:95 is the COCO average precision over box-overlap thresholds 0.5--0.95.}
+ 
+ \subsection{Automatic labeling}\label{automatic-labeling}
+ 
+-We test whether automatic labeling with SAM 3 can reduce manual
+-annotation without reducing obstacle-detection performance. We measure
+-the accuracy of its masks and the performance of models trained on them
+-without human correction.
++SAM~3 receives each full RGB image with three text prompts: ``small
++object on the floor'', ``cable on the floor'' and ``things on the
++floor''. Masks with confidence of at least 0.6 are united into one
++obstacle mask. For the box detector, duplicate masks are merged and each
++remaining mask becomes a box. No ISOD annotations or human corrections
++are used, and failed or empty labels stay in the training set. We chose
++the prompts by comparing specific item names with broad categories on 30
++reviewed training frames; the three broad prompts worked well and are
++simple.
+ 
+-SAM 3 generates training masks from RGB images using the same list of
+-object-name prompts for every image, including scenes without obstacles.
+-Prompt wording and confidence thresholds are selected by mask IoU on the
+-ISOD validation set, then fixed along with the SAM checkpoint. Accepted
+-object masks are combined into one obstacle mask. No image-specific
+-object lists, reference masks or corrective prompts are supplied when
+-generating these labels.
+-
+-Each of the five model/input combinations is trained using these
+-generated masks. SAM masks are used without human correction, including
+-empty predictions and labeling failures.
+-
+-Both training sets label the full image as obstacle or background.
+ 
+ \subsection{Evaluation}\label{evaluation}
+ 
+-We evaluate SAM 3's masks and all methods in Table \ref{tab:models}
+-against reference test masks from ISOD and GTE-Floor. With \(TP\),
+-\(FP\) and \(FN\) counting correctly detected, falsely detected and
+-missed obstacle pixels, \begin{equation}
+-\begin{aligned}
+-\mathrm{IoU}&=\frac{TP}{TP+FP+FN},\\
+-\mathrm{Prec}&=\frac{TP}{TP+FP},\quad
+-\mathrm{Rec}=\frac{TP}{TP+FN}.
+-\end{aligned}
+-\end{equation} We sum pixel counts across images for dataset-level
+-scores. GTE-Floor results are grouped by object type, size, distance,
+-camera setup and background.
+-
+-\clearpage+We test frozen models on the 300 ISOD test frames and the 320 GTE-Floor
++frames. Pixel IoU measures how well predicted masks match the reference.
++Object recall is the share of annotated objects at least half covered by
++predictions; several small predictions can together cover one object.
++Because one large blob can also cover many objects, we count false
++regions, predicted regions lying mostly outside any object, and report
++component F1 from the SegmentMeIfYouCan benchmark~\cite{chan2021segment},
++which combines found objects and false regions in one score. Boxes are
++filled in before scoring; Appendix~\ref{app:evaluation} gives details and
++standard box AP. Results are means of three seeds; bracketed ranges are
++95\% intervals from resampling the GTE-Floor recordings.

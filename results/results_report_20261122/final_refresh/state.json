@@ -59,5 +59,15 @@
       "reason": "Report GTE pixel IoU for filled boxes consistently with ISOD; regenerate all final assets"
     }
   ],
-  "pdf_sha256": "3f59f19a9feb58b27fbc9170c9294bb1f0783e1e84c9ee3ec82e891cc8e2298e"
+  "pdf_sha256": "3298321f5418218dc3a086e469cb4288db0b83f13f7a02896bc6f0237263ac02",
+  "post_review": {
+    "at": "2026-11-22 21:48 CET",
+    "changes": [
+      "Moved modality legend outside data panels",
+      "Table counts three seeds per label source",
+      "Plain-language explanation of reference masks and their review status"
+    ],
+    "evaluation_numbers_changed": false,
+    "methodology_diff": "results_report/methodology_changes.pdf"
+  }
 }

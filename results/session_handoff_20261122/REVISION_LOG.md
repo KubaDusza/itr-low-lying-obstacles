@@ -117,3 +117,11 @@ Implemented source/figure revisions are in current workspace; latest build after
 - GTEfilled-box pixelIoU is now.221reference/.236SAM, reported consistently withISOD. All four metrics have three finite seed values for every trained arm.
 - Caption wording scopes three-seed averages to trained models; directmethods are fixed. Shortened TableII heading while retaining checkpoint-protocol information below the table.
 - Latest active state and continuation commands are in HANDOFF_CURRENT.md. Raw Codex/Claude histories remain local and ignored byGit. No assignment submission or messages to others.
+
+## 2026-11-22 21:48 CET — figure, counts and wording review
+
+- Moved the modality legend outside the distance/size panels: the previous unboxed legend overlapped an actual depth datapoint. Data and uncertainty bars unchanged.
+- Configuration table now reports three seeds per label source rather than six total runs; no training changes.
+- Replaced reference supervision, SAM supervision, assisted annotations and hazard-unit boxes with direct descriptions. Kept the distinction between masks checked by hand and automatically prepared masks.
+- Added a two-page inline methodology text/table/caption diff against the saved October 25 methodology, plus the exact TeX diff and source hashes. Pictures are omitted from the text diff; detailed current settings also appear in Appendices B–C. Survey unchanged.
+- Rebuilt the 18-page report and visually checked the changed pages and both diff pages; reran report audit. No new experiment or metric changes.

@@ -101,7 +101,8 @@ training image. SAM~3 used directly gives the highest component F1,
 at 45 times the GPU latency of YOLOv8n.
 
 The comparison covers two datasets with different sensors, three seeds per model and checkpoints chosen on ISOD validation data only.
-ISOD test references for 270 of the 300 frames are assisted proposals.
+The reference masks for 270 of the 300 ISOD test frames were generated
+automatically and have not been checked by hand.
 On the 30 human-reviewed test frames they agree with the reviewed masks
 at pooled IoU 0.929, and three-seed mean pixel IoU is 0.00--0.05 higher on those frames. GTE-Floor is one room; its five repeats per
 recording are not independent scenes, and unannotated recording props

@@ -11,9 +11,10 @@
 
 Table~\ref{tab:experiment-matrix} summarizes the training runs.
 All learned models use 1,400 ISOD training images and 300 validation
-images. Reference supervision uses assisted obstacle annotations;
-SAM supervision uses RGB-only automatic labels. Paired label-source
-comparisons share the architecture, images and validation references.
+images. We train each model using either the reference obstacle masks
+prepared from ISOD annotations or masks generated automatically by
+SAM~3 from RGB images. Both use the same model architecture, training
+images and validation masks.
 
 \begin{table}[H]
 \caption{Training configurations.}
@@ -21,14 +22,14 @@ comparisons share the architecture, images and validation references.
 \centering\small
 \begin{tabular}{llllrr}
 \toprule
-Model & Input & Supervised target & Label sources & Epochs/run & Runs\\
+Model & Input & Training labels & Label sources & Epochs/run & \shortstack{Seeds per\\label source}\\
 \midrule
-ESANet & RGB & Binary pixel mask & Reference, SAM & 500 & 6\\
-ESANet & D & Binary pixel mask & Reference, SAM & 500 & 6\\
-ESANet & RGB-D & Binary pixel mask & Reference, SAM & 500 & 6\\
-U-Net/MobileNetV2 & RGB & Binary pixel mask & Reference, SAM & 15 & 6\\
-YOLOv8n-seg & RGB & Instance masks and boxes & Reference, SAM & 60 & 6\\
-YOLOv8n detector & RGB & Hazard-unit boxes & Reference, SAM & 60 & 6\\
+ESANet & RGB & Binary pixel mask & Reference, SAM & 500 & 3\\
+ESANet & D & Binary pixel mask & Reference, SAM & 500 & 3\\
+ESANet & RGB-D & Binary pixel mask & Reference, SAM & 500 & 3\\
+U-Net/MobileNetV2 & RGB & Binary pixel mask & Reference, SAM & 15 & 3\\
+YOLOv8n-seg & RGB & Instance masks and boxes & Reference, SAM & 60 & 3\\
+YOLOv8n detector & RGB & Object boxes & Reference, SAM & 60 & 3\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -39,19 +40,22 @@ from the binary references. YOLOv8n learns enclosing boxes from the
 instance-ID annotations. Polygon export omits contours below 20 pixels
 in area and degenerate contours; box export retains all annotated IDs.
 Binary masks describe occupied image area; instance masks and boxes also
-represent the location of each hazard unit.
+represent the location of each annotated object or group.
 
-\textbf{Reference creation.} ISOD's not-drivable mask includes walls and
-furniture. SAM proposals, original-mask constraints, floor-contact and
-connected-region rules produce obstacle candidates, then human edits
-correct inclusion, omissions and mixed regions. The semantic training
-snapshot contains 70 reviewed binary masks and 1,330 assisted masks.
+\textbf{Reference labels.} ISOD's not-drivable mask includes walls and
+furniture. We generate object masks with SAM and keep the parts inside
+ISOD's not-drivable mask. Floor-contact and connected-region rules help
+select floor obstacles. Manual edits
+remove unwanted regions, add missed objects and separate mixed regions.
+The segmentation training set contains 70 masks checked by hand and
+1,330 automatically prepared masks.
 All 300 validation masks were reviewed. The 300 test references use the
-same assistance pipeline; 30 of them, ten per held-out location, were
+same process; 30 of them, ten per held-out location, were
 reviewed and replace their proposals. On these 30 frames the proposals
 agree with the reviewed masks at mean image IoU 0.922 and pooled IoU
 0.929. The box-detector reference source contains
-85 reviewed and 1,315 assisted binary masks partitioned into instance IDs.
+85 masks checked by hand and 1,315 automatically prepared masks, divided
+into object masks with separate IDs.
 One ID produces one enclosing box, including disconnected visible pieces.
 Unresolved piles remain groups; these IDs are not all verified individual
 physical objects.
@@ -93,8 +97,8 @@ on the shared reference validation boxes is used (reference epochs 40,
 50, 45; SAM epochs 50, 50, 60).
 Box inference uses confidence 0.25 and NMS IoU 0.7, fixed before GTE
 scoring. RGB/D ESANet runs use Torch 2.14; the paired RGB-D runs and
-box-detector runs use Torch 2.10. Paired supervision uses matching environments
-within each model. ESANet modality comparisons also change model
+box-detector runs use Torch 2.10. Runs comparing the two label sources use
+the same software environment for each model. ESANet modality comparisons also change model
 capacity, so they do not isolate depth information alone.
 
 \clearpage

@@ -64,3 +64,7 @@ User-stated deadline from the Claude session:23:59 on November 22, Europe/Paris;
 `results/session_handoff_20261122/REVISION_LOG.md` records material changes. Full visible Codex and Claude conversation/tool archives are local in that folder, ignored byGit; export manifests provide hashes and record counts. Private reasoning/system instructions/binary images are excluded. See its README for refresh commands.
 
 Remaining project/final-article work is listed as future work in the report: validated physical dimensions/heights, prop-aware ignore regions, on-robot timing, more environments, and better verified individual-instance labels. Those are not unfinished training jobs for this results-report round.
+
+## Latest visual/wording review
+
+Distance/size plot legend moved outside panels; configuration table now says three seeds per label source. Label creation uses plain wording and explicitly distinguishes reviewed and unreviewed masks. Methodology diff against the saved October 25 source: `results_report/methodology_changes.pdf` (red deletions/green additions, no annotations), with exact `.diff` and source hashes alongside. No experiment or numeric changes; report remains 18 pages and passed another rendered review/audit.

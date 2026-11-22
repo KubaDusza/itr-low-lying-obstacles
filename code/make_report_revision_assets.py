@@ -120,8 +120,11 @@ def range_plot():
         ax.set_title(title,fontsize=8);ax.set_ylim(0,1);ax.set_yticks(np.linspace(0,1,6));ax.set_xlim(-.4,2.4);ax.tick_params(labelsize=7)
         ax.grid(axis='y',color='.85',lw=.5);ax.set_axisbelow(True);ax.spines[['top','right']].set_visible(False)
     for ax in axes[:2]:ax.set_xticks(range(3),['0.75 m\n(n=20)','1.5 m\n(n=20)','2.5 m\n(n=20)'])
-    axes[2].set_xticks(range(3),[f'<100 px\n(n={counts[0]})',f'100–999 px\n(n={counts[1]})',f'≥1000 px\n(n={counts[2]})']);axes[0].set_ylabel('Score',fontsize=7.5);axes[0].legend(frameon=False,fontsize=7,loc='lower left')
-    fig.tight_layout(pad=.35,w_pad=.7);save(fig,'detection_by_distance_size')
+    axes[2].set_xticks(range(3),[f'<100 px\n(n={counts[0]})',f'100–999 px\n(n={counts[1]})',f'≥1000 px\n(n={counts[2]})']);axes[0].set_ylabel('Score',fontsize=7.5)
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, frameon=False, fontsize=7, loc='lower center', ncol=3,
+               bbox_to_anchor=(.5, 0), handletextpad=.6, columnspacing=1.8)
+    fig.tight_layout(pad=.35,w_pad=.7,rect=(0,.13,1,1));save(fig,'detection_by_distance_size')
 
 
 def cloth_figures():

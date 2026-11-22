@@ -1,0 +1,119 @@
+\section{Results}\label{sec:results}
+
+\input{main_results_table.tex}
+
+\begin{figure*}[!b]
+\centering
+\includegraphics[width=\textwidth]{figures/detection_by_distance_size.pdf}
+\caption{Reference-trained ESANet RGB (blue), D (gray) and RGB-D (orange) on GTE-Floor by floor distance and object image area: three-seed means and standard deviations. $n$: recordings (a, b) or object/recording pairs (c). Distance, size and object set are confounded.}
+\label{fig:range-size}
+\end{figure*}
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{figures/cloth_main.pdf}
+\caption{Four cloths on bare floor and on the white poster at 0.75 m (frame 2, seed 2): 1 flat white towel, 2 crumpled white tissue, 3 flat pink cloth, 4 crumpled purple cloth. Green: correct; blue: missed; red: extra; orange: reference-trained YOLOv8n boxes. Numbers count, per item, the observations covering at least half of it among 15 (three seeds $\times$ five frames). Appendix~\ref{app:seed-consistency} shows all seeds.}
+\label{fig:cloth}
+\end{figure*}
+
+\subsection{Experiments carried out}
+
+All learned models were trained on ISOD and evaluated without
+fine-tuning on the 300 test frames from its three held-out locations and
+on the 320 GTE-Floor frames. ESANet was trained with RGB, D and RGB-D
+input on both label sources, U-Net and YOLOv8n-seg on reference labels,
+and the YOLOv8n box detector on both label sources. Each learned condition has three seeds, giving the 30 runs listed in
+Table~\ref{tab:experiment-matrix}. Bracketed values are paired 95\%
+bootstrap intervals.
+
+\subsection{Depth}
+
+Depth alone is weak. ESANet D recovers 0.39 of the annotated objects on
+both datasets, against 0.85 (ISOD) and 0.63 (GTE-Floor) for RGB
+(Table~\ref{tab:main}).
+
+Adding depth to RGB does not recover more objects. On ISOD, RGB and
+RGB-D have the same pixel IoU (0.711 and 0.708) and object recall (0.854
+and 0.867). On GTE-Floor, RGB-D has higher pixel IoU
+($+0.069$ [$+0.031$, $+0.105$]) and 0.8 fewer false regions per frame,
+while object recall changes by $+0.014$ [$-0.019$, $+0.050$]. The seed
+standard deviation of GTE-Floor pixel IoU (0.075--0.088) is as large as
+the gain.
+
+The RGB-D model needs a depth input but uses little of the depth of the
+objects in front of it. Removing depth at test time lowers GTE-Floor
+object recall from 0.643 to 0.078. Giving each frame the depth of another recording with the same camera height, background and distance leaves it at 0.641. The fused model therefore relies on the floor
+geometry shared by these scenes.
+
+Recovery falls with distance and image area for every input
+(Fig.~\ref{fig:range-size}). Screws and hex keys remain the hardest sets,
+with object recall at most 0.23 (Table~\ref{tab:object-sets}). Depth
+recovers raised objects regardless of colour and misses flat ones
+(Fig.~\ref{fig:cloth}). On the white poster, D finds the crumpled white
+tissue in 15 of 15 seed/frame observations and RGB in none; D never
+finds the flat pink cloth, which RGB finds in 10. RGB-D keeps part of
+both (8 and 10). No model finds the flat white towel on the white
+poster.
+
+\input{object_set_table.tex}
+
+\subsection{Automatic labels}
+
+SAM~3 labels generated from RGB alone, with no human masks for the
+1,400 training images, train models as accurate as the assisted
+reference labels. On ISOD, label source changes pixel IoU by $-0.03$ to
+$+0.01$ and object recall by $+0.02$ for ESANet RGB, RGB-D and YOLOv8n
+boxes. On GTE-Floor, object recall rises for RGB ($+0.153$
+[$+0.094$, $+0.217$]), RGB-D ($+0.110$ [$+0.057$, $+0.165$]) and boxes
+($+0.068$ [$+0.033$, $+0.109$]). Component F1 stays within seed variation
+for RGB and boxes and falls from 0.428 to 0.356 for RGB-D.
+
+Models trained on SAM labels predict more false regions on GTE-Floor:
+6.0--6.4 per frame, against 2.8--3.7 with reference labels. In a
+pixel-weighted sample of 30 regions per condition that touch no
+reference object, nearly all cover
+physical objects that are not annotated as hazards, mainly the tape
+measure lying along the floor and a bin and box at the wall
+(Appendix~\ref{app:failures}). SAM-trained models segment more of these
+objects, which lowers measured precision.
+
+The SAM~3 teacher itself stays ahead of every model trained on its
+labels, with GTE-Floor object recall 0.945 and the highest component F1
+on both datasets (0.829 and 0.673).
+
+
+\subsection{Masks, boxes and cost}
+
+Boxes recover as many objects as masks. Reference-trained YOLOv8n boxes
+reach object recall 0.793 on ISOD and 0.676 on GTE-Floor, against 0.867
+and 0.643 for ESANet RGB-D. Filled boxes also cover the floor around
+each object, so their pixel IoU is lower (0.480 on ISOD). YOLOv8n-seg has
+the highest component F1 of the trained models on both datasets.
+
+SAM~3 needs 183~ms per image on an H200 GPU partition and 13.3~s on
+eight CPU threads, against 4.0~ms and 34~ms for YOLOv8n boxes
+(Appendix~\ref{app:cost}). Training on SAM labels moves this cost offline, at some loss of accuracy.
+
+\section{Conclusion and Future Work}\label{sec:conclusion}
+
+Depth did not help these models find more low-lying obstacles. RGB-D
+produced tighter masks on GTE-Floor but recovered the same fraction of
+objects as RGB, and its predictions barely changed with another scene's
+depth.
+Depth alone detected raised objects and missed flat ones. RGB-only SAM~3
+labels replaced the assisted reference labels at equal ISOD accuracy and
+higher GTE-Floor recovery, so a small detector can be trained without
+per-image human masks. The SAM~3 teacher remained the most accurate
+method, at 45 times the GPU latency of YOLOv8n.
+
+The comparison covers two datasets with different sensors, three seeds
+per condition and checkpoints chosen on ISOD validation data only.
+ISOD test references for 270 of the 300 frames are assisted proposals.
+On the 30 human-reviewed test frames they agree with the reviewed masks
+at pooled IoU 0.929, and methods score 0.00--0.06 higher there in pixel IoU. GTE-Floor is one room; its five repeats per
+recording are not independent scenes, and unannotated recording props
+count as false regions. ESANet RGB-D has a second encoder (46.9M against
+32.1M parameters), so its comparison with RGB also changes capacity.
+
+Next steps are measured object heights, ignore regions for props,
+on-robot timing and distillation that keeps more teacher precision.

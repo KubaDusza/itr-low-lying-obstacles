@@ -1,0 +1,329 @@
+{
+  "standard": "SegmentMeIfYouCan adjusted component overlap/precision and mean F1 over thresholds 0.25 to 0.75",
+  "primary_recovery": "Fraction of supplied reference hazard-unit masks with at least 50% of pixels covered by the union of predictions; companion used in partner report, not a new official benchmark metric",
+  "adaptation": "Supplied reference IDs instead of binary-GT connected components; no small-target filtering; full-frame GTE domain. Native boxes rasterized by floor/ceil edges and union before component extraction.",
+  "behavior": "All touching prediction components are combined for each reference; other reference objects are excluded from its excess-background penalty. Splits/merges are not one-to-one count mismatches.",
+  "limits": "Box unions give coarser occupied regions than masks. Component precision measures spatial extent, not box AP. Groups and unannotated recording props remain.",
+  "runs": {
+    "esanet_full_rgb_reference_s0": {
+      "family": "ESANet RGB",
+      "source": "reference",
+      "seed": 0,
+      "output": "obstacle mask",
+      "object_recall": 0.6305343511450382,
+      "component_recall": 0.47404580152671755,
+      "false_components_per_frame": 2.94375,
+      "component_mean_f1": 0.3930198488523969
+    },
+    "esanet_full_rgb_reference_s1": {
+      "family": "ESANet RGB",
+      "source": "reference",
+      "seed": 1,
+      "output": "obstacle mask",
+      "object_recall": 0.6229007633587786,
+      "component_recall": 0.4404580152671756,
+      "false_components_per_frame": 3.559375,
+      "component_mean_f1": 0.35000580157862204
+    },
+    "esanet_full_rgb_reference_s2": {
+      "family": "ESANet RGB",
+      "source": "reference",
+      "seed": 2,
+      "output": "obstacle mask",
+      "object_recall": 0.6320610687022901,
+      "component_recall": 0.44732824427480916,
+      "false_components_per_frame": 4.459375,
+      "component_mean_f1": 0.3262877885392241
+    },
+    "rgb_sam_v2_s0_recovery_glaurung": {
+      "family": "ESANet RGB",
+      "source": "automatic",
+      "seed": 0,
+      "output": "obstacle mask",
+      "object_recall": 0.8404580152671756,
+      "component_recall": 0.6083969465648855,
+      "false_components_per_frame": 7.75,
+      "component_mean_f1": 0.3226878291643243
+    },
+    "rgb_sam_v2_s1": {
+      "family": "ESANet RGB",
+      "source": "automatic",
+      "seed": 1,
+      "output": "obstacle mask",
+      "object_recall": 0.7213740458015268,
+      "component_recall": 0.6022900763358778,
+      "false_components_per_frame": 5.134375,
+      "component_mean_f1": 0.3751463363392784
+    },
+    "rgb_sam_v2_s2": {
+      "family": "ESANet RGB",
+      "source": "automatic",
+      "seed": 2,
+      "output": "obstacle mask",
+      "object_recall": 0.7824427480916031,
+      "component_recall": 0.5992366412213741,
+      "false_components_per_frame": 6.390625,
+      "component_mean_f1": 0.34068788201839145
+    },
+    "esanet_full_depth_reference_s0": {
+      "family": "ESANet D",
+      "source": "reference",
+      "seed": 0,
+      "output": "obstacle mask",
+      "object_recall": 0.3893129770992366,
+      "component_recall": 0.08702290076335878,
+      "false_components_per_frame": 7.496875,
+      "component_mean_f1": 0.06563779005586473
+    },
+    "esanet_full_depth_reference_s1": {
+      "family": "ESANet D",
+      "source": "reference",
+      "seed": 1,
+      "output": "obstacle mask",
+      "object_recall": 0.3893129770992366,
+      "component_recall": 0.11068702290076336,
+      "false_components_per_frame": 9.79375,
+      "component_mean_f1": 0.06329558692696759
+    },
+    "esanet_full_depth_reference_s2": {
+      "family": "ESANet D",
+      "source": "reference",
+      "seed": 2,
+      "output": "obstacle mask",
+      "object_recall": 0.36946564885496186,
+      "component_recall": 0.09770992366412214,
+      "false_components_per_frame": 7.41875,
+      "component_mean_f1": 0.07282112432272086
+    },
+    "depth_sam_v2_s0": {
+      "family": "ESANet D",
+      "source": "automatic",
+      "seed": 0,
+      "output": "obstacle mask",
+      "object_recall": 0.3709923664122137,
+      "component_recall": 0.11145038167938931,
+      "false_components_per_frame": 10.290625,
+      "component_mean_f1": 0.061016432010664284
+    },
+    "depth_sam_v2_s1": {
+      "family": "ESANet D",
+      "source": "automatic",
+      "seed": 1,
+      "output": "obstacle mask",
+      "object_recall": 0.33969465648854963,
+      "component_recall": 0.10534351145038168,
+      "false_components_per_frame": 7.465625,
+      "component_mean_f1": 0.07188120489658827
+    },
+    "depth_sam_v2_s2": {
+      "family": "ESANet D",
+      "source": "automatic",
+      "seed": 2,
+      "output": "obstacle mask",
+      "object_recall": 0.3793893129770992,
+      "component_recall": 0.07480916030534351,
+      "false_components_per_frame": 8.709375,
+      "component_mean_f1": 0.048037694837644467
+    },
+    "rgbd_reference210_s0": {
+      "family": "ESANet RGB-D",
+      "source": "reference",
+      "seed": 0,
+      "output": "obstacle mask",
+      "object_recall": 0.5717557251908397,
+      "component_recall": 0.4541984732824427,
+      "false_components_per_frame": 3.428125,
+      "component_mean_f1": 0.37474410005576614
+    },
+    "rgbd_reference210_s1": {
+      "family": "ESANet RGB-D",
+      "source": "reference",
+      "seed": 1,
+      "output": "obstacle mask",
+      "object_recall": 0.6748091603053435,
+      "component_recall": 0.5351145038167939,
+      "false_components_per_frame": 2.875,
+      "component_mean_f1": 0.43651268861605763
+    },
+    "rgbd_reference210_s2": {
+      "family": "ESANet RGB-D",
+      "source": "reference",
+      "seed": 2,
+      "output": "obstacle mask",
+      "object_recall": 0.6816793893129771,
+      "component_recall": 0.5312977099236641,
+      "false_components_per_frame": 2.23125,
+      "component_mean_f1": 0.4716541765328831
+    },
+    "rgbd_sam210_s0": {
+      "family": "ESANet RGB-D",
+      "source": "automatic",
+      "seed": 0,
+      "output": "obstacle mask",
+      "object_recall": 0.7137404580152672,
+      "component_recall": 0.5885496183206107,
+      "false_components_per_frame": 6.490625,
+      "component_mean_f1": 0.33620440506503785
+    },
+    "rgbd_sam210_s1": {
+      "family": "ESANet RGB-D",
+      "source": "automatic",
+      "seed": 1,
+      "output": "obstacle mask",
+      "object_recall": 0.7755725190839695,
+      "component_recall": 0.6160305343511451,
+      "false_components_per_frame": 6.4875,
+      "component_mean_f1": 0.34274558174477093
+    },
+    "rgbd_sam210_s2": {
+      "family": "ESANet RGB-D",
+      "source": "automatic",
+      "seed": 2,
+      "output": "obstacle mask",
+      "object_recall": 0.7702290076335878,
+      "component_recall": 0.6152671755725191,
+      "false_components_per_frame": 5.115625,
+      "component_mean_f1": 0.3899701018523756
+    },
+    "unet_logged_reference_s0": {
+      "family": "U-Net RGB",
+      "source": "reference",
+      "seed": 0,
+      "output": "obstacle mask",
+      "object_recall": 0.40458015267175573,
+      "component_recall": 0.3366412213740458,
+      "false_components_per_frame": 2.334375,
+      "component_mean_f1": 0.3538370795660427
+    },
+    "unet_logged_reference_s1": {
+      "family": "U-Net RGB",
+      "source": "reference",
+      "seed": 1,
+      "output": "obstacle mask",
+      "object_recall": 0.4725190839694656,
+      "component_recall": 0.3977099236641221,
+      "false_components_per_frame": 2.4,
+      "component_mean_f1": 0.3953626526155532
+    },
+    "unet_logged_reference_s2": {
+      "family": "U-Net RGB",
+      "source": "reference",
+      "seed": 2,
+      "output": "obstacle mask",
+      "object_recall": 0.5137404580152671,
+      "component_recall": 0.42442748091603055,
+      "false_components_per_frame": 2.4625,
+      "component_mean_f1": 0.4158675195172998
+    },
+    "yoloseg_long_reference_s0": {
+      "family": "YOLOv8n-seg RGB",
+      "source": "reference",
+      "seed": 0,
+      "output": "obstacle mask",
+      "object_recall": 0.6129770992366412,
+      "component_recall": 0.47557251908396947,
+      "false_components_per_frame": 0.884375,
+      "component_mean_f1": 0.536778864865024
+    },
+    "yoloseg_long_reference_s1": {
+      "family": "YOLOv8n-seg RGB",
+      "source": "reference",
+      "seed": 1,
+      "output": "obstacle mask",
+      "object_recall": 0.5793893129770993,
+      "component_recall": 0.45648854961832064,
+      "false_components_per_frame": 1.259375,
+      "component_mean_f1": 0.4921595432062681
+    },
+    "yoloseg_long_reference_s2": {
+      "family": "YOLOv8n-seg RGB",
+      "source": "reference",
+      "seed": 2,
+      "output": "obstacle mask",
+      "object_recall": 0.5885496183206107,
+      "component_recall": 0.44580152671755724,
+      "false_components_per_frame": 2.915625,
+      "component_mean_f1": 0.4003351557255147
+    },
+    "sam_three_prompt_v2": {
+      "family": "SAM 3 direct",
+      "source": "direct",
+      "seed": null,
+      "output": "obstacle mask",
+      "object_recall": 0.9450381679389313,
+      "component_recall": 0.8404580152671756,
+      "false_components_per_frame": 2.540625,
+      "component_mean_f1": 0.67342206899135
+    },
+    "floor_plane": {
+      "family": "Floor plane D",
+      "source": "direct",
+      "seed": null,
+      "output": "obstacle mask",
+      "object_recall": 0.6946564885496184,
+      "component_recall": 0.05725190839694656,
+      "false_components_per_frame": 344.015625,
+      "component_mean_f1": 0.0016268984454044732
+    },
+    "yolov8n_detect_reference_s0": {
+      "family": "YOLOv8n RGB",
+      "source": "reference",
+      "seed": 0,
+      "output": "union of native boxes",
+      "object_recall": 0.6412213740458015,
+      "component_recall": 0.3045801526717557,
+      "false_components_per_frame": 1.8875,
+      "component_mean_f1": 0.32763265781397183
+    },
+    "yolov8n_detect_reference_s1": {
+      "family": "YOLOv8n RGB",
+      "source": "reference",
+      "seed": 1,
+      "output": "union of native boxes",
+      "object_recall": 0.7076335877862595,
+      "component_recall": 0.3732824427480916,
+      "false_components_per_frame": 1.325,
+      "component_mean_f1": 0.39163833180604435
+    },
+    "yolov8n_detect_reference_s2": {
+      "family": "YOLOv8n RGB",
+      "source": "reference",
+      "seed": 2,
+      "output": "union of native boxes",
+      "object_recall": 0.6801526717557251,
+      "component_recall": 0.3717557251908397,
+      "false_components_per_frame": 1.41875,
+      "component_mean_f1": 0.3784607532980232
+    },
+    "yolov8n_detect_automatic_s0": {
+      "family": "YOLOv8n RGB",
+      "source": "automatic",
+      "seed": 0,
+      "output": "union of native boxes",
+      "object_recall": 0.6969465648854962,
+      "component_recall": 0.3717557251908397,
+      "false_components_per_frame": 2.40625,
+      "component_mean_f1": 0.34515409133728
+    },
+    "yolov8n_detect_automatic_s1": {
+      "family": "YOLOv8n RGB",
+      "source": "automatic",
+      "seed": 1,
+      "output": "union of native boxes",
+      "object_recall": 0.7549618320610687,
+      "component_recall": 0.39236641221374047,
+      "false_components_per_frame": 2.246875,
+      "component_mean_f1": 0.36900505309033743
+    },
+    "yolov8n_detect_automatic_s2": {
+      "family": "YOLOv8n RGB",
+      "source": "automatic",
+      "seed": 2,
+      "output": "union of native boxes",
+      "object_recall": 0.7809160305343511,
+      "component_recall": 0.3801526717557252,
+      "false_components_per_frame": 2.203125,
+      "component_mean_f1": 0.3582688967872398
+    }
+  }
+}

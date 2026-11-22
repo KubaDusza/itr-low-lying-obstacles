@@ -1,0 +1,11 @@
+\begin{table}[H]
+\caption{Single-image inference cost.}\label{tab:inference-cost}
+\centering\small
+\begin{tabular}{llrrr}
+\toprule Hardware & Pipeline & Precision & Median latency (ms) & Peak memory (GiB)\\\midrule
+Server CPU, 8 threads & YOLOv8n boxes & FP32 & 33.86 & 0.612\\
+Server CPU, 8 threads & SAM 3, three prompts & FP32 & 13263.34 & 4.881\\
+H200 MIG (71 GiB) & YOLOv8n boxes & FP16 & 4.04 & 0.013\\
+H200 MIG (71 GiB) & SAM 3, three prompts & BF16 & 183.14 & 2.016\\
+\bottomrule\end{tabular}
+\end{table}

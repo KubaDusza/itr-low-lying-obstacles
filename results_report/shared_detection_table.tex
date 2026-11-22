@@ -1,0 +1,23 @@
+\begin{table}[!t]
+\caption{Obstacle recovery with reference and SAM labels.}
+\label{tab:shared-detection}
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrr}
+\toprule
+ & \multicolumn{2}{c}{Object recall} & \multicolumn{2}{c}{Component F1}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Method & Ref. & SAM & Ref. & SAM\\
+\midrule
+ESANet RGB & 0.628 & 0.781 & 0.356 & 0.346\\
+ESANet D & 0.383 & 0.363 & 0.067 & 0.060\\
+ESANet RGB-D & 0.643 & 0.753 & 0.428 & 0.356\\
+U-Net RGB & 0.464 & -- & 0.388 & --\\
+YOLOv8n-seg & 0.600 & -- & 0.516 & --\\
+YOLOv8n boxes & 0.676 & 0.744 & 0.366 & 0.357\\
+\midrule
+Direct SAM 3 & \multicolumn{2}{c}{0.945} & \multicolumn{2}{c}{0.673}\\
+Floor-plane fit & \multicolumn{2}{c}{0.695} & \multicolumn{2}{c}{0.002}\\
+\bottomrule
+\end{tabular}\par\smallskip{\footnotesize Ref.: assisted reference labels; SAM: RGB-only automatic labels. Means of three seeds; direct methods are fixed. Boxes are filled and united for common scoring.}
+\end{table}

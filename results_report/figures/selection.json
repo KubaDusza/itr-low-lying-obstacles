@@ -1,0 +1,33 @@
+{
+  "range_and_size": "All three matched-runtime reference seeds; average five static repeats before unit/recording summaries. Seed SD, not scene CI.",
+  "cloth_examples": {
+    "selection": "Fixed h52/cloth set, frame 2 and seed 0: near/far bare floor plus near poster to combine scale, shape and background diagnostics. Not selected for fusion advantage. Full three-mark floor sequence retained in server analysis figures.",
+    "records": [
+      {
+        "recording": "h52_floor_rags_075",
+        "frame": 2,
+        "seed": 0,
+        "display_crop": null
+      },
+      {
+        "recording": "h52_floor_rags_250",
+        "frame": 2,
+        "seed": 0,
+        "display_crop": null
+      },
+      {
+        "recording": "h52_poster_rags_075",
+        "frame": 2,
+        "seed": 0,
+        "display_crop": null
+      }
+    ],
+    "residual_scale_mm": [
+      -50,
+      50
+    ],
+    "same_full_frame_scale": true,
+    "interpretation": "Camera-axis residual, not physical object height."
+  },
+  "supporting_teacher_examples": "results/results_report_20261122/automatic_teacher_examples.pdf"
+}

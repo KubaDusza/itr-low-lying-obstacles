@@ -1,0 +1,17 @@
+\begin{longtable}{llrrrr}
+\caption{Full obstacle-region results on GTE-Floor.}\label{tab:full-component}\\
+\toprule Method & Training labels & Object recall & Component recall & False regions/frame & Mean component F1\\\midrule\endfirsthead
+\toprule Method & Training labels & Object recall & Component recall & False regions/frame & Mean component F1\\\midrule\endhead
+ESANet RGB & reference & 0.628$\pm$0.005 & 0.454$\pm$0.018 & 3.654$\pm$0.762 & 0.356$\pm$0.034\\
+ESANet RGB & automatic & 0.781$\pm$0.060 & 0.603$\pm$0.005 & 6.425$\pm$1.308 & 0.346$\pm$0.027\\
+ESANet D & reference & 0.383$\pm$0.011 & 0.098$\pm$0.012 & 8.236$\pm$1.349 & 0.067$\pm$0.005\\
+ESANet D & automatic & 0.363$\pm$0.021 & 0.097$\pm$0.020 & 8.822$\pm$1.416 & 0.060$\pm$0.012\\
+ESANet RGB-D & reference & 0.643$\pm$0.062 & 0.507$\pm$0.046 & 2.845$\pm$0.599 & 0.428$\pm$0.049\\
+ESANet RGB-D & automatic & 0.753$\pm$0.034 & 0.607$\pm$0.016 & 6.031$\pm$0.793 & 0.356$\pm$0.029\\
+U-Net RGB & reference & 0.464$\pm$0.055 & 0.386$\pm$0.045 & 2.399$\pm$0.064 & 0.388$\pm$0.032\\
+YOLOv8n-seg RGB & reference & 0.600$\pm$0.026 & 0.471$\pm$0.033 & 1.014$\pm$0.368 & 0.516$\pm$0.047\\
+YOLOv8n RGB & reference & 0.676$\pm$0.033 & 0.350$\pm$0.039 & 1.544$\pm$0.301 & 0.366$\pm$0.034\\
+YOLOv8n RGB & automatic & 0.744$\pm$0.043 & 0.381$\pm$0.010 & 2.285$\pm$0.107 & 0.357$\pm$0.012\\
+SAM 3 direct & direct & 0.945 & 0.840 & 2.541 & 0.673\\
+Floor plane D & direct & 0.695 & 0.057 & 344.016 & 0.002\\
+\bottomrule\end{longtable}

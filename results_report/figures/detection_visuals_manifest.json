@@ -1,0 +1,232 @@
+{
+  "figures": [
+    "detection_comparison",
+    "detection_by_distance_size",
+    "detection_examples"
+  ],
+  "graph_errors": "Training-seed SD, not partner-report bootstrap intervals; RGB automatic n=2, remaining learned cohorts n=3.",
+  "metrics": "Coverage >=0.5 reference pixels; localization adjusted IoU >=0.5; false prediction components; not native instance AP.",
+  "image_area": "Reference foreground pixels on original 640x362 GTE evaluation grid, not square centimetres.",
+  "physical_size": "Supplementary only when measured or calibrated/validated; inverse-depth floor residual is not object height.",
+  "inspiration": "Partner report: emphasize object recall, show performance graphically and enlarge matched failure/success crops. All numbers/predictions here use the current frozen experiments.",
+  "examples": [
+    {
+      "selection": "Cloths on bare floor",
+      "recording": "h52_floor_rags_075",
+      "reference_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "frame": 2,
+      "seed": 0,
+      "crop": [
+        0,
+        0,
+        640,
+        362
+      ],
+      "display_only": true,
+      "full_frame_scoring": true,
+      "shown": [
+        {
+          "model": "esanet_full_rgb_reference_s0",
+          "objects": [
+            {
+              "id": 1,
+              "coverage": 0.9993199129488575,
+              "adjusted_iou": 0.8335602450646699,
+              "localized": true
+            },
+            {
+              "id": 2,
+              "coverage": 0.9985185185185185,
+              "adjusted_iou": 0.6477654973570399,
+              "localized": true
+            },
+            {
+              "id": 3,
+              "coverage": 1.0,
+              "adjusted_iou": 0.9284882366643373,
+              "localized": true
+            },
+            {
+              "id": 4,
+              "coverage": 1.0,
+              "adjusted_iou": 0.8307022318998367,
+              "localized": true
+            }
+          ]
+        },
+        {
+          "model": "esanet_full_depth_reference_s0",
+          "objects": [
+            {
+              "id": 1,
+              "coverage": 0.0,
+              "adjusted_iou": 0.0,
+              "localized": false
+            },
+            {
+              "id": 2,
+              "coverage": 0.9959259259259259,
+              "adjusted_iou": 0.5681386013099514,
+              "localized": true
+            },
+            {
+              "id": 3,
+              "coverage": 0.18006773707977922,
+              "adjusted_iou": 0.15206567796610168,
+              "localized": false
+            },
+            {
+              "id": 4,
+              "coverage": 0.9665792922673656,
+              "adjusted_iou": 0.6428882754612815,
+              "localized": true
+            }
+          ]
+        },
+        {
+          "model": "rgbd_reference210_s0",
+          "objects": [
+            {
+              "id": 1,
+              "coverage": 0.1513873775843308,
+              "adjusted_iou": 0.1457951270631386,
+              "localized": false
+            },
+            {
+              "id": 2,
+              "coverage": 1.0,
+              "adjusted_iou": 0.8411214953271028,
+              "localized": true
+            },
+            {
+              "id": 3,
+              "coverage": 0.0,
+              "adjusted_iou": 0.0,
+              "localized": false
+            },
+            {
+              "id": 4,
+              "coverage": 1.0,
+              "adjusted_iou": 0.8343357025697102,
+              "localized": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "selection": "Same cloths on poster",
+      "recording": "h52_poster_rags_075",
+      "reference_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "frame": 2,
+      "seed": 0,
+      "crop": [
+        0,
+        0,
+        640,
+        362
+      ],
+      "display_only": true,
+      "full_frame_scoring": true,
+      "shown": [
+        {
+          "model": "esanet_full_rgb_reference_s0",
+          "objects": [
+            {
+              "id": 1,
+              "coverage": 0.0,
+              "adjusted_iou": 0.0,
+              "localized": false
+            },
+            {
+              "id": 2,
+              "coverage": 0.0,
+              "adjusted_iou": 0.0,
+              "localized": false
+            },
+            {
+              "id": 3,
+              "coverage": 1.0,
+              "adjusted_iou": 0.9498701539603042,
+              "localized": true
+            },
+            {
+              "id": 4,
+              "coverage": 0.9997493106041614,
+              "adjusted_iou": 0.8183870305766469,
+              "localized": true
+            }
+          ]
+        },
+        {
+          "model": "esanet_full_depth_reference_s0",
+          "objects": [
+            {
+              "id": 1,
+              "coverage": 0.0,
+              "adjusted_iou": 0.0,
+              "localized": false
+            },
+            {
+              "id": 2,
+              "coverage": 0.998496993987976,
+              "adjusted_iou": 0.4281417830290011,
+              "localized": false
+            },
+            {
+              "id": 3,
+              "coverage": 0.021090660547771322,
+              "adjusted_iou": 0.020451640391989774,
+              "localized": false
+            },
+            {
+              "id": 4,
+              "coverage": 0.9919779393331662,
+              "adjusted_iou": 0.7072386058981234,
+              "localized": true
+            }
+          ]
+        },
+        {
+          "model": "rgbd_reference210_s0",
+          "objects": [
+            {
+              "id": 1,
+              "coverage": 0.0,
+              "adjusted_iou": 0.0,
+              "localized": false
+            },
+            {
+              "id": 2,
+              "coverage": 0.0,
+              "adjusted_iou": 0.0,
+              "localized": false
+            },
+            {
+              "id": 3,
+              "coverage": 0.0,
+              "adjusted_iou": 0.0,
+              "localized": false
+            },
+            {
+              "id": 4,
+              "coverage": 0.04662822762597142,
+              "adjusted_iou": 0.04601682335477486,
+              "localized": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+\begin{table}[!t]
+\caption{GTE-Floor results by object set.}
+\label{tab:object-sets}
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lr*{6}{r}}
+\toprule
+ & & \multicolumn{3}{c}{Pixel IoU} & \multicolumn{3}{c}{Object recall}\\
+\cmidrule(lr){3-5}\cmidrule(lr){6-8}
+Object set & $n$ & RGB & D & RGB-D & RGB & D & RGB-D\\
+\midrule
+Cloths/tissues & 12 & 0.633 & 0.184 & \textbf{0.664} & 0.701 & 0.579 & \textbf{0.776}\\
+Tape rolls & 6 & 0.727 & 0.351 & \textbf{0.793} & \textbf{0.966} & 0.653 & \textbf{0.966}\\
+Mixed items & 6 & 0.509 & 0.147 & \textbf{0.611} & \textbf{0.889} & 0.383 & 0.806\\
+Chess pieces & 12 & 0.324 & 0.030 & \textbf{0.442} & 0.683 & 0.487 & \textbf{0.706}\\
+Screws & 6 & 0.203 & 0.022 & \textbf{0.331} & 0.157 & 0.096 & \textbf{0.159}\\
+Cables & 12 & 0.341 & 0.137 & \textbf{0.408} & 0.781 & 0.329 & \textbf{0.785}\\
+Hex keys & 6 & 0.165 & 0.021 & \textbf{0.202} & 0.198 & 0.057 & \textbf{0.225}\\
+\bottomrule
+\end{tabular}\par\smallskip{\footnotesize $n$: recordings; three-seed means. Bold marks the largest mean in each metric block.}
+\end{table}

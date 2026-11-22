@@ -1,0 +1,180 @@
+{
+  "method": "Paired recording bootstrap for the report's GTE-Floor contrasts.\n\nResamples the 64 recordings with replacement (10,000 draws). In each draw every arm pools its\npixel/object counts over the drawn recordings and its three seeds, so the interval reflects\nscene sampling with training variation averaged; seed SD is reported separately.",
+  "draws": 10000,
+  "recordings": 64,
+  "arms": {
+    "rgb_ref": {
+      "pixel_iou": 0.4839535523959965,
+      "object_recall": 0.628498727735369,
+      "false_regions_per_frame": 3.654166666666667
+    },
+    "d_ref": {
+      "pixel_iou": 0.14044716007860875,
+      "object_recall": 0.3826972010178117,
+      "false_regions_per_frame": 8.236458333333333
+    },
+    "rgbd_ref": {
+      "pixel_iou": 0.5532443379272487,
+      "object_recall": 0.6427480916030535,
+      "false_regions_per_frame": 2.8447916666666666
+    },
+    "rgb_sam": {
+      "pixel_iou": 0.4675834197218084,
+      "object_recall": 0.7814249363867685,
+      "false_regions_per_frame": 6.425
+    },
+    "d_sam": {
+      "pixel_iou": 0.12433543170396723,
+      "object_recall": 0.36335877862595417,
+      "false_regions_per_frame": 8.821875
+    },
+    "rgbd_sam": {
+      "pixel_iou": 0.49618304811958586,
+      "object_recall": 0.7531806615776081,
+      "false_regions_per_frame": 6.03125
+    },
+    "boxes_ref": {
+      "pixel_iou": NaN,
+      "object_recall": 0.6763358778625954,
+      "false_regions_per_frame": 1.54375
+    },
+    "boxes_sam": {
+      "pixel_iou": NaN,
+      "object_recall": 0.7442748091603053,
+      "false_regions_per_frame": 2.285416666666667
+    }
+  },
+  "contrasts": {
+    "rgbd_ref - rgb_ref": {
+      "pixel_iou": {
+        "delta": 0.06929078553125217,
+        "ci95": [
+          0.031234870664483196,
+          0.10544393844909958
+        ]
+      },
+      "object_recall": {
+        "delta": 0.014249363867684495,
+        "ci95": [
+          -0.019192017450772217,
+          0.050063049662047575
+        ]
+      },
+      "false_regions_per_frame": {
+        "delta": -0.8093750000000002,
+        "ci95": [
+          -1.0125000000000002,
+          -0.6041406250000002
+        ]
+      }
+    },
+    "d_ref - rgb_ref": {
+      "pixel_iou": {
+        "delta": -0.3435063923173878,
+        "ci95": [
+          -0.4185527801339359,
+          -0.27188963944874106
+        ]
+      },
+      "object_recall": {
+        "delta": -0.24580152671755728,
+        "ci95": [
+          -0.32256744487678335,
+          -0.1689921060851293
+        ]
+      },
+      "false_regions_per_frame": {
+        "delta": 4.582291666666666,
+        "ci95": [
+          4.135390624999999,
+          5.03125
+        ]
+      }
+    },
+    "rgb_sam - rgb_ref": {
+      "pixel_iou": {
+        "delta": -0.01637013267418813,
+        "ci95": [
+          -0.09740971110629253,
+          0.045657320574671645
+        ]
+      },
+      "object_recall": {
+        "delta": 0.1529262086513995,
+        "ci95": [
+          0.09376566040250568,
+          0.21746617466174656
+        ]
+      },
+      "false_regions_per_frame": {
+        "delta": 2.770833333333333,
+        "ci95": [
+          2.276015625,
+          3.2760677083333327
+        ]
+      }
+    },
+    "rgbd_sam - rgbd_ref": {
+      "pixel_iou": {
+        "delta": -0.05706128980766284,
+        "ci95": [
+          -0.12952331472874842,
+          -0.0012525152700473211
+        ]
+      },
+      "object_recall": {
+        "delta": 0.11043256997455464,
+        "ci95": [
+          0.056921957671957714,
+          0.1648775272968821
+        ]
+      },
+      "false_regions_per_frame": {
+        "delta": 3.1864583333333334,
+        "ci95": [
+          2.9104166666666664,
+          3.469791666666667
+        ]
+      }
+    },
+    "d_sam - d_ref": {
+      "pixel_iou": {
+        "delta": -0.016111728374641518,
+        "ci95": [
+          -0.026168257051996914,
+          -0.007677647308016277
+        ]
+      },
+      "object_recall": {
+        "delta": -0.019338422391857513,
+        "ci95": [
+          -0.04163535641796511,
+          0.0022506966005891435
+        ]
+      },
+      "false_regions_per_frame": {
+        "delta": 0.5854166666666671,
+        "ci95": [
+          0.2708072916666655,
+          0.911458333333333
+        ]
+      }
+    },
+    "boxes_sam - boxes_ref": {
+      "object_recall": {
+        "delta": 0.06793893129770989,
+        "ci95": [
+          0.03281712062256807,
+          0.10900243309002433
+        ]
+      },
+      "false_regions_per_frame": {
+        "delta": 0.7416666666666669,
+        "ci95": [
+          0.565625,
+          0.9208333333333334
+        ]
+      }
+    }
+  }
+}

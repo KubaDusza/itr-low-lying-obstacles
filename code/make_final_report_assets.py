@@ -25,16 +25,18 @@ def fmt(d, sd=False, digits=3):
 
 
 ROWS = [  # label, key, group
-    ('ESANet RGB', 'ESANet RGB / ref', 'Reference labels'),
-    ('ESANet D', 'ESANet D / ref', 'Reference labels'),
-    ('ESANet RGB-D', 'ESANet RGB-D / ref', 'Reference labels'),
-    ('U-Net RGB', 'U-Net / ref', 'Reference labels'),
-    ('YOLOv8n-seg RGB', 'YOLOv8n-seg / ref', 'Reference labels'),
-    ('YOLOv8n boxes RGB', 'YOLOv8n boxes / ref', 'Reference labels'),
-    ('ESANet RGB', 'ESANet RGB / SAM', 'SAM 3 labels'),
-    ('ESANet D', 'ESANet D / SAM', 'SAM 3 labels'),
-    ('ESANet RGB-D', 'ESANet RGB-D / SAM', 'SAM 3 labels'),
-    ('YOLOv8n boxes RGB', 'YOLOv8n boxes / SAM', 'SAM 3 labels'),
+    ('ESANet RGB', 'ESANet RGB / ref', 'Reference labels (from ISOD annotations)'),
+    ('ESANet D', 'ESANet D / ref', 'Reference labels (from ISOD annotations)'),
+    ('ESANet RGB-D', 'ESANet RGB-D / ref', 'Reference labels (from ISOD annotations)'),
+    ('U-Net RGB', 'U-Net / ref', 'Reference labels (from ISOD annotations)'),
+    ('YOLOv8n-seg RGB', 'YOLOv8n-seg / ref', 'Reference labels (from ISOD annotations)'),
+    ('YOLOv8n boxes RGB', 'YOLOv8n boxes / ref', 'Reference labels (from ISOD annotations)'),
+    ('ESANet RGB', 'ESANet RGB / SAM', 'Automatic SAM 3 labels'),
+    ('ESANet D', 'ESANet D / SAM', 'Automatic SAM 3 labels'),
+    ('ESANet RGB-D', 'ESANet RGB-D / SAM', 'Automatic SAM 3 labels'),
+    ('U-Net RGB', 'U-Net / SAM', 'Automatic SAM 3 labels'),
+    ('YOLOv8n-seg RGB', 'YOLOv8n-seg / SAM', 'Automatic SAM 3 labels'),
+    ('YOLOv8n boxes RGB', 'YOLOv8n boxes / SAM', 'Automatic SAM 3 labels'),
     ('SAM 3, three prompts', 'SAM 3 direct', 'Untrained'),
     ('Floor-plane fit (D)', 'Floor plane', 'Untrained'),
     ('RGB-D, depth removed', 'RGB-D / ref, depth removed', 'Depth intervention (RGB-D, reference)'),
@@ -79,7 +81,7 @@ def full_table():
             src = NUM[ds].get(key)
             if not src:
                 continue
-            tag = {'Reference labels': 'ref.', 'SAM 3 labels': 'SAM', 'Untrained': '', }.get(g, '')
+            tag = {'Reference labels (from ISOD annotations)': 'ref.', 'Automatic SAM 3 labels': 'SAM', 'Untrained': '', }.get(g, '')
             cells = [fmt(src.get(m), sd=True, digits=2 if m == 'false_regions_per_frame' else 3) if src.get(m) else '--'
                      for m in ('pixel_iou', 'object_recall', 'component_f1', 'false_regions_per_frame')]
             L.append(f"{name} & {label}{', ' + tag if tag else ''} & " + ' & '.join(cells) + r'\\')

@@ -64,3 +64,14 @@ Other scripts: `export_isod_test_references.py` (test refs), `make_detection_rep
 - Embedded text in `figures/qualitative_cases.pdf` (Appendix G cable figure) still carries defensive notes ("outcome-selected… not evidence of frequency"); could be regenerated plainer.
 - Stale unused files in `results_report/`: `domain_table.tex`, `shared_detection_table.tex`, `domain_spread_table.tex`, `full_component_table.tex`, `table_rows.tex`, `cloth_counts_table.tex`.
 - Jakub's style: concise, plain, no jargon in main text, no "X, not Y", no development history in the paper, captions short.
+
+## IN PROGRESS when usage ran out (2026-11-22 ~21:30)
+
+Jakub asked to train U-Net and YOLOv8n-seg on the automatic SAM 3 labels too (full 2-label matrix, 36 runs) and to name the groups "Reference labels (from ISOD annotations)" / "Automatic SAM 3 labels".
+
+- Triton jobs **21782791** (U-Net SAM, array 0-2) and **21782792** (YOLOv8n-seg SAM, array 0-2) are running/queued (`e60.slurm unet-sam|seg-sam`; controllers `code/triton_unet_sam.py`, `code/triton_seg_e60_sam.py`). The first attempt (21781544/5) failed only because scratch hit its 214 GB quota; run dirs `runs/unet_logged_sam_s*` and `runs/yoloseg_e60_sam_s*` are now symlinks to `~/itr_runs/` on Triton home.
+- When VERIFIED: rsync each run (exclude weights/*.pt) into `results/extended_training_20261122/runs/`; U-Net 300-frame ISOD predictions are in `pred300/`, seg in `pred/`; GTE in `gte/`.
+- Then rerun the pipeline (prepare_report_revision → score_isod_test300 → bootstrap_gte_contrasts → collect_report_numbers → make_final_report_assets). All scripts already include the two new arms and the renamed groups.
+- Then update hand-written numbers in `results_section.tex` Automatic-labels paragraph (it currently cites only ESANet RGB/RGB-D and boxes; add U-Net and YOLOv8n-seg SAM−ref deltas from `bootstrap_contrasts.json`), check page fit (results must end on p. 6), rebuild, render, commit.
+- Text already updated (uncommitted): "every trained model trained on both label sources, 36 runs", label names, Appendix B matrix (U-Net/YOLOv8n-seg 6 runs each), false-region sentences simplified, "teacher"/"condition" wording removed. The current PDF says 36 runs but Table III still lacks the two new SAM rows until the pipeline is rerun.
+- If the runs cannot finish in time: revert the experiments sentence to "U-Net and YOLOv8n-seg serve as RGB baselines and were trained on reference labels only", set the Appendix B matrix back to 3 runs each and 30 runs total, and remove the two SAM rows from `ROWS` in `make_final_report_assets.py`.

@@ -31,6 +31,8 @@ def sources():
         s[f'esanet_rgbd_sam_s{k}'] = PROD / f'rgbd_sam210_s{k}/pred'
         s[f'unet_reference_s{k}'] = T / f'unet_logged_reference_s{k}'
         s[f'yoloseg_reference_s{k}'] = ROOT / f'results/extended_training_20261122/runs/yoloseg_e60_reference_s{k}/pred'
+        s[f'unet_sam_s{k}'] = ROOT / f'results/extended_training_20261122/runs/unet_logged_sam_s{k}/pred300'
+        s[f'yoloseg_sam_s{k}'] = ROOT / f'results/extended_training_20261122/runs/yoloseg_e60_sam_s{k}/pred'
         s[f'boxes_reference_s{k}'] = ROOT / f'results/extended_training_20261122/runs/yolov8n_detect_reference_e60_s{k}/isod_boxes.json'
         s[f'boxes_sam_s{k}'] = ROOT / f'results/extended_training_20261122/runs/yolov8n_detect_automatic_e60_s{k}/isod_boxes.json'
     s['esanet_rgb_sam_s0'] = SAM2 / 'glaurung/runs/rgb_sam_v2_s0_recovery_glaurung/pred'

@@ -60,6 +60,9 @@ def main():
     seg_names=[f'yoloseg_e60_reference_s{s}' for s in range(3)]
     updated_seg=all((extended/'runs'/n/'VERIFIED').exists() for n in seg_names)
     if updated_seg:extra_runs += [(n,extended/'runs'/n) for n in seg_names]
+    sam_base_names=[f'unet_logged_sam_s{s}' for s in range(3)]+[f'yoloseg_e60_sam_s{s}' for s in range(3)]
+    updated_sam_base=all((extended/'runs'/n/'VERIFIED').exists() for n in sam_base_names)
+    if updated_sam_base:extra_runs += [(n,extended/'runs'/n) for n in sam_base_names]
     for new_name,new_dir in extra_runs:
         newframes=[];newobjects=[];evaluations=[];full=defaultdict(int)
         for entry in manifest['frames']:
@@ -122,6 +125,7 @@ def main():
     groups={**{('ESANet '+{'rgb':'RGB','depth':'D','rgbd':'RGB-D'}[mode],source):models for (mode,source),models in cohorts.items()},
         ('U-Net RGB','reference'):unet_names if updated_unet else [f'unet_full_reference_s{s}' for s in range(3)],
         ('YOLOv8n-seg RGB','reference'):seg_names if updated_seg else [f'yolo_full_reference_s{s}' for s in range(3)],
+        **({('U-Net RGB','automatic'):[f'unet_logged_sam_s{s}' for s in range(3)],('YOLOv8n-seg RGB','automatic'):[f'yoloseg_e60_sam_s{s}' for s in range(3)]} if updated_sam_base else {}),
         ('SAM 3 direct','direct'):['sam_three_prompt_v2'],('Floor plane D','direct'):['floor_plane']}
     for (family,source),models in groups.items():
         for seed,model in enumerate(models):

@@ -182,9 +182,9 @@ a depth-only floor-plane fit without training (Table~\ref{tab:models}).
 All outputs are scored as obstacle regions in the same way
 (Section~\ref{evaluation}).
 
-The second comparison tests labels. ESANet and YOLOv8n are trained once
-on reference labels and once on SAM~3 labels, with everything else fixed
-(Fig.~\ref{fig:pipeline}). SAM~3's own masks are also scored directly.
+The second comparison tests labels. Every trained model is trained once
+on reference labels and once on automatic SAM~3 labels, with everything
+else fixed (Fig.~\ref{fig:pipeline}). SAM~3's own masks are also scored directly.
 
 \begin{figure}[H]
 \centering
@@ -218,7 +218,7 @@ ISOD's not-drivable mask also covers walls and furniture. We initialize
 obstacle masks with SAM proposals inside that mask and correct them
 manually: 70 of the 1,400 training frames, all 300 validation frames and
 30 of the 300 test frames were checked by hand, and the remaining frames
-keep the proposals.
+keep the proposals. We call these reference labels.
 
 \subsubsection{GTE-Floor}\label{gte-floor}
 

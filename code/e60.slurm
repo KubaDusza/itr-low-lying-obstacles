@@ -20,4 +20,8 @@ case "$1" in
  seg-gate) python -u "$BASE/triton_seg_e60.py" --base "$BASE" --gate ;;
  reference|automatic) python -u "$BASE/triton_boxes_e60.py" --base "$BASE" --source "$1" --seed "$SLURM_ARRAY_TASK_ID" ;;
  seg) python -u "$BASE/triton_seg_e60.py" --base "$BASE" --seed "$SLURM_ARRAY_TASK_ID" ;;
+ unet-sam-gate) python -u "$BASE/triton_unet_sam.py" --base "$BASE" --gate ;;
+ seg-sam-gate) python -u "$BASE/triton_seg_e60_sam.py" --base "$BASE" --gate ;;
+ unet-sam) python -u "$BASE/triton_unet_sam.py" --base "$BASE" --seed "$SLURM_ARRAY_TASK_ID" ;;
+ seg-sam) python -u "$BASE/triton_seg_e60_sam.py" --base "$BASE" --seed "$SLURM_ARRAY_TASK_ID" ;;
 esac

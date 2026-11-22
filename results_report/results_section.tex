@@ -20,9 +20,10 @@
 
 All learned models were trained on ISOD and evaluated without
 fine-tuning on the 300 test frames from its three held-out locations and
-on the 320 GTE-Floor frames. ESANet was trained with RGB, D and RGB-D
-input on both label sources, U-Net and YOLOv8n-seg on reference labels,
-and the YOLOv8n box detector on both label sources. Each learned condition has three seeds, giving the 30 runs listed in
+on the 320 GTE-Floor frames. Each trained model (ESANet RGB, D and RGB-D, U-Net, YOLOv8n-seg and the
+YOLOv8n box detector) was trained twice: once on the reference labels
+and once on the automatic SAM~3 labels. Every run is repeated with three seeds,
+giving the 36 runs listed in
 Table~\ref{tab:experiment-matrix}.
 
 \subsection{Depth}
@@ -65,15 +66,12 @@ reference labels. On ISOD, label source changes pixel IoU by $-0.03$ to $+0.02$ 
 ($+0.045$ [$+0.009$, $+0.084$]). Component F1 stays within seed variation
 for RGB and boxes and falls from 0.428 to 0.356 for RGB-D.
 
-ESANet models trained on SAM labels predict more false regions on GTE-Floor: 6.0--6.4 per frame, against 2.8--3.7 with reference labels. In a
-pixel-weighted sample of 30 regions per condition that touch no
-reference object, nearly all cover
-physical objects that are not annotated as hazards, mainly the tape
-measure lying along the floor and a bin and box at the wall
-(Appendix~\ref{app:failures}). SAM-trained models segment more of these
+ESANet models trained on SAM labels predict more false regions on GTE-Floor: 6.0--6.4 per frame, against 2.8--3.7 with reference labels. Most of the extra regions are real objects that were
+not annotated: the tape measure lying along the floor, and a bin and a
+box at the wall (Appendix~\ref{app:failures}). SAM-trained models segment more of these
 objects, which lowers measured precision.
 
-The SAM~3 teacher itself stays ahead of every model trained on its
+Using SAM~3 itself as the detector beats every model trained on its
 labels, with GTE-Floor object recall 0.945 and the highest component F1
 on both datasets (0.829 and 0.673).
 
@@ -98,11 +96,10 @@ depth.
 Depth alone detected raised objects and missed flat ones. RGB-only SAM~3
 labels replaced the assisted reference labels at equal ISOD accuracy and
 higher GTE-Floor recovery, so a small detector can be trained without
-per-image human masks. The SAM~3 teacher remained the most accurate
+per-image human masks. SAM~3 used directly remained the most accurate
 method, at 45 times the GPU latency of YOLOv8n.
 
-The comparison covers two datasets with different sensors, three seeds
-per condition and checkpoints chosen on ISOD validation data only.
+The comparison covers two datasets with different sensors, three seeds per model and checkpoints chosen on ISOD validation data only.
 ISOD test references for 270 of the 300 frames are assisted proposals.
 On the 30 human-reviewed test frames they agree with the reviewed masks
 at pooled IoU 0.929, and methods score 0.00--0.06 higher there in pixel IoU. GTE-Floor is one room; its five repeats per
@@ -111,4 +108,4 @@ count as false regions. ESANet RGB-D has a second encoder (46.9M against
 32.1M parameters), so its comparison with RGB also changes capacity.
 
 Next steps are measured object heights, ignore regions for props,
-on-robot timing and distillation that keeps more teacher precision.
+on-robot timing and training that keeps more of SAM~3's precision.

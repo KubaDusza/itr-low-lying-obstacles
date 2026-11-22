@@ -8,7 +8,7 @@
 
 \section{Experimental Configuration and Label Construction}\label{app:configuration}
 
-Table~\ref{tab:experiment-matrix} summarizes the training conditions.
+Table~\ref{tab:experiment-matrix} summarizes the training runs.
 All learned models use 1,400 ISOD training images and 300 validation
 images. Reference supervision uses assisted obstacle annotations;
 SAM supervision uses RGB-only automatic labels. Paired label-source
@@ -25,8 +25,8 @@ Model & Input & Supervised target & Label sources & Epochs/run & Runs\\
 ESANet & RGB & Binary pixel mask & Reference, SAM & 500 & 6\\
 ESANet & D & Binary pixel mask & Reference, SAM & 500 & 6\\
 ESANet & RGB-D & Binary pixel mask & Reference, SAM & 500 & 6\\
-U-Net/MobileNetV2 & RGB & Binary pixel mask & Reference & 15 & 3\\
-YOLOv8n-seg & RGB & Instance masks and boxes & Reference & 60 & 3\\
+U-Net/MobileNetV2 & RGB & Binary pixel mask & Reference, SAM & 15 & 6\\
+YOLOv8n-seg & RGB & Instance masks and boxes & Reference, SAM & 60 & 6\\
 YOLOv8n detector & RGB & Hazard-unit boxes & Reference, SAM & 60 & 6\\
 \bottomrule
 \end{tabular}
@@ -94,7 +94,7 @@ on the shared reference validation boxes is used (reference epochs 40,
 Box inference uses confidence 0.25 and NMS IoU 0.7, fixed before GTE
 scoring. RGB/D ESANet runs use Torch 2.14; the paired RGB-D runs and
 box-detector runs use Torch 2.10. Paired supervision uses matching environments
-within each condition. ESANet modality comparisons also change model
+within each model. ESANet modality comparisons also change model
 capacity, so they do not isolate depth information alone.
 
 \section{Evaluation Details and Full Comparisons}\label{app:evaluation}
@@ -192,8 +192,8 @@ Figure~\ref{fig:native-curves} shows box-detector training over the
 
 \section{Automatic-Label Examples}\label{app:teacher}
 
-Figure~\ref{fig:teacher-devval} shows the three-prompt teacher masks
-used for training next to the reviewed references. Teacher pooled mask
+Figure~\ref{fig:teacher-devval} shows the automatic SAM~3 labels used for training next to the reviewed
+references. Their pooled mask
 IoU is 0.775 on the 30 prompt-development frames, 0.604 on the 300
 validation frames and 0.730 on the 300 test frames.
 \begin{figure}[H]
@@ -235,13 +235,12 @@ hazards.
 
 Isolated regions, which touch no reference object, cover 1,619 (RGB-D)
 and 1,834 (RGB) pixels per GTE-Floor frame under SAM labels, against 210
-and 434 under reference labels. Figure~\ref{fig:false-regions} shows a
-pixel-weighted random sample of 30 such regions per RGB-D condition, and
-Table~\ref{tab:false-region-types} classifies them by inspection. Nearly
-all are physical objects left unannotated: the tape measure lying along
-the floor, its case, a bin and a box at the wall base, and a white
-object at the left wall. SAM-trained models segment the long tape
-measure far more often.
+and 434 under reference labels. Nearly all of them are objects that were
+not annotated: the tape measure lying along the floor and its case, a bin
+and a box at the wall base, and a white object at the left wall
+(Fig.~\ref{fig:false-regions}, Table~\ref{tab:false-region-types}). A
+robot would need to avoid these objects as well. SAM-trained models mark
+the long tape measure far more often.
 
 \begin{table}[H]
 \caption{Isolated GTE-Floor regions in the pixel-weighted samples, classified by inspection.}\label{tab:false-region-types}
@@ -260,7 +259,7 @@ Floor texture or noise & 4 & 1\\
 \centering
 \includegraphics[width=0.62\textwidth]{figures/fp_rgbd_ref.jpg}\\[3pt]
 \includegraphics[width=0.62\textwidth]{figures/fp_rgbd_sam.jpg}
-\caption{Isolated predicted regions (red outline) of ESANet RGB-D trained on reference labels (top) and SAM labels (bottom), 30 per condition sampled with probability proportional to area. Cyan: reference objects. Labels give the recording and region area.}
+\caption{Isolated predicted regions (red outline) of ESANet RGB-D trained on reference labels (top) and SAM labels (bottom), 30 regions each, sampled with probability proportional to area. Cyan: reference objects. Labels give the recording and region area.}
 \label{fig:false-regions}
 \end{figure}
 

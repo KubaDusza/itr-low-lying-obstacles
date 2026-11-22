@@ -22,11 +22,15 @@ ARMS = {
     'rgb_sam': ['rgb_sam_v2_s0_recovery_glaurung', 'rgb_sam_v2_s1', 'rgb_sam_v2_s2'],
     'd_sam': [f'depth_sam_v2_s{s}' for s in range(3)],
     'rgbd_sam': [f'rgbd_sam210_s{s}' for s in range(3)],
+    'unet_ref': [f'unet_logged_reference_s{s}' for s in range(3)],
+    'unet_sam': [f'unet_logged_sam_s{s}' for s in range(3)],
+    'seg_ref': [f'yoloseg_e60_reference_s{s}' for s in range(3)],
+    'seg_sam': [f'yoloseg_e60_sam_s{s}' for s in range(3)],
     'boxes_ref': [f'yolov8n_detect_reference_e60_s{s}' for s in range(3)],
     'boxes_sam': [f'yolov8n_detect_automatic_e60_s{s}' for s in range(3)],
 }
 CONTRASTS = [('rgbd_ref', 'rgb_ref'), ('d_ref', 'rgb_ref'), ('rgb_sam', 'rgb_ref'), ('rgbd_sam', 'rgbd_ref'),
-             ('d_sam', 'd_ref'), ('boxes_sam', 'boxes_ref')]
+             ('d_sam', 'd_ref'), ('unet_sam', 'unet_ref'), ('seg_sam', 'seg_ref'), ('boxes_sam', 'boxes_ref')]
 
 
 def per_recording():

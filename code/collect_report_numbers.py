@@ -12,6 +12,7 @@ GTE={'ESANet RGB / ref':[f'esanet_full_rgb_reference_s{s}' for s in range(3)],'E
  'ESANet RGB-D / ref':[f'rgbd_reference210_s{s}' for s in range(3)],'ESANet RGB / SAM':['rgb_sam_v2_s0_recovery_glaurung','rgb_sam_v2_s1','rgb_sam_v2_s2'],
  'ESANet D / SAM':[f'depth_sam_v2_s{s}' for s in range(3)],'ESANet RGB-D / SAM':[f'rgbd_sam210_s{s}' for s in range(3)],
  'U-Net / ref':[f'unet_logged_reference_s{s}' for s in range(3)],'YOLOv8n-seg / ref':[f'yoloseg_e60_reference_s{s}' for s in range(3)],
+ 'U-Net / SAM':[f'unet_logged_sam_s{s}' for s in range(3)],'YOLOv8n-seg / SAM':[f'yoloseg_e60_sam_s{s}' for s in range(3)],
  'YOLOv8n boxes / ref':[f'yolov8n_detect_reference_e60_s{s}' for s in range(3)],'YOLOv8n boxes / SAM':[f'yolov8n_detect_automatic_e60_s{s}' for s in range(3)],
  'SAM 3 direct':['sam_three_prompt_v2'],'Floor plane':['floor_plane'],
  'RGB-D / ref, depth removed':[f'rgbd_reference210_s{s}__missing_raw_depth' for s in range(3)],
@@ -29,7 +30,7 @@ for arm,models in GTE.items():
     gte[arm]={k:ms(v) for k,v in row.items()}
 iso=json.loads((ROOT/'results/test_references_20261122/isod_test300_scores.json').read_text())
 ISOD={'ESANet RGB / ref':'esanet_rgb_reference','ESANet D / ref':'esanet_depth_reference','ESANet RGB-D / ref':'esanet_rgbd_reference','ESANet RGB / SAM':'esanet_rgb_sam',
- 'ESANet D / SAM':'esanet_depth_sam','ESANet RGB-D / SAM':'esanet_rgbd_sam','U-Net / ref':'unet_reference','YOLOv8n-seg / ref':'yoloseg_reference',
+ 'ESANet D / SAM':'esanet_depth_sam','ESANet RGB-D / SAM':'esanet_rgbd_sam','U-Net / ref':'unet_reference','YOLOv8n-seg / ref':'yoloseg_reference','U-Net / SAM':'unet_sam','YOLOv8n-seg / SAM':'yoloseg_sam',
  'YOLOv8n boxes / ref':'boxes_reference','YOLOv8n boxes / SAM':'boxes_sam','SAM 3 direct':'sam_direct','Floor plane':'floor_plane'}
 isod={}
 for arm,p in ISOD.items():

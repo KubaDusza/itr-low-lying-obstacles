@@ -47,11 +47,11 @@ def main():
                                       split=args.pred_split)
     n_classes = data_loader.dataset.n_classes_without_void
     model, device = build_model(args, n_classes=n_classes)
-    ckpt = torch.load(args.ckpt_path, map_location=lambda s, l: s)
+    ckpt = torch.load(args.ckpt_path, map_location="cpu", weights_only=False)
     model.load_state_dict(ckpt["state_dict"])
     model.eval().to(device)
     print(f"loaded {args.ckpt_path}: epoch {ckpt.get('epoch')} "
-          f"best mIoU {ckpt.get('best_miou')}")
+          f"validation checkpoint score {ckpt.get('best_miou')}")
 
     names = list(data_loader.dataset._filenames)
     os.makedirs(args.out, exist_ok=True)

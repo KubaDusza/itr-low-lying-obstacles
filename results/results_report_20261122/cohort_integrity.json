@@ -1,0 +1,108 @@
+{
+  "unet_s0": {
+    "torch": {
+      "reference": "2.10.0",
+      "sam": "2.10.0"
+    },
+    "smp": {
+      "reference": "0.5.0",
+      "sam": "0.5.0"
+    },
+    "logger_sha256": {
+      "reference": null,
+      "sam": "7cf63cc4351e0e10e640e57783994ef87398d3501748c0701b50754430c2713f"
+    }
+  },
+  "yoloseg_s0": {
+    "matched_initialization_and_training": true,
+    "shared_validation": true,
+    "argument_differences": {
+      "save_dir": [
+        "/tmp/itr-e60-21780755.0vADOX/seg/fit/fit",
+        "/tmp/itr-e60-21782795.VvoKX8/seg/fit/fit"
+      ],
+      "data": [
+        "/tmp/itr-e60-21780755.0vADOX/seg/dataset/data.yaml",
+        "/tmp/itr-e60-21782795.VvoKX8/seg/dataset/data.yaml"
+      ],
+      "project": [
+        "/tmp/itr-e60-21780755.0vADOX/seg/fit",
+        "/tmp/itr-e60-21782795.VvoKX8/seg/fit"
+      ]
+    }
+  },
+  "unet_s1": {
+    "torch": {
+      "reference": "2.10.0",
+      "sam": "2.10.0"
+    },
+    "smp": {
+      "reference": "0.5.0",
+      "sam": "0.5.0"
+    },
+    "logger_sha256": {
+      "reference": null,
+      "sam": "7cf63cc4351e0e10e640e57783994ef87398d3501748c0701b50754430c2713f"
+    }
+  },
+  "yoloseg_s1": {
+    "matched_initialization_and_training": true,
+    "shared_validation": true,
+    "argument_differences": {
+      "save_dir": [
+        "/tmp/itr-e60-21780782.bZk8MI/seg/fit/fit",
+        "/tmp/itr-e60-21782980.Z0fAhU/seg/fit/fit"
+      ],
+      "data": [
+        "/tmp/itr-e60-21780782.bZk8MI/seg/dataset/data.yaml",
+        "/tmp/itr-e60-21782980.Z0fAhU/seg/dataset/data.yaml"
+      ],
+      "project": [
+        "/tmp/itr-e60-21780782.bZk8MI/seg/fit",
+        "/tmp/itr-e60-21782980.Z0fAhU/seg/fit"
+      ]
+    }
+  },
+  "unet_s2": {
+    "torch": {
+      "reference": "2.10.0",
+      "sam": "2.10.0"
+    },
+    "smp": {
+      "reference": "0.5.0",
+      "sam": "0.5.0"
+    },
+    "logger_sha256": {
+      "reference": "7cf63cc4351e0e10e640e57783994ef87398d3501748c0701b50754430c2713f",
+      "sam": "7cf63cc4351e0e10e640e57783994ef87398d3501748c0701b50754430c2713f"
+    }
+  },
+  "yoloseg_s2": {
+    "matched_initialization_and_training": true,
+    "shared_validation": true,
+    "argument_differences": {
+      "save_dir": [
+        "/tmp/itr-e60-21780701.C8xNtv/seg/fit/fit",
+        "/tmp/itr-e60-21782792.O0LKSe/seg/fit/fit"
+      ],
+      "data": [
+        "/tmp/itr-e60-21780701.C8xNtv/seg/dataset/data.yaml",
+        "/tmp/itr-e60-21782792.O0LKSe/seg/dataset/data.yaml"
+      ],
+      "project": [
+        "/tmp/itr-e60-21780701.C8xNtv/seg/fit",
+        "/tmp/itr-e60-21782792.O0LKSe/seg/fit"
+      ]
+    }
+  },
+  "baseline_dataset_manifests_match_published_branch": {
+    "branch": "codex/sam-v2-overnight",
+    "datasets": [
+      "ISOD_reference_train_v1",
+      "ISOD_reference_val_v1",
+      "ISOD_reference_test_v1",
+      "ISOD_sam_train_v2",
+      "ISOD_sam_all_v2"
+    ]
+  }
+}

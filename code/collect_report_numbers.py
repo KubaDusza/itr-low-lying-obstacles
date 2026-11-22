@@ -24,6 +24,7 @@ for arm,models in GTE.items():
     for m in models:
         if m in comp:
             c=comp[m]; row['object_recall'].append(c['object_recall']); row['component_f1'].append(c['component_mean_f1']); row['false_regions_per_frame'].append(c['false_components_per_frame'])
+            if m not in summary and 'pixel_iou' in c: row['pixel_iou'].append(c['pixel_iou'])
         else:
             p=summary[m]['pooled']; row['object_recall'].append(float(np.mean(objs[m]))); row['component_f1'].append(p['mean_f1']); row['false_regions_per_frame'].append(p['operating_points']['50']['fp']/320)
         if m in summary: row['pixel_iou'].append(summary[m]['pooled']['pixel']['iou'])

@@ -1,3 +1,5 @@
+> Current results/training handoff: [HANDOFF_CURRENT.md](HANDOFF_CURRENT.md). This older document covers the GTE annotation workflow.
+
 # Handover — per-item annotation of the GTE-Floor dataset
 
 Written 2026-11-09, at the end of the session that built the per-item labelling pass. It is

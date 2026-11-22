@@ -1,0 +1,17 @@
+{
+  "root": "/tmp/itr-e60-21782794.yiGgb9/unet",
+  "arch": "unet",
+  "encoder": "mobilenet_v2",
+  "epochs": 15,
+  "batch": 8,
+  "lr": 0.0003,
+  "train_masks": "/tmp/itr-e60-21782794.yiGgb9/unet/ISOD_sam_train_v2",
+  "val_masks": "/tmp/itr-e60-21782794.yiGgb9/unet/ISOD_reference_val_v1",
+  "test_masks": "/tmp/itr-e60-21782794.yiGgb9/unet/ISOD_reference_test_v1",
+  "output": "/tmp/itr-e60-21782794.yiGgb9/unet/fit",
+  "seed": 0,
+  "workers": 4,
+  "train_limit": null,
+  "val_limit": null,
+  "predict_all_test": false
+}

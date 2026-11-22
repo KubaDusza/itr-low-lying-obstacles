@@ -37,8 +37,8 @@ ROWS = [  # label, key, group
     ('U-Net RGB', 'U-Net / SAM', 'Automatic SAM 3 labels'),
     ('YOLOv8n-seg RGB', 'YOLOv8n-seg / SAM', 'Automatic SAM 3 labels'),
     ('YOLOv8n boxes RGB', 'YOLOv8n boxes / SAM', 'Automatic SAM 3 labels'),
-    ('SAM 3, three prompts', 'SAM 3 direct', 'Untrained'),
-    ('Floor-plane fit (D)', 'Floor plane', 'Untrained'),
+    ('SAM 3, three prompts', 'SAM 3 direct', 'Direct methods'),
+    ('Floor-plane fit (D)', 'Floor plane', 'Direct methods'),
     ('RGB-D, depth removed', 'RGB-D / ref, depth removed', 'Depth intervention (RGB-D, reference)'),
     ('RGB-D, other scene\'s depth', 'RGB-D / ref, depth from other recording', 'Depth intervention (RGB-D, reference)'),
 ]
@@ -46,7 +46,7 @@ ROWS = [  # label, key, group
 
 def main_table():
     L = [r'\begin{table*}[!t]',
-         r'\caption{Results on the ISOD test set and GTE-Floor (means of three seeds).}',
+         r'\caption{ISOD and GTE-Floor results (three-seed means for trained models).}',
          r'\label{tab:main}', r'\centering\footnotesize', r'\setlength{\tabcolsep}{4.5pt}',
          r'\begin{tabular}{lrrrrrrrr}', r'\toprule',
          r' & \multicolumn{4}{c}{ISOD test (300 frames)} & \multicolumn{4}{c}{GTE-Floor (320 frames)}\\',
@@ -162,29 +162,42 @@ def cloth_main(seed=2):
 
 def rgb_baseline_curves():
     fig, axes = plt.subplots(2, 3, figsize=(8.2, 4.5))
-    for seed in range(3):
-        h = rows(ROOT / f'results/extended_training_20261122/runs/unet_logged_reference_s{seed}/history.csv')
-        assert len(h) == 15
-        for ax, key in zip(axes[0], ['train_loss', 'val_loss', 'val_IoU']):
-            ax.plot([int(r['epoch']) for r in h], [float(r[key]) for r in h], label=f'Seed {seed}', lw=.9)
-        run = ROOT / f'results/extended_training_20261122/runs/yoloseg_e60_reference_s{seed}'
-        h = rows(run / 'results.csv')
-        ep = [int(r['epoch']) for r in h]
-        for ax, key in zip(axes[1][:2], ['train/seg_loss', 'val/seg_loss']):
-            ax.plot(ep, [float(r[key]) for r in h], lw=.9)
-        sel = json.loads((run / 'selection.json').read_text())
-        pts = sorted((int(k[5:-3]), v) for k, v in sel['val_iou'].items() if k.startswith('epoch'))
-        line, = axes[1, 2].plot([p for p, _ in pts], [v for _, v in pts], lw=.9, marker='.', ms=2.5)
-        best = int(sel['best'][5:-3])
-        axes[1, 2].plot([best], [sel['val_iou'][sel['best']]], marker='o', ms=4, mfc='none', color=line.get_color())
+    for source, title, color in [('reference', 'Reference', COLORS['reference']), ('sam', 'SAM 3', COLORS['automatic'])]:
+        unet, seg, validation = [], [], []
+        for seed in range(3):
+            run = ROOT / f'results/extended_training_20261122/runs/unet_logged_{source}_s{seed}'
+            h = rows(run / 'history.csv'); assert len(h) == 15
+            ep = np.array([int(r['epoch']) for r in h])
+            unet.append(np.array([[float(r[k]) for k in ['train_loss', 'val_loss', 'val_IoU']] for r in h]))
+            run = ROOT / f'results/extended_training_20261122/runs/yoloseg_e60_{source}_s{seed}'
+            h = rows(run / 'results.csv'); assert len(h) == 60
+            seg.append(np.array([[float(r[k]) for k in ['train/seg_loss', 'val/seg_loss']] for r in h]))
+            sel = json.loads((run / 'selection.json').read_text())
+            def epoch(name):
+                return len(h) if name == 'last.pt' else int(name[5:-3]) + 1
+            points = {epoch(k): v for k, v in sel['val_iou'].items()}
+            validation.append(points)
+            xs = sorted(points)
+            axes[1, 2].plot(xs, [points[x] for x in xs], color=color, lw=.6, alpha=.28)
+            best = epoch(sel['best'])
+            axes[1, 2].plot(best, sel['val_iou'][sel['best']], marker='o', ms=3.5, mfc='none', color=color)
+        for col in range(3):
+            a = np.array(unet)
+            for y in a: axes[0, col].plot(ep, y[:, col], color=color, alpha=.25, lw=.6)
+            axes[0, col].plot(ep, a[:, :, col].mean(0), color=color, lw=1, label=title)
+        a = np.array(seg)
+        for col in range(2):
+            for y in a: axes[1, col].plot(np.arange(1, 61), y[:, col], color=color, alpha=.25, lw=.6)
+            axes[1, col].plot(np.arange(1, 61), a[:, :, col].mean(0), color=color, lw=1)
+        xs = sorted(set.intersection(*(set(v) for v in validation)))
+        axes[1, 2].plot(xs, np.array([[v[x] for x in xs] for v in validation]).mean(0), color=color, lw=1)
     titles = ['U-Net: training loss', 'U-Net: validation loss', 'U-Net: validation IoU', 'YOLOv8n-seg: training mask loss',
               'YOLOv8n-seg: validation mask loss', 'YOLOv8n-seg: validation obstacle IoU']
     for ax, t in zip(axes.flat, titles):
         ax.set_title(t, fontsize=8.5); ax.set_xlabel('Epoch'); ax.grid(axis='y', color='.88', lw=.5); ax.spines[['top', 'right']].set_visible(False)
     for r in [0, 1]:
         lim = max(axes[r, 0].dataLim.ymax, axes[r, 1].dataLim.ymax) * 1.04
-        for c in [0, 1]:
-            axes[r, c].set_ylim(0, lim)
+        for c in [0, 1]: axes[r, c].set_ylim(0, lim)
         axes[r, 2].set_ylim(0, 1)
     axes[0, 0].legend(frameon=False, fontsize=8)
     fig.tight_layout(pad=.7); save(fig, 'appendix_rgb_baseline_curves')
@@ -217,11 +230,6 @@ def native_curves():
     axes[0, 0].legend(frameon=False, fontsize=7.5); fig.tight_layout(pad=.7); save(fig, 'appendix_native_curves')
 
 
-if __name__ == '__main__':
-    main_table(); full_table(); rgb_baseline_curves(); native_curves(); cloth_main()
-    print('final assets written')
-
-
 def teacher_examples():
     """SAM 3 label examples (development and validation frames), same panels as before, plain footer."""
     from matplotlib.backends.backend_pdf import PdfPages
@@ -246,3 +254,10 @@ def teacher_examples():
             fig.text(.5, .02, 'Green: correct; red: extra; blue: missed.', ha='center', fontsize=9)
             fig.subplots_adjust(left=.085, right=.99, top=.94, bottom=.07, wspace=.04, hspace=.10)
             pdf.savefig(fig); plt.close(fig)
+
+
+if __name__ == "__main__":
+    from make_detection_report_figures import pipeline
+    main_table(); full_table(); rgb_baseline_curves(); native_curves(); cloth_main()
+    teacher_examples(); pipeline()
+    print("final assets written")

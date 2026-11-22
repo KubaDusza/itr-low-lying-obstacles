@@ -1,0 +1,317 @@
+{
+  "timestamp": "2026-11-22T19:36:58.549411+00:00",
+  "authorization": "User authorized removal of stale scratch artifacts",
+  "status": "completed",
+  "files": [
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/unet_logged_reference_s0/last_checkpoint.pt",
+      "bytes": 80003249,
+      "sha256": "57fa347a2eb49369016be06da3156a81c0642a278d8d4ddc9932d6265421f510",
+      "reason": "Resume-only optimizer checkpoint from completed reference run; selected best.pt retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/unet_logged_reference_s1/last_checkpoint.pt",
+      "bytes": 80003249,
+      "sha256": "4bfe0bc07097872dfecf9ac641de352515bb1b0f201da4cfe437421492ac17d0",
+      "reason": "Resume-only optimizer checkpoint from completed reference run; selected best.pt retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/unet_logged_reference_s2/last_checkpoint.pt",
+      "bytes": 80003249,
+      "sha256": "c8462367ee0508cf241a4f27a2c463a737929436b39aec9815384bdd3a4d2f0b",
+      "reason": "Resume-only optimizer checkpoint from completed reference run; selected best.pt retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/unet_runtime_gate/best.pt",
+      "bytes": 26774815,
+      "sha256": "73fde22797eb232d358d2469a12e5ff03f49319150cbbf89f776f1c6fce46892",
+      "reason": "Completed runtime-gate checkpoint; gate metadata retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/unet_runtime_gate/last_checkpoint.pt",
+      "bytes": 80003185,
+      "sha256": "5e8c8db31af2b5b97eed1218102a9d2b66fed87ba556f4b559804654b954bb42",
+      "reason": "Completed runtime-gate checkpoint; gate metadata retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/unet_sam_gate/best.pt",
+      "bytes": 26774815,
+      "sha256": "b5efe2cdd8d1dd954d44adf3714484a4eb0d5ec06e18bd07d4ea59605f6eb5bd",
+      "reason": "Completed runtime-gate checkpoint; gate metadata retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/unet_sam_gate/last_checkpoint.pt",
+      "bytes": 80003185,
+      "sha256": "a30377a69b5a896efd0736b04e7209d115b286ed131bc73fe204210572af8568",
+      "reason": "Completed runtime-gate checkpoint; gate metadata retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/yoloseg_long_gate/weights/last.pt",
+      "bytes": 6754164,
+      "sha256": "0f4ce0ddfce2f5482a472e6f3adb6315a2865d91ec003d5fa54d1cfa2b43df3f",
+      "reason": "Completed runtime-gate checkpoint; gate metadata retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/yoloseg_long_gate/weights/selected.pt",
+      "bytes": 6785265,
+      "sha256": "e5b28dc2d60a2695860cfac3213e93324616b24ffa6865fcb2539adfbe0989eb",
+      "reason": "Completed runtime-gate checkpoint; gate metadata retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/yoloseg_e60_sam_gate/weights/last.pt",
+      "bytes": 6754164,
+      "sha256": "2d03ed8cbaa54b83d915416a3edc7fad13401f0b95c7834ed8a1d69fb3376d01",
+      "reason": "Completed runtime-gate checkpoint; gate metadata retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/yoloseg_e60_sam_gate/weights/selected.pt",
+      "bytes": 6785265,
+      "sha256": "bbbd8a3150ce3ea61caeac896ce5acb35ac3159868f66621388e0b90b7d31125",
+      "reason": "Completed runtime-gate checkpoint; gate metadata retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_reference_s0/weights/last.pt",
+      "bytes": 6233258,
+      "sha256": "c5f4665d06947c8d78b739cf81914bc49f47ef71e38413ba7cfdc0b3b02bd84a",
+      "reason": "Superseded detector resume checkpoint; historical best.pt and current 60-epoch model retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_reference_s1/weights/last.pt",
+      "bytes": 6233386,
+      "sha256": "e02eacb3dc1151d53fa9ac4d3ff078e01958d6232d3dc7c1dc2cb09a35127f02",
+      "reason": "Superseded detector resume checkpoint; historical best.pt and current 60-epoch model retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_reference_s2/weights/last.pt",
+      "bytes": 6232362,
+      "sha256": "f0982ff170d176a98f6ee0c6933bb82df419de162e321fc3710999393f578499",
+      "reason": "Superseded detector resume checkpoint; historical best.pt and current 60-epoch model retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_automatic_s0/weights/last.pt",
+      "bytes": 6232618,
+      "sha256": "62ebe8a90c5c2be1f32737120d9cf4b56a01a34c40ed5189715f4070a15f40af",
+      "reason": "Superseded detector resume checkpoint; historical best.pt and current 60-epoch model retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_automatic_s1/weights/last.pt",
+      "bytes": 6236586,
+      "sha256": "6ad7f7991246d34205bdc9c14c39bd492253c4671478d3414df788fd9e579174",
+      "reason": "Superseded detector resume checkpoint; historical best.pt and current 60-epoch model retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_automatic_s2/weights/last.pt",
+      "bytes": 6234794,
+      "sha256": "28972cb06acd0a2aefe3c320fdfae92f4103ad3ae64d4035d751bcab7c1cf9ff",
+      "reason": "Superseded detector resume checkpoint; historical best.pt and current 60-epoch model retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/yoloseg_long_reference_s0/weights/last.pt",
+      "bytes": 6770548,
+      "sha256": "9a9bf4cc1bef0e8328bc9287e2c32a3fb57d89875c0b19372a4c983cc1fcf498",
+      "reason": "Superseded segmentation last checkpoint; historical selected and current 60-epoch weights retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/yoloseg_long_reference_s1/weights/last.pt",
+      "bytes": 6772340,
+      "sha256": "74d9604a35da9ed977951d48a4054eea32ee68078498e3e614d2efd3aa003140",
+      "reason": "Superseded segmentation last checkpoint; historical selected and current 60-epoch weights retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/yoloseg_long_reference_s2/weights/last.pt",
+      "bytes": 6773620,
+      "sha256": "c46072d527141d02378fb8102dc779ad26e80614787975c0688093c78a2f55ea",
+      "reason": "Superseded segmentation last checkpoint; historical selected and current 60-epoch weights retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_instances_20261122/runs/yolov8n_detect_reference_s0/weights/last.pt",
+      "bytes": 6226602,
+      "sha256": "64cf57754a6c1ca36a6c8ee3ce5d17863a8df181c6757554ec47ad2153205a99",
+      "reason": "Superseded detector resume checkpoint; historical best.pt and current 60-epoch model retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_instances_20261122/runs/yolov8n_detect_reference_s1/weights/last.pt",
+      "bytes": 6226602,
+      "sha256": "b36109561b267f720f36fd173f5b097e3286aaf2705fc4820eb5973ff9b881ec",
+      "reason": "Superseded detector resume checkpoint; historical best.pt and current 60-epoch model retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_instances_20261122/runs/yolov8n_detect_reference_s2/weights/last.pt",
+      "bytes": 6226602,
+      "sha256": "4fcc177c901cb02a40e65bec4176ca69681bea8e8bf51f1b09f0eef2bd860c11",
+      "reason": "Superseded detector resume checkpoint; historical best.pt and current 60-epoch model retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_instances_20261122/runs/yolov8n_detect_automatic_s0/weights/last.pt",
+      "bytes": 6226602,
+      "sha256": "94378a64646f58d00b7a4450437cbf2172a4598b5b013fe436090a71f1515d0d",
+      "reason": "Superseded detector resume checkpoint; historical best.pt and current 60-epoch model retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_instances_20261122/runs/yolov8n_detect_automatic_s1/weights/last.pt",
+      "bytes": 6226602,
+      "sha256": "07fc6c143f6030c5617a7464265757ad3dc3b1c49745b0ee5280cf443c49a4bf",
+      "reason": "Superseded detector resume checkpoint; historical best.pt and current 60-epoch model retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_instances_20261122/runs/yolov8n_detect_automatic_s2/weights/last.pt",
+      "bytes": 6226602,
+      "sha256": "abfecc92f745f5df7d416f67d32d9df222bbcd53bd36fa5c4b5bbb3cedd32588",
+      "reason": "Superseded detector resume checkpoint; historical best.pt and current 60-epoch model retained",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/mlflow/746952499081785038/4db2e710698b4a9eb70ec9be46c962c0/artifacts/weights/best.pt",
+      "bytes": 6232618,
+      "sha256": "b152a50a5955d445d3e854821374ea33c9e2c727e230abf9a51523f5f9090d12",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_automatic_s0/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/mlflow/694835522473224851/a7830e1d59744b00a7ab73203100e745/artifacts/weights/best.pt",
+      "bytes": 6233258,
+      "sha256": "d6dafcbc2bd48cd8c1f5f5b36668b38ff8a0f4ad9b689881272d99a2cee49f5a",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_reference_s0/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/mlflow/849174504649799446/76bb4af612d54db995c4a7dfa1872e28/artifacts/weights/best.pt",
+      "bytes": 6231722,
+      "sha256": "47d8f4ddb2e5187af42d1f7169ec0cf26c6c8ec7d1b54266922242e7cc149228",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_automatic_e60_s2/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/mlflow/990292579550206338/e5e32ae9105f4ab3ab4839ae9042544b/artifacts/weights/best.pt",
+      "bytes": 6234794,
+      "sha256": "c72b3f9f115d8992cf5d8b63049eac00366944cbac60b4a72fa28f3ba93dc317",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_automatic_s2/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/mlflow/665473577525484329/a58f8421ba1d4ed1978d4eb9ffd46ab1/artifacts/weights/best.pt",
+      "bytes": 6231722,
+      "sha256": "bac76f5bd694cecd522534bef5ee5a373a9bdeeca6e1154570545d68dab194cd",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_reference_e60_s1/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/mlflow/920014792947152578/d694f08e0da140eaad28f7063682f1f1/artifacts/weights/best.pt",
+      "bytes": 6232362,
+      "sha256": "6ba731ab6f1e3937a2b8834a423443bebcaca3e701a8b5f84123f3c6fb64322a",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_reference_s2/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/mlflow/778866707946897683/6657ed9062594459899a7569b86b41bb/artifacts/weights/best.pt",
+      "bytes": 6236586,
+      "sha256": "4e38c8f5634458e0d6a362233fff7a48b85ff935790a939f61a681e73f2c595a",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_automatic_s1/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/mlflow/774200285880090172/00abc855488d437ca7c8e438a4db32cc/artifacts/weights/best.pt",
+      "bytes": 6231722,
+      "sha256": "087adf7d89823d09011d0d4bd6bac9f3da655d9c282b6332efbebbb14567527f",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_reference_e60_s2/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/mlflow/453223306042085666/07628e9897fb4a2f9dbdbf156506f911/artifacts/weights/best.pt",
+      "bytes": 6231722,
+      "sha256": "f917e0a3e2fcd44a85a755db0a814b05c03ff510c7b615ccc040fd6124d7ba04",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_reference_e60_s0/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/mlflow/706550489007856935/2122256c2c0c4e9680e14c2d6cb5665d/artifacts/weights/best.pt",
+      "bytes": 6233386,
+      "sha256": "95e0b391c8ae8b32d1f50d31a581889d89d8233d1f4d40be331ce97b5c40eacc",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_reference_s1/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/mlflow/402544120938479784/9a65e3585cfa425ca837efac38a87668/artifacts/weights/best.pt",
+      "bytes": 6231722,
+      "sha256": "36024e00ce7fe71e30b1cf68e0b97dfd16c6b59b249f67d388d4ccc460807ad7",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_automatic_e60_s1/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_extended_20261122/runs/mlflow/747678307613252443/eceb4d25a02e4103814764d501524b1c/artifacts/weights/best.pt",
+      "bytes": 6231722,
+      "sha256": "68917a2fae56b933673e07fdcf6e1cd4a42a9d2de55fceb443e9efb87920d5de",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_extended_20261122/runs/yolov8n_detect_automatic_e60_s0/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_instances_20261122/runs/mlflow/642421804652637002/f244f7fa1a3a450c930dad9e083e190f/artifacts/weights/best.pt",
+      "bytes": 6226602,
+      "sha256": "cb4ddf41a92e7003da8391c511338a7f155d7aa29dc330fc0f8ee294ace51984",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_instances_20261122/runs/yolov8n_detect_automatic_s0/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_instances_20261122/runs/mlflow/804718017201652505/65e1ca9aea5643e99b4925025e6bc1e5/artifacts/weights/best.pt",
+      "bytes": 6226602,
+      "sha256": "06a9b748e1180b50c31af0a45311a927c3df2aa2e1e87cc4481d2efaf00963cb",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_instances_20261122/runs/yolov8n_detect_reference_s0/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_instances_20261122/runs/mlflow/247867538359043697/5fd259148654494a83e5e74dcd50b274/artifacts/weights/best.pt",
+      "bytes": 6226602,
+      "sha256": "a12f47dda3c700d05f6b9f6230278ef4697a4978cdcbaaa8515422028beb254d",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_instances_20261122/runs/yolov8n_detect_automatic_s2/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_instances_20261122/runs/mlflow/615601027666703114/687c2d56e7d244f0a332561491c4d501/artifacts/weights/best.pt",
+      "bytes": 6226602,
+      "sha256": "c9fdd2d954308ad214dec683787b456e796e6552895ba90978b0c207673b83f7",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_instances_20261122/runs/yolov8n_detect_reference_s1/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_instances_20261122/runs/mlflow/161068904958219503/632be5d3f3f8468e9965e3bad4b0d757/artifacts/weights/best.pt",
+      "bytes": 6226602,
+      "sha256": "547d569f1819ff1a23a3cb6010420bf5d878a1700a73af094b9c3f03d4d7aef5",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_instances_20261122/runs/yolov8n_detect_reference_s2/weights/best.pt",
+      "removed": true
+    },
+    {
+      "path": "/scratch/work/duszaj1/itr_instances_20261122/runs/mlflow/295878944379137831/f5f4c6a4abab4760ae528b2c45a3959c/artifacts/weights/best.pt",
+      "bytes": 6226602,
+      "sha256": "21405791707eab399a222590074bcec2ed0c7233cf9fa9487082e43d55c0fc98",
+      "reason": "Exact MLflow duplicate of retained checkpoint /scratch/work/duszaj1/itr_instances_20261122/runs/yolov8n_detect_automatic_s1/weights/best.pt",
+      "removed": true
+    }
+  ],
+  "bytes": 687876677,
+  "retained": "Datasets, all selected/best full-run models, current 60-epoch runs, active SAM-label outputs and histories"
+}

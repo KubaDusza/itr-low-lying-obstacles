@@ -116,7 +116,8 @@ class ISOD(ISODBase, DatasetBase):
 
     @property
     def source_path(self):
-        return os.path.abspath(os.path.dirname(__file__))
+        # ESANet stores its class-weight cache here. Separate label exports need separate weights.
+        return getattr(self, "_data_dir", os.path.dirname(os.path.abspath(__file__)))
 
     @property
     def with_input_orig(self):

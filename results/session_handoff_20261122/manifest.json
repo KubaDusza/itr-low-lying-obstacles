@@ -1,0 +1,116 @@
+{
+  "exported_at": "2026-11-22T20:29:01.693172+00:00",
+  "thread_id": "01a16fee-f301-7451-9440-7ddccd54b485",
+  "source": "/Users/jakubdusza/.codex/sessions/2026/10/25/rollout-2026-10-25T00-01-33-01a16fee-f301-7451-9440-7ddccd54b485.jsonl",
+  "source_snapshot_bytes": 275706205,
+  "source_snapshot_sha256": "eb6cd07e162c6119cd944e3d17e20b1e0fe296cf12dbe5b7b68cdaa5e8ded310",
+  "first_record": "2026-10-24T22:01:34.471Z",
+  "last_record": "2026-11-22T20:28:56.215Z",
+  "counts": {
+    "user": 299,
+    "assistant": 540,
+    "execution_records": 4780
+  },
+  "response_types": {
+    "additional_tools": 4,
+    "message": 950,
+    "custom_tool_call": 1892,
+    "custom_tool_call_output": 1891,
+    "reasoning": 3128,
+    "function_call": 474,
+    "function_call_output": 523,
+    "configuration_update": 3
+  },
+  "compactions": [
+    {
+      "timestamp": "2026-10-25T01:02:57.626Z",
+      "ordinal": 790,
+      "window_number": 1
+    },
+    {
+      "timestamp": "2026-10-25T11:47:37.303Z",
+      "ordinal": 1648,
+      "window_number": 2
+    },
+    {
+      "timestamp": "2026-10-25T13:46:46.221Z",
+      "ordinal": 2591,
+      "window_number": 3
+    },
+    {
+      "timestamp": "2026-11-09T16:44:19.689Z",
+      "ordinal": 3373,
+      "window_number": 4
+    },
+    {
+      "timestamp": "2026-11-14T17:13:01.129Z",
+      "ordinal": 5916,
+      "window_number": 5
+    },
+    {
+      "timestamp": "2026-11-15T10:48:35.347Z",
+      "ordinal": 9065,
+      "window_number": 6
+    },
+    {
+      "timestamp": "2026-11-20T22:25:38.116Z",
+      "ordinal": 11695,
+      "window_number": 7
+    },
+    {
+      "timestamp": "2026-11-21T12:34:41.536Z",
+      "ordinal": 13363,
+      "window_number": 8
+    },
+    {
+      "timestamp": "2026-11-21T18:18:12.268Z",
+      "ordinal": 15011,
+      "window_number": 9
+    },
+    {
+      "timestamp": "2026-11-21T20:33:48.839Z",
+      "ordinal": 16706,
+      "window_number": 10
+    },
+    {
+      "timestamp": "2026-11-22T11:21:24.923Z",
+      "ordinal": 18472,
+      "window_number": 11
+    },
+    {
+      "timestamp": "2026-11-22T15:42:35.187Z",
+      "ordinal": 19999,
+      "window_number": 12
+    }
+  ],
+  "exclusions": [
+    "private reasoning",
+    "system and developer instructions",
+    "binary image data"
+  ],
+  "publication": "Local archive only; do not push conversation/execution records to GitHub",
+  "scope": "All matching records present in the source snapshot; no claim to recover messages absent from the local log",
+  "mutation_candidates": 600,
+  "exports": [
+    {
+      "path": "visible_conversation.jsonl.gz",
+      "bytes": 127014,
+      "sha256": "8905b07487d1e29bfe4174d419884103f4c718716431e1a533b7c0556a689c40"
+    },
+    {
+      "path": "execution_records.jsonl.gz",
+      "bytes": 3729442,
+      "sha256": "8995fbc8a9ebda9659541683bfd1e56527c4848854ca71d187515da10cdd7bbf"
+    },
+    {
+      "path": "CONVERSATION.md",
+      "bytes": 438237,
+      "sha256": "6ca40b18e811152b5bf8657ff6e894fd9aa7bf46509e46fc396b964327228f5d"
+    },
+    {
+      "path": "REVISION_INDEX.csv",
+      "bytes": 90306,
+      "sha256": "13dadf0d46a663d459df359be13e0cff1981474424822c66d8a4d1aa114b8d73"
+    }
+  ]
+}

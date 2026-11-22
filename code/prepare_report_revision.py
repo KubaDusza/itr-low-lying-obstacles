@@ -154,7 +154,7 @@ def main():
                     component_recall=result['operating_points']['50']['recall'],false_components=result['operating_points']['50']['fp']))
                 result.pop('reference_objects');result.pop('prediction_components');results.append(result)
             op=aggregate(results);assert len(coverage)==1310
-            component_runs[model]=dict(family='YOLOv8n RGB',source=source,seed=seed,output='union of native boxes',object_recall=float(np.mean(coverage)),
+            component_runs[model]=dict(family='YOLOv8n RGB',source=source,seed=seed,output='union of native boxes',pixel_iou=op['pixel']['iou'],object_recall=float(np.mean(coverage)),
                 component_recall=op['operating_points']['50']['recall'],false_components_per_frame=op['operating_points']['50']['fp']/320,component_mean_f1=op['mean_f1'])
     csvwrite(OUT/'native_component_frames.csv',native_frames)
     (OUT/'component_comparison.json').write_text(json.dumps(dict(standard='SegmentMeIfYouCan adjusted component overlap/precision and mean F1 over thresholds 0.25 to 0.75',

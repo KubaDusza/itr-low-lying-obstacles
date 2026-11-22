@@ -1,0 +1,63 @@
+{
+  "started_at": "2026-11-22T19:49:37.256455+00:00",
+  "status": "Complete: 36 runs, full300/320 evaluation, report rebuilt and visually checked",
+  "steps": [
+    {
+      "script": "code/prepare_report_revision.py",
+      "sha256": "d3d90b41fb83303627c77ce3bb5b97794c52119693dad890e0c7ad39a4a0aea0",
+      "status": "complete",
+      "seconds": 44.55705608334392,
+      "exit_code": 0
+    },
+    {
+      "script": "code/score_isod_test300.py",
+      "sha256": "251cf7342661af7ea079368eebeea7c0c6c07fc2239f93916fce116d689384a4",
+      "status": "complete",
+      "seconds": 80.78479570802301,
+      "exit_code": 0
+    },
+    {
+      "script": "code/bootstrap_gte_contrasts.py",
+      "sha256": "7d9227b8e8b14511c2471fa9045dfa105d09956ed8ea7e03769c750df3b919ef",
+      "status": "complete",
+      "seconds": 2.197325208224356,
+      "exit_code": 0
+    },
+    {
+      "script": "code/collect_report_numbers.py",
+      "sha256": "8d37335e99cc28f659b60fe75c431dc2f88570ef1ac9f10526f21094599e8212",
+      "status": "complete",
+      "seconds": 0.3934438321739435,
+      "exit_code": 0
+    },
+    {
+      "script": "code/make_final_report_assets.py",
+      "sha256": "d214846772e51e1c86547bc650cacc81d104df149d570c51d23092902d674a08",
+      "status": "complete",
+      "seconds": 11.92941837478429,
+      "exit_code": 0
+    }
+  ],
+  "completed_at": "2026-11-22T19:51:57.121525+00:00",
+  "final_regenerations": [
+    {
+      "script": "code/prepare_report_revision.py",
+      "sha256": "9a415790bcd9128a38779690d36aa70fd04ffbdbc87b7c017786417ede6d5df9",
+      "seconds": 42.06535183265805,
+      "reason": "Report GTE pixel IoU for filled boxes consistently with ISOD; regenerate all final assets"
+    },
+    {
+      "script": "code/collect_report_numbers.py",
+      "sha256": "26f2578007cb7d1ab4a8baf97b4bacddbf5138a19fb5a9bd70d8afc24f9443c7",
+      "seconds": 0.37928874976933,
+      "reason": "Report GTE pixel IoU for filled boxes consistently with ISOD; regenerate all final assets"
+    },
+    {
+      "script": "code/make_final_report_assets.py",
+      "sha256": "d4d959463f7d3221896963a5847b20e82f329d89057eda70db7dbd8d1bb80c6a",
+      "seconds": 9.062003917060792,
+      "reason": "Report GTE pixel IoU for filled boxes consistently with ISOD; regenerate all final assets"
+    }
+  ],
+  "pdf_sha256": "3f59f19a9feb58b27fbc9170c9294bb1f0783e1e84c9ee3ec82e891cc8e2298e"
+}

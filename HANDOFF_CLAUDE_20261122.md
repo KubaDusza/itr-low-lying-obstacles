@@ -1,3 +1,5 @@
+> Active completed state: [HANDOFF_CURRENT.md](HANDOFF_CURRENT.md). All36runs are complete and the full300/320frame evaluation is incorporated. This file preserves earlier decisions and intermediate states.
+
 # Handoff: results report (Claude session, 2026-11-22 evening)
 
 Start here. This supersedes the "Immediate priorities" and "Important unresolved scientific issues" sections of `HANDOFF_20261122.md` (Codex). Read `results_report/REVIEW_NOTES.md` (Jakub's writing rules) and `results_report/RUBRIC.md` (Canvas rubric) before editing.
@@ -75,3 +77,9 @@ Jakub asked to train U-Net and YOLOv8n-seg on the automatic SAM 3 labels too (fu
 - Then update hand-written numbers in `results_section.tex` Automatic-labels paragraph (it currently cites only ESANet RGB/RGB-D and boxes; add U-Net and YOLOv8n-seg SAM−ref deltas from `bootstrap_contrasts.json`), check page fit (results must end on p. 6), rebuild, render, commit.
 - Text already updated (uncommitted): "every trained model trained on both label sources, 36 runs", label names, Appendix B matrix (U-Net/YOLOv8n-seg 6 runs each), false-region sentences simplified, "teacher"/"condition" wording removed. The current PDF says 36 runs but Table III still lacks the two new SAM rows until the pipeline is rerun.
 - If the runs cannot finish in time: revert the experiments sentence to "U-Net and YOLOv8n-seg serve as RGB baselines and were trained on reference labels only", set the Appendix B matrix back to 3 runs each and 30 runs total, and remove the two SAM rows from `ROWS` in `make_final_report_assets.py`.
+
+## CODEX RESUMED — six SAM-label runs complete
+
+The restarted jobs21782791/21782792 are now all VERIFIED. U-Net15epochs, selected11/8/4. YOLOv8n-seg60epochs, selectedepoch45.pt/epoch45.pt/epoch40.pt (filenames, zero-based). Outputs onTritonhome; retrieval and final pipeline are in progress. Current working branch remains results-report-revision; do not use the older publishing worktree branch.
+
+User authorized stale scratch cleanup:44obsolete resume/gate/duplicate files removed,0.640635GiB freed. Exact audit saved at results/scratch_cleanup_20261122/scratch_cleanup_20261122.json. Selectedmodels/datasets/current60epoch runs retained. Unrelated data/model directories were retained.

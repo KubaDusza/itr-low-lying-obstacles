@@ -1,5 +1,5 @@
 \begin{table*}[!t]
-\caption{Results on the ISOD test set and GTE-Floor (means of three seeds).}
+\caption{ISOD and GTE-Floor results (three-seed means for trained models).}
 \label{tab:main}
 \centering\footnotesize
 \setlength{\tabcolsep}{4.5pt}
@@ -9,21 +9,23 @@
 \cmidrule(lr){2-5}\cmidrule(lr){6-9}
 Method & Pixel IoU & Obj.\ recall & Comp.\ F1 & False reg./fr. & Pixel IoU & Obj.\ recall & Comp.\ F1 & False reg./fr.\\
 \midrule
-\multicolumn{9}{l}{\emph{Reference labels}}\\
+\multicolumn{9}{l}{\emph{Reference labels (from ISOD annotations)}}\\
 \quad ESANet RGB & 0.711 & 0.854 & 0.591 & 3.19 & 0.486 & 0.628 & 0.356 & 3.65\\
 \quad ESANet D & 0.318 & 0.388 & 0.131 & 5.97 & 0.141 & 0.383 & 0.067 & 8.24\\
 \quad ESANet RGB-D & 0.708 & 0.867 & 0.583 & 3.63 & 0.554 & 0.643 & 0.428 & 2.84\\
 \quad U-Net RGB & 0.724 & 0.750 & 0.693 & 2.03 & 0.487 & 0.464 & 0.388 & 2.40\\
 \quad YOLOv8n-seg RGB & 0.725 & 0.751 & 0.735 & 1.13 & 0.450 & 0.600 & 0.522 & 0.96\\
-\quad YOLOv8n boxes RGB & 0.498 & 0.806 & 0.501 & 3.88 & -- & 0.675 & 0.380 & 1.29\\
+\quad YOLOv8n boxes RGB & 0.498 & 0.806 & 0.501 & 3.88 & 0.221 & 0.675 & 0.380 & 1.29\\
 \addlinespace[2pt]
-\multicolumn{9}{l}{\emph{SAM 3 labels}}\\
+\multicolumn{9}{l}{\emph{Automatic SAM 3 labels}}\\
 \quad ESANet RGB & 0.689 & 0.870 & 0.566 & 4.84 & 0.469 & 0.781 & 0.346 & 6.42\\
 \quad ESANet D & 0.304 & 0.388 & 0.121 & 6.16 & 0.126 & 0.363 & 0.060 & 8.82\\
 \quad ESANet RGB-D & 0.680 & 0.883 & 0.543 & 5.75 & 0.498 & 0.753 & 0.356 & 6.03\\
-\quad YOLOv8n boxes RGB & 0.522 & 0.802 & 0.517 & 3.88 & -- & 0.720 & 0.393 & 1.51\\
+\quad U-Net RGB & 0.682 & 0.733 & 0.640 & 2.58 & 0.559 & 0.472 & 0.357 & 3.47\\
+\quad YOLOv8n-seg RGB & 0.688 & 0.747 & 0.732 & 1.63 & 0.578 & 0.662 & 0.514 & 2.19\\
+\quad YOLOv8n boxes RGB & 0.522 & 0.802 & 0.517 & 3.88 & 0.236 & 0.720 & 0.393 & 1.51\\
 \addlinespace[2pt]
-\multicolumn{9}{l}{\emph{Untrained}}\\
+\multicolumn{9}{l}{\emph{Direct methods}}\\
 \quad SAM 3, three prompts & 0.730 & 0.838 & 0.829 & 1.51 & 0.418 & 0.945 & 0.673 & 2.54\\
 \quad Floor-plane fit (D) & 0.061 & 0.486 & 0.006 & 151.64 & 0.038 & 0.695 & 0.002 & 344.02\\
 \bottomrule

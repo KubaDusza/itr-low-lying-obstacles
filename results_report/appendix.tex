@@ -6,6 +6,7 @@
 \label{fig:objects}
 \end{figure}
 
+\clearpage
 \section{Experimental Configuration and Label Construction}\label{app:configuration}
 
 Table~\ref{tab:experiment-matrix} summarizes the training runs.
@@ -83,8 +84,7 @@ Its checkpoint maximizes validation obstacle IoU. YOLOv8n-seg uses AdamW (learni
 60 epochs with the standard Ultralytics linear learning-rate decay;
 mosaic augmentation is switched off for the last 10 epochs. Checkpoints
 saved every five epochs are rescored on the reference validation masks,
-and the one with the highest pooled mask IoU is used (epochs 45, 55 and
-50).
+and the one with the highest pooled mask IoU is used.
 The box detector uses COCO initialization, 640-pixel inputs, batch 16,
 SGD (learning rate 0.01, momentum 0.937, weight decay $5\times10^{-4}$)
 for 60 epochs with the same schedule. The checkpoint with the best
@@ -97,6 +97,7 @@ box-detector runs use Torch 2.10. Paired supervision uses matching environments
 within each model. ESANet modality comparisons also change model
 capacity, so they do not isolate depth information alone.
 
+\clearpage
 \section{Evaluation Details and Full Comparisons}\label{app:evaluation}
 
 \textbf{Object recall.} A reference unit counts as recovered when the
@@ -158,6 +159,7 @@ per-object range.
 
 \input{per_item_table.tex}
 
+\clearpage
 \section{Training and Validation Curves}\label{app:curves}
 
 Figure~\ref{fig:esanet-curves} shows ESANet optimization and validation.
@@ -171,14 +173,12 @@ highest validation obstacle IoU.
 \label{fig:esanet-curves}
 \end{figure}
 
-Figure~\ref{fig:baseline-curves} shows U-Net and YOLOv8n-seg validation
-behavior. U-Net validation loss levels off by epoch 10. YOLOv8n-seg
-validation obstacle IoU reaches about 0.6 by epoch 15 and rises slightly
-as the learning rate decays.
+Figure~\ref{fig:baseline-curves} compares the RGB baselines trained with
+each label source.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/appendix_rgb_baseline_curves.pdf}
-\caption{Reference-trained U-Net and YOLOv8n-seg, three seeds each. Evaluated checkpoints maximize validation obstacle IoU: checked every epoch for U-Net, and at five-epoch checkpoints for YOLOv8n-seg (circles mark the selected ones).}
+\caption{U-Net and YOLOv8n-seg: reference labels (blue), automatic SAM~3 labels (orange). Faint curves show three seeds; bold curves their means. Checkpoints maximize validation obstacle IoU, checked every epoch for U-Net and at saved checkpoints for YOLOv8n-seg (circles).}
 \label{fig:baseline-curves}
 \end{figure}
 Figure~\ref{fig:native-curves} shows box-detector training over the
@@ -190,6 +190,7 @@ Figure~\ref{fig:native-curves} shows box-detector training over the
 \label{fig:native-curves}
 \end{figure}
 
+\clearpage
 \section{Automatic-Label Examples}\label{app:teacher}
 
 Figure~\ref{fig:teacher-devval} shows the automatic SAM~3 labels used for training next to the reviewed
@@ -204,25 +205,23 @@ validation frames and 0.730 on the 300 test frames.
 \label{fig:teacher-devval}
 \end{figure}
 
+\clearpage
 \section{Consistency Across Training Seeds}\label{app:seed-consistency}
 
-Figure~\ref{fig:cloth-seeds} repeats the cloth scene of
-Fig.~\ref{fig:cloth} for all three seeds. On the poster, seed-0 RGB-D
-misses all four cloths, while seeds 1 and 2 recover three. The flat
-white towel on the poster is missed in all 15 seed/frame observations
-for each modality. The crumpled
-white tissue is covered in 15/15 observations by D, 0/15 by RGB and 8/15
-by RGB-D; In the seed-0 D view (frame 2), D covers 99.85\% of the tissue but its
-adjusted overlap is 0.428 because of surrounding predicted background:
-the tissue counts as recovered but fails the 0.5 component threshold.
+Figure~\ref{fig:cloth-seeds} shows all three seeds. On the poster,
+RGB-D seed 0 misses all cloths; seeds 1 and 2 find three. Every ESANet
+version misses the flat white towel in all 15 observations. In seed 0,
+D covers 99.85\% of the crumpled white tissue, but adjusted overlap is
+0.428 because of surrounding predicted background.
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=\textwidth]{figures/cloth_scenes_all_seeds.pdf}
+\includegraphics[width=0.92\textwidth]{figures/cloth_scenes_all_seeds.pdf}
 \caption{All three seeds on the same two cloth scenes (frame 2). Bare-floor seeds 0/1/2 are grouped first, followed by poster seeds 0/1/2. IDs and colors follow Fig.~\ref{fig:cloth}; native YOLO boxes are orange. }
 \label{fig:cloth-seeds}
 \end{figure}
 
+\clearpage
 \section{Additional Failure Analysis and Examples}\label{app:failures}
 
 Table~\ref{tab:error-types} distinguishes extra pixels attached to a
@@ -235,7 +234,7 @@ hazards.
 
 Isolated regions, which touch no reference object, cover 1,619 (RGB-D)
 and 1,834 (RGB) pixels per GTE-Floor frame under SAM labels, against 210
-and 434 under reference labels. Nearly all of them are objects that were
+and 434 under reference labels. Most of the inspected regions cover objects that were
 not annotated: the tape measure lying along the floor and its case, a bin
 and a box at the wall base, and a white object at the left wall
 (Fig.~\ref{fig:false-regions}, Table~\ref{tab:false-region-types}). A
@@ -271,12 +270,13 @@ RGB-D in 2.
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.66\textwidth,page=1]{figures/qualitative_cases.pdf}
-\includegraphics[width=0.66\textwidth,page=3]{figures/qualitative_cases.pdf}
-\caption{Fusion gain (top, white extension lead on the poster) and fusion failure (bottom, black mains lead on bare floor). Panels show RGB, raw depth, floor residual and the three predictions for seed 0, frame 2; frequencies cover three seeds $\times$ five frames.}
+\includegraphics[width=0.9\textwidth,page=1]{figures/qualitative_cases.pdf}
+\includegraphics[width=0.9\textwidth,page=3]{figures/qualitative_cases.pdf}
+\caption{Fusion gain (top, white extension lead on the poster) and fusion failure (bottom, black mains lead on bare floor). Panels show RGB, raw depth, floor residual and the three predictions (seed 0, frame 2). Yellow marks the target; green/red/blue show correct/extra/missed pixels. Frequencies in the text cover three seeds $\times$ five frames.}
 \label{fig:cables}
 \end{figure}
 
+\clearpage
 \section{Inference Cost and the Direct SAM Baseline}\label{app:cost}
 
 Table~\ref{tab:inference-cost} times the complete SAM~3 and YOLOv8n box

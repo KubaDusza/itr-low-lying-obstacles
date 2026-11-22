@@ -12,7 +12,8 @@ The assistance pipeline combines SAM object and structure proposals with the ori
 |---|---:|---|---|
 | ISOD_reference_train_v1 | 1,400 | 70 human-reviewed; 1,330 assisted | Training targets for the reported reference-supervised semantic runs |
 | ISOD_reference_val_v1 | 300 | All human-reviewed | Checkpoint selection; also used during labeling development |
-| ISOD_reference_test_v1 | 30 | All human-reviewed; ten frames per test location | Provisional ISOD test results; the 300-frame split is not fully evaluated against reviewed references |
+| ISOD_reference_test_v1 | 30 | Human-reviewed; ten per test location | Historical diagnostic; reviewed overrides for v2 |
+| ISOD_reference_test_v2 | 300 | 270 assisted + 30 reviewed overrides | Current full ISOD test evaluation |
 
 Locations are disjoint across the 14/3/3 train/validation/test partition. Human review was assisted by prelabels, so it can retain anchoring bias and imperfect boundaries. The reference training set must not be called 1,400 fully manual masks.
 
@@ -56,10 +57,14 @@ The new YOLOv8n detection experiment uses the saved instance IDs, rather than po
 
 All 1,400 training RGB images receive separate automatic instance labels from the pinned SAM checkpoint and the same three prompts, without original ISOD masks or reference annotations as generation inputs. Mask-overlap deduplication and fixed parent/child rules resolve repeated proposals; unresolved containment becomes an explicit cluster. The new labels contain 21,224 proposed individuals and 344 unresolved clusters. This is fresh native instance inference, not a claim of pixel-identical reproduction of the earlier semantic teacher cache. All 1,400 label hashes and image identities were verified.
 
-Reference and automatic detectors each use seeds 0, 1 and 2, a maximum of 200 epochs with validation early stopping (patience 20), the same pretrained YOLOv8n checkpoint, image size, optimizer and shared 300-frame reference-box validation set. Validation AP50:95 selects checkpoints. The reference source contains 85 reviewed binary masks and 1,315 assisted masks; review of binary inclusion does not certify every instance boundary or group.
+Reference and automatic detectors each use seeds 0, 1 and 2 and a fixed 60-epoch schedule without early stopping, the same pretrained YOLOv8n checkpoint, image size, optimizer and shared 300-frame reference-box validation set. Validation fitness (0.9 AP50:95 + 0.1 AP50) selects checkpoints. The reference source contains 85 reviewed binary masks and 1,315 assisted masks; review of binary inclusion does not certify every instance boundary or group.
 
 Evaluation covers 320 GTE frames and 1,310 annotated unit/frame observations. Native box AP is separate from semantic-mask coverage/localization. Fixed operating-point precision/recall uses confidence 0.25 and confidence-ordered one-to-one box matching at IoU 0.5, with duplicate predictions counted as false positives. Recording props are not exhaustively annotated, so unmatched predictions are diagnostic rather than certified operational false alarms. The detector and segmentation experiments use different objectives and schedules; this is not a convergence-matched architecture ranking.
 
 Frozen label manifests and earlier detector runs are under `results/instance_detection_20261122`. Current longer-run histories, settings, predictions and evaluation summaries are under `results/extended_training_20261122`. Model checkpoints and full prediction exports remain on Triton at `/scratch/work/duszaj1/itr_extended_20261122/runs`.
 
-The reported box runs use validation early stopping and completed at reference epochs 72/73/65 and automatic epochs 67/98/84. Earlier 20-epoch runs are preserved separately. The U-Net semantic reference experiment was rerun with its unchanged 15-epoch objective and schedule to record validation loss; current report scores use the reruns.
+The current matrix has 36 runs: three seeds for each of six model/input configurations and two label sources. U-Net uses 15 epochs; both YOLO models use 60. Earlier 20-epoch and 200-epoch-policy YOLO runs are superseded. The final SAM-label U-Net and YOLOv8n-seg runs are complete and included.
+
+## Full ISOD test references (v2)
+
+All 300 held-out frames use the same assistance pipeline as training. The 30 reviewed masks override the corresponding proposals; the other 270 remain assisted. Proposals agree with those 30 reviewed masks at pooled IoU 0.929. The frozen manifest records review status and per-mask hashes. Current scoring uses all 300 frames for every reported method. The older 30-frame run-level scores are diagnostics, not the final ISOD evaluation.

@@ -1,0 +1,21 @@
+{
+  "status": "All six complete, retrieved, scored and incorporated",
+  "jobs": {
+    "unet": "21782791",
+    "segmentation": "21782792"
+  },
+  "unet_epochs": 15,
+  "unet_selected_epochs": [
+    11,
+    8,
+    4
+  ],
+  "segmentation_epochs": 60,
+  "segmentation_selected_checkpoints": [
+    "epoch45.pt",
+    "epoch45.pt",
+    "epoch40.pt"
+  ],
+  "outputs": "Triton home /home/duszaj1/itr_runs; scratch run paths are symlinks",
+  "report_replacement_pending": false
+}

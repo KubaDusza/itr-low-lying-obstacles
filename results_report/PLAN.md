@@ -1,3 +1,5 @@
+> Historical planning record; completed/current state is in `../HANDOFF_CURRENT.md`. Earlier30frame andpendingtraining entries below are superseded.
+
 # Results report: revision plan (2026-11-22, deadline 23:59)
 
 > Status 2026-11-22 evening: plan executed; current state and decisions in `../HANDOFF_CLAUDE_20261122.md`.

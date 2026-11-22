@@ -171,13 +171,13 @@ balance between segmentation performance and computational efficiency.
 design}\label{task-and-experimental-design}
 
 We run two comparisons. The first tests depth. ESANet
-\cite{seichter2021efficient} has RGB, depth and RGB-D versions of the
-same network, so only the input changes; because ESANet predicts pixel
+\cite{seichter2021efficient} has RGB, depth and RGB-D versions within one
+model family; because ESANet predicts pixel
 masks, this comparison is made on segmentation. We did not find a
 detector with matched RGB, depth and RGB-D versions. To place ESANet
-among common choices, we add three RGB models with different outputs:
+among common choices, we compare three RGB models with different outputs:
 U-Net (pixel mask), YOLOv8n-seg (one mask per object) and the YOLOv8n
-detector (one box per object, the cheapest output to label and run), and
+detector (one box per object), and
 a depth-only floor-plane fit without training (Table~\ref{tab:models}).
 All outputs are scored as obstacle regions in the same way
 (Section~\ref{evaluation}).
@@ -264,7 +264,7 @@ train for 60 epochs with the standard Ultralytics schedule; box targets
 enclose each annotated object (Table~\ref{tab:models}).
 
 \begin{table}[H]
-\caption{Models and training. Checkpoints are chosen on the 300 ISOD validation frames (IoU: obstacle IoU); Appendix~\ref{app:configuration} lists all settings.}
+\caption{Models and training.}
 \label{tab:models}
 \centering\footnotesize
 \setlength{\tabcolsep}{2.5pt}
@@ -280,6 +280,7 @@ Floor plane & Pixel mask & D & -- & --\\
 SAM 3 & Obj.\ masks & RGB & -- & --\\
 \bottomrule
 \end{tabular}
+\par\smallskip{\footnotesize Checkpoints use the 300 ISOD validation frames; IoU is obstacle IoU. Settings: Appendix~\ref{app:configuration}.}
 \end{table}
 \footnotetext{Ultralytics fitness: 0.9 AP50:95 + 0.1 AP50, where AP50:95 is the COCO average precision over box-overlap thresholds 0.5--0.95.}
 

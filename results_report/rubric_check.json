@@ -1,97 +1,98 @@
 {
-  "updated_at": "2026-11-22T16:39:51.188397+00:00",
-  "combined_pages": 21,
-  "results_and_conclusion_pages": [
-    5,
-    6
-  ],
-  "appendix_pages": [
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21
-  ],
+  "updated_at": "2026-11-22T20:35:44.170194+00:00",
+  "combined_pages": 18,
+  "section_pages": {
+    "results": 4,
+    "conclusion": 5,
+    "references": 6,
+    "appendix": 7
+  },
   "format": "IEEEtran conference",
-  "original_introduction_and_state_of_art_verbatim": true,
-  "results_length_within_two_to_four_columns": true,
-  "conclusion_or_future_work_present": true,
-  "all_figures_and_tables_referenced": true,
+  "original_survey_verbatim": true,
+  "learned_runs": 36,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "model_label_pairs": 12,
+  "isod_test_frames": 300,
+  "isod_reference_status": {
+    "isod_sam_prelabel": 270,
+    "human_reviewed": 30
+  },
+  "gte_frames": 320,
+  "schedules": {
+    "ESANet": 500,
+    "UNet": 15,
+    "YOLO_seg": 60,
+    "YOLO_boxes": 60
+  },
+  "completed_added_rgb_runs": [
+    "unet_logged_reference_s0",
+    "yoloseg_e60_reference_s0",
+    "unet_logged_reference_s1",
+    "yoloseg_e60_reference_s1",
+    "unet_logged_reference_s2",
+    "yoloseg_e60_reference_s2",
+    "unet_logged_sam_s0",
+    "yoloseg_e60_sam_s0",
+    "unet_logged_sam_s1",
+    "yoloseg_e60_sam_s1",
+    "unet_logged_sam_s2",
+    "yoloseg_e60_sam_s2",
+    "yolov8n_detect_reference_e60_s0",
+    "yolov8n_detect_reference_e60_s1",
+    "yolov8n_detect_reference_e60_s2",
+    "yolov8n_detect_automatic_e60_s0",
+    "yolov8n_detect_automatic_e60_s1",
+    "yolov8n_detect_automatic_e60_s2"
+  ],
+  "checkpoint_selection": {
+    "ESANet": "validation obstacle IoU",
+    "UNet": "validation obstacle IoU",
+    "YOLO_seg": "validation obstacle IoU among saved checkpoints",
+    "YOLO_boxes": "validation fitness: .9 AP50:95 + .1 AP50"
+  },
+  "no_undefined_references": true,
+  "no_overfull_boxes": true,
+  "no_type3_fonts": true,
+  "all_figures_tables_referenced": true,
   "figure_table_labels": [
     "fig:pipeline",
     "fig:collection",
     "tab:collection",
     "tab:models",
-    "tab:domain-results",
+    "tab:main",
     "fig:range-size",
+    "fig:cloth",
     "tab:object-sets",
-    "tab:shared-detection",
-    "fig:detection-examples",
     "fig:objects",
     "tab:experiment-matrix",
-    "tab:full-component",
-    "tab:domain-spread",
-    "tab:runtime",
+    "tab:full-scores",
     "tab:per-item",
     "fig:esanet-curves",
     "fig:baseline-curves",
     "fig:native-curves",
     "fig:teacher-devval",
-    "fig:teacher-test",
-    "tab:cloth-repeat-counts",
     "fig:cloth-seeds",
     "tab:error-types",
-    "fig:extra-qualitative-a",
-    "fig:extra-qualitative-b",
-    "tab:inference-cost"
+    "tab:false-region-types",
+    "fig:false-regions",
+    "fig:cables",
+    "tab:inference-cost",
+    "tab:runtime"
   ],
-  "no_undefined_references": true,
-  "no_overfull_boxes": true,
-  "no_type3_fonts": true,
-  "learned_conditions_all_have_three_seeds": true,
-  "native_box_policy": {
-    "max_epochs": 200,
-    "patience": 20,
-    "actual_epochs": {
-      "reference": [
-        72,
-        73,
-        65
-      ],
-      "automatic": [
-        67,
-        98,
-        84
-      ]
-    },
-    "selection": "ISOD validation box AP50:95",
-    "gte_frames": 320
-  },
-  "unet_validation_loss_logged_all_three_runs": true,
-  "standard_component_metric_and_separate_native_box_AP": true,
-  "cpu_gpu_cost_measured": true,
-  "gte_vpn_required": false,
-  "scientific_limits": [
-    "30 reviewed ISOD test frames, not the full 300-frame split",
-    "Assisted references and some grouped IDs",
-    "Validation-informed prompt development",
+  "visual_review_completed": true,
+  "limits": [
+    "270 assisted ISOD test masks,30 reviewed overrides",
+    "GTE one room and repeated static frames",
     "Unannotated recording props",
-    "One external room, static repeats",
-    "Models differ in training targets and budgets",
-    "Hardware cost uses different optimized precisions; no robot timing"
+    "ESANet capacities differ",
+    "Server timings,not robot timings"
   ],
-  "visual_review": "All 21 pages rendered; main results, changed training curves, grouped cloth scenes and hardware table inspected.",
-  "submission_status": "Not submitted; reviewable report",
-  "pdf_sha256": "0c9eedaae15148eca57cbc239bbac04bf0d352baad0464c400138dbf833ef224",
-  "main_tex_sha256": "4a0fb6d2a58189e2f3489dc308815292b9fde2123df1134d502835a6bb573bf3",
-  "results_tex_sha256": "aa10519381ce8bb3591dac196682de3431096252fc8d10e5ef7027f52a577106"
+  "submission_status": "Not submitted",
+  "pdf_sha256": "3f59f19a9feb58b27fbc9170c9294bb1f0783e1e84c9ee3ec82e891cc8e2298e",
+  "main_tex_sha256": "7a0cf481d87703119077360bb8f35f3102037e49b12355ac6a24d1562f1c80e7",
+  "results_tex_sha256": "c974feaca5775db9c01116fc4c7ff1a0e48012963984f6f1860ddf298dcffbf0"
 }

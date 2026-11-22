@@ -1,16 +1,11 @@
 # Results report
 
-`REPORT.pdf` (17 pages) combines the approved survey, the adapted methodology, results and conclusion (pages 4–6), references (page 6) and appendices A–H (pages 7–17). Rubric: `RUBRIC.md`. Build with `zsh build.sh`. Deadline: 2026-11-22 23:59. Nothing has been submitted.
+`REPORT.pdf` (18 pages) combines the approved survey (verbatim), adapted methodology, results/conclusion, references and appendices in IEEE format. Results and conclusion end within page6; references are on page6. Supporting appendices contain full scores, label construction, training curves, examples, seed consistency, false-region inspection and inference cost. Nothing has been submitted automatically.
 
-## State (2026-11-22 evening)
+All **36 learned runs** are complete: ESANetRGB/D/RGB-D, U-NetRGB, YOLOv8n-segRGB and YOLOv8n box-onlyRGB, each trained on reference and automaticSAM labels with three seeds. Schedules:500 for ESANet, 15 for U-Net and 60 for YOLO. All are evaluated on300 ISOD test frames and320 GTE frames. Test references are270 assisted masks plus30 reviewed overrides; their quality is documented in the report.
 
-- ISOD test: all 300 frames are scored. References are `data/ISOD_reference_test_v2`: the same assistance pipeline as training, with the 30 reviewed frames overriding their proposals. On those 30, proposals agree with the reviewed masks at pooled IoU 0.929 (`code/export_isod_test_references.py`).
-- All 30 runs, plus direct SAM 3 and the floor-plane fit, have 300-frame ISOD and 320-frame GTE-Floor predictions. Scores: `code/score_isod_test300.py` → `results/test_references_20261122/isod_test300_scores.json`.
-- YOLOv8n-seg and YOLOv8n boxes use fixed 60-epoch runs (standard Ultralytics schedule, no early stopping; `code/triton_seg_e60.py`, `code/triton_boxes_e60.py`). Earlier early-stopped runs on a 200-epoch schedule were selected before the learning rate had decayed and are superseded. Selected epochs: seg 45/55/50, boxes reference 40/50/45, SAM 50/50/60.
-- Every number in the results comes from `results/results_report_20261122/report_numbers.json` (`code/collect_report_numbers.py`). GTE paired bootstrap: `code/bootstrap_gte_contrasts.py`.
-- Tables and figures: `code/make_final_report_assets.py` (main table, full-score table, cloth figure with 15-observation counts, RGB-baseline curves).
-- False regions: `results/false_regions_20261122` (pixel-weighted samples; Appendix G).
+The six final SAM-label U-Net/YOLOseg runs are included in the main table, text and curves. Frozen-reference versus automatic-label effects, mask agreement versus object recovery, and modality comparisons are kept distinct. The raw run-level U-Net `scores.json` files retain a30frame diagnostic; the canonical full300test evaluation is `results/test_references_20261122/isod_test300_scores.json`.
 
-## Weights
+Build from root with `zsh results_report/build.sh`. Refresh current evidence/assets with `.venv-ml/bin/python code/refresh_results_evaluation.py`; update handwritten numbers from `results/results_report_20261122/report_numbers.json`, then rebuild/render/audit. `rubric_check.json` records the actual PDF SHA and verification results. `source_assets.json` records input/figure hashes. Review rules: `REVIEW_NOTES.md`; assignment: `RUBRIC.md`; active handoff: `../HANDOFF_CURRENT.md`.
 
-The 12 GTE-only ESANet checkpoints (RGB/D, reference and SAM) are on Triton at `~/itr_weights/esanet_gte` (with local copies in `results/gte_export_20261122/weights`, gitignored). They reproduce the saved 30-frame predictions to ≤0.07% of pixels. All other checkpoints are on Triton scratch. GTE servers are no longer needed.
+GTE machines are no longer needed. All selected models are available on Triton; newSAM baseline outputs use home-space symlinks after the scratch quota failure. All evaluation predictions needed to rebuild this report are local. Model binaries/raw data/prediction caches are not committed; annotations, code, histories and numeric evidence are curated separately.

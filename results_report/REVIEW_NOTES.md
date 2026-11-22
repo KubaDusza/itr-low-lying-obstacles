@@ -1,19 +1,23 @@
-# Report review rules
+# Active report review rules
 
-These rules apply across the report, including appendices, tables, captions and text inside figures.
+Apply these rules to the main text, appendices, captions, tables and embedded figure text. Historical decisions and superseded experimental states are preserved in the session handoffs and revision log.
 
-- Present a coherent experiment design. Explain the purposes of binary masks, instance masks and boxes together. Remove development-history wording such as “added detector,” “why add detection,” “new runs” and “we do not describe.”
-- Explain the scientific question and finding. Remove narration of edits, logging repairs, matching axis limits and other formatting choices. Implement those choices silently.
-- Keep necessary interpretation details in concise captions: outputs, colors, sample sizes and checkpoint criterion. Do not repeat the same details in surrounding prose.
-- Use clear dataset names. “GTE-Floor pixel IoU” means mask agreement on the separate dataset; it is not a new “external IoU” metric and does not directly count recovered objects.
-- Verify training claims against saved histories and settings. Current U-Net baselines have three reference-trained RGB runs of 15 epochs. Current YOLOv8n-seg baselines have three reference-trained RGB runs of 20 epochs. Longer YOLOv8n box runs are a different training task.
-- Do not equate a completed epoch budget with convergence. All three 20-epoch YOLOv8n-seg runs select the final saved checkpoint by validation mask IoU. Prepare longer validation-stopped runs; do not call them complete or replace report values before verification. U-Net validation loss mostly plateaus, but its 15-epoch budget alone does not establish convergence.
-- State checkpoint selection plainly: validation obstacle IoU for ESANet/U-Net; saved-checkpoint validation mask IoU for YOLOv8n-seg; validation box AP50:95 for box-only YOLO. Test scores do not select checkpoints.
-- Distinguish the available ISOD test subset from the full split. Only 30/300 test images have reviewed obstacle references (10/location). Current semantic ISOD numbers are provisional. Box-only detectors currently have GTE evaluation, not ISOD test evaluation. All reported methods have 320-frame GTE evaluation.
-- Keep object recovery separate from pixel agreement and spatial accuracy. Use the stated published component protocol for useful split/merge tolerance; strict box AP is a separate diagnostic.
-- Preserve the teammate's sound experiment/quantitative/qualitative/interpretation structure, graph style and per-object-set analysis. Recalculate all results from current evidence.
-- Preserve the approved survey wording; adapt the methodology where needed to describe the actual experiment accurately.
-- Proofread whole sections after edits. Check all repeated instances, not just the highlighted occurrence. Rebuild, render affected pages and check pagination before delivering.
-
-- ISOD test uses all 300 frames (assisted references, 30 reviewed). Do not describe it as a subset or provisional.
-- Results are organized as findings: depth, automatic labels, masks/boxes/cost, limitations. Caveats go in the Limitations paragraph only.
+- Present one coherent experiment design. Explain the purposes of pixel masks, instance masks and boxes together. Remove development-history wording such as “added detector,” “why add detection,” and “new runs.”
+- Explain the scientific question and finding. Do not narrate edits, logging repairs, axis formatting or other implementation repairs in the paper.
+- Use concise captions with the outputs, necessary colors, sample sizes and actual checkpoint criterion. Avoid repeating captions in adjacent prose.
+- Use plain words. Spell out label sources; use “SAM 3” rather than “teacher,” and avoid “condition” as an experiment-group label. Groups are “Reference labels (from ISOD annotations)” and “Automatic SAM 3 labels.”
+- Preserve the approved survey verbatim. Adapt the methodology to describe the actual completed experiment. Keep the report in hand-written TeX.
+- ESANet supplies RGB/D/RGB-D configurations within one model family. RGB-D has another encoder; do not claim that only input information changes at identical capacity.
+- Current schedules: ESANet500epochs; U-Net15epochs; YOLOv8n-seg and box-only YOLO60epochs, fixed standard schedules. The old20epoch and200epoch early-stopped YOLO runs are superseded. Do not equate reaching an epoch budget with proof of convergence.
+- Checkpoints: highest validation obstacle IoU for ESANet/U-Net; highest validation mask IoU among five-epoch saves plus final for YOLOv8n-seg; best validation fitness .9AP50:95+.1AP50 for box-only YOLO. Test scores never select checkpoints.
+- ISOD testing now covers all300frames at three held-out locations. The references use the training-assistance pipeline, with30reviewed masks overriding proposals. Do not call the300frame evaluation a subset or provisional. State assisted-reference quality and limits in the limitations paragraph.
+- Every reported method is evaluated on300ISOD and320GTE frames. The full comparison has36learned runs, three seeds per model/label-source pair; incorporate the final six SAM-label U-Net/YOLOseg runs only after verified completion and rescoring.
+- Organize results as findings: depth; automatic labels; masks, boxes and cost. Keep caveats together in the conclusion's limitations paragraph.
+- Describe automatic labels by their measured usefulness and annotation saving. Keep unfavorable numerical results accurate; do not force a preselected conclusion if a new model behaves differently.
+- Keep object recovery distinct from pixel agreement and spatial accuracy. Use the published split/merge-tolerant component protocol; strict native box AP is a separate diagnostic. Do not turn coverage into one-to-one box counting.
+- Call the separate-dataset mask metric “GTE-Floor pixel IoU.” Similar object-recovery rates do not establish that predictions are pixelwise unchanged. Scope qualitative claims to the models/scenes actually checked.
+- Preserve the partner's sound wording, finding-oriented structure, graph style, cross-dataset and object-set analysis; recalculate numbers from current evidence.
+- Explain extra predictions in plain language, with the examples checked. Quantifiers about inspected/pixel-weighted examples must not silently become population-wide frequency claims.
+- Keep useful curves, label protocol, full scores, examples, seed consistency, false-region analysis and compute cost in the trimmed appendix. Do not expand it with internal bookkeeping.
+- Proofread whole sections after each edit, including repeated occurrences and figure labels. Rebuild, render changed pages and verify that results/conclusion end on page6 before delivery.
+- Log decisions and revisions for the next agent. Keep raw conversation archives local. GTE access is no longer needed: its selected checkpoints have been mirrored to Triton.

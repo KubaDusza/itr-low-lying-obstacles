@@ -34,13 +34,14 @@ def save(fig,name):
 
 
 def pipeline():
+    plt.rcParams['pdf.fonttype'] = 42
     fig,ax=plt.subplots(figsize=(3.3,1.65));ax.set_xlim(0,1);ax.set_ylim(0,1);ax.axis('off')
     ax.text(.5,.96,'Same 1,400 ISOD training images',ha='center',va='center',fontsize=7.5)
     def box(x,y,w,h,text):
         ax.add_patch(FancyBboxPatch((x,y),w,h,boxstyle='square,pad=0',ec='#444444',fc='white',lw=.65))
         ax.text(x+w/2,y+h/2,text,ha='center',va='center',fontsize=7)
-    box(.015,.62,.46,.22,'Reference labels\n(SAM-initialized, corrected)')
-    box(.525,.62,.46,.22,'SAM 3 labels\nRGB + 3 text prompts')
+    box(.015,.62,.46,.22,'Reference labels\nfrom ISOD annotations')
+    box(.525,.62,.46,.22,'Automatic SAM 3 labels\nRGB + 3 text prompts')
     box(.015,.34,.46,.17,'Train model')
     box(.525,.34,.46,.17,'Train same model')
     box(.10,.015,.80,.18,'Test on ISOD (300 frames)\nand GTE-Floor (320 frames)')

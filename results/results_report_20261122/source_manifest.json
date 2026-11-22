@@ -1,0 +1,129 @@
+{
+  "entrypoints": "current evaluation, asset and training controllers",
+  "files": [
+    {
+      "path": "code/analyse_instance_detection.py",
+      "sha256": "ab70755822049d741a35be1c6893afe670e6af77e6e5df4bd7b5be4cb3126b4c"
+    },
+    {
+      "path": "code/audit_results_report.py",
+      "sha256": "df0f57cbd0e578227e41cda3345488b35f1081ca0c3190a3d96d227f6ec1320c"
+    },
+    {
+      "path": "code/bootstrap_gte_contrasts.py",
+      "sha256": "7d9227b8e8b14511c2471fa9045dfa105d09956ed8ea7e03769c750df3b919ef"
+    },
+    {
+      "path": "code/collect_report_numbers.py",
+      "sha256": "26f2578007cb7d1ab4a8baf97b4bacddbf5138a19fb5a9bd70d8afc24f9443c7"
+    },
+    {
+      "path": "code/export_isod_test_references.py",
+      "sha256": "2bdcd7f119b91403e24ef3a3fa187bb70d93bbeabdb968e614aa94b178ae4aac"
+    },
+    {
+      "path": "code/floor_plane.py",
+      "sha256": "a585a2f7e83da41a7924b847d2575e067943a2bddbf467b67f83e4a7c6c3e1f5"
+    },
+    {
+      "path": "code/hazard_metrics.py",
+      "sha256": "e29989315a13d19aa86e9bb415297e1bb1a588838713b830c64d394760637583"
+    },
+    {
+      "path": "code/isod.py",
+      "sha256": "b88458d01615ad8fa6d1084e222f30e53ad1387749b97c9249cdbb10050e32a0"
+    },
+    {
+      "path": "code/isod_components.py",
+      "sha256": "a9bbf584d7d3c6af763cb81cbbd39e03417cab87cab4aa2ec592681969b4cf7a"
+    },
+    {
+      "path": "code/isod_learn.py",
+      "sha256": "fcdbab2d590b8a90a6143845d1f418bff5b69bb4a7ff5d17e020f1468461597e"
+    },
+    {
+      "path": "code/isod_sam_review.py",
+      "sha256": "281f79feef6d8dd15b53a63cec64ff2fd2c9cbcb26803cee6a734e3d5e16b878"
+    },
+    {
+      "path": "code/make_detection_report_figures.py",
+      "sha256": "3bb447ca6a943ebe812699e5dee7314299ea087f0a49701d0252f358017a30b5"
+    },
+    {
+      "path": "code/make_final_report_assets.py",
+      "sha256": "c4ed6b48e646331b4af2db88ed98dcce5e858c562a55c9a5d6852d63ed5be2c7"
+    },
+    {
+      "path": "code/make_qualitative_cases.py",
+      "sha256": "d3f90365daa63d79cd6e9d5c26653ba960b75c1f3572e1f6a77937b749247c07"
+    },
+    {
+      "path": "code/make_report_revision_assets.py",
+      "sha256": "38dab6a8c9c7476658cb5cb3f779399f426fa635f96d9a47e7f6923e4d993bbd"
+    },
+    {
+      "path": "code/predict_unet_frozen.py",
+      "sha256": "4f09af950bf4de15f9e57403e10d4c641973888f17e692a16055016fd756718b"
+    },
+    {
+      "path": "code/prepare_instance_detection.py",
+      "sha256": "9476935ae6d37f4abc8eed13c1efce532b59d718eeb4f8c9358192507dbc1518"
+    },
+    {
+      "path": "code/prepare_report_revision.py",
+      "sha256": "9a415790bcd9128a38779690d36aa70fd04ffbdbc87b7c017786417ede6d5df9"
+    },
+    {
+      "path": "code/refresh_results_evaluation.py",
+      "sha256": "0f4119d75e348e71f5ae8a556b5b69f0121e9dde7ae095b4af2a322b2c81a9d5"
+    },
+    {
+      "path": "code/review_isod.py",
+      "sha256": "37ae92a5ee8d0e50288a5f5a38ac25427942ec526f6f109ed4fc2f6cd0e93c1a"
+    },
+    {
+      "path": "code/review_isod_draft.py",
+      "sha256": "41ff2ca3089c4149cde9ed5b7be9b515c75a368989f775d2860968b9f5f18776"
+    },
+    {
+      "path": "code/sam3_prelabel.py",
+      "sha256": "e4a7589d414cdf300e46b4224fb9240062ca2311b072b28fa1b745178cc5a6a4"
+    },
+    {
+      "path": "code/score_frozen.py",
+      "sha256": "c0e31f32b22a85c1d1e6b044abb4593816bac665c92c65ffcd8db71c3deccca3"
+    },
+    {
+      "path": "code/score_isod_test300.py",
+      "sha256": "251cf7342661af7ea079368eebeea7c0c6c07fc2239f93916fce116d689384a4"
+    },
+    {
+      "path": "code/train_seg.py",
+      "sha256": "7cf63cc4351e0e10e640e57783994ef87398d3501748c0701b50754430c2713f"
+    },
+    {
+      "path": "code/train_yolo.py",
+      "sha256": "6662ab509a80d6ba29b854f66eac26ab9a53636f02e60daa1a9ef6d956736009"
+    },
+    {
+      "path": "code/triton_boxes_e60.py",
+      "sha256": "02a4001811cdc5afe4c9624c2cff14e6d9ef47697169519b998c1d2deb0e4143"
+    },
+    {
+      "path": "code/triton_seg_e60.py",
+      "sha256": "10b737b5a238dd44247894a00397e9dfaae6c8f04acf0871963607f9ee183e02"
+    },
+    {
+      "path": "code/triton_seg_e60_sam.py",
+      "sha256": "1cb2b41909eee872dd67d5769a27faaa9bd827c53bfcbfb3ab363431399cd7ea"
+    },
+    {
+      "path": "code/triton_unet_logged.py",
+      "sha256": "5b57a43ff86942e670d52d51907157d55f1aa715b77b53c0a26afc1a14a71d25"
+    },
+    {
+      "path": "code/triton_unet_sam.py",
+      "sha256": "b1993975acd57cc26537305546dfe711f891712677820409a99b7139a5773ada"
+    }
+  ]
+}

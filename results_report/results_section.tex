@@ -71,10 +71,10 @@ also increases, from 0.450 to 0.578 for YOLOv8n-seg and from 0.487 to
 0.559 for U-Net. YOLOv8n-seg retains component F1 near 0.52; RGB-D's
 falls from 0.428 to 0.356.
 
-ESANet models trained on SAM labels predict more false regions on GTE-Floor: 6.0--6.4 per frame, against 2.8--3.7 with reference labels. Most of the inspected extra regions are real objects that were
-not annotated: the tape measure lying along the floor, and a bin and a
-box at the wall (Appendix~\ref{app:failures}). SAM-trained models segment more of these
-objects, which lowers measured precision.
+ESANet models trained on SAM labels predict more false regions on
+GTE-Floor: 6.0--6.4 per frame, against 2.8--3.7 with reference labels.
+These counts include detections of unannotated objects, such as the tape
+measure and items at the wall.
 
 Using SAM~3 directly gives the highest component F1 on both datasets
 (0.829 and 0.673) and GTE-Floor object recall 0.945.
@@ -89,7 +89,7 @@ the highest component F1 of the trained models on both datasets.
 
 SAM~3 needs 183~ms per image on an H200 GPU partition and 13.3~s on
 eight CPU threads, against 4.0~ms and 34~ms for YOLOv8n boxes
-(Appendix~\ref{app:cost}). Training on SAM labels moves this cost offline, at some loss of accuracy.
+(Table~\ref{tab:inference-cost}). Training on SAM labels moves this cost offline, at some loss of accuracy.
 
 \section{Conclusion and Future Work}\label{sec:conclusion}
 

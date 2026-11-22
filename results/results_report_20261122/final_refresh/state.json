@@ -59,7 +59,7 @@
       "reason": "Report GTE pixel IoU for filled boxes consistently with ISOD; regenerate all final assets"
     }
   ],
-  "pdf_sha256": "98aebd157ff71bc1fa805e459f544c60d4a8d614ff49922e9afd2cc5e9f380a0",
+  "pdf_sha256": "bda25be23647bb4128b5e1439d33a2024e971aab5ece9cb13e044ae1063c4fa4",
   "post_review": {
     "at": "2026-11-22 21:48 CET",
     "changes": [
@@ -81,5 +81,18 @@
     "existing_aggregate_scores_changed": false,
     "all_existing_per_item_rows_preserved": true,
     "source": "results/results_report_20261122/isod_scale/summary.json"
+  },
+  "final_appendix_trim": {
+    "at": "2026-11-22 22:11 CET",
+    "pages": 13,
+    "removed": [
+      "failure-analysis appendix",
+      "isolated-region montage",
+      "two cable examples",
+      "memory and parameter-count comparisons",
+      "forward-only latency table"
+    ],
+    "retained": "two-row matched SAM/YOLO end-to-end latency comparison in training appendix",
+    "new_cloth_figure_added": false
   }
 }

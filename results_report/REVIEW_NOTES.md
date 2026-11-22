@@ -28,3 +28,5 @@ Apply these rules to the main text, appendices, captions, tables and embedded fi
 - Keep the appendix concise: avoid repeating main means, retain meaningful seed variation, per-item analysis, curves, examples and cost. Every evaluated checkpoint must be visible on the curves and have its epoch and validation score listed.
 - Bold performance maxima within comparable groups, ties included; false-region rates and cost use minima. Do not imply that more epochs, a best seed, or lower SD alone is best model performance.
 - ISOD connected-mask-region analysis is an approximation of objects; distinguish it from SAM instance IDs and physical range/size.
+
+- Omit the extra failure montage and cable-example appendix. Keep the existing main cloth result and seed verification; do not add another cloth comparison. Runtime is supporting evidence: retain the matched SAM/YOLO latency comparison and short setup only, without a separate cost appendix or memory/parameter/forward-only tables.

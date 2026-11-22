@@ -1,6 +1,6 @@
 # Results report
 
-`REPORT.pdf` (16 pages) combines the approved survey (verbatim), adapted methodology, results/conclusion, references and appendices in IEEE format. Results and conclusion end within page6; references are on page6. Supporting appendices contain seed variation, per-item scores, ISOD size/depth analysis, label construction, training curves, examples, seed consistency, false-region inspection and inference cost. Nothing has been submitted automatically.
+`REPORT.pdf` (13 pages) combines the approved survey (verbatim), adapted methodology, results/conclusion, references and appendices in IEEE format. Results and conclusion end within page6; references are on page6. Supporting appendices contain seed variation, per-item scores, ISOD size/depth analysis, label construction, training curves, examples, seed consistency and a short SAM/YOLO latency comparison. Nothing has been submitted automatically.
 
 All **36 learned runs** are complete: ESANetRGB/D/RGB-D, U-NetRGB, YOLOv8n-segRGB and YOLOv8n box-onlyRGB, each trained on reference and automaticSAM labels with three seeds. Schedules:500 for ESANet, 15 for U-Net and 60 for YOLO. All are evaluated on300 ISOD test frames and320 GTE frames. Test references are270 assisted masks plus30 reviewed overrides; their quality is documented in the report.
 

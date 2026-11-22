@@ -84,6 +84,14 @@ $5\times10^{-4}$) and linear decay. Box inference uses confidence 0.25
 and NMS IoU 0.7. YOLOv8n-seg checkpoints are checked every five epochs;
 selection criteria are in Table~\ref{tab:models}.
 
+\textbf{Inference speed.} Table~\ref{tab:inference-cost} measures single-image
+latency including preprocessing, inference and transfer to CPU, after
+warm-up (three CPU passes, 15 GPU passes). CPU uses float32; GPU uses
+float16 for YOLO and bfloat16 for SAM. SAM shares image features across
+its three prompts. These are server measurements, not on-robot timings.
+
+\input{inference_cost_table.tex}
+
 \clearpage
 \section{Evaluation and Per-Item Results}\label{app:evaluation}
 
@@ -176,69 +184,3 @@ D covers 99.85\% of the crumpled white tissue, but adjusted overlap is
 \caption{All three seeds on the same two cloth scenes (frame 2). Bare-floor seeds 0/1/2 are grouped first, followed by poster seeds 0/1/2. IDs and colors follow Fig.~\ref{fig:cloth}; native YOLO boxes are orange. }
 \label{fig:cloth-seeds}
 \end{figure}
-
-\clearpage
-\section{Additional Failure Analysis and Examples}\label{app:failures}
-
-Figure~\ref{fig:false-regions} shows that many inspected false regions
-are real objects missing from the reference labels: the tape measure,
-its case, and objects at the wall. SAM-trained models mark the tape
-measure more often. These examples explain some of the measured loss
-of precision; they do not estimate how often each error occurs.
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=0.62\textwidth]{figures/fp_rgbd_ref.jpg}\\[3pt]
-\includegraphics[width=0.62\textwidth]{figures/fp_rgbd_sam.jpg}
-\caption{Isolated predicted regions (red outline) of ESANet RGB-D trained on reference labels (top) and SAM labels (bottom), 30 regions each, sampled with probability proportional to area. Cyan: reference objects. Labels give the recording and region area.}
-\label{fig:false-regions}
-\end{figure}
-
-Figure~\ref{fig:cables} shows fusion working in both directions on
-cables. On the poster at 2.5 m, RGB-D covers the white extension lead in
-15 of 15 observations, using depth (D: 14), where RGB covers it once. On
-bare floor at 0.75 m, RGB covers the black mains lead in 15 of 15 and
-RGB-D in 2.
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=0.9\textwidth,page=1]{figures/qualitative_cases.pdf}
-\includegraphics[width=0.9\textwidth,page=3]{figures/qualitative_cases.pdf}
-\caption{Fusion gain (top, white extension lead on the poster) and fusion failure (bottom, black mains lead on bare floor). Panels show RGB, raw depth, floor residual and the three predictions (seed 0, frame 2). Yellow marks the target; green/red/blue show correct/extra/missed pixels. Frequencies in the text cover three seeds $\times$ five frames.}
-\label{fig:cables}
-\end{figure}
-
-\clearpage
-\section{Inference Cost and the Direct SAM Baseline}\label{app:cost}
-
-Table~\ref{tab:inference-cost} includes preprocessing, inference,
-postprocessing and transfer to CPU, excluding loading and file reading.
-SAM shares image features across its three prompts. CPU: Xeon Gold 6230,
-eight threads, float32; GPU: H200 MIG 3g.71gb, YOLO float16 and SAM
-bfloat16. CPU timing uses one warm-up and three images; GPU timing uses
-three warm-ups and 15 images. Memory is peak process RSS on CPU and
-PyTorch allocation on GPU. SAM has 840.4M parameters against YOLO's 3.0M.
-
-\input{inference_cost_table.tex}
-
-Table~\ref{tab:runtime} gives forward-only times of the segmentation
-models on an RTX 3090 (float32, batch 1, inputs on GPU, 30 warm-ups,
-100 measurements). The RGB-D encoder adds 14.8M parameters and 5.2~ms.
-No on-robot timing was measured.
-
-\begin{table}[!htbp]
-\caption{Model size and GPU forward latency.}
-\label{tab:runtime}
-\centering\small
-\begin{tabular}{lrr}
-\toprule
-Model & Parameters (millions) & Median forward time (ms)\\
-\midrule
-ESANet RGB & 32.05 & 8.71\\
-ESANet D & 32.04 & 8.69\\
-ESANet RGB-D & 46.88 & 13.94\\
-U-Net/MobileNetV2 & 6.63 & \textbf{3.97}\\
-YOLOv8n-seg & \textbf{3.26} & 5.62\\
-\bottomrule
-\end{tabular}
-\end{table}

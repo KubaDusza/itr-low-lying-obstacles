@@ -135,3 +135,10 @@ Implemented source/figure revisions are in current workspace; latest build after
 - Smaller ISOD regions are recovered less often; RGB/RGB-D recovery is not monotonic in estimated depth. Added this qualified finding to main text, with the plot fitted beside the inventory in AppendixA; main results still end on6. Corrected the grid wording to distinguish ISOD640×422 from GTE640×362.
 - Bold indicates best displayed means within comparable table groups, all displayed ties, and lowest cost per hardware. Configuration/checkpoint/SD tables do not rank larger counts, seed scores or smaller variation as best accuracy. Main14numeric rows and all29per-item rows unchanged after formatting.
 - Rebuilt/rendered/reviewed all changed pages; IEEE audit passed, references resolved, no overfull boxes or Type3 fonts.
+
+## 2026-11-22 22:11 CET — remove extra failure appendix and reduce runtime evidence
+
+- User requested removal of AppendixG and questioned the cable figures and long cost appendix. Removed the entire failure-analysis appendix (isolated-region montage and both cable panels). Kept the existing main cloth comparison and its existing all-seed verification; **no new or duplicate cloth figure was added**.
+- Runtime is not an explicit rubric requirement, but directly supports the SAM-versus-small-model motivation. Kept only a two-row CPU/GPU end-to-end SAM/YOLO latency table, moved into AppendixB with brief hardware/precision/timing context. Removed peak-memory, model-size and forward-only latency tables from the PDF. Existing measurement files and removed figures remain available in Git.
+- Removed all references to the deleted appendix and shortened the main unannotated-prop explanation. Main speed result points directly to the compact table. Avoid claiming SAM is universally impossible in real time: measured server latencies support a relative speed/cost claim.
+- Report13pages (formerly16; originally18). Main results/references still finish on6. Rebuilt, visually checked changed pages and reran IEEE/reference/font/36run audit. No scores, training, labels or checkpoint choices changed.

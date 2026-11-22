@@ -59,7 +59,7 @@
       "reason": "Report GTE pixel IoU for filled boxes consistently with ISOD; regenerate all final assets"
     }
   ],
-  "pdf_sha256": "3298321f5418218dc3a086e469cb4288db0b83f13f7a02896bc6f0237263ac02",
+  "pdf_sha256": "98aebd157ff71bc1fa805e459f544c60d4a8d614ff49922e9afd2cc5e9f380a0",
   "post_review": {
     "at": "2026-11-22 21:48 CET",
     "changes": [
@@ -69,5 +69,17 @@
     ],
     "evaluation_numbers_changed": false,
     "methodology_diff": "results_report/methodology_changes.pdf"
+  },
+  "appendix_and_analysis_review": {
+    "at": "2026-11-22 22:05 CET",
+    "pages": 16,
+    "previous_pages": 18,
+    "checkpoint_points": 36,
+    "isod_scale_frames": 300,
+    "isod_scale_regions": 4119,
+    "isod_excluded_depth_regions": 10,
+    "existing_aggregate_scores_changed": false,
+    "all_existing_per_item_rows_preserved": true,
+    "source": "results/results_report_20261122/isod_scale/summary.json"
   }
 }

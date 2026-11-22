@@ -3,7 +3,7 @@ import hashlib,json,os,shutil,subprocess,sys,time
 from datetime import datetime,timezone
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'results/results_report_20261122/final_refresh';OUT.mkdir(exist_ok=True)
-steps=['prepare_report_revision','score_isod_test300','bootstrap_gte_contrasts','collect_report_numbers','make_final_report_assets','make_qualitative_cases']
+steps=['prepare_report_revision','score_isod_test300','make_isod_scale_analysis','bootstrap_gte_contrasts','collect_report_numbers','make_final_report_assets','make_qualitative_cases']
 for name in [f'unet_logged_sam_s{s}' for s in range(3)]+[f'yoloseg_e60_sam_s{s}' for s in range(3)]:
  p=ROOT/'results/extended_training_20261122/runs'/name;assert (p/'VERIFIED').exists(),name
  assert len(list((p/'gte').glob('*/*.png')))==320,name

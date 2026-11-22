@@ -1,34 +1,43 @@
-\begin{longtable}{lrrrr}
-\caption{Recovery by annotated GTE-Floor item.}\label{tab:per-item}\\
-\toprule Annotated item & $n$ & RGB & D & RGB-D\\\midrule\endfirsthead
-\toprule Annotated item & $n$ & RGB & D & RGB-D\\\midrule\endhead
-black mains lead & 12 & 0.900 & 0.394 & 0.844\\
-black USB lead & 12 & 0.944 & 0.367 & 0.944\\
-white extension lead & 12 & 0.800 & 0.272 & 0.878\\
-white USB-C lead & 12 & 0.478 & 0.283 & 0.472\\
-black pawn & 12 & 0.678 & 0.417 & 0.761\\
-black queen & 12 & 0.800 & 0.633 & 0.728\\
-white pawn & 12 & 0.611 & 0.494 & 0.611\\
-white queen & 12 & 0.644 & 0.406 & 0.722\\
-large hex key & 6 & 0.678 & 0.144 & 0.756\\
-medium hex key & 6 & 0.233 & 0.100 & 0.156\\
-small hex key & 6 & 0.044 & 0.011 & 0.000\\
-carpenter's square & 6 & 0.000 & 0.000 & 0.178\\
-tiny hex key & 5 & 0.000 & 0.027 & 0.000\\
-folded pink cloth & 12 & 0.833 & 0.206 & 0.922\\
-bundled purple cloth & 12 & 0.889 & 0.917 & 0.950\\
-crumpled tissue & 12 & 0.644 & 0.978 & 0.767\\
-flat paper towel & 12 & 0.439 & 0.217 & 0.467\\
-Rubik's cube & 6 & 0.889 & 0.789 & 1.000\\
-wire keycap puller & 6 & 0.778 & 0.067 & 0.400\\
-green ballpoint pen & 6 & 0.889 & 0.078 & 0.833\\
-yellow screwdriver & 6 & 1.000 & 0.600 & 0.989\\
-big screw (eye bolt) & 6 & 0.144 & 0.078 & 0.311\\
-pile of screws & 6 & 0.778 & 0.211 & 0.556\\
-small screws & 24 & 0.006 & 0.072 & 0.022\\
-white masking roll & 6 & 0.833 & 0.889 & 0.833\\
-tiny red roll & 5 & 1.000 & 0.360 & 1.000\\
-red/white striped roll & 6 & 1.000 & 0.733 & 1.000\\
-yellow/black striped roll & 6 & 1.000 & 0.978 & 1.000\\
-small yellow/black roll & 6 & 1.000 & 0.256 & 1.000\\
-\bottomrule\end{longtable}
+\begin{table}[H]
+\caption{Recovery by annotated GTE-Floor item.}\label{tab:per-item}
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{minipage}[t]{.49\textwidth}\centering
+\begin{tabular}{lrrrr}
+\toprule Item & $n$ & RGB & D & RGB-D\\\midrule
+black mains lead & 12 & \textbf{0.900} & 0.394 & 0.844\\
+black USB lead & 12 & \textbf{0.944} & 0.367 & \textbf{0.944}\\
+white extension lead & 12 & 0.800 & 0.272 & \textbf{0.878}\\
+white USB-C lead & 12 & \textbf{0.478} & 0.283 & 0.472\\
+black pawn & 12 & 0.678 & 0.417 & \textbf{0.761}\\
+black queen & 12 & \textbf{0.800} & 0.633 & 0.728\\
+white pawn & 12 & \textbf{0.611} & 0.494 & \textbf{0.611}\\
+white queen & 12 & 0.644 & 0.406 & \textbf{0.722}\\
+large hex key & 6 & 0.678 & 0.144 & \textbf{0.756}\\
+medium hex key & 6 & \textbf{0.233} & 0.100 & 0.156\\
+small hex key & 6 & \textbf{0.044} & 0.011 & 0.000\\
+carpenter's square & 6 & 0.000 & 0.000 & \textbf{0.178}\\
+tiny hex key & 5 & 0.000 & \textbf{0.027} & 0.000\\
+folded pink cloth & 12 & 0.833 & 0.206 & \textbf{0.922}\\
+bundled purple cloth & 12 & 0.889 & 0.917 & \textbf{0.950}\\
+\bottomrule\end{tabular}\end{minipage}\hfill
+\begin{minipage}[t]{.49\textwidth}\centering
+\begin{tabular}{lrrrr}
+\toprule Item & $n$ & RGB & D & RGB-D\\\midrule
+crumpled tissue & 12 & 0.644 & \textbf{0.978} & 0.767\\
+flat paper towel & 12 & 0.439 & 0.217 & \textbf{0.467}\\
+Rubik's cube & 6 & 0.889 & 0.789 & \textbf{1.000}\\
+wire keycap puller & 6 & \textbf{0.778} & 0.067 & 0.400\\
+green ballpoint pen & 6 & \textbf{0.889} & 0.078 & 0.833\\
+yellow screwdriver & 6 & \textbf{1.000} & 0.600 & 0.989\\
+big screw (eye bolt) & 6 & 0.144 & 0.078 & \textbf{0.311}\\
+pile of screws & 6 & \textbf{0.778} & 0.211 & 0.556\\
+small screws & 24 & 0.006 & \textbf{0.072} & 0.022\\
+white masking roll & 6 & 0.833 & \textbf{0.889} & 0.833\\
+tiny red roll & 5 & \textbf{1.000} & 0.360 & \textbf{1.000}\\
+red/white striped roll & 6 & \textbf{1.000} & 0.733 & \textbf{1.000}\\
+yellow/black striped roll & 6 & \textbf{1.000} & 0.978 & \textbf{1.000}\\
+small yellow/black roll & 6 & \textbf{1.000} & 0.256 & \textbf{1.000}\\
+\bottomrule\end{tabular}\end{minipage}
+\par\smallskip{\footnotesize Reference-trained ESANet; $n$: object/recording pairs. Bold: highest recall for each item.}
+\end{table}

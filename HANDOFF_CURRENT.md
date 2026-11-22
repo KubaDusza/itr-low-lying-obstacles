@@ -68,3 +68,11 @@ Remaining project/final-article work is listed as future work in the report: val
 ## Latest visual/wording review
 
 Distance/size plot legend moved outside panels; configuration table now says three seeds per label source. Label creation uses plain wording and explicitly distinguishes reviewed and unreviewed masks. Methodology diff against the saved October 25 source: `results_report/methodology_changes.pdf` (red deletions/green additions, no annotations), with exact `.diff` and source hashes alongside. No experiment or numeric changes; report remains 18 pages and passed another rendered review/audit.
+
+## Current appendix and ISOD update (supersedes18-page status)
+
+Report now **16 pages**; main/results/references still end on6. Appendix keeps all training curves, per-item rows and seed SDs but removes duplicated means/secondary tables and unnecessary prose. Checkpoint markers (seed0circle/1triangle/2square) and `checkpoint_table.tex` show all36selected epochs and validation scores; exact values/losses in `revision/checkpoint_values.json`.
+
+New ISOD size/estimated-depth figure is in AppendixA. It uses300frames and4119connected reference regions, **not verified SAM physical-object instances**. Ten regions with<50%positive depth are excluded from depth bins. All9reference-ESANet coverage totals exactly match canonical test scores. Source/evidence: `code/make_isod_scale_analysis.py`, `results/results_report_20261122/isod_scale/`. Canonical refresh now regenerates it. Train/val reference-instance exports cover1700frames; test instance IDs have not been verified/exported. Partner's original size/range analysis was also only GTE. RGB/RGB-D recall is lower for small ISOD regions but not monotonic with estimated depth. Do not claim this measures physical dimensions or object count.
+
+Numeric table highlighting uses comparable label-source groups, includes displayed ties, and uses minima for errors/cost. Configuration/checkpoint/SD tables are not rankings. No existing aggregate metric or model changed.

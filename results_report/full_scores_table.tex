@@ -1,36 +1,29 @@
-\begin{longtable}{llrrrr}
-\caption{All scores with training-seed standard deviation.}\label{tab:full-scores}\\
-\toprule Dataset & Method & Pixel IoU & Object recall & Component F1 & False regions/frame\\\midrule\endfirsthead
-\toprule Dataset & Method & Pixel IoU & Object recall & Component F1 & False regions/frame\\\midrule\endhead
-ISOD & ESANet RGB, ref. & 0.711$\pm$0.009 & 0.854$\pm$0.008 & 0.591$\pm$0.024 & 3.19$\pm$0.45\\
-ISOD & ESANet D, ref. & 0.318$\pm$0.009 & 0.388$\pm$0.017 & 0.131$\pm$0.005 & 5.97$\pm$0.53\\
-ISOD & ESANet RGB-D, ref. & 0.708$\pm$0.005 & 0.867$\pm$0.007 & 0.583$\pm$0.012 & 3.63$\pm$0.16\\
-ISOD & U-Net RGB, ref. & 0.724$\pm$0.008 & 0.750$\pm$0.019 & 0.693$\pm$0.012 & 2.03$\pm$0.24\\
-ISOD & YOLOv8n-seg RGB, ref. & 0.725$\pm$0.010 & 0.751$\pm$0.011 & 0.735$\pm$0.008 & 1.13$\pm$0.28\\
-ISOD & YOLOv8n boxes RGB, ref. & 0.498$\pm$0.011 & 0.806$\pm$0.003 & 0.501$\pm$0.019 & 3.88$\pm$0.30\\
-ISOD & ESANet RGB, SAM & 0.689$\pm$0.009 & 0.870$\pm$0.004 & 0.566$\pm$0.010 & 4.84$\pm$0.09\\
-ISOD & ESANet D, SAM & 0.304$\pm$0.019 & 0.388$\pm$0.026 & 0.121$\pm$0.011 & 6.16$\pm$0.39\\
-ISOD & ESANet RGB-D, SAM & 0.680$\pm$0.017 & 0.883$\pm$0.004 & 0.543$\pm$0.021 & 5.75$\pm$0.71\\
-ISOD & U-Net RGB, SAM & 0.682$\pm$0.008 & 0.733$\pm$0.063 & 0.640$\pm$0.028 & 2.58$\pm$0.76\\
-ISOD & YOLOv8n-seg RGB, SAM & 0.688$\pm$0.010 & 0.747$\pm$0.009 & 0.732$\pm$0.004 & 1.63$\pm$0.16\\
-ISOD & YOLOv8n boxes RGB, SAM & 0.522$\pm$0.012 & 0.802$\pm$0.010 & 0.517$\pm$0.009 & 3.88$\pm$0.03\\
-ISOD & SAM 3, three prompts & 0.730 & 0.838 & 0.829 & 1.51\\
-ISOD & Floor-plane fit (D) & 0.061 & 0.486 & 0.006 & 151.64\\
+\begin{table}[H]
+\caption{Standard deviation across three training seeds.}
+\label{tab:full-scores}
+\centering\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lrrrrrrrr}
+\toprule
+ & \multicolumn{4}{c}{ISOD} & \multicolumn{4}{c}{GTE-Floor}\\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+Method & IoU & Obj.\ recall & Comp.\ F1 & False reg./fr. & IoU & Obj.\ recall & Comp.\ F1 & False reg./fr.\\
 \midrule
-GTE & ESANet RGB, ref. & 0.486$\pm$0.075 & 0.628$\pm$0.005 & 0.356$\pm$0.034 & 3.65$\pm$0.76\\
-GTE & ESANet D, ref. & 0.141$\pm$0.012 & 0.383$\pm$0.011 & 0.067$\pm$0.005 & 8.24$\pm$1.35\\
-GTE & ESANet RGB-D, ref. & 0.554$\pm$0.088 & 0.643$\pm$0.062 & 0.428$\pm$0.049 & 2.84$\pm$0.60\\
-GTE & U-Net RGB, ref. & 0.487$\pm$0.064 & 0.464$\pm$0.055 & 0.388$\pm$0.032 & 2.40$\pm$0.06\\
-GTE & YOLOv8n-seg RGB, ref. & 0.450$\pm$0.023 & 0.600$\pm$0.008 & 0.522$\pm$0.020 & 0.96$\pm$0.12\\
-GTE & YOLOv8n boxes RGB, ref. & 0.221$\pm$0.007 & 0.675$\pm$0.048 & 0.380$\pm$0.024 & 1.29$\pm$0.04\\
-GTE & ESANet RGB, SAM & 0.469$\pm$0.021 & 0.781$\pm$0.060 & 0.346$\pm$0.027 & 6.42$\pm$1.31\\
-GTE & ESANet D, SAM & 0.126$\pm$0.018 & 0.363$\pm$0.021 & 0.060$\pm$0.012 & 8.82$\pm$1.42\\
-GTE & ESANet RGB-D, SAM & 0.498$\pm$0.037 & 0.753$\pm$0.034 & 0.356$\pm$0.029 & 6.03$\pm$0.79\\
-GTE & U-Net RGB, SAM & 0.559$\pm$0.068 & 0.472$\pm$0.080 & 0.357$\pm$0.051 & 3.47$\pm$0.62\\
-GTE & YOLOv8n-seg RGB, SAM & 0.578$\pm$0.022 & 0.662$\pm$0.014 & 0.514$\pm$0.039 & 2.19$\pm$0.77\\
-GTE & YOLOv8n boxes RGB, SAM & 0.236$\pm$0.046 & 0.720$\pm$0.005 & 0.393$\pm$0.008 & 1.51$\pm$0.13\\
-GTE & SAM 3, three prompts & 0.418 & 0.945 & 0.673 & 2.54\\
-GTE & Floor-plane fit (D) & 0.038 & 0.695 & 0.002 & 344.02\\
-GTE & RGB-D, depth removed & 0.147$\pm$0.033 & 0.078$\pm$0.025 & 0.084$\pm$0.024 & 2.25$\pm$2.12\\
-GTE & RGB-D, other scene's depth & 0.547$\pm$0.104 & 0.641$\pm$0.065 & 0.422$\pm$0.051 & 2.89$\pm$0.69\\
-\bottomrule\end{longtable}
+\multicolumn{9}{l}{\emph{Reference labels (from ISOD annotations)}}\\
+ESANet RGB & 0.009 & 0.008 & 0.024 & 0.45 & 0.075 & 0.005 & 0.034 & 0.76\\
+ESANet D & 0.009 & 0.017 & 0.005 & 0.53 & 0.012 & 0.011 & 0.005 & 1.35\\
+ESANet RGB-D & 0.005 & 0.007 & 0.012 & 0.16 & 0.088 & 0.062 & 0.049 & 0.60\\
+U-Net RGB & 0.008 & 0.019 & 0.012 & 0.24 & 0.064 & 0.055 & 0.032 & 0.06\\
+YOLOv8n-seg RGB & 0.010 & 0.011 & 0.008 & 0.28 & 0.023 & 0.008 & 0.020 & 0.12\\
+YOLOv8n boxes RGB & 0.011 & 0.003 & 0.019 & 0.30 & 0.007 & 0.048 & 0.024 & 0.04\\
+\midrule
+\multicolumn{9}{l}{\emph{Automatic SAM 3 labels}}\\
+ESANet RGB & 0.009 & 0.004 & 0.010 & 0.09 & 0.021 & 0.060 & 0.027 & 1.31\\
+ESANet D & 0.019 & 0.026 & 0.011 & 0.39 & 0.018 & 0.021 & 0.012 & 1.42\\
+ESANet RGB-D & 0.017 & 0.004 & 0.021 & 0.71 & 0.037 & 0.034 & 0.029 & 0.79\\
+U-Net RGB & 0.008 & 0.063 & 0.028 & 0.76 & 0.068 & 0.080 & 0.051 & 0.62\\
+YOLOv8n-seg RGB & 0.010 & 0.009 & 0.004 & 0.16 & 0.022 & 0.014 & 0.039 & 0.77\\
+YOLOv8n boxes RGB & 0.012 & 0.010 & 0.009 & 0.03 & 0.046 & 0.005 & 0.008 & 0.13\\
+\bottomrule
+\end{tabular}
+\end{table}

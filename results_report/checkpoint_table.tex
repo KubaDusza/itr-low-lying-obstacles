@@ -1,0 +1,18 @@
+\begin{table}[H]
+\caption{Selected checkpoints.}\label{tab:checkpoints}
+\centering\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lrrrrrr}
+\toprule
+ & \multicolumn{3}{c}{Reference labels} & \multicolumn{3}{c}{SAM labels}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Model & Seed 0 & Seed 1 & Seed 2 & Seed 0 & Seed 1 & Seed 2\\\midrule
+ESANet RGB & 413 / 0.642 & 362 / 0.644 & 181 / 0.627 & 240 / 0.635 & 235 / 0.647 & 200 / 0.643\\
+ESANet D & 187 / 0.334 & 292 / 0.331 & 297 / 0.328 & 297 / 0.349 & 331 / 0.331 & 157 / 0.341\\
+ESANet RGB-D & 358 / 0.633 & 449 / 0.619 & 431 / 0.641 & 333 / 0.621 & 280 / 0.615 & 227 / 0.634\\
+U-Net & 8 / 0.677 & 12 / 0.664 & 15 / 0.666 & 11 / 0.603 & 8 / 0.614 & 4 / 0.594\\
+YOLOv8n-seg & 46 / 0.669 & 56 / 0.641 & 51 / 0.653 & 46 / 0.619 & 46 / 0.618 & 41 / 0.594\\
+YOLOv8n boxes & 40 / 0.456 & 50 / 0.457 & 45 / 0.456 & 50 / 0.480 & 50 / 0.476 & 60 / 0.474\\
+\bottomrule\end{tabular}
+\par\smallskip{\footnotesize Cells: epoch / validation obstacle IoU; the box detector uses validation fitness.}
+\end{table}

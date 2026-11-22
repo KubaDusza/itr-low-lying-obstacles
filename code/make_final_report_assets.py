@@ -62,33 +62,170 @@ def main_table():
             group = g
         i, t = NUM['isod300'].get(key), NUM['gte'][key]
         cells = []
-        for src in (i, t):
+        for dataset, src in (('isod300', i), ('gte', t)):
             for m in ('pixel_iou', 'object_recall', 'component_f1', 'false_regions_per_frame'):
                 d = src.get(m) if src else None
-                cells.append(fmt(d, digits=2 if m == 'false_regions_per_frame' else 3) if d else '--')
+                digits = 2 if m == 'false_regions_per_frame' else 3
+                cell = fmt(d, digits=digits) if d else '--'
+                if d:
+                    peers = [round(NUM[dataset][other_key][m]['mean'], digits)
+                             for _, other_key, other_group in ROWS if other_group == g]
+                    best = min(peers) if m == 'false_regions_per_frame' else max(peers)
+                    if round(d['mean'], digits) == best:
+                        cell = r'\textbf{' + cell + '}'
+                cells.append(cell)
         L.append(rf'\quad {label} & ' + ' & '.join(cells) + r'\\')
-    L += [r'\bottomrule', r'\end{tabular}', r'\end{table*}']
+    L += [r'\bottomrule', r'\end{tabular}',
+          r'\par\smallskip{\footnotesize Bold: best within each group; fewer false regions is better.}',
+          r'\end{table*}']
     (P / 'main_results_table.tex').write_text('\n'.join(L) + '\n')
 
 
 def full_table():
-    L = [r'\begin{longtable}{llrrrr}',
-         r'\caption{All scores with training-seed standard deviation.}\label{tab:full-scores}\\',
-         r'\toprule Dataset & Method & Pixel IoU & Object recall & Component F1 & False regions/frame\\\midrule\endfirsthead',
-         r'\toprule Dataset & Method & Pixel IoU & Object recall & Component F1 & False regions/frame\\\midrule\endhead']
-    for ds, name in (('isod300', 'ISOD'), ('gte', 'GTE')):
-        for label, key, g in ROWS:
-            src = NUM[ds].get(key)
-            if not src:
-                continue
-            tag = {'Reference labels (from ISOD annotations)': 'ref.', 'Automatic SAM 3 labels': 'SAM', 'Untrained': '', }.get(g, '')
-            cells = [fmt(src.get(m), sd=True, digits=2 if m == 'false_regions_per_frame' else 3) if src.get(m) else '--'
-                     for m in ('pixel_iou', 'object_recall', 'component_f1', 'false_regions_per_frame')]
-            L.append(f"{name} & {label}{', ' + tag if tag else ''} & " + ' & '.join(cells) + r'\\')
-        if ds == 'isod300':
+    L = [r'\begin{table}[H]', r'\caption{Standard deviation across three training seeds.}',
+         r'\label{tab:full-scores}', r'\centering\footnotesize', r'\setlength{\tabcolsep}{3.5pt}',
+         r'\begin{tabular}{lrrrrrrrr}', r'\toprule',
+         r' & \multicolumn{4}{c}{ISOD} & \multicolumn{4}{c}{GTE-Floor}\\',
+         r'\cmidrule(lr){2-5}\cmidrule(lr){6-9}',
+         r'Method & IoU & Obj.\ recall & Comp.\ F1 & False reg./fr. & IoU & Obj.\ recall & Comp.\ F1 & False reg./fr.\\']
+    group = None
+    for label, key, g in ROWS:
+        if not g.startswith(('Reference labels', 'Automatic SAM')):
+            continue
+        if g != group:
             L.append(r'\midrule')
-    L += [r'\bottomrule\end{longtable}']
+            L.append(rf'\multicolumn{{9}}{{l}}{{\emph{{{g}}}}}\\')
+            group = g
+        cells = []
+        for ds in ('isod300', 'gte'):
+            for metric in ('pixel_iou', 'object_recall', 'component_f1', 'false_regions_per_frame'):
+                cells.append(f"{NUM[ds][key][metric]['sd']:.{2 if metric == 'false_regions_per_frame' else 3}f}")
+        L.append(label + ' & ' + ' & '.join(cells) + r'\\')
+    L += [r'\bottomrule', r'\end{tabular}', r'\end{table}']
     (P / 'full_scores_table.tex').write_text('\n'.join(L) + '\n')
+
+
+MARKERS = ['o', '^', 's']
+
+
+def mark_checkpoint(ax, x, y, source, seed):
+    ax.plot(x, y, marker=MARKERS[seed], ms=4.2, mew=.9,
+            mfc='white', mec=COLORS[source], ls='none', zorder=5)
+
+
+def per_item_table():
+    """Two columns of items, retaining every item and the original averaging."""
+    from collections import defaultdict
+    inventory = {r['item_id']: r['label'] for r in rows(ROOT / 'data_collection/items.csv')}
+    models = {f'rgbd_reference210_s{s}' if m == 'rgbd' else f'esanet_full_{m}_reference_s{s}': (m, s)
+              for m, _ in base.MODES for s in range(3)}
+    items = defaultdict(list)
+    for r in rows(R / 'objects.csv'):
+        if r['model'] in models:
+            items[r['parent_item_id']].append(r)
+    body = []
+    for item, observations in sorted(items.items()):
+        n = len({(r['recording'], r['id']) for r in observations})
+        values = []
+        for mode, _ in base.MODES:
+            per_seed = [np.mean([float(r['coverage']) >= .5 for r in observations
+                                if models[r['model']] == (mode, seed)]) for seed in range(3)]
+            values.append(f'{np.mean(per_seed):.3f}')
+        label = inventory.get(item, item).replace('&', r'\&').replace('_', r'\_')
+        best = max(map(float, values))
+        values = [r'\textbf{' + v + '}' if float(v) == best else v for v in values]
+        body.append(label + ' & ' + str(n) + ' & ' + ' & '.join(values) + r'\\')
+    split = (len(body) + 1) // 2
+    lines = [r'\begin{table}[H]', r'\caption{Recovery by annotated GTE-Floor item.}\label{tab:per-item}',
+             r'\centering\footnotesize', r'\setlength{\tabcolsep}{3pt}']
+    for i, group in enumerate([body[:split], body[split:]]):
+        lines += [r'\begin{minipage}[t]{.49\textwidth}\centering',
+                  r'\begin{tabular}{lrrrr}', r'\toprule Item & $n$ & RGB & D & RGB-D\\\midrule']
+        lines += group
+        lines += [r'\bottomrule\end{tabular}\end{minipage}' + (r'\hfill' if i == 0 else '')]
+    lines += [r'\par\smallskip{\footnotesize Reference-trained ESANet; $n$: object/recording pairs. Bold: highest recall for each item.}', r'\end{table}']
+    (P / 'per_item_table.tex').write_text('\n'.join(lines) + '\n')
+
+
+def esanet_curves():
+    audit = json.loads((R / 'training_audit.json').read_text())['ESANet']
+    chosen = []
+    fig, axes = plt.subplots(3, 3, figsize=(8.2, 6.1))
+    for row, (mode, label) in enumerate(base.MODES):
+        for source in ['reference', 'automatic']:
+            values = []
+            for seed in range(3):
+                saved = next(r for r in audit if (r['modality'], r['source'], r['seed']) == (mode, source, seed))
+                h = rows(ROOT / saved['history'])
+                a = np.array([[float(r[k]) for k in ['loss_train_full_size', 'loss_valid', 'IoU_valid_class_1']] for r in h])
+                best = saved['selected_epoch_zero_based']
+                assert best == int(a[:, 2].argmax()) and len(a) == 500
+                values.append(a)
+                chosen.append(dict(model='ESANet ' + label, source=source, seed=seed, epoch=best + 1,
+                                   training_loss=a[best, 0], validation_loss=a[best, 1], score=a[best, 2], criterion='validation obstacle IoU'))
+                for col in range(3):
+                    axes[row, col].plot(np.arange(1, 501), a[:, col], color=COLORS[source], alpha=.23, lw=.5)
+                    mark_checkpoint(axes[row, col], best + 1, a[best, col], source, seed)
+            a = np.array(values)
+            for col in range(3):
+                axes[row, col].plot(np.arange(1, 501), a[:, :, col].mean(0), color=COLORS[source], lw=1,
+                                    label='Reference' if source == 'reference' else 'SAM')
+        for col, metric in enumerate(['Training loss', 'Validation loss', 'Validation obstacle IoU']):
+            ax = axes[row, col]
+            ax.set_title(f'{label}: {metric}', fontsize=9); ax.set_xlabel('Epoch')
+            ax.grid(axis='y', color='.88', lw=.5); ax.spines[['top', 'right']].set_visible(False)
+            if col == 2: ax.set_ylim(0, 1)
+    limit = max(axes[r, c].dataLim.ymax for r in range(3) for c in (0, 1)) * 1.04
+    for r in range(3):
+        for c in (0, 1): axes[r, c].set_ylim(0, limit)
+    axes[0, 0].legend(frameon=False, fontsize=8)
+    fig.tight_layout(pad=.7); save(fig, 'appendix_esanet_curves')
+    return chosen
+
+
+def checkpoint_table():
+    chosen = esanet_curves()
+    for source in ['reference', 'sam']:
+        for seed in range(3):
+            run = ROOT / f'results/extended_training_20261122/runs/unet_logged_{source}_s{seed}'
+            h = rows(run / 'history.csv'); epoch = json.loads((run / 'completion.json').read_text())['selected_epoch']
+            selected = next(r for r in h if int(r['epoch']) == epoch)
+            assert float(selected['val_IoU']) == max(float(r['val_IoU']) for r in h)
+            chosen.append(dict(model='U-Net', source=source, seed=seed, epoch=epoch,
+                               score=float(selected['val_IoU']), validation_loss=float(selected['val_loss']),
+                               training_loss=float(selected['train_loss']), criterion='validation obstacle IoU'))
+            run = ROOT / f'results/extended_training_20261122/runs/yoloseg_e60_{source}_s{seed}'
+            selected = json.loads((run / 'selection.json').read_text())
+            epoch = 60 if selected['best'] == 'last.pt' else int(selected['best'][5:-3]) + 1
+            score = selected['val_iou'][selected['best']]
+            assert score == max(selected['val_iou'].values())
+            chosen.append(dict(model='YOLOv8n-seg', source=source, seed=seed, epoch=epoch,
+                               score=score, criterion='validation obstacle IoU among saved checkpoints'))
+    for source in ['reference', 'automatic']:
+        for seed in range(3):
+            run = ROOT / f'results/extended_training_20261122/runs/yolov8n_detect_{source}_e60_s{seed}'
+            h = rows(run / 'results.csv')
+            fitness = [.1 * float(r['metrics/mAP50(B)']) + .9 * float(r['metrics/mAP50-95(B)']) for r in h]
+            # Ultralytics overwrites best.pt on an equal best fitness.
+            best = max(i for i, v in enumerate(fitness) if v == max(fitness))
+            chosen.append(dict(model='YOLOv8n boxes', source=source, seed=seed, epoch=int(h[best]['epoch']),
+                               score=fitness[best], criterion='validation box fitness'))
+    assert len(chosen) == 36
+    (R / 'checkpoint_values.json').write_text(json.dumps(chosen, indent=2) + '\n')
+    lines = [r'\begin{table}[H]', r'\caption{Selected checkpoints.}\label{tab:checkpoints}',
+             r'\centering\footnotesize', r'\setlength{\tabcolsep}{5pt}', r'\begin{tabular}{lrrrrrr}', r'\toprule',
+             r' & \multicolumn{3}{c}{Reference labels} & \multicolumn{3}{c}{SAM labels}\\',
+             r'\cmidrule(lr){2-4}\cmidrule(lr){5-7}', r'Model & Seed 0 & Seed 1 & Seed 2 & Seed 0 & Seed 1 & Seed 2\\\midrule']
+    for model in ['ESANet RGB', 'ESANet D', 'ESANet RGB-D', 'U-Net', 'YOLOv8n-seg', 'YOLOv8n boxes']:
+        cells = []
+        for source in ('reference', 'sam'):
+            for seed in range(3):
+                r = next(r for r in chosen if r['model'] == model and r['seed'] == seed and
+                         ('reference' if r['source'] == 'reference' else 'sam') == source)
+                cells.append(f"{r['epoch']} / {r['score']:.3f}")
+        lines.append(model + ' & ' + ' & '.join(cells) + r'\\')
+    lines += [r'\bottomrule\end{tabular}', r'\par\smallskip{\footnotesize Cells: epoch / validation obstacle IoU; the box detector uses validation fitness.}', r'\end{table}']
+    (P / 'checkpoint_table.tex').write_text('\n'.join(lines) + '\n')
 
 
 def cloth_main(seed=2):
@@ -169,6 +306,11 @@ def rgb_baseline_curves():
             h = rows(run / 'history.csv'); assert len(h) == 15
             ep = np.array([int(r['epoch']) for r in h])
             unet.append(np.array([[float(r[k]) for k in ['train_loss', 'val_loss', 'val_IoU']] for r in h]))
+            selected_epoch = json.loads((run / 'completion.json').read_text())['selected_epoch']
+            best_index = next(i for i, e in enumerate(ep) if e == selected_epoch)
+            for col in range(3):
+                mark_checkpoint(axes[0, col], selected_epoch, unet[-1][best_index, col],
+                                'reference' if source == 'reference' else 'automatic', seed)
             run = ROOT / f'results/extended_training_20261122/runs/yoloseg_e60_{source}_s{seed}'
             h = rows(run / 'results.csv'); assert len(h) == 60
             seg.append(np.array([[float(r[k]) for k in ['train/seg_loss', 'val/seg_loss']] for r in h]))
@@ -180,7 +322,11 @@ def rgb_baseline_curves():
             xs = sorted(points)
             axes[1, 2].plot(xs, [points[x] for x in xs], color=color, lw=.6, alpha=.28)
             best = epoch(sel['best'])
-            axes[1, 2].plot(best, sel['val_iou'][sel['best']], marker='o', ms=3.5, mfc='none', color=color)
+            for col in range(2):
+                mark_checkpoint(axes[1, col], best, seg[-1][best - 1, col],
+                                'reference' if source == 'reference' else 'automatic', seed)
+            mark_checkpoint(axes[1, 2], best, sel['val_iou'][sel['best']],
+                            'reference' if source == 'reference' else 'automatic', seed)
         for col in range(3):
             a = np.array(unet)
             for y in a: axes[0, col].plot(ep, y[:, col], color=color, alpha=.25, lw=.6)
@@ -213,6 +359,10 @@ def native_curves():
             run = ROOT / f'results/extended_training_20261122/runs/yolov8n_detect_{source}_e60_s{seed}'
             h = rows(run / 'results.csv'); assert len(h) == 60
             runs.append(np.array([[float(r[k]) for k in fields] for r in h]))
+            fitness = [.1 * float(r['metrics/mAP50(B)']) + .9 * float(r['metrics/mAP50-95(B)']) for r in h]
+            best = max(i for i, v in enumerate(fitness) if v == max(fitness))
+            for col, pos in enumerate(positions):
+                mark_checkpoint(axes[pos], int(h[best]['epoch']), runs[-1][best, col], source, seed)
         a = np.array(runs); ep = np.arange(1, 61)
         for col, pos in enumerate(positions):
             ax = axes[pos]
@@ -258,6 +408,6 @@ def teacher_examples():
 
 if __name__ == "__main__":
     from make_detection_report_figures import pipeline
-    main_table(); full_table(); rgb_baseline_curves(); native_curves(); cloth_main()
+    main_table(); full_table(); per_item_table(); checkpoint_table(); rgb_baseline_curves(); native_curves(); cloth_main()
     teacher_examples(); pipeline()
     print("final assets written")

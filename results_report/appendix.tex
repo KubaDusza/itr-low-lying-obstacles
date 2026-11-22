@@ -1,9 +1,20 @@
-\section{GTE-Floor Object Sets}\label{app:objects}
+\section{Object Sets and ISOD Analysis}\label{app:objects}
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/object_sets.png}
+\includegraphics[width=\textwidth,height=0.51\textheight,keepaspectratio]{figures/object_sets.png}
 \caption{GTE-Floor's seven object sets. Cables, hex keys and screws provide thin or small obstacles; cloths and tissues include flat and crumpled forms. Tape rolls and chess pieces provide taller objects, while the mixed set adds everyday items.}
 \label{fig:objects}
+\end{figure}
+
+Figure~\ref{fig:isod-scale} extends the size and range analysis to all
+300 ISOD test frames. Here, each connected region of the reference mask
+is an approximate object: touching objects can merge and one object can
+split into fragments. These are not verified SAM instance labels.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/isod_distance_size.pdf}
+\caption{Reference-trained ESANet on ISOD by mask-region area and estimated depth: three-seed means and standard deviations. $n$: regions across frames, not unique physical objects. Depth is the median positive reading inside each region; ten regions with fewer than half valid depth pixels are excluded from (b). Thin-object depth can measure the floor.}
+\label{fig:isod-scale}
 \end{figure}
 
 \clearpage
@@ -34,31 +45,19 @@ YOLOv8n detector & RGB & Object boxes & Reference, SAM & 60 & 3\\
 \end{tabular}
 \end{table}
 
-\textbf{Prediction targets.} ESANet and U-Net learn a binary obstacle
-mask. YOLOv8n-seg learns instance masks and boxes from polygons derived
-from the binary references. YOLOv8n learns enclosing boxes from the
-instance-ID annotations. Polygon export omits contours below 20 pixels
-in area and degenerate contours; box export retains all annotated IDs.
-Binary masks describe occupied image area; instance masks and boxes also
-represent the location of each annotated object or group.
+YOLOv8n-seg uses polygons from binary masks, omitting contours below
+20 pixels. The box detector uses separate object IDs, including one box
+for disconnected visible parts of the same object. Unresolved piles
+remain groups.
 
-\textbf{Reference labels.} ISOD's not-drivable mask includes walls and
-furniture. We generate object masks with SAM and keep the parts inside
-ISOD's not-drivable mask. Floor-contact and connected-region rules help
-select floor obstacles. Manual edits
-remove unwanted regions, add missed objects and separate mixed regions.
-The segmentation training set contains 70 masks checked by hand and
-1,330 automatically prepared masks.
-All 300 validation masks were reviewed. The 300 test references use the
-same process; 30 of them, ten per held-out location, were
-reviewed and replace their proposals. On these 30 frames the proposals
-agree with the reviewed masks at mean image IoU 0.922 and pooled IoU
-0.929. The box-detector reference source contains
-85 masks checked by hand and 1,315 automatically prepared masks, divided
-into object masks with separate IDs.
-One ID produces one enclosing box, including disconnected visible pieces.
-Unresolved piles remain groups; these IDs are not all verified individual
-physical objects.
+\textbf{Reference labels.} We use SAM to identify objects within ISOD's
+not-drivable mask, then apply floor-contact and connected-region rules
+to exclude walls and furniture. The segmentation training set has
+70 masks checked by hand and 1,330 automatically prepared masks; the
+box-detector set has 85 and 1,315. All 300 validation masks were checked.
+Of the 300 test masks, 30 were checked by hand, ten per location. On
+those frames, the automatically prepared masks have pixel IoU 0.929
+against the corrected masks.
 
 \textbf{Automatic generation.} SAM 3 weights are frozen. Full RGB images
 are processed with exactly these three prompts:
@@ -67,99 +66,52 @@ small object on the floor\\
 cable on the floor\\
 things on the floor
 \end{quote}
-The acceptance confidence is 0.6 and mask-probability threshold 0.5.
-Accepted masks are united for semantic training. Instance targets use
-mask-overlap duplicate resolution and conservative parent/child rules;
-unresolved containment stays an explicit cluster. Thirty reviewed
-training frames supported prompt selection, and 300 reviewed validation
-frames supported checking alternatives. Generation itself receives no
-original ISOD mask, reference mask, corrective prompt or negative prompt.
-Native box-training instances are generated in a separate run using the
-same three prompts, confidence settings and pinned checkpoint. The pinned model is
-\textnormal{bodhicitta/sam3}, revision
-\textnormal{cba430d22f6fdc3f06ad3841274ec7bb55885f2f}.
+Confidence is 0.6 and mask threshold 0.5. Duplicate masks are merged;
+unresolved piles remain groups. We chose prompts on 30 reviewed training
+frames and checked alternatives on 300 validation frames. Generating
+labels uses only RGB images, without ISOD masks or manual corrections.
+The SAM~3 checkpoint is \textnormal{bodhicitta/sam3}.
 
-\textbf{Optimization and selection.} ESANet uses 640$\times$448 inputs,
-batch 8, SGD (learning rate 0.01, momentum 0.9, weight decay $10^{-4}$),
-OneCycle scheduling and the authors' median-frequency class weighting.
-Validation obstacle IoU selects its checkpoint. U-Net uses batch 8,
-AdamW (learning rate $3\times10^{-4}$) and binary cross-entropy plus soft Dice.
-Its checkpoint maximizes validation obstacle IoU. YOLOv8n-seg uses AdamW (learning rate 0.002, no warm-up bias rate) for
-60 epochs with the standard Ultralytics linear learning-rate decay;
-mosaic augmentation is switched off for the last 10 epochs. Checkpoints
-saved every five epochs are rescored on the reference validation masks,
-and the one with the highest pooled mask IoU is used.
-The box detector uses COCO initialization, 640-pixel inputs, batch 16,
-SGD (learning rate 0.01, momentum 0.937, weight decay $5\times10^{-4}$)
-for 60 epochs with the same schedule. The checkpoint with the best
-Ultralytics validation fitness ($0.9\,\mathrm{AP50{:}95}+0.1\,\mathrm{AP50}$)
-on the shared reference validation boxes is used (reference epochs 40,
-50, 45; SAM epochs 50, 50, 60).
-Box inference uses confidence 0.25 and NMS IoU 0.7, fixed before GTE
-scoring. RGB/D ESANet runs use Torch 2.14; the paired RGB-D runs and
-box-detector runs use Torch 2.10. Runs comparing the two label sources use
-the same software environment for each model. ESANet modality comparisons also change model
-capacity, so they do not isolate depth information alone.
+\textbf{Training settings.} ESANet uses 640$\times$448 inputs, batch 8,
+SGD (learning rate 0.01, momentum 0.9, weight decay $10^{-4}$), OneCycle
+scheduling and median-frequency class weights. U-Net uses batch 8 and
+AdamW (learning rate $3\times10^{-4}$), with binary cross-entropy plus
+soft Dice loss. YOLOv8n-seg uses AdamW (learning rate 0.002, no warm-up
+bias rate) and linear learning-rate decay, with mosaic disabled for the
+last ten epochs. The box detector uses COCO initialization, 640-pixel
+inputs, batch 16, SGD (learning rate 0.01, momentum 0.937, weight decay
+$5\times10^{-4}$) and linear decay. Box inference uses confidence 0.25
+and NMS IoU 0.7. YOLOv8n-seg checkpoints are checked every five epochs;
+selection criteria are in Table~\ref{tab:models}.
 
 \clearpage
-\section{Evaluation Details and Full Comparisons}\label{app:evaluation}
+\section{Evaluation and Per-Item Results}\label{app:evaluation}
 
-\textbf{Object recall.} A reference unit counts as recovered when the
-union of all predictions covers at least half its pixels. Several
-fragments can cover one unit and one prediction can cover several units.
-An oversized prediction also passes, so object recall is read together
-with component F1.
+Object recall counts an object when predictions together cover at least
+half its pixels. Component F1 uses SegmentMeIfYouCan's adjusted overlap
+and precision~\cite{chan2021segment}: splits and merges are allowed, but
+background between objects lowers precision. We average its 11
+thresholds from 0.25 to 0.75; false regions have precision below 0.5.
+Boxes above confidence 0.25 are filled and united for this comparison.
+Native box AP uses one-to-one matching and therefore penalizes different
+groupings (reference/SAM AP50: 0.599/0.630; AP50:95: 0.407/0.445).
 
-\textbf{Component metrics.} We use the SegmentMeIfYouCan adjusted-overlap
-and component-precision definitions~\cite{chan2021segment}. All predicted
-components touching a reference contribute to its adjusted overlap;
-pixels of other reference objects are not penalized, background between
-them is. Splits and merges therefore cost little, while a broad floor
-prediction gets low precision. Mean component F1 averages the 11
-published thresholds 0.25, 0.30, \ldots, 0.75; false regions are
-components below precision 0.5.
-
-\textbf{Adaptations.} GTE-Floor units are the supplied item or group IDs,
-including disconnected visible parts. No small-region cutoff is applied.
-One uncertain four-pixel fragment is ignored in component and box
-scoring. Boxes above confidence 0.25 are filled and united before
-scoring, so their precision measures occupied area.
-
-\textbf{Box AP.} Native box AP on GTE-Floor uses one-to-one matching
-against enclosing boxes of the reference units, which penalizes
-different grouping. With the standard Ultralytics evaluation, reference/SAM training gives
-AP50 0.599/0.630 and AP50:95 0.407/0.445.
-
-\textbf{Scoring domain and uncertainty.} ISOD results use all 300 test
-frames; ISOD has no instance IDs, so its reference units are
-8-connected components of the binary reference mask. GTE has 64 static recordings
-with five repeated frames; 20 frames are empty controls. The valid
-reference units yield 262 unit/recording pairs, or 1,310 unit/frame
-observations. Recording props such as the poster, tape measure and wall-side bin are
-not annotated as hazards, so full-frame false regions include them
-(Appendix~\ref{app:failures}). A prediction filling the whole poster
-receives low component precision. Error bars show three-seed standard deviation. Bootstrap intervals
-resample the 64 recordings, keeping each recording's five repeats
-together. Table~\ref{tab:full-scores} gives all scores with seed
-standard deviations, and Table~\ref{tab:per-item} gives per-item
-recovery.
+ISOD objects are connected regions of the reference masks; GTE-Floor
+uses annotated item/group IDs, including disconnected visible parts.
+There are 262 object/recording pairs and 1,310 object/frame observations.
+Bootstrap intervals resample 64 recordings, keeping each recording's
+five frames together. Table~\ref{tab:full-scores} gives seed variation
+and Table~\ref{tab:per-item} gives per-item recall.
 
 \input{full_scores_table.tex}
-
 \label{app:fullscores}
 
-
-\textbf{Reference-quality checks.} Replaying assistance on 370 reviewed
-training/validation frames gives mean image IoU 0.878; these examples
-informed development, so this is not independent test accuracy. A later
-stratified check of 14 previously unreviewed training frames gives mean
-image IoU 0.837 and pooled IoU 0.912; two frames contain major errors. They do not certify individual instances.
-
-\textbf{Image area.} Object size is annotated foreground pixels on the
-640$\times$362 evaluation grid. We do not convert it to physical size:
-thin-object depth pixels often measure the floor, and ISOD intrinsics
-were not recovered. Collection distances are floor marks, not
-per-object range.
+\textbf{Reference checks and object size.} A check of 14 previously
+unreviewed training frames gives pixel IoU 0.912; two frames contain
+major errors. This does not verify individual object IDs. Image area is
+foreground pixels (GTE-Floor: 640$\times$362; ISOD: 640$\times$422). Floor-distance marks are
+not per-object range; unreliable thin-object depth and missing ISOD
+calibration prevent physical size estimates.
 
 \input{per_item_table.tex}
 
@@ -173,24 +125,24 @@ highest validation obstacle IoU.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/appendix_esanet_curves.pdf}
-\caption{ESANet training loss, validation loss and validation obstacle IoU. Blue: reference labels; orange: SAM labels. Faint curves show three seeds; bold curves show their means. Evaluated checkpoints maximize validation obstacle IoU.}
+\caption{ESANet training and validation. Blue: reference labels; orange: SAM labels. Faint curves are individual runs; bold curves are means. Markers identify the selected checkpoint: circles, triangles and squares for seeds 0, 1 and 2. Epochs and validation scores are in Table~\ref{tab:checkpoints}.}
 \label{fig:esanet-curves}
 \end{figure}
+\input{checkpoint_table.tex}
 
-Figure~\ref{fig:baseline-curves} compares the RGB baselines trained with
-each label source.
+\clearpage
+Figures~\ref{fig:baseline-curves} and~\ref{fig:native-curves} show the
+remaining RGB models.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/appendix_rgb_baseline_curves.pdf}
-\caption{U-Net and YOLOv8n-seg: reference labels (blue), automatic SAM~3 labels (orange). Faint curves show three seeds; bold curves their means. Checkpoints maximize validation obstacle IoU, checked every epoch for U-Net and at saved checkpoints for YOLOv8n-seg (circles).}
+\caption{U-Net and YOLOv8n-seg training and validation. Colors, lines and checkpoint markers follow Fig.~\ref{fig:esanet-curves}. Checkpoints maximize validation obstacle IoU, checked every epoch for U-Net and every five epochs for YOLOv8n-seg.}
 \label{fig:baseline-curves}
 \end{figure}
-Figure~\ref{fig:native-curves} shows box-detector training over the
-60-epoch schedule.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/appendix_native_curves.pdf}
-\caption{YOLOv8n box-detector losses and validation AP50:95. Blue: reference labels; orange: SAM labels. Faint curves show three seeds; bold curves their means. Evaluated checkpoints maximize validation fitness.}
+\caption{YOLOv8n box-detector losses and validation AP50:95. Colors, lines and checkpoint markers follow Fig.~\ref{fig:esanet-curves}. Selected checkpoints maximize validation fitness (Table~\ref{tab:checkpoints}).}
 \label{fig:native-curves}
 \end{figure}
 
@@ -228,35 +180,11 @@ D covers 99.85\% of the crumpled white tissue, but adjusted overlap is
 \clearpage
 \section{Additional Failure Analysis and Examples}\label{app:failures}
 
-Table~\ref{tab:error-types} distinguishes extra pixels attached to a
-detected target from isolated foreground. An attached region
-is not necessarily a small contour error: it can also fill the interior
-of a cable loop or connect to a large background patch. Empty-control
-results help reveal foreground predictions in scenes without annotated
-hazards.
-\input{error_types_table.tex}
-
-Isolated regions, which touch no reference object, cover 1,619 (RGB-D)
-and 1,834 (RGB) pixels per GTE-Floor frame under SAM labels, against 210
-and 434 under reference labels. Most of the inspected regions cover objects that were
-not annotated: the tape measure lying along the floor and its case, a bin
-and a box at the wall base, and a white object at the left wall
-(Fig.~\ref{fig:false-regions}, Table~\ref{tab:false-region-types}). A
-robot would need to avoid these objects as well. SAM-trained models mark
-the long tape measure far more often.
-
-\begin{table}[H]
-\caption{Isolated GTE-Floor regions in the pixel-weighted samples, classified by inspection.}\label{tab:false-region-types}
-\centering\small
-\begin{tabular}{lrr}
-\toprule Region content & RGB-D, reference & RGB-D, SAM\\\midrule
-Tape measure or its case & 7 & 21\\
-Bin or box at the wall & 12 & 7\\
-White object at the wall & 5 & 0\\
-Poster edge & 2 & 1\\
-Floor texture or noise & 4 & 1\\
-\bottomrule\end{tabular}
-\end{table}
+Figure~\ref{fig:false-regions} shows that many inspected false regions
+are real objects missing from the reference labels: the tape measure,
+its case, and objects at the wall. SAM-trained models mark the tape
+measure more often. These examples explain some of the measured loss
+of precision; they do not estimate how often each error occurs.
 
 \begin{figure}[!htbp]
 \centering
@@ -283,16 +211,13 @@ RGB-D in 2.
 \clearpage
 \section{Inference Cost and the Direct SAM Baseline}\label{app:cost}
 
-Table~\ref{tab:inference-cost} times the complete SAM~3 and YOLOv8n box
-pipelines on the same three GTE-Floor images: preprocessing, model,
-postprocessing and transfer to CPU, excluding model loading and file
-reading. SAM computes image features once for its three prompts. The CPU
-is an Intel Xeon Gold 6230 with eight threads (float32); the GPU is an
-NVIDIA H200 MIG 3g.71gb partition (YOLO float16, SAM bfloat16). CPU
-timings use one warm-up and three frames, GPU timings three warm-ups and
-15 frames. GPU memory is peak PyTorch-allocated memory; CPU memory is
-peak process RSS. SAM is 392 times slower on CPU and 45 times slower on
-GPU, with 840.4M parameters against 3.0M.
+Table~\ref{tab:inference-cost} includes preprocessing, inference,
+postprocessing and transfer to CPU, excluding loading and file reading.
+SAM shares image features across its three prompts. CPU: Xeon Gold 6230,
+eight threads, float32; GPU: H200 MIG 3g.71gb, YOLO float16 and SAM
+bfloat16. CPU timing uses one warm-up and three images; GPU timing uses
+three warm-ups and 15 images. Memory is peak process RSS on CPU and
+PyTorch allocation on GPU. SAM has 840.4M parameters against YOLO's 3.0M.
 
 \input{inference_cost_table.tex}
 
@@ -312,8 +237,8 @@ Model & Parameters (millions) & Median forward time (ms)\\
 ESANet RGB & 32.05 & 8.71\\
 ESANet D & 32.04 & 8.69\\
 ESANet RGB-D & 46.88 & 13.94\\
-U-Net/MobileNetV2 & 6.63 & 3.97\\
-YOLOv8n-seg & 3.26 & 5.62\\
+U-Net/MobileNetV2 & 6.63 & \textbf{3.97}\\
+YOLOv8n-seg & \textbf{3.26} & 5.62\\
 \bottomrule
 \end{tabular}
 \end{table}

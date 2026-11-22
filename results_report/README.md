@@ -1,12 +1,12 @@
 # Results report
 
-`REPORT.pdf` (18 pages) combines the approved survey, the adapted methodology, results and conclusion (pages 5–6, four columns), references (page 7) and appendices A–H (pages 8–18). Rubric: `RUBRIC.md`. Build with `zsh build.sh`. Deadline: 2026-11-22 23:59. Nothing has been submitted.
+`REPORT.pdf` (17 pages) combines the approved survey, the adapted methodology, results and conclusion (pages 4–6), references (page 6) and appendices A–H (pages 7–17). Rubric: `RUBRIC.md`. Build with `zsh build.sh`. Deadline: 2026-11-22 23:59. Nothing has been submitted.
 
 ## State (2026-11-22 evening)
 
 - ISOD test: all 300 frames are scored. References are `data/ISOD_reference_test_v2`: the same assistance pipeline as training, with the 30 reviewed frames overriding their proposals. On those 30, proposals agree with the reviewed masks at pooled IoU 0.929 (`code/export_isod_test_references.py`).
 - All 30 runs, plus direct SAM 3 and the floor-plane fit, have 300-frame ISOD and 320-frame GTE-Floor predictions. Scores: `code/score_isod_test300.py` → `results/test_references_20261122/isod_test300_scores.json`.
-- YOLOv8n-seg uses the validation-stopped runs (91/101/108 epochs; selected epochs 35/80/75).
+- YOLOv8n-seg and YOLOv8n boxes use fixed 60-epoch runs (standard Ultralytics schedule, no early stopping; `code/triton_seg_e60.py`, `code/triton_boxes_e60.py`). Earlier early-stopped runs on a 200-epoch schedule were selected before the learning rate had decayed and are superseded. Selected epochs: seg 45/55/50, boxes reference 40/50/45, SAM 50/50/60.
 - Every number in the results comes from `results/results_report_20261122/report_numbers.json` (`code/collect_report_numbers.py`). GTE paired bootstrap: `code/bootstrap_gte_contrasts.py`.
 - Tables and figures: `code/make_final_report_assets.py` (main table, full-score table, cloth figure with 15-observation counts, RGB-baseline curves).
 - False regions: `results/false_regions_20261122` (pixel-weighted samples; Appendix G).

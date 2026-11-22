@@ -35,13 +35,13 @@
     },
     "boxes_ref": {
       "pixel_iou": NaN,
-      "object_recall": 0.6763358778625954,
-      "false_regions_per_frame": 1.54375
+      "object_recall": 0.6750636132315522,
+      "false_regions_per_frame": 1.2927083333333333
     },
     "boxes_sam": {
       "pixel_iou": NaN,
-      "object_recall": 0.7442748091603053,
-      "false_regions_per_frame": 2.285416666666667
+      "object_recall": 0.7198473282442748,
+      "false_regions_per_frame": 1.5052083333333333
     }
   },
   "contrasts": {
@@ -162,17 +162,17 @@
     },
     "boxes_sam - boxes_ref": {
       "object_recall": {
-        "delta": 0.06793893129770989,
+        "delta": 0.0447837150127226,
         "ci95": [
-          0.03281712062256807,
-          0.10900243309002433
+          0.008597900463258167,
+          0.08363247339084459
         ]
       },
       "false_regions_per_frame": {
-        "delta": 0.7416666666666669,
+        "delta": 0.2124999999999999,
         "ci95": [
-          0.565625,
-          0.9208333333333334
+          0.05309895833333323,
+          0.36356770833333296
         ]
       }
     }

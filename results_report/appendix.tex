@@ -26,8 +26,8 @@ ESANet & RGB & Binary pixel mask & Reference, SAM & 500 & 6\\
 ESANet & D & Binary pixel mask & Reference, SAM & 500 & 6\\
 ESANet & RGB-D & Binary pixel mask & Reference, SAM & 500 & 6\\
 U-Net/MobileNetV2 & RGB & Binary pixel mask & Reference & 15 & 3\\
-YOLOv8n-seg & RGB & Instance masks and boxes & Reference & $\leq200$ & 3\\
-YOLOv8n detector & RGB & Hazard-unit boxes & Reference, SAM & $\leq200$ & 6\\
+YOLOv8n-seg & RGB & Instance masks and boxes & Reference & 60 & 3\\
+YOLOv8n detector & RGB & Hazard-unit boxes & Reference, SAM & 60 & 6\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -79,15 +79,18 @@ batch 8, SGD (learning rate 0.01, momentum 0.9, weight decay $10^{-4}$),
 OneCycle scheduling and the authors' median-frequency class weighting.
 Validation obstacle IoU selects its checkpoint. U-Net uses batch 8,
 AdamW (learning rate $3\times10^{-4}$) and binary cross-entropy plus soft Dice.
-Its checkpoint maximizes validation obstacle IoU. YOLOv8n-seg uses AdamW (learning rate 0.002, no warm-up bias rate),
-Ultralytics validation fitness with patience 20 and a maximum of 200
-epochs. Saved five-epoch checkpoints and the final checkpoint are
-rescored on reference validation masks; the checkpoint with highest
-pooled mask IoU is used. The runs stopped after 91, 101 and 108 epochs
-and selected epochs 35, 80 and 75.
+Its checkpoint maximizes validation obstacle IoU. YOLOv8n-seg uses AdamW (learning rate 0.002, no warm-up bias rate) for
+60 epochs with the standard Ultralytics linear learning-rate decay;
+mosaic augmentation is switched off for the last 10 epochs. Checkpoints
+saved every five epochs are rescored on the reference validation masks,
+and the one with the highest pooled mask IoU is used (epochs 45, 55 and
+50).
 The box detector uses COCO initialization, 640-pixel inputs, batch 16,
 SGD (learning rate 0.01, momentum 0.937, weight decay $5\times10^{-4}$)
-and shared reference-box validation AP50:95 for checkpoint selection.
+for 60 epochs with the same schedule. The checkpoint with the best
+Ultralytics validation fitness ($0.9\,\mathrm{AP50{:}95}+0.1\,\mathrm{AP50}$)
+on the shared reference validation boxes is used (reference epochs 40,
+50, 45; SAM epochs 50, 50, 60).
 Box inference uses confidence 0.25 and NMS IoU 0.7, fixed before GTE
 scoring. RGB/D ESANet runs use Torch 2.14; the paired RGB-D runs and
 box-detector runs use Torch 2.10. Paired supervision uses matching environments
@@ -119,9 +122,8 @@ scoring, so their precision measures occupied area.
 
 \textbf{Box AP.} Native box AP on GTE-Floor uses one-to-one matching
 against enclosing boxes of the reference units, which penalizes
-different grouping. Reference/SAM training gives AP50 0.541/0.631 and
-AP50:95 0.352/0.438; at confidence 0.25 and IoU 0.5, recall is
-0.567/0.654 with 1.94/2.37 unmatched boxes per frame.
+different grouping. With the standard Ultralytics evaluation, reference/SAM training gives
+AP50 0.599/0.630 and AP50:95 0.407/0.445.
 
 \textbf{Scoring domain and uncertainty.} ISOD results use all 300 test
 frames; ISOD has no instance IDs, so its reference units are
@@ -171,21 +173,20 @@ highest validation obstacle IoU.
 
 Figure~\ref{fig:baseline-curves} shows U-Net and YOLOv8n-seg validation
 behavior. U-Net validation loss levels off by epoch 10. YOLOv8n-seg
-validation obstacle IoU reaches about 0.6 by epoch 15 and stays there
-until validation stopping.
+validation obstacle IoU reaches about 0.6 by epoch 15 and rises slightly
+as the learning rate decays.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/appendix_rgb_baseline_curves.pdf}
 \caption{Reference-trained U-Net and YOLOv8n-seg, three seeds each. Evaluated checkpoints maximize validation obstacle IoU: checked every epoch for U-Net, and at five-epoch checkpoints for YOLOv8n-seg (circles mark the selected ones).}
 \label{fig:baseline-curves}
 \end{figure}
-Figure~\ref{fig:native-curves} shows box-detector training with
-validation-based stopping. Reference seeds 0/1/2 stop at 72/73/65 epochs;
-automatic-label seeds stop at 67/98/84.
+Figure~\ref{fig:native-curves} shows box-detector training over the
+60-epoch schedule.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/appendix_native_curves.pdf}
-\caption{YOLOv8n box-detector losses and validation AP50:95. Blue: reference labels; orange: SAM labels. Faint curves show three seeds; means use epochs available for all seeds. Evaluated checkpoints maximize validation box AP50:95.}
+\caption{YOLOv8n box-detector losses and validation AP50:95. Blue: reference labels; orange: SAM labels. Faint curves show three seeds; bold curves their means. Evaluated checkpoints maximize validation fitness.}
 \label{fig:native-curves}
 \end{figure}
 
@@ -199,7 +200,7 @@ validation frames and 0.730 on the 300 test frames.
 \centering
 \includegraphics[width=0.91\textwidth,page=1]{figures/automatic_teacher_examples.pdf}
 \includegraphics[width=0.91\textwidth,page=2]{figures/automatic_teacher_examples.pdf}
-\caption{Two discussed development scenes and two fixed validation scenes. Left: RGB; middle: reviewed reference; right: exact teacher output. Green is correct foreground, red extra and blue missed. These examples show error types, not an unbiased prevalence estimate.}
+\caption{SAM 3 labels on two prompt-development and two validation frames next to the reviewed references. The examples show error types, not their frequency.}
 \label{fig:teacher-devval}
 \end{figure}
 

@@ -23,8 +23,7 @@ fine-tuning on the 300 test frames from its three held-out locations and
 on the 320 GTE-Floor frames. ESANet was trained with RGB, D and RGB-D
 input on both label sources, U-Net and YOLOv8n-seg on reference labels,
 and the YOLOv8n box detector on both label sources. Each learned condition has three seeds, giving the 30 runs listed in
-Table~\ref{tab:experiment-matrix}. Bracketed values are paired 95\%
-bootstrap intervals.
+Table~\ref{tab:experiment-matrix}.
 
 \subsection{Depth}
 
@@ -61,15 +60,12 @@ poster.
 
 SAM~3 labels generated from RGB alone, with no human masks for the
 1,400 training images, train models as accurate as the assisted
-reference labels. On ISOD, label source changes pixel IoU by $-0.03$ to
-$+0.01$ and object recall by $+0.02$ for ESANet RGB, RGB-D and YOLOv8n
-boxes. On GTE-Floor, object recall rises for RGB ($+0.153$
+reference labels. On ISOD, label source changes pixel IoU by $-0.03$ to $+0.02$ and object recall by 0.00 to $+0.02$ for ESANet RGB, RGB-D and YOLOv8n boxes. On GTE-Floor, object recall rises for RGB ($+0.153$
 [$+0.094$, $+0.217$]), RGB-D ($+0.110$ [$+0.057$, $+0.165$]) and boxes
-($+0.068$ [$+0.033$, $+0.109$]). Component F1 stays within seed variation
+($+0.045$ [$+0.009$, $+0.084$]). Component F1 stays within seed variation
 for RGB and boxes and falls from 0.428 to 0.356 for RGB-D.
 
-Models trained on SAM labels predict more false regions on GTE-Floor:
-6.0--6.4 per frame, against 2.8--3.7 with reference labels. In a
+ESANet models trained on SAM labels predict more false regions on GTE-Floor: 6.0--6.4 per frame, against 2.8--3.7 with reference labels. In a
 pixel-weighted sample of 30 regions per condition that touch no
 reference object, nearly all cover
 physical objects that are not annotated as hazards, mainly the tape
@@ -85,9 +81,8 @@ on both datasets (0.829 and 0.673).
 \subsection{Masks, boxes and cost}
 
 Boxes recover as many objects as masks. Reference-trained YOLOv8n boxes
-reach object recall 0.793 on ISOD and 0.676 on GTE-Floor, against 0.867
-and 0.643 for ESANet RGB-D. Filled boxes also cover the floor around
-each object, so their pixel IoU is lower (0.480 on ISOD). YOLOv8n-seg has
+reach object recall 0.806 on ISOD and 0.675 on GTE-Floor, against 0.867 and 0.643 for ESANet RGB-D. Filled boxes also cover the floor around
+each object, so their pixel IoU is lower (0.498 on ISOD). YOLOv8n-seg has
 the highest component F1 of the trained models on both datasets.
 
 SAM~3 needs 183~ms per image on an H200 GPU partition and 13.3~s on

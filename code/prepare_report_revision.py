@@ -57,7 +57,7 @@ def main():
     extended=ROOT/'results/extended_training_20261122'
     updated_unet=all((extended/'runs'/n/'VERIFIED').exists() for n in unet_names)
     if updated_unet:extra_runs += [(n,extended/'runs'/n) for n in unet_names]
-    seg_names=[f'yoloseg_long_reference_s{s}' for s in range(3)]
+    seg_names=[f'yoloseg_e60_reference_s{s}' for s in range(3)]
     updated_seg=all((extended/'runs'/n/'VERIFIED').exists() for n in seg_names)
     if updated_seg:extra_runs += [(n,extended/'runs'/n) for n in seg_names]
     for new_name,new_dir in extra_runs:
@@ -129,12 +129,12 @@ def main():
             component_runs[model]=dict(family=family,source=source,seed=seed if source!='direct' else None,output='obstacle mask',
                 object_recall=float(np.mean([float(r['coverage'])>=.5 for r in oo])),component_recall=op['operating_points']['50']['recall'],
                 false_components_per_frame=op['operating_points']['50']['fp']/320,component_mean_f1=op['mean_f1'])
-    native_root=extended if all((extended/'runs'/f'yolov8n_detect_{source}_s{s}'/'VERIFIED').exists() for source in ['reference','automatic'] for s in range(3)) else ROOT/'results/instance_detection_20261122'
+    native_root=extended if all((extended/'runs'/f'yolov8n_detect_{source}_e60_s{s}'/'VERIFIED').exists() for source in ['reference','automatic'] for s in range(3)) else ROOT/'results/instance_detection_20261122'
     native_frames=[]
     reference_rows=manifest['frames']
     for source in ['reference','automatic']:
         for seed in range(3):
-            model=f'yolov8n_detect_{source}_s{seed}';rr=json.loads((native_root/'runs'/model/'gte_boxes.json').read_text())['frames'];lookup={r['image']:r for r in rr};results=[];coverage=[]
+            model=f'yolov8n_detect_{source}_e60_s{seed}';rr=json.loads((native_root/'runs'/model/'gte_boxes.json').read_text())['frames'];lookup={r['image']:r for r in rr};results=[];coverage=[]
             for r in reference_rows:
                 ids=raster(ROOT/'results/gte_instance_proposals_20261121'/r['path']).copy();ignore=np.zeros(ids.shape,bool)
                 for attr in r['objects']:

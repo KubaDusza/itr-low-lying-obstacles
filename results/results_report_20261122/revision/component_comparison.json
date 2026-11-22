@@ -215,35 +215,35 @@
       "false_components_per_frame": 2.4625,
       "component_mean_f1": 0.4158675195172998
     },
-    "yoloseg_long_reference_s0": {
+    "yoloseg_e60_reference_s0": {
       "family": "YOLOv8n-seg RGB",
       "source": "reference",
       "seed": 0,
       "output": "obstacle mask",
-      "object_recall": 0.6129770992366412,
-      "component_recall": 0.47557251908396947,
-      "false_components_per_frame": 0.884375,
-      "component_mean_f1": 0.536778864865024
+      "object_recall": 0.6045801526717557,
+      "component_recall": 0.47862595419847326,
+      "false_components_per_frame": 0.9125,
+      "component_mean_f1": 0.5391586612235111
     },
-    "yoloseg_long_reference_s1": {
+    "yoloseg_e60_reference_s1": {
       "family": "YOLOv8n-seg RGB",
       "source": "reference",
       "seed": 1,
       "output": "obstacle mask",
-      "object_recall": 0.5793893129770993,
-      "component_recall": 0.45648854961832064,
-      "false_components_per_frame": 1.259375,
-      "component_mean_f1": 0.4921595432062681
+      "object_recall": 0.5900763358778626,
+      "component_recall": 0.4763358778625954,
+      "false_components_per_frame": 0.878125,
+      "component_mean_f1": 0.5270001982822192
     },
-    "yoloseg_long_reference_s2": {
+    "yoloseg_e60_reference_s2": {
       "family": "YOLOv8n-seg RGB",
       "source": "reference",
       "seed": 2,
       "output": "obstacle mask",
-      "object_recall": 0.5885496183206107,
-      "component_recall": 0.44580152671755724,
-      "false_components_per_frame": 2.915625,
-      "component_mean_f1": 0.4003351557255147
+      "object_recall": 0.6045801526717557,
+      "component_recall": 0.467175572519084,
+      "false_components_per_frame": 1.09375,
+      "component_mean_f1": 0.5003902515618485
     },
     "sam_three_prompt_v2": {
       "family": "SAM 3 direct",
@@ -265,65 +265,65 @@
       "false_components_per_frame": 344.015625,
       "component_mean_f1": 0.0016268984454044732
     },
-    "yolov8n_detect_reference_s0": {
+    "yolov8n_detect_reference_e60_s0": {
       "family": "YOLOv8n RGB",
       "source": "reference",
       "seed": 0,
       "output": "union of native boxes",
-      "object_recall": 0.6412213740458015,
-      "component_recall": 0.3045801526717557,
-      "false_components_per_frame": 1.8875,
-      "component_mean_f1": 0.32763265781397183
+      "object_recall": 0.6229007633587786,
+      "component_recall": 0.34427480916030534,
+      "false_components_per_frame": 1.253125,
+      "component_mean_f1": 0.3753632190404392
     },
-    "yolov8n_detect_reference_s1": {
+    "yolov8n_detect_reference_e60_s1": {
       "family": "YOLOv8n RGB",
       "source": "reference",
       "seed": 1,
       "output": "union of native boxes",
-      "object_recall": 0.7076335877862595,
+      "object_recall": 0.683969465648855,
+      "component_recall": 0.3183206106870229,
+      "false_components_per_frame": 1.334375,
+      "component_mean_f1": 0.3586972649747127
+    },
+    "yolov8n_detect_reference_e60_s2": {
+      "family": "YOLOv8n RGB",
+      "source": "reference",
+      "seed": 2,
+      "output": "union of native boxes",
+      "object_recall": 0.7183206106870229,
+      "component_recall": 0.3709923664122137,
+      "false_components_per_frame": 1.290625,
+      "component_mean_f1": 0.4055496091684608
+    },
+    "yolov8n_detect_automatic_e60_s0": {
+      "family": "YOLOv8n RGB",
+      "source": "automatic",
+      "seed": 0,
+      "output": "union of native boxes",
+      "object_recall": 0.7198473282442748,
       "component_recall": 0.3732824427480916,
-      "false_components_per_frame": 1.325,
-      "component_mean_f1": 0.39163833180604435
+      "false_components_per_frame": 1.621875,
+      "component_mean_f1": 0.38405174591676317
     },
-    "yolov8n_detect_reference_s2": {
-      "family": "YOLOv8n RGB",
-      "source": "reference",
-      "seed": 2,
-      "output": "union of native boxes",
-      "object_recall": 0.6801526717557251,
-      "component_recall": 0.3717557251908397,
-      "false_components_per_frame": 1.41875,
-      "component_mean_f1": 0.3784607532980232
-    },
-    "yolov8n_detect_automatic_s0": {
-      "family": "YOLOv8n RGB",
-      "source": "automatic",
-      "seed": 0,
-      "output": "union of native boxes",
-      "object_recall": 0.6969465648854962,
-      "component_recall": 0.3717557251908397,
-      "false_components_per_frame": 2.40625,
-      "component_mean_f1": 0.34515409133728
-    },
-    "yolov8n_detect_automatic_s1": {
+    "yolov8n_detect_automatic_e60_s1": {
       "family": "YOLOv8n RGB",
       "source": "automatic",
       "seed": 1,
       "output": "union of native boxes",
-      "object_recall": 0.7549618320610687,
-      "component_recall": 0.39236641221374047,
-      "false_components_per_frame": 2.246875,
-      "component_mean_f1": 0.36900505309033743
+      "object_recall": 0.7145038167938931,
+      "component_recall": 0.3786259541984733,
+      "false_components_per_frame": 1.528125,
+      "component_mean_f1": 0.39828014729778083
     },
-    "yolov8n_detect_automatic_s2": {
+    "yolov8n_detect_automatic_e60_s2": {
       "family": "YOLOv8n RGB",
       "source": "automatic",
       "seed": 2,
       "output": "union of native boxes",
-      "object_recall": 0.7809160305343511,
-      "component_recall": 0.3801526717557252,
-      "false_components_per_frame": 2.203125,
-      "component_mean_f1": 0.3582688967872398
+      "object_recall": 0.7251908396946565,
+      "component_recall": 0.38625954198473283,
+      "false_components_per_frame": 1.365625,
+      "component_mean_f1": 0.3964788190693595
     }
   }
 }

@@ -44,10 +44,7 @@ ROWS = [  # label, key, group
 
 def main_table():
     L = [r'\begin{table*}[!t]',
-         r'\caption{Results on the ISOD test split (300 frames, three held-out locations) and GTE-Floor (320 frames). '
-         r'Learned methods: means of three seeds (standard deviations in Table~\ref{tab:full-scores}). '
-         r'Boxes are filled and united before scoring. Component F1 averages the published thresholds 0.25--0.75~\cite{chan2021segment}; '
-         r'false regions are predicted components below 0.5 component precision.}',
+         r'\caption{Results on the ISOD test set and GTE-Floor (means of three seeds).}',
          r'\label{tab:main}', r'\centering\footnotesize', r'\setlength{\tabcolsep}{4.5pt}',
          r'\begin{tabular}{lrrrrrrrr}', r'\toprule',
          r' & \multicolumn{4}{c}{ISOD test (300 frames)} & \multicolumn{4}{c}{GTE-Floor (320 frames)}\\',
@@ -103,7 +100,7 @@ def cloth_main(seed=2):
     model_of = lambda mode, s: f'rgbd_reference210_s{s}' if mode == 'rgbd' else f'esanet_full_{mode}_reference_s{s}'
 
     def box_union(recording, frame, s, shape):
-        rr = next(r for r in json.loads((NATIVE / f'runs/yolov8n_detect_reference_s{s}/gte_boxes.json').read_text())['frames']
+        rr = next(r for r in json.loads((NATIVE / f'runs/yolov8n_detect_reference_e60_s{s}/gte_boxes.json').read_text())['frames']
                   if r['image'] == f'{recording}_{frame}')
         u = np.zeros(shape, bool)
         for (x0, y0, x1, y1), c in zip(rr['boxes_xyxy'], rr['scores']):
@@ -168,7 +165,7 @@ def rgb_baseline_curves():
         assert len(h) == 15
         for ax, key in zip(axes[0], ['train_loss', 'val_loss', 'val_IoU']):
             ax.plot([int(r['epoch']) for r in h], [float(r[key]) for r in h], label=f'Seed {seed}', lw=.9)
-        run = ROOT / f'results/extended_training_20261122/runs/yoloseg_long_reference_s{seed}'
+        run = ROOT / f'results/extended_training_20261122/runs/yoloseg_e60_reference_s{seed}'
         h = rows(run / 'results.csv')
         ep = [int(r['epoch']) for r in h]
         for ax, key in zip(axes[1][:2], ['train/seg_loss', 'val/seg_loss']):
@@ -191,6 +188,59 @@ def rgb_baseline_curves():
     fig.tight_layout(pad=.7); save(fig, 'appendix_rgb_baseline_curves')
 
 
+def native_curves():
+    fig, axes = plt.subplots(2, 4, figsize=(8.2, 4.5))
+    fields = ['train/box_loss', 'train/cls_loss', 'train/dfl_loss', 'val/box_loss', 'val/cls_loss', 'val/dfl_loss', 'metrics/mAP50-95(B)']
+    positions = [(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (0, 3)]
+    for source in ['reference', 'automatic']:
+        runs = []
+        for seed in range(3):
+            run = ROOT / f'results/extended_training_20261122/runs/yolov8n_detect_{source}_e60_s{seed}'
+            h = rows(run / 'results.csv'); assert len(h) == 60
+            runs.append(np.array([[float(r[k]) for k in fields] for r in h]))
+        a = np.array(runs); ep = np.arange(1, 61)
+        for col, pos in enumerate(positions):
+            ax = axes[pos]
+            for y in a:
+                ax.plot(ep, y[:, col], color=COLORS[source], lw=.6, alpha=.25)
+            ax.plot(ep, a[:, :, col].mean(0), color=COLORS[source], lw=1, label='Reference' if source == 'reference' else 'SAM')
+    for pos, title in zip(positions, ['Train: box loss', 'Train: classification loss', 'Train: distribution loss', 'Validation: box loss',
+                                      'Validation: classification loss', 'Validation: distribution loss', 'Validation box AP50:95']):
+        ax = axes[pos]; ax.set_title(title, fontsize=8.3); ax.set_xlabel('Epoch'); ax.grid(axis='y', color='.88', lw=.5); ax.spines[['top', 'right']].set_visible(False)
+    for c in range(3):
+        lim = max(axes[0, c].dataLim.ymax, axes[1, c].dataLim.ymax) * 1.04
+        for r in range(2):
+            axes[r, c].set_ylim(0, lim)
+    axes[0, 3].set_ylim(0, 1); axes[1, 3].axis('off')
+    axes[0, 0].legend(frameon=False, fontsize=7.5); fig.tight_layout(pad=.7); save(fig, 'appendix_native_curves')
+
+
 if __name__ == '__main__':
-    main_table(); full_table(); rgb_baseline_curves(); cloth_main()
+    main_table(); full_table(); rgb_baseline_curves(); native_curves(); cloth_main()
     print('final assets written')
+
+
+def teacher_examples():
+    """SAM 3 label examples (development and validation frames), same panels as before, plain footer."""
+    from matplotlib.backends.backend_pdf import PdfPages
+    choices = [('development', 'BT_BM', 12), ('development', 'BT_LM', 34), ('validation', 'HL_BM', 87), ('validation', 'MEB_HW_A', 44)]
+    base = {'development': 'ISOD_reference_train_v1', 'validation': 'ISOD_reference_val_v1'}
+    with PdfPages(F / 'automatic_teacher_examples.pdf') as pdf:
+        for start in (0, 2):
+            fig, axes = plt.subplots(2, 3, figsize=(10, 5.1))
+            for row, (phase, site, frame) in enumerate(choices[start:start + 2]):
+                rgb = np.array(Image.open(ROOT / 'data/ISOD/data' / site / 'rgb' / f'{frame}.png').convert('RGB'))
+                gt = np.array(Image.open(ROOT / 'data' / base[phase] / site / f'{frame}.png')) > 0
+                pred = np.array(Image.open(ROOT / 'data/ISOD_sam_all_v2' / site / f'{frame}.png')) > 0
+                ref = rgb.astype(float) * .55; ref[gt] = [20, 205, 205]
+                pt = rgb.astype(float) * .55; pt[pred & gt] = [40, 185, 95]; pt[pred & ~gt] = [235, 70, 60]; pt[~pred & gt] = [45, 130, 230]
+                for col, im in enumerate([rgb, ref.astype(np.uint8), pt.astype(np.uint8)]):
+                    axes[row, col].imshow(im)
+                axes[row, 0].set_ylabel(f'{phase}\n{site} / {frame}', fontsize=9)
+            for ax, t in zip(axes[0], ['RGB', 'Reviewed reference', 'SAM 3 label']):
+                ax.set_title(t, fontsize=10)
+            for ax in axes.flat:
+                ax.set_xticks([]); ax.set_yticks([])
+            fig.text(.5, .02, 'Green: correct; red: extra; blue: missed.', ha='center', fontsize=9)
+            fig.subplots_adjust(left=.085, right=.99, top=.94, bottom=.07, wspace=.04, hspace=.10)
+            pdf.savefig(fig); plt.close(fig)

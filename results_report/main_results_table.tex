@@ -1,5 +1,5 @@
 \begin{table*}[!t]
-\caption{Results on the ISOD test split (300 frames, three held-out locations) and GTE-Floor (320 frames). Learned methods: means of three seeds (standard deviations in Table~\ref{tab:full-scores}). Boxes are filled and united before scoring. Component F1 averages the published thresholds 0.25--0.75~\cite{chan2021segment}; false regions are predicted components below 0.5 component precision.}
+\caption{Results on the ISOD test set and GTE-Floor (means of three seeds).}
 \label{tab:main}
 \centering\footnotesize
 \setlength{\tabcolsep}{4.5pt}
@@ -14,14 +14,14 @@ Method & Pixel IoU & Obj.\ recall & Comp.\ F1 & False reg./fr. & Pixel IoU & Obj
 \quad ESANet D & 0.318 & 0.388 & 0.131 & 5.97 & 0.141 & 0.383 & 0.067 & 8.24\\
 \quad ESANet RGB-D & 0.708 & 0.867 & 0.583 & 3.63 & 0.554 & 0.643 & 0.428 & 2.84\\
 \quad U-Net RGB & 0.724 & 0.750 & 0.693 & 2.03 & 0.487 & 0.464 & 0.388 & 2.40\\
-\quad YOLOv8n-seg RGB & 0.729 & 0.761 & 0.734 & 1.32 & 0.461 & 0.594 & 0.476 & 1.69\\
-\quad YOLOv8n boxes RGB & 0.480 & 0.793 & 0.516 & 3.33 & -- & 0.676 & 0.366 & 1.54\\
+\quad YOLOv8n-seg RGB & 0.725 & 0.751 & 0.735 & 1.13 & 0.450 & 0.600 & 0.522 & 0.96\\
+\quad YOLOv8n boxes RGB & 0.498 & 0.806 & 0.501 & 3.88 & -- & 0.675 & 0.380 & 1.29\\
 \addlinespace[2pt]
 \multicolumn{9}{l}{\emph{SAM 3 labels}}\\
 \quad ESANet RGB & 0.689 & 0.870 & 0.566 & 4.84 & 0.469 & 0.781 & 0.346 & 6.42\\
 \quad ESANet D & 0.304 & 0.388 & 0.121 & 6.16 & 0.126 & 0.363 & 0.060 & 8.82\\
 \quad ESANet RGB-D & 0.680 & 0.883 & 0.543 & 5.75 & 0.498 & 0.753 & 0.356 & 6.03\\
-\quad YOLOv8n boxes RGB & 0.490 & 0.815 & 0.507 & 4.48 & -- & 0.744 & 0.357 & 2.29\\
+\quad YOLOv8n boxes RGB & 0.522 & 0.802 & 0.517 & 3.88 & -- & 0.720 & 0.393 & 1.51\\
 \addlinespace[2pt]
 \multicolumn{9}{l}{\emph{Untrained}}\\
 \quad SAM 3, three prompts & 0.730 & 0.838 & 0.829 & 1.51 & 0.418 & 0.945 & 0.673 & 2.54\\

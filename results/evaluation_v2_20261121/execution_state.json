@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-22T09:15:43.752539+00:00",
+  "updated_at": "2026-11-22T13:35:25.152273+00:00",
   "gt_review": {
     "completed": 16,
     "total": 16,
@@ -41,12 +41,13 @@
     "status": "COMPLETED, all three seeds exit 0"
   },
   "gte": {
-    "recovery_rgb_seed0_running": true,
+    "recovery_rgb_seed0_running": null,
     "cache_recovery_dependency": "after RGB recovery; same three prompts and pinned local SAM",
-    "morgoth_unreachable": true
+    "morgoth_unreachable": true,
+    "current_status": "Not checked: Georgia Tech VPN unavailable; last observed running"
   },
   "human_review_not_required_now": true,
-  "new_instance_training_started": false,
+  "new_instance_training_started": true,
   "automated_final_analysis": {
     "job": "21745879",
     "dependencies": [
@@ -81,19 +82,50 @@
   "keep_deployed_analysis_runner_unchanged_until_completion": true,
   "report": {
     "path": "results_report/REPORT.pdf",
-    "status": "reviewable IEEE draft; not submitted",
+    "status": "Verified IEEE report; not submitted",
     "results_pages": [
       5,
       6
     ],
     "rubric_check": "results_report/rubric_check.json",
-    "pdf_sha256": "176bc6413b16a77dd37f9fff777eff49ded54fd0a90b534d7ccad00c57c21c29",
-    "coverage_and_localization_separated": true
+    "pdf_sha256": "d1462f83bc469c572747bef9de58245602130c9982a3782c70f73405179d36f5",
+    "coverage_and_localization_separated": true,
+    "native_box_runs_included": 6
   },
   "remaining_scope": [
     "prop-aware/cropped-input inference",
     "expanded reviewed ISOD test coverage",
-    "native instance training/AP",
-    "four optional new-teacher U-Net/YOLO repetitions blocked by GTE runtime"
-  ]
+    "four optional new-teacher U-Net/YOLO repetitions blocked by GTE runtime",
+    "Fully verified individual-object and prop-aware detection evaluation"
+  ],
+  "native_box_experiment": {
+    "status": "COMPLETED and retrieved",
+    "reference_array": "21759277",
+    "automatic_array": "21759415",
+    "teacher_job": "21759414",
+    "analysis_job": "21759864",
+    "runtime_gate": "21759276",
+    "runs": 6,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "epochs": 20,
+    "task": "detect",
+    "model": "YOLOv8n",
+    "train_frames": 1400,
+    "validation_frames": 300,
+    "gte_frames": 320,
+    "gte_reference_unit_views": 1310,
+    "automatic_reference_masks_used": false,
+    "reference_reviewed_binary_frames": 85,
+    "reference_assisted_binary_frames": 1315,
+    "instance_quality": "Assisted hazard units, including unresolved groups; not all verified individuals",
+    "remote_base": "/scratch/work/duszaj1/itr_instances_20261122",
+    "paired_configuration_verified": true,
+    "local_remote_evaluation_exact": true,
+    "requires_laptop_or_vpn": false,
+    "updated_at": "2026-11-22T11:34:57.557413+00:00"
+  }
 }

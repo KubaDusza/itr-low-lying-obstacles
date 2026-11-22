@@ -1,0 +1,152 @@
+{
+  "complete": true,
+  "matched_configuration_verified": true,
+  "epochs": 20,
+  "training_audit": [
+    {
+      "run": "yolov8n_detect_reference_s0",
+      "epochs": 20,
+      "best_validation_AP50_95": 0.42849,
+      "selected_epoch": 19
+    },
+    {
+      "run": "yolov8n_detect_reference_s1",
+      "epochs": 20,
+      "best_validation_AP50_95": 0.42322,
+      "selected_epoch": 20
+    },
+    {
+      "run": "yolov8n_detect_reference_s2",
+      "epochs": 20,
+      "best_validation_AP50_95": 0.43237,
+      "selected_epoch": 20
+    },
+    {
+      "run": "yolov8n_detect_automatic_s0",
+      "epochs": 20,
+      "best_validation_AP50_95": 0.4269,
+      "selected_epoch": 20
+    },
+    {
+      "run": "yolov8n_detect_automatic_s1",
+      "epochs": 20,
+      "best_validation_AP50_95": 0.42236,
+      "selected_epoch": 20
+    },
+    {
+      "run": "yolov8n_detect_automatic_s2",
+      "epochs": 20,
+      "best_validation_AP50_95": 0.42599,
+      "selected_epoch": 20
+    }
+  ],
+  "cohorts": {
+    "reference": {
+      "box_AP50": {
+        "mean": 0.6304534672437764,
+        "sd": 0.03602628417474206
+      },
+      "box_AP50_95": {
+        "mean": 0.4354638799329596,
+        "sd": 0.03106517323419354
+      },
+      "precision": {
+        "mean": 0.6335351136895621,
+        "sd": 0.012374025588277823
+      },
+      "recall": {
+        "mean": 0.6106870229007634,
+        "sd": 0.03967263041278251
+      },
+      "false_boxes_per_frame": {
+        "mean": 1.4437499999999999,
+        "sd": 0.019008632907181952
+      },
+      "empty_false_boxes_per_frame": {
+        "mean": 0.2333333333333333,
+        "sd": 0.20207259421636903
+      }
+    },
+    "automatic": {
+      "box_AP50": {
+        "mean": 0.5848431820757528,
+        "sd": 0.05475219015953134
+      },
+      "box_AP50_95": {
+        "mean": 0.4188603097963304,
+        "sd": 0.046319055756223984
+      },
+      "precision": {
+        "mean": 0.5496072998222998,
+        "sd": 0.0439944499722438
+      },
+      "recall": {
+        "mean": 0.6435114503816793,
+        "sd": 0.034739115276283185
+      },
+      "false_boxes_per_frame": {
+        "mean": 2.1875,
+        "sd": 0.44883747406494473
+      },
+      "empty_false_boxes_per_frame": {
+        "mean": 0.6666666666666666,
+        "sd": 0.14433756729740646
+      }
+    }
+  },
+  "qualitative_examples": [
+    {
+      "source": "reference",
+      "recording": "h52_poster_rags_075",
+      "frame": 2,
+      "seed": 0,
+      "tp": 2,
+      "fp": 0,
+      "fn": 2,
+      "matched": [
+        {
+          "prediction": 0,
+          "reference": 3,
+          "iou": 0.9581263302178656
+        },
+        {
+          "prediction": 1,
+          "reference": 2,
+          "iou": 0.9773181164712087
+        }
+      ],
+      "false_predictions": [],
+      "missed_references": [
+        0,
+        1
+      ]
+    },
+    {
+      "source": "automatic",
+      "recording": "h52_poster_rags_075",
+      "frame": 2,
+      "seed": 0,
+      "tp": 2,
+      "fp": 0,
+      "fn": 2,
+      "matched": [
+        {
+          "prediction": 0,
+          "reference": 3,
+          "iou": 0.9754629612755009
+        },
+        {
+          "prediction": 1,
+          "reference": 2,
+          "iou": 0.9719787265774811
+        }
+      ],
+      "false_predictions": [],
+      "missed_references": [
+        0,
+        1
+      ]
+    }
+  ],
+  "warning": "Box AP and fixed-confidence box recall use a separate task and matching rule from segmentation coverage/localization; do not rank these directly."
+}

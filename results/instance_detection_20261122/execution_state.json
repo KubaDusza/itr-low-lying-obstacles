@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETED and retrieved",
+  "reference_array": "21759277",
+  "automatic_array": "21759415",
+  "teacher_job": "21759414",
+  "analysis_job": "21759864",
+  "runtime_gate": "21759276",
+  "runs": 6,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "epochs": 20,
+  "task": "detect",
+  "model": "YOLOv8n",
+  "train_frames": 1400,
+  "validation_frames": 300,
+  "gte_frames": 320,
+  "gte_reference_unit_views": 1310,
+  "automatic_reference_masks_used": false,
+  "reference_reviewed_binary_frames": 85,
+  "reference_assisted_binary_frames": 1315,
+  "instance_quality": "Assisted hazard units, including unresolved groups; not all verified individuals",
+  "remote_base": "/scratch/work/duszaj1/itr_instances_20261122",
+  "paired_configuration_verified": true,
+  "local_remote_evaluation_exact": true,
+  "requires_laptop_or_vpn": false,
+  "updated_at": "2026-11-22T11:34:57.557413+00:00"
+}

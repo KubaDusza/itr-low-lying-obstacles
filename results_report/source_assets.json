@@ -4,37 +4,75 @@
     {
       "source": "methodology_report/refs.bib",
       "destination": "refs.bib",
-      "sha256": "63c451e86e4624d6b8691bf48e60027b6b991d31009a83099432077ffb33bd71"
+      "sha256": "63c451e86e4624d6b8691bf48e60027b6b991d31009a83099432077ffb33bd71",
+      "source_sha256": "63c451e86e4624d6b8691bf48e60027b6b991d31009a83099432077ffb33bd71",
+      "destination_sha256": "63c451e86e4624d6b8691bf48e60027b6b991d31009a83099432077ffb33bd71"
     },
     {
       "source": "methodology_report/IEEEtran.cls",
       "destination": "IEEEtran.cls",
-      "sha256": "da751920a317ed318b7b5cd7fa585a6cc7d28502d457856382e9be24b10a3bd7"
+      "sha256": "da751920a317ed318b7b5cd7fa585a6cc7d28502d457856382e9be24b10a3bd7",
+      "source_sha256": "da751920a317ed318b7b5cd7fa585a6cc7d28502d457856382e9be24b10a3bd7",
+      "destination_sha256": "da751920a317ed318b7b5cd7fa585a6cc7d28502d457856382e9be24b10a3bd7"
     },
     {
       "source": "methodology_report/IEEEtran.bst",
       "destination": "IEEEtran.bst",
-      "sha256": "314f0ece704568faf827011bac498650691b2b5ee06320720830e782416d5a5f"
+      "sha256": "314f0ece704568faf827011bac498650691b2b5ee06320720830e782416d5a5f",
+      "source_sha256": "314f0ece704568faf827011bac498650691b2b5ee06320720830e782416d5a5f",
+      "destination_sha256": "314f0ece704568faf827011bac498650691b2b5ee06320720830e782416d5a5f"
     },
     {
       "source": "methodology_report/figures/supervision_pipeline.pdf",
       "destination": "figures/supervision_pipeline.pdf",
-      "sha256": "8d0217bc452d83c1529c41f2159505d695eefbafd8cb47fb952f4695836f4d14"
+      "sha256": "e398a962680fa282a54a5c6890262abb924d3530a67aa4ba90b314f3b662bb3f",
+      "source_sha256": "8d0217bc452d83c1529c41f2159505d695eefbafd8cb47fb952f4695836f4d14",
+      "destination_sha256": "e398a962680fa282a54a5c6890262abb924d3530a67aa4ba90b314f3b662bb3f",
+      "generated_by": "code/make_detection_report_figures.py: generic reference/automatic workflow for both label versions"
     },
     {
       "source": "methodology_report/figures/collection.png",
       "destination": "figures/collection.png",
-      "sha256": "eff300205a5186151b030bb083785ff5991d008b6ac6a583d3bd381b3645a3c2"
+      "sha256": "eff300205a5186151b030bb083785ff5991d008b6ac6a583d3bd381b3645a3c2",
+      "source_sha256": "eff300205a5186151b030bb083785ff5991d008b6ac6a583d3bd381b3645a3c2",
+      "destination_sha256": "eff300205a5186151b030bb083785ff5991d008b6ac6a583d3bd381b3645a3c2"
     },
     {
       "source": "methodology_report/figures/object_sets.png",
       "destination": "figures/object_sets.png",
-      "sha256": "9eff85f295a0bd4d4fde1418e51d4c070fced4a2ad79291144747121f5384df2"
+      "sha256": "9eff85f295a0bd4d4fde1418e51d4c070fced4a2ad79291144747121f5384df2",
+      "source_sha256": "9eff85f295a0bd4d4fde1418e51d4c070fced4a2ad79291144747121f5384df2",
+      "destination_sha256": "9eff85f295a0bd4d4fde1418e51d4c070fced4a2ad79291144747121f5384df2"
     },
     {
       "source": "methodology_report/stfloats.sty",
       "destination": "stfloats.sty",
-      "sha256": "c7103528ae9965d61de38876dfe8a75c6724cab6e14120cd389304ce0d1e1abb"
+      "sha256": "c7103528ae9965d61de38876dfe8a75c6724cab6e14120cd389304ce0d1e1abb",
+      "source_sha256": "c7103528ae9965d61de38876dfe8a75c6724cab6e14120cd389304ce0d1e1abb",
+      "destination_sha256": "c7103528ae9965d61de38876dfe8a75c6724cab6e14120cd389304ce0d1e1abb"
     }
-  ]
+  ],
+  "generated_figures": [
+    {
+      "destination": "figures/detection_comparison.pdf",
+      "sha256": "245d25c376dc9420ccdb9338774bef18004fd7dac7513595e6757cc6279c5790",
+      "generator": "code/make_detection_report_figures.py"
+    },
+    {
+      "destination": "figures/detection_by_distance_size.pdf",
+      "sha256": "962efb72e2c1332e1c11b996a8c37e37b57700828d5c3d7fa5b0297ac8fa7f8b",
+      "generator": "code/make_detection_report_figures.py"
+    },
+    {
+      "destination": "figures/detection_examples.pdf",
+      "sha256": "81d43ef581dc587f4a5752ffe440c7ea881633aa2758a0e6eea5a53b5284743c",
+      "generator": "code/make_detection_report_figures.py"
+    },
+    {
+      "destination": "figures/native_box_detection.pdf",
+      "sha256": "57c5dfbfa7a8e8ebe533bf3afe02c5b3565bc10147522ca78297e59002562c3c",
+      "generator": "code/make_native_detection_figures.py"
+    }
+  ],
+  "updated_at": "2026-11-22T13:35:25.152273+00:00"
 }

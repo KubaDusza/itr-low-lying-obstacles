@@ -8,7 +8,36 @@
   "gate": "two-epoch real-data RGB-D run, input hash checks and inference verification",
   "full_jobs": "RGB-D reference/SAM x seeds 0,1,2; 500 epochs; maximum two GPUs; afterok gate",
   "reference_repeat_reason": "Match the Torch 2.10 environment used for the new RGB-D SAM runs; preserve earlier Torch 2.14 references",
-  "new_instance_YOLO": "Not started; instance references remain assisted candidates",
+  "new_instance_YOLO": {
+    "status": "COMPLETED and retrieved",
+    "reference_array": "21759277",
+    "automatic_array": "21759415",
+    "teacher_job": "21759414",
+    "analysis_job": "21759864",
+    "runtime_gate": "21759276",
+    "runs": 6,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "epochs": 20,
+    "task": "detect",
+    "model": "YOLOv8n",
+    "train_frames": 1400,
+    "validation_frames": 300,
+    "gte_frames": 320,
+    "gte_reference_unit_views": 1310,
+    "automatic_reference_masks_used": false,
+    "reference_reviewed_binary_frames": 85,
+    "reference_assisted_binary_frames": 1315,
+    "instance_quality": "Assisted hazard units, including unresolved groups; not all verified individuals",
+    "remote_base": "/scratch/work/duszaj1/itr_instances_20261122",
+    "paired_configuration_verified": true,
+    "local_remote_evaluation_exact": true,
+    "requires_laptop_or_vpn": false,
+    "updated_at": "2026-11-22T11:34:57.557413+00:00"
+  },
   "GTE": "No new training launched; RGB/depth workers verified active; Morgoth unreachable",
   "model_initialization_sha256": "1a18502bb7d4fa647cd74a63e607b09293f6944833a86f9ee7c9e5d8af9ab3a0",
   "gate_job": "21743068",
@@ -34,5 +63,5 @@
   "epochs_per_job": 500,
   "final_analysis_status": "COMPLETED exit 0; 53 source outputs; downloaded",
   "report_draft": "results_report/REPORT.pdf",
-  "updated_at": "2026-11-22T09:02:18.775955+00:00"
+  "updated_at": "2026-11-22T11:34:57.557413+00:00"
 }

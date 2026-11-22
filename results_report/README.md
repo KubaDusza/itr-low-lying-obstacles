@@ -1,13 +1,20 @@
-# Results report draft
+# Results report
 
-REPORT.tex preserves the approved introduction and related work verbatim and retains most methodology from methodology_report/REPORT.tex. Targeted methods edits update reference creation/review counts, automatic prompts, completed experiment cohorts, training durations and the evaluation domain. Results are inserted from results_section.tex. The original methodology report is unchanged. Local class, bibliography and image assets allow this directory to build independently of that source directory.
+`REPORT.pdf` combines the approved bibliography survey, updated methodology, results and conclusion in the IEEE conference template. Introduction and State of the Art remain verbatim from the approved methodology source. The original methodology report is unchanged. The results and conclusion occupy pages 5–6 (four columns); references and the original collection appendix follow. The user-supplied deadline is November 22 at 17:59 Europe/Paris. Nothing has been submitted automatically.
 
-Evidence: results/results_report_20261122 and results/triton_20261121/production/analysis_final. Full-frame GTE scores are diagnostic; prop-aware crop inference and expanded reviewed ISOD test coverage are not claimed.
+Build with `zsh build.sh`. The directory includes its own class, bibliography and image assets.
 
-Build with `zsh build.sh` from this directory using a LaTeX installation. The output is REPORT.pdf. The combined document has eight pages: the results/conclusion occupy pages 5–6, references page 7 and the preserved collection appendix page 8. The deadline supplied by Jakub is November 22 at 17:59, superseding the earlier 23:59 note. Nothing has been submitted automatically.
+The main figures show semantic object coverage/localization, native box detection, distance/apparent-size effects, and all four cloths on bare floor versus poster. They use current predictions and seed variation. Matched qualitative views explicitly include fusion failures. The lab partner's emphasis on graphical comparisons and matched examples informed presentation; their earlier model results and statistics were not substituted for these experiments.
 
-The main presentation uses a model/supervision table as context, a range/size plot, and one matched qualitative figure covering shape, near/far appearance and the poster counterexample. Coverage recall, localization recall and false components are reported separately: a tighter mask is not automatically a newly recovered object. Overlap-threshold sensitivity was checked at 0.25/0.50/0.75. The figures deliberately show a fusion failure alongside aggregate gains. Seed spread is shown instead of ranking the best run. The three-prompt teacher is kept separate from reference assistance and older automatic-label versions.
+The six new YOLOv8n detection runs are complete: reference/automatic instance labels x seeds 0/1/2, 20 epochs. They are separate from the older YOLOv8n-seg runs and the ESANet semantic comparison. Native box AP and one-to-one box recall are not interchangeable with semantic-mask coverage/localization. Automatic RGB semantic results retain their honest two-seed count; the missing Georgia Tech run has not been retrieved.
 
-Training curves, exact teacher examples, four outcome-selected/paired qualitative cases, background statistics and label provenance are supporting artifacts in results/results_report_20261122. The cases distinguish a newly covered target, a boundary-only gain, a fusion loss and the low-contrast counterexample; shown-view adjusted IoU and all-seed/repeat rates are disclosed. They are not extra pages of the submitted results section. Native instance AP, physical dimensions without calibration, incomplete three-prompt U-Net/YOLO repetitions and clean prop-aware/cropped results are excluded because the required evidence is not complete.
+Evidence:
 
-Rubric and integrity checks are recorded in rubric_check.json. source_assets.json records the approved source and copied asset hashes; figures/selection.json records the main example choices.
+- `results/instance_detection_20261122`: box labels, native detector configurations/histories, fixed-threshold scores, training curves, matched-configuration checks and remote artifact hashes.
+- `results/results_report_20261122`: semantic cohort/condition analyses, training curves, teacher-mask examples, and a supporting cable/fusion/boundary gallery.
+- `results/triton_20261121/production/analysis_final`: completed semantic evaluation and depth interventions.
+- `DATASET_CREATION.md`: reference assistance versus RGB-only automatic-label generation, human reviews and frozen versions.
+- `rubric_check.json`: current PDF integrity and rubric checks.
+- `source_assets.json`: approved source hashes and generated figure provenance.
+
+GTE is one external room with five static repeats per recording. IDs include assisted groups and recording props are not exhaustively annotated, so full-frame unmatched predictions are diagnostic. ISOD test results cover 30 reviewed frames, not the entire 300-frame split. The short box experiment is not convergence-matched to ESANet; five validation optima occur at the last epoch. Physical dimensions are not invented from image area or unvalidated object depth. Prop-aware inference crops, expanded reviewed test coverage and verified physical-object evaluation remain future work.

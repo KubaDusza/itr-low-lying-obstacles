@@ -173,7 +173,8 @@ design}\label{task-and-experimental-design}
 The task is to locate small, low-lying floor objects that can obstruct
 an indoor mobile robot. Each model receives a color image (RGB), a depth
 image (D), or their aligned combination (RGB-D), and predicts a binary
-obstacle mask at the original image resolution.
+obstacle mask at the original image resolution. A separate RGB detector
+predicts one bounding box per annotated hazard unit.
 
 Training uses the published ISOD dataset of RGB-D floor scenes, with
 separate recording locations for training, validation and testing. We
@@ -228,8 +229,9 @@ training set: the frozen 1,400 training masks contain 70 reviewed masks
 and 1,330 assisted proposals. All 300 validation masks were reviewed.
 The reported ISOD test scores use 30 reviewed frames, ten per test
 location, rather than the full 300-frame test split. A subsequent
-16-frame training review was saved as a separate version and was not
-used by the models reported here. Movable floor items are retained,
+16-frame training review supplies the newer box-detector reference
+version, with 85 reviewed and 1,315 assisted masks; semantic models keep
+the frozen version above. Movable floor items are retained,
 including larger controls; no measured height cutoff is imposed.
 
 \subsubsection{GTE-Floor}\label{gte-floor}
@@ -289,6 +291,7 @@ Method & RGB & D & RGB-D \\
 ESANet & Yes & Yes & Yes \\
 U-Net & Yes & -- & -- \\
 YOLOv8n-seg & Yes & -- & -- \\
+YOLOv8n detector & Yes & -- & -- \\
 Floor-plane fit & -- & Yes & -- \\
 \bottomrule
 \end{tabularx}
@@ -319,6 +322,13 @@ predicted object masks are combined for evaluation.
 U-Net runs for 15 epochs and YOLO for 20; checkpoints are selected by
 reference-validation obstacle IoU.
 
+The separate YOLOv8n box detector uses COCO-pretrained weights,
+640-pixel inputs, batch size 16 and SGD for 20 epochs, with three matched
+seeds per label source. One reference-instance ID becomes one enclosing
+box, including disconnected visible parts. Shared 300-frame reference
+validation boxes select the best checkpoint by box AP50:95. Instance
+targets are assisted proposals and include unresolved groups.
+
 \subsection{Automatic labeling}\label{automatic-labeling}
 
 We test whether automatic labeling with SAM 3 can reduce manual
@@ -340,25 +350,17 @@ fixed for every generated image, including empty scenes.
 The completed ESANet runs compare these automatic masks with the frozen
 reference training masks. Automatic masks are used without human
 correction, including empty predictions and labeling failures. Completed
-U-Net and YOLO reference runs provide additional RGB comparisons; the
-new three-prompt repetitions for these models are not included until
-complete.
+U-Net and YOLOv8n-seg reference runs provide additional RGB comparisons.
+For automatic box-detector targets, fresh SAM instance predictions from
+the same three prompts undergo mask-overlap duplicate and parent/child
+resolution before box conversion, without reference-mask input.
 
 Both training sets label the full image as obstacle or background.
 
 \subsection{Evaluation}\label{evaluation}
 
 We evaluate SAM 3's masks and all methods in Table \ref{tab:models}
-against reference test masks from ISOD and GTE-Floor. With \(TP\),
-\(FP\) and \(FN\) counting correctly detected, falsely detected and
-missed obstacle pixels, \begin{equation}
-\begin{aligned}
-\mathrm{IoU}&=\frac{TP}{TP+FP+FN},\\
-\mathrm{Prec}&=\frac{TP}{TP+FP},\quad
-\mathrm{Rec}=\frac{TP}{TP+FN}.
-\end{aligned}
-\end{equation} We sum pixel counts across images for dataset-level
-scores. GTE-Floor results are grouped by object type, pixel size, nominal floor
+against reference test masks from ISOD and GTE-Floor. We report pooled pixel IoU as a companion measure of mask quality. GTE-Floor results are grouped by object type, pixel size, nominal floor
 distance, camera setup and background. Coverage recall counts reference units with at least half their pixels
 predicted. We interpret this alongside false components and reference-unit
 localization: the union of touching predicted components must achieve

@@ -3,7 +3,8 @@
     "reference": "ISOD_reference_train_v1",
     "human_reviewed": 70,
     "assisted": 1330,
-    "labels_frozen": true
+    "labels_frozen": true,
+    "status": "Frozen semantic-label version; Triton semantic runs completed"
   },
   "updated_candidate": {
     "path": "ISOD_reference_train_reviewed_candidate_20261121",
@@ -11,7 +12,8 @@
     "assisted": 1315,
     "new_reviewed_frames": 16,
     "new_unique_reviewed_training_frames": 15,
-    "promoted_to_running_jobs": false
+    "promoted_to_running_jobs": false,
+    "used_by_native_box_experiment": true
   },
   "validation": {
     "path": "ISOD_reference_val_v1",
@@ -46,5 +48,16 @@
     "ISOD_gt2",
     "ISOD_sam_review/review_drafts",
     "ISOD_gt_quality_review_20261121"
-  ]
+  ],
+  "native_box_experiment": {
+    "reference": "results/instance_detection_20261122/input/reference",
+    "automatic": "results/instance_detection_20261122/automatic/automatic",
+    "source_instance_pool": "results/reference_instance_pool_reviewed_20261121",
+    "status": "six completed 20-epoch detectors",
+    "reference_human_reviewed_binary_frames": 85,
+    "reference_assisted_binary_frames": 1315,
+    "automatic_uses_reference_masks": false,
+    "validation": "shared 300 reference-instance frames",
+    "groups_remain_explicit": true
+  }
 }

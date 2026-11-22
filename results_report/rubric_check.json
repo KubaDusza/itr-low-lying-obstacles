@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-22T09:15:43.752539+00:00",
+  "updated_at": "2026-11-22T13:35:25.152273+00:00",
   "deadline_supplied_by_user": "2026-11-22 17:59 Europe/Paris",
   "format": "IEEEtran conference, two columns",
   "combined_pages": 8,
@@ -18,9 +18,10 @@
     "tab:collection",
     "tab:models",
     "fig:objects",
+    "fig:detection-comparison",
+    "fig:native-boxes",
     "fig:range-size",
-    "tab:results",
-    "fig:cloth-depth"
+    "fig:detection-examples"
   ],
   "captions_explain_units_colors_seeds_and_scope": true,
   "graphs_and_tables_support_results": true,
@@ -28,26 +29,41 @@
   "no_undefined_references": true,
   "no_overfull_boxes": true,
   "no_type3_fonts": true,
-  "review": "All pages rendered and inspected; results pages inspected at full render resolution. Qualitative captions checked against all seed/repeat rows.",
+  "review": "All pages rendered; changed methods and both results pages inspected at full resolution. Figure clipping and legend overlap corrected. Cloth and native box captions checked against saved predictions.",
   "scientific_limits": [
     "30 reviewed ISOD test frames, not all 300",
-    "Assisted reference training labels; not fully manually annotated",
-    "Validation-informed automatic prompt selection",
-    "Full-frame GTE diagnostic includes recording props",
-    "GTE IDs include groups/proposed fastener splits; not native instance AP",
-    "One external room; five repeats/recording",
-    "Automatic RGB comparison uses two completed matching seeds",
-    "Latest manual corrections were not used by these models"
+    "Assisted reference labels, not fully manually annotated instances",
+    "Validation-informed prompt development",
+    "GTE recording props are unannotated; unmatched predictions are diagnostic",
+    "GTE IDs include annotated groups",
+    "One external room and five static repeats/recording",
+    "Automatic RGB semantic cohort uses two retrieved seeds",
+    "Native detector runs use a 20-epoch budget; five optima are at the last epoch"
   ],
-  "submission_status": "Not submitted; reviewable draft",
-  "pdf_sha256": "176bc6413b16a77dd37f9fff777eff49ded54fd0a90b534d7ccad00c57c21c29",
-  "main_tex_sha256": "1014ec3035fd252db497289a1cc77e23348d4585cfd265335f9c647ffd506f90",
-  "results_tex_sha256": "502250df6d02ea865a6e9034af840e127bc87332b4b80f7bab9a6378b59573d7",
-  "supporting_examples_rendered_and_inspected": true,
-  "coverage_localization_and_false_components_separated": true,
-  "localization_sensitivity_thresholds": [
-    0.25,
-    0.5,
-    0.75
-  ]
+  "native_box_experiment": {
+    "runs": 6,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "sources": [
+      "reference",
+      "automatic"
+    ],
+    "epochs": 20,
+    "task": "detect",
+    "matched_configuration_verified": true,
+    "local_remote_evaluation_exact": true,
+    "reference_frames": 1400,
+    "validation_frames": 300,
+    "gte_frames": 320,
+    "reference_unit_views": 1310
+  },
+  "submission_status": "Not submitted; reviewable report",
+  "pdf_sha256": "d1462f83bc469c572747bef9de58245602130c9982a3782c70f73405179d36f5",
+  "main_tex_sha256": "3838e143df792c52dc9337f4938e373d92a841b1a76e7db7bb2c061f456569ae",
+  "results_tex_sha256": "0e02df6fd1ae4142196117481706e29c9556ad6ca54b7dfd8b697dd0256996e0",
+  "coverage_localization_and_native_box_detection_separated": true,
+  "standard_iou_precision_recall_equations_removed": true
 }

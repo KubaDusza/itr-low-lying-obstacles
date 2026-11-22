@@ -16,6 +16,8 @@ from matplotlib.backends.backend_pdf import PdfPages
 import numpy as np
 from PIL import Image
 
+plt.rcParams.update({'font.family': 'serif', 'font.serif': ['STIXGeneral'], 'pdf.fonttype': 42})
+
 ROOT = Path(__file__).resolve().parents[1]
 ANALYSIS = ROOT/'results/triton_20261121/production/analysis_final'
 OUT = ROOT/'results/results_report_20261122'
@@ -91,9 +93,17 @@ def main():
     assert (ANALYSIS/'COMPLETE').exists(), 'Final server analysis must finish first'
     completion = json.loads((ANALYSIS/'completion.json').read_text())
     assert completion['full_RGBD_training_and_depth_interventions_required']
-    source = json.loads((ANALYSIS/'gte_full_diagnostic/summary.json').read_text())['source_runs']
+    source_dir=OUT/'revision' if (OUT/'revision/COMPLETE').exists() else ANALYSIS/'gte_full_diagnostic'
+    source = json.loads((source_dir/'summary.json').read_text())['source_runs']
     recordings = rows(ANALYSIS/'recording_summary.csv')
-    objects = rows(ANALYSIS/'gte_full_diagnostic/objects.csv')
+    if source_dir==OUT/'revision':
+        grouped=defaultdict(list)
+        for row in rows(source_dir/'frames.csv'):grouped[row['model'],row['recording']].append(row)
+        recordings=[]
+        for (model,recording),rr in grouped.items():
+            tp=sum(int(r['tp50']) for r in rr);fn=sum(int(r['fn50']) for r in rr)
+            recordings.append(dict(model=model,recording=recording,nominal_distance_m=rr[0]['nominal_distance_m'],localization_recall=tp/(tp+fn) if tp+fn else None))
+    objects = rows(source_dir/'objects.csv')
     object_rows=defaultdict(list)
     for r in objects:object_rows[r['model']].append(r)
     def metrics(name):
@@ -122,7 +132,7 @@ def main():
             metrics={k:stats([m[k] for m in measures]) for k in measures[0]})
         for s,name in present.items(): table.append(dict(modality=mode,labels=labels,seed=s,model=name,**metrics(name)))
     for family in ('unet','yolo'):
-        cohort=[f'{family}_full_reference_s{s}' for s in range(3)]
+        cohort=[f'unet_logged_reference_s{s}' for s in range(3)] if family=='unet' and 'unet_logged_reference_s0' in source else [f'{family}_full_reference_s{s}' for s in range(3)]
         assert all(n in source for n in cohort)
         measures=[metrics(n) for n in cohort]
         summary[family+'_reference']=dict(seeds=[0,1,2],models=cohort,
@@ -208,9 +218,9 @@ def main():
         isod='Only 30 reviewed test frames, 10/site, of the 300-frame test split; provisional evidence.',
         instances='GTE IDs include individuals and groups; not native instance AP.',
         automatic='RGB-only generation, but prompt development/validation used reviewed references.',
-        new_corrections='16 recent corrections are saved separately; running models used the frozen 70 reviewed + 1330 assisted reference labels.')
+        new_corrections='Semantic runs use frozen 70 reviewed + 1330 assisted masks; the new box detector uses the updated 85 reviewed + 1315 assisted instance-derived reference source.')
     summary['source_analysis_completion']=completion
-    summary['source_summary_sha256']=hashlib.sha256((ANALYSIS/'gte_full_diagnostic/summary.json').read_bytes()).hexdigest()
+    summary['source_summary_sha256']=hashlib.sha256((source_dir/'summary.json').read_bytes()).hexdigest()
     summary['matched_reference_unit_recording_pairs']=len(units)
     (OUT/'evidence.json').write_text(json.dumps(summary,indent=2)+'\n')
     teacher_audit()

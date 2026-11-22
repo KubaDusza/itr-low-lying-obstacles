@@ -171,10 +171,11 @@ balance between segmentation performance and computational efficiency.
 design}\label{task-and-experimental-design}
 
 The task is to locate small, low-lying floor objects that can obstruct
-an indoor mobile robot. Each model receives a color image (RGB), a depth
-image (D), or their aligned combination (RGB-D), and predicts a binary
-obstacle mask at the original image resolution. A separate RGB detector
-predicts one bounding box per annotated hazard unit.
+an indoor mobile robot. Segmentation predicts which pixels belong to
+obstacles; detection predicts a box around each object. We study both
+because a mask can cover an obstacle without separating it from nearby
+objects or background. The added box detector learns from individual
+hazard-unit boxes rather than a single binary obstacle mask.
 
 Training uses the published ISOD dataset of RGB-D floor scenes, with
 separate recording locations for training, validation and testing. We
@@ -270,9 +271,8 @@ Camera heights: 25 and 52 cm; floor distances: 0.75, 1.5 and 2.5 m. Reference sc
 \subsection{Models and training}\label{models-and-training}
 
 We compare ESANet's RGB, D and RGB-D versions using the authors'
-ResNet-34 NBt1D models \cite{seichter2021efficient}. The additional depth encoder also changes model capacity; the
-comparison tests these ESANet configurations rather than isolating
-input information at an identical parameter count.
+ResNet-34 NBt1D models \cite{seichter2021efficient}. The RGB-D version
+has an additional depth encoder and more parameters.
 
 To compare established methods for individual modalities, we also
 evaluate U-Net and YOLOv8n-seg using RGB, and a geometric method using D
@@ -280,21 +280,22 @@ evaluate U-Net and YOLOv8n-seg using RGB, and a geometric method using D
 detect objects protruding from the floor.
 
 \begin{table}[H]
-\caption{Methods compared for small floor-obstacle detection}
+\caption{Models, inputs and supervised outputs.}
 \label{tab:models}
-\centering
-\footnotesize
-\begin{tabularx}{\columnwidth}{@{}l*{3}{>{\centering\arraybackslash}X}@{}}
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{llll}
 \toprule
-Method & RGB & D & RGB-D \\
+Method & Output & Inputs & Epochs\\
 \midrule
-ESANet & Yes & Yes & Yes \\
-U-Net & Yes & -- & -- \\
-YOLOv8n-seg & Yes & -- & -- \\
-YOLOv8n detector & Yes & -- & -- \\
-Floor-plane fit & -- & Yes & -- \\
+ESANet & Binary mask & RGB/D/RGB-D & 500\\
+U-Net & Binary mask & RGB & 15\\
+YOLOv8n-seg & Masks + boxes & RGB & 20\\
+YOLOv8n & Boxes & RGB & $\leq200$\\
+Floor-plane fit & Binary mask & D & --\\
+SAM 3 & Object masks & RGB & --\\
 \bottomrule
-\end{tabularx}
+\end{tabular}
 
 \end{table}
 
@@ -323,8 +324,9 @@ U-Net runs for 15 epochs and YOLO for 20; checkpoints are selected by
 reference-validation obstacle IoU.
 
 The separate YOLOv8n box detector uses COCO-pretrained weights,
-640-pixel inputs, batch size 16 and SGD for 20 epochs, with three matched
-seeds per label source. One reference-instance ID becomes one enclosing
+640-pixel inputs, batch size 16 and SGD, with three matched seeds per
+label source. Training stops after 20 epochs without validation AP50:95
+improvement, with a maximum of 200 epochs. One reference-instance ID becomes one enclosing
 box, including disconnected visible parts. Shared 300-frame reference
 validation boxes select the best checkpoint by box AP50:95. Instance
 targets are assisted proposals and include unresolved groups.
@@ -341,10 +343,9 @@ receives the full RGB image and the fixed prompts ``small object on the
 floor'', ``cable on the floor'' and ``things on the floor''. Masks with
 confidence at least 0.6 are combined by union, with mask-probability
 threshold 0.5. Generation uses no ISOD masks, human reference masks,
-negative prompts or per-image corrections. Prompt development used 30
-reviewed training frames, followed by validation-informed ablation on
-the 300 reviewed validation frames; this is therefore not an
-annotation-free end-to-end procedure. The checkpoint and prompts remain
+negative prompts or per-image corrections. We used 30 reviewed training
+frames to choose the prompts and checked alternatives on the 300
+reviewed validation frames. The checkpoint and prompts remain
 fixed for every generated image, including empty scenes.
 
 The completed ESANet runs compare these automatic masks with the frozen
@@ -355,24 +356,26 @@ For automatic box-detector targets, fresh SAM instance predictions from
 the same three prompts undergo mask-overlap duplicate and parent/child
 resolution before box conversion, without reference-mask input.
 
-Both training sets label the full image as obstacle or background.
 
 \subsection{Evaluation}\label{evaluation}
 
-We evaluate SAM 3's masks and all methods in Table \ref{tab:models}
-against reference test masks from ISOD and GTE-Floor. We report pooled pixel IoU as a companion measure of mask quality. GTE-Floor results are grouped by object type, pixel size, nominal floor
-distance, camera setup and background. Coverage recall counts reference units with at least half their pixels
-predicted. We interpret this alongside false components and reference-unit
-localization: the union of touching predicted components must achieve
-adjusted IoU of at least 0.5, retaining their extra background extent
-while excluding other annotated targets from that background penalty.
-A prediction covering the whole poster therefore does not establish
-localization of its small targets. Reference IDs include explicit object
-groups; this diagnostic is not native instance AP. Full-frame false
-components include recording props and are not a clean estimate of
-operational false alarms. Five static repeats are averaged within
-recordings for condition summaries; error bars show variation across
-training seeds, not independent-scene confidence intervals.
+We evaluate frozen models on ISOD and GTE-Floor without test-time
+fine-tuning. Pixel IoU measures mask agreement. Following our original
+analysis, object recall counts annotated units with at least half their
+pixels covered by the combined predictions; it does not demand one
+prediction per reference object.
+
+To check excess background, we also use the published component metrics
+of SegmentMeIfYouCan~\cite{chan2021segment}. These combine split
+predictions and allow merged predictions to cover several targets,
+while penalizing background included with them. Mean component F1
+summarizes recovery and extra regions across the benchmark's overlap
+thresholds. For the common obstacle-region comparison, accepted native
+boxes are filled and united before scoring; they are coarser than masks.
+Conventional box AP is reported separately for the box detector.
+Dataset adaptations, matching examples and thresholds are detailed in
+Appendix~\ref{app:evaluation}. Means and error bars describe training-seed
+variation; five static repeats are grouped within recordings.
 
 \clearpage
 \input{results_section.tex}
@@ -383,14 +386,7 @@ training seeds, not independent-scene confidence intervals.
 \bibliography{refs}
 
 \onecolumn
-
-\appendix[GTE-Floor Object Sets]\label{app:objects}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/object_sets.png}
-\caption{GTE-Floor's seven object sets. Cables, hex keys and screws provide thin or small obstacles; cloths and tissues include flat and crumpled forms. Tape rolls and chess pieces provide taller objects, while the mixed set adds everyday items.}
-\label{fig:objects}
-\end{figure}
+\appendices
+\input{appendix.tex}
 
 \end{document}

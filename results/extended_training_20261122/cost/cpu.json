@@ -1,0 +1,56 @@
+{
+  "complete": true,
+  "protocol": "Batch 1, images already loaded, preprocessing plus model plus postprocessing plus output-to-CPU. Model download/load excluded. Same fixed weights and three images on each hardware; precision follows optimized GPU and float32 CPU modes.",
+  "torch": "2.10.0",
+  "cpu_threads": 8,
+  "slurm_job": "21774376",
+  "rows": [
+    {
+      "model": "YOLOv8n box detector",
+      "device": "cpu",
+      "hardware": "Intel(R) Xeon(R) Gold 6230 CPU @ 2.10GHz",
+      "precision": "float32",
+      "parameters": 3011043,
+      "warmup": 1,
+      "measured_frames": 3,
+      "images": [
+        "OWN/h52_poster_rags_075/rgb/2.png",
+        "OWN/h25_floor_cables_250/rgb/2.png",
+        "OWN/h25_floor_random_150/rgb/2.png"
+      ],
+      "median_ms": 33.85843592695892,
+      "p90_ms": 36.48143350146711,
+      "times_ms": [
+        37.137182895094156,
+        33.23838487267494,
+        33.85843592695892
+      ],
+      "peak_memory_GiB": 0.6121253967285156,
+      "memory_measure": "process peak RSS"
+    },
+    {
+      "model": "SAM 3, three prompts with shared image features",
+      "device": "cpu",
+      "hardware": "Intel(R) Xeon(R) Gold 6230 CPU @ 2.10GHz",
+      "precision": "float32",
+      "parameters": 840376374,
+      "warmup": 1,
+      "measured_frames": 3,
+      "images": [
+        "OWN/h52_poster_rags_075/rgb/2.png",
+        "OWN/h25_floor_cables_250/rgb/2.png",
+        "OWN/h25_floor_random_150/rgb/2.png"
+      ],
+      "median_ms": 13263.336976058781,
+      "p90_ms": 13320.473069511354,
+      "times_ms": [
+        13334.757092874497,
+        13263.336976058781,
+        13169.770434964448
+      ],
+      "peak_memory_GiB": 4.881080627441406,
+      "memory_measure": "process peak RSS"
+    }
+  ],
+  "sam_revision": "cba430d22f6fdc3f06ad3841274ec7bb55885f2f"
+}

@@ -4,9 +4,9 @@
     {
       "source": "methodology_report/refs.bib",
       "destination": "refs.bib",
-      "sha256": "63c451e86e4624d6b8691bf48e60027b6b991d31009a83099432077ffb33bd71",
+      "sha256": "6151d4b98f9d6ffbd9a01211b9d6a966bd522a9eab840114444e95a637a5b06a",
       "source_sha256": "63c451e86e4624d6b8691bf48e60027b6b991d31009a83099432077ffb33bd71",
-      "destination_sha256": "63c451e86e4624d6b8691bf48e60027b6b991d31009a83099432077ffb33bd71"
+      "destination_sha256": "6151d4b98f9d6ffbd9a01211b9d6a966bd522a9eab840114444e95a637a5b06a"
     },
     {
       "source": "methodology_report/IEEEtran.cls",
@@ -54,25 +54,121 @@
   ],
   "generated_figures": [
     {
-      "destination": "figures/detection_comparison.pdf",
-      "sha256": "245d25c376dc9420ccdb9338774bef18004fd7dac7513595e6757cc6279c5790",
-      "generator": "code/make_detection_report_figures.py"
+      "destination": "figures/appendix_esanet_curves.pdf",
+      "sha256": "1c70135d39e38dd12bf288c3503ba6df29c74852ec20931de415d4f520083e53"
+    },
+    {
+      "destination": "figures/appendix_esanet_curves.png",
+      "sha256": "1d7e9f5e227683b9ab6229ef68e4a9ee0bb95c7218a5c34c2021d379ba41c192"
+    },
+    {
+      "destination": "figures/appendix_native_curves.pdf",
+      "sha256": "9f12ab973c433e56914d564a791c049784bb57901945f3f23c4fee00415153fc"
+    },
+    {
+      "destination": "figures/appendix_native_curves.png",
+      "sha256": "f484b96e4a1721d8ce64ebf41d733b52b3d5303818c9c1505958b3750973ba03"
+    },
+    {
+      "destination": "figures/appendix_rgb_baseline_curves.pdf",
+      "sha256": "d79a243d0687d60ce1b5f6ca6a1bbc4f603b3dd1624a72b2f3c469537fc20233"
+    },
+    {
+      "destination": "figures/appendix_rgb_baseline_curves.png",
+      "sha256": "175763b94192e23c61e1e0ec303149450242c31e13986dd838ef9306de7f415a"
+    },
+    {
+      "destination": "figures/automatic_teacher_examples.pdf",
+      "sha256": "ac9b8ffd8cd56dfbf2dad7f173fd45c5dbda4924d07a1e8004465982f6707d91"
+    },
+    {
+      "destination": "figures/cloth_depth_examples.pdf",
+      "sha256": "0abd9f5e977ea5384f0d8f629c941381b58a89e3a5286231869b85ef62f2e647"
+    },
+    {
+      "destination": "figures/cloth_depth_examples.png",
+      "sha256": "ae91ee568bfff38bbea68134a6ea2f3c512626906cd6ac501a75860ef5fa21e7"
+    },
+    {
+      "destination": "figures/cloth_scenes_all_seeds.pdf",
+      "sha256": "4e6dca745a1a5305be97d6ef25e1a2b4a28cfec35da03e3d1530ecc5ba45464f"
+    },
+    {
+      "destination": "figures/cloth_seed1.pdf",
+      "sha256": "abef50562e889239f59dd2b8d4cee134ae53cdc55d8698d679a7cb1db5016f5b"
+    },
+    {
+      "destination": "figures/cloth_seed1.png",
+      "sha256": "7dac66f9224f178b5e3d90f3113b5fddabd021a5fe51abac1848b7930930b443"
+    },
+    {
+      "destination": "figures/cloth_seed2.pdf",
+      "sha256": "81cf9515d2c13b65ea8d62c6039dc972e51ae1617ad00811494872a1cbf8e6a8"
+    },
+    {
+      "destination": "figures/cloth_seed2.png",
+      "sha256": "fa27de3b662a9f7168570ae0170a2706fc33ec5f7ad0a5db69a62a14fe2d08b9"
+    },
+    {
+      "destination": "figures/collection.png",
+      "sha256": "eff300205a5186151b030bb083785ff5991d008b6ac6a583d3bd381b3645a3c2"
     },
     {
       "destination": "figures/detection_by_distance_size.pdf",
-      "sha256": "962efb72e2c1332e1c11b996a8c37e37b57700828d5c3d7fa5b0297ac8fa7f8b",
-      "generator": "code/make_detection_report_figures.py"
+      "sha256": "19ed30e2ae4afc93c294424ab59d9ac5f0914abb013a9b3fa40033bb356dc0a7"
+    },
+    {
+      "destination": "figures/detection_by_distance_size.png",
+      "sha256": "d807768ec880bbdf052b0d2844025fa75874502cbb697c8b3057a362bfc1d1a1"
+    },
+    {
+      "destination": "figures/detection_comparison.pdf",
+      "sha256": "245d25c376dc9420ccdb9338774bef18004fd7dac7513595e6757cc6279c5790"
+    },
+    {
+      "destination": "figures/detection_comparison.png",
+      "sha256": "084f598f330f3c087dd7f32f75bfb3297762fe95d152a7a975c89ea51625d03d"
     },
     {
       "destination": "figures/detection_examples.pdf",
-      "sha256": "81d43ef581dc587f4a5752ffe440c7ea881633aa2758a0e6eea5a53b5284743c",
-      "generator": "code/make_detection_report_figures.py"
+      "sha256": "b9be2796dad5a912ef8dc8cfa03fca85001fcba155219aab7d11c65ec241925f"
+    },
+    {
+      "destination": "figures/detection_examples.png",
+      "sha256": "c80c214141a76c511dacc831b198b7a4e927ee2ee4ec8c80e5f819204e1569bd"
     },
     {
       "destination": "figures/native_box_detection.pdf",
-      "sha256": "57c5dfbfa7a8e8ebe533bf3afe02c5b3565bc10147522ca78297e59002562c3c",
-      "generator": "code/make_native_detection_figures.py"
+      "sha256": "57c5dfbfa7a8e8ebe533bf3afe02c5b3565bc10147522ca78297e59002562c3c"
+    },
+    {
+      "destination": "figures/native_box_detection.png",
+      "sha256": "581bd3be830f5b003aec85f0b678a0ece9c8dc679d3fb090d46e4e96a1ee048d"
+    },
+    {
+      "destination": "figures/object_sets.png",
+      "sha256": "9eff85f295a0bd4d4fde1418e51d4c070fced4a2ad79291144747121f5384df2"
+    },
+    {
+      "destination": "figures/qualitative_cases.pdf",
+      "sha256": "cdc4adf4b2454600cb10be6a2b1abd33410a2cc8afdd0538c9656398aed6bbc8"
+    },
+    {
+      "destination": "figures/range_and_size.pdf",
+      "sha256": "a77dfc5ef02bea6af611f8624c66ec64aa38dc921e337dcbaafc39022178b20f"
+    },
+    {
+      "destination": "figures/range_and_size.png",
+      "sha256": "6f207a45096e4c20bb2f854eec72b1e9a5c879b4cd6c49170d3e0f693ac745fa"
+    },
+    {
+      "destination": "figures/supervision_pipeline.pdf",
+      "sha256": "e398a962680fa282a54a5c6890262abb924d3530a67aa4ba90b314f3b662bb3f"
+    },
+    {
+      "destination": "figures/supervision_pipeline.png",
+      "sha256": "0b06b495b138f3a76dff8898d3ef31a27fff15d78079773f45edb717ac487cb6"
     }
   ],
-  "updated_at": "2026-11-22T13:35:25.152273+00:00"
+  "updated_at": "2026-11-22T15:54:26.364008+00:00"
 }

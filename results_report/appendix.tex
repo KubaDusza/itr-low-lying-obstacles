@@ -1,0 +1,367 @@
+\section{GTE-Floor Object Sets}\label{app:objects}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/object_sets.png}
+\caption{GTE-Floor's seven object sets. Cables, hex keys and screws provide thin or small obstacles; cloths and tissues include flat and crumpled forms. Tape rolls and chess pieces provide taller objects, while the mixed set adds everyday items.}
+\label{fig:objects}
+\end{figure}
+
+\clearpage
+\section{Experimental Configuration and Label Construction}\label{app:configuration}
+
+Table~\ref{tab:experiment-matrix} makes the training tasks and completed
+comparisons explicit. All learned models use the same 1,400 ISOD training
+images and 300 validation images. ``Reference'' denotes assisted obstacle
+annotations that use the original ISOD masks and human corrections;
+``SAM'' denotes RGB-only generation without those masks. They are two
+sources of training targets, not two different test sets. Each paired
+comparison changes the label source within one architecture. Both models
+are evaluated against the same GTE references; agreement on a single
+example is therefore insufficient evidence that the label sources are
+equivalent.
+
+\begin{table}[H]
+\caption{Completed training configurations.}
+\label{tab:experiment-matrix}
+\centering\small
+\begin{tabular}{llllrr}
+\toprule
+Model & Input & Supervised target & Label sources & Epochs/run & Runs\\
+\midrule
+ESANet & RGB & Binary pixel mask & Reference, SAM & 500 & 6\\
+ESANet & D & Binary pixel mask & Reference, SAM & 500 & 6\\
+ESANet & RGB-D & Binary pixel mask & Reference, SAM & 500 & 6\\
+U-Net/MobileNetV2 & RGB & Binary pixel mask & Reference & 15 & 3\\
+YOLOv8n-seg & RGB & Instance masks and boxes & Reference & 20 & 3\\
+YOLOv8n detector & RGB & Hazard-unit boxes & Reference, SAM & $\leq200$ & 6\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Why add detection?} Binary segmentation learns obstacle versus
+background at each pixel. It is useful for estimating occupied image
+area, but its output need not separate adjacent objects. The box-only
+YOLO experiment instead learns the location and extent of each annotated
+hazard unit, using detection losses. YOLOv8n-seg includes box and mask heads and uses polygons derived from
+binary reference masks; the box-only detector uses boxes from the
+separate instance-ID export. We do not describe all
+three as the same training task.
+
+\textbf{Reference creation.} ISOD's not-drivable mask includes walls and
+furniture. SAM proposals, original-mask constraints, floor-contact and
+connected-region rules produce obstacle candidates, then human edits
+correct inclusion, omissions and mixed regions. The semantic training
+snapshot contains 70 reviewed binary masks and 1,330 assisted masks.
+All 300 validation masks and 30 test masks were reviewed; the latter
+are ten per held-out location, not the full 300-frame test split. A later
+16-frame review adds 15 newly reviewed training frames. The box-detector
+reference version therefore contains 85 reviewed and 1,315 assisted
+binary masks, partitioned into assisted instance IDs. One ID produces one
+enclosing box, including disconnected visible pieces. The sunglasses and
+loose-floor-loop corrections remain single IDs. Other IDs can be groups
+or uncertain proposals, rather than certified individual physical objects.
+
+\textbf{Automatic generation.} SAM 3 weights are frozen. Full RGB images
+are processed with exactly these three prompts:
+\begin{quote}
+small object on the floor\\
+cable on the floor\\
+things on the floor
+\end{quote}
+The acceptance confidence is 0.6 and mask-probability threshold 0.5.
+Accepted masks are united for semantic training. Instance targets use
+mask-overlap duplicate resolution and conservative parent/child rules;
+unresolved containment stays an explicit cluster. Thirty reviewed
+training frames supported prompt selection, and 300 reviewed validation
+frames supported checking alternatives. Generation itself receives no
+original ISOD mask, reference mask, corrective prompt or negative prompt.
+Native box-training instances are generated in a separate run using the
+same three prompts, confidence settings and pinned checkpoint. The pinned model is
+\textnormal{bodhicitta/sam3}, revision
+\textnormal{cba430d22f6fdc3f06ad3841274ec7bb55885f2f}.
+
+\textbf{Optimization and selection.} ESANet uses 640$\times$448 inputs,
+batch 8, SGD (learning rate 0.01, momentum 0.9, weight decay $10^{-4}$),
+OneCycle scheduling and the authors' median-frequency class weighting.
+Validation obstacle IoU selects its checkpoint. U-Net uses batch 8,
+AdamW (learning rate $3\times10^{-4}$) and binary cross-entropy plus soft Dice.
+Its checkpoint maximizes validation obstacle IoU. For YOLOv8n-seg, saved
+five-epoch checkpoints and the final checkpoint are rescored on reference
+validation masks; the checkpoint with highest pooled mask IoU is used.
+The box detector uses COCO initialization, 640-pixel inputs, batch 16,
+SGD (learning rate 0.01, momentum 0.937, weight decay $5\times10^{-4}$)
+and shared reference-box validation AP50:95 for checkpoint selection.
+Box inference uses confidence 0.25 and NMS IoU 0.7, fixed before GTE
+scoring. RGB/D ESANet runs use Torch 2.14; the paired RGB-D runs and
+new box runs use Torch 2.10. Paired supervision uses matching environments
+within each condition. ESANet modality comparisons also change model
+capacity, so they do not isolate depth information alone.
+
+\clearpage
+\section{Evaluation Details and Full Comparisons}\label{app:evaluation}
+
+\textbf{Objects recovered.} The companion object-recall measure counts a reference unit as recovered
+when at least half its pixels are covered. Predictions are united first:
+several fragments can cover one reference, and one prediction can cover
+several references. This measure alone can reward an oversized prediction,
+so it is interpreted with spatial precision and component scores.
+
+\textbf{Published component evaluation.} We use the SegmentMeIfYouCan
+adjusted-overlap and component-precision definitions~\cite{chan2021segment}.
+For each reference, all touching predicted regions contribute to its
+adjusted overlap. Pixels belonging to other reference objects do not
+become an extra-background penalty. Background between or around those
+objects still does. Thus splitting an object, or merging several targets,
+is not automatically a count mismatch. A broad floor prediction may
+cover all targets but receives poor spatial precision. Mean component F1
+is averaged over the published 11 overlap/precision thresholds
+0.25, 0.30, $\ldots$, 0.75. For the additional component-recall diagnostic, 0.5 means 50\% adjusted
+overlap.
+
+\textbf{Adaptations for our data.} Reference units use the supplied item
+or group IDs, including disconnected visible parts, rather than deriving
+all references from binary connected components. We retain small targets
+instead of applying a small-region cutoff. One explicitly uncertain
+four-pixel fragment is ignored in component/box scoring; original binary
+pixels remain in the pixel-score calculation. For native detections,
+boxes above confidence 0.25 are filled to the image grid, then united
+before extracting predicted components. This permits the same recovery
+and component analysis for mask and box outputs. Filled boxes have coarser
+spatial support than masks; their component precision describes that
+occupied-area approximation, not native box AP. These are adapted metrics
+on GTE-Floor, not official benchmark leaderboard scores.
+
+\textbf{Conventional detector evaluation.} Box AP50 and AP50:95 use the
+YOLO detector's confidence-ranked native boxes and enclosing boxes of
+GTE reference units. Unlike component evaluation, conventional AP uses
+one-to-one matches and can penalize different instance granularity.
+It therefore remains a separate detector diagnostic. Reference/SAM
+training gives AP50 0.541/0.631 and AP50:95 0.352/0.438 (three-seed
+means). At confidence 0.25 and box IoU 0.5, recall is 0.567/0.654,
+with 1.94/2.37 unmatched boxes per frame. Those strict box scores are not
+the shared obstacle-recovery scores in Table~\ref{tab:shared-detection}.
+
+\textbf{Scoring domain and uncertainty.} GTE has 64 static recordings
+with five repeated frames; 20 frames are empty controls. The valid
+reference units yield 262 unit/recording pairs, or 1,310 unit/frame
+observations. Recording props such as the poster or tape measure are not
+exhaustively annotated as hazards. Full-frame extra-region scores are
+therefore diagnostic and are not a clean operational false-alarm rate.
+A prediction filling the whole poster is not accepted as a precise mask
+of its small objects. The main error bars show three-seed standard deviation, describing
+training variation rather than sampling uncertainty across environments.
+Repeated frames are not independent scene samples. Table~\ref{tab:full-component}
+provides complete scores, and Table~\ref{tab:per-item} gives per-item recovery.
+
+\input{full_component_table.tex}
+
+\label{app:fullscores}
+The cross-dataset table's seed means and standard deviations are listed
+in Table~\ref{tab:domain-spread}; they describe run variation, not a
+confidence interval over new environments.
+\input{domain_spread_table.tex}
+
+\begin{table}[H]
+\caption{Model size and GPU forward latency.}
+\label{tab:runtime}
+\centering\small
+\begin{tabular}{lrr}
+\toprule
+Model & Parameters (millions) & Median forward time (ms)\\
+\midrule
+ESANet RGB & 32.05 & 8.71\\
+ESANet D & 32.04 & 8.69\\
+ESANet RGB-D & 46.88 & 13.94\\
+U-Net/MobileNetV2 & 6.63 & 3.97\\
+YOLOv8n-seg & 3.26 & 5.62\\
+\bottomrule
+\end{tabular}
+\end{table}
+Table~\ref{tab:runtime} uses an RTX 3090, float32 and batch 1, with inputs
+already on GPU, 30 warmup iterations and 100 CUDA-event measurements.
+These forward-only timings exclude preprocessing, transfer and postprocessing.
+Table~\ref{tab:runtime} documents the available compute measurements.
+The additional RGB-D encoder increases both parameter count and forward
+cost; those costs cannot be attributed to input information alone.
+
+\textbf{Reference-quality checks.} Replaying assistance on 370 reviewed
+training/validation frames gives mean image IoU 0.878; these examples
+informed development, so this is not independent test accuracy. A later
+stratified check of 14 previously unreviewed training frames gives mean
+image IoU 0.837 and pooled IoU 0.912, with two major errors corrected in
+the 16-frame review. These checks support assisted binary references,
+not complete certification of individual instances.
+
+\textbf{Image area and physical size.} Apparent size is annotated
+foreground pixels on the 640$\times$362 evaluation grid. GTE's stored
+D435 color calibration at 848$\times$480 has
+$(f_x,f_y,c_x,c_y)=(608.151,606.926,432.784,242.903)$; exported images
+retain the full field of view. Calibration alone does not ensure valid
+object-surface depth: thin-object pixels can measure the floor instead.
+We therefore do not convert these image-area bins or floor residuals
+into unvalidated physical dimensions. Exact ISOD intrinsics were not
+recovered for this study. The collection distances are floor marks,
+not per-object camera-axis range, and changing camera height also
+changes viewpoint.
+
+\clearpage
+\input{per_item_table.tex}
+
+\clearpage
+\section{Training and Validation Curves}\label{app:curves}
+
+Figure~\ref{fig:esanet-curves} shows all 18 ESANet histories. The saved histories contain all 500
+epochs. All training/validation loss panels share the same linear y-axis range.
+Bold curves are seed means and faint curves the three runs;
+reference and automatic sources use the same blue/orange style as the
+main plots. We plot the full-resolution training loss for comparison with validation,
+instead of comparing the multiscale optimization sum directly with a
+single-resolution validation loss.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/appendix_esanet_curves.pdf}
+\caption{ESANet full-resolution training loss, validation loss and validation obstacle IoU for RGB, D and RGB-D. Blue: reference training; orange: SAM training. The best validation checkpoint, rather than the final epoch by default, is evaluated.}
+\label{fig:esanet-curves}
+\end{figure}
+
+\clearpage
+Figure~\ref{fig:baseline-curves} gives the reference-trained RGB baseline
+histories. U-Net training and validation losses use the same binary
+cross-entropy plus Dice objective. Each model's training/validation loss
+panels use matching y-axis limits.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/appendix_rgb_baseline_curves.pdf}
+\caption{U-Net and YOLOv8n-seg reference-trained histories, three seeds each. The models use different objectives and epoch budgets; their loss magnitudes are not directly comparable.}
+\label{fig:baseline-curves}
+\end{figure}
+Figure~\ref{fig:native-curves} gives the six box-detector histories.
+Training uses validation AP50:95 early stopping with patience 20 and a
+maximum of 200 epochs. Reference seeds 0/1/2 stopped at 72/73/65 epochs;
+automatic-label seeds stopped at 67/98/84. Each faint trace ends at its actual stopping epoch;
+the mean is shown only where all three seeds have observations.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/appendix_native_curves.pdf}
+\caption{Native box-detector losses and validation AP50:95. Training/validation
+pairs share y-axis limits within each loss component; AP remains on a 0--1 axis. Blue: reference labels; orange: automatic labels. Faint curves are the three seeds, bold curves their means.}
+\label{fig:native-curves}
+\end{figure}
+
+\clearpage
+\section{Automatic-Label Examples}\label{app:teacher}
+
+Figures~\ref{fig:teacher-devval} and \ref{fig:teacher-test} show the exact
+three-prompt semantic teacher masks used in the experiment, alongside
+separately stored reviewed references. The development and validation
+frames informed prompt selection; the reviewed test subset did not.
+Teacher pooled mask IoU is 0.775 on the 30 development frames, 0.604 on
+300 validation frames and 0.757 on 30 reviewed test frames. These are
+direct mask-quality measures, distinct from the performance of the
+models subsequently trained on those labels.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.91\textwidth,page=1]{figures/automatic_teacher_examples.pdf}
+\includegraphics[width=0.91\textwidth,page=2]{figures/automatic_teacher_examples.pdf}
+\caption{Two discussed development scenes and two fixed validation scenes. Left: RGB; middle: reviewed reference; right: exact teacher output. Green is correct foreground, red extra and blue missed. These examples show error types, not an unbiased prevalence estimate.}
+\label{fig:teacher-devval}
+\end{figure}
+
+\clearpage
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,page=3]{figures/automatic_teacher_examples.pdf}
+\caption{Two fixed reviewed ISOD test examples, shown with the same teacher and color convention. These are part of the limited 30-frame test subset.}
+\label{fig:teacher-test}
+\end{figure}
+\section{Consistency Across Training Seeds}\label{app:seed-consistency}
+
+Figure~\ref{fig:cloth-seeds} repeats the cloth scene for all three seeds.
+The displayed seed-0 fusion failure is not consistent across runs: seeds
+1 and 2 recover several cloths. The flat white towel on the poster is
+missed in all 15 seed/frame observations for each modality. The crumpled
+white tissue is covered in 15/15 observations by D, 0/15 by RGB and 8/15
+by RGB-D; D's coverage can include excess background. In the seed-0 D view (frame 2), its coverage is 99.85\%, but adjusted
+overlap is 0.428 because of surrounding predicted background. It is
+recovered without passing the stricter spatial-quality threshold 0.5,
+illustrating why recovery and spatial extent are separate outcomes. Table~\ref{tab:cloth-repeat-counts} gives the corresponding recovery counts.
+\input{cloth_counts_table.tex}
+
+\clearpage
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/cloth_scenes_all_seeds.pdf}
+\caption{All three seeds on the same two cloth scenes (frame 2). Bare-floor seeds 0/1/2 are grouped first, followed by poster seeds 0/1/2. IDs and colors follow Fig.~\ref{fig:detection-examples}; native YOLO boxes are orange. This exposes variability hidden by a single qualitative example.}
+\label{fig:cloth-seeds}
+\end{figure}
+
+\clearpage
+\section{Additional Failure Analysis and Examples}\label{app:failures}
+
+Table~\ref{tab:error-types} distinguishes extra pixels attached to a
+detected target from isolated foreground. An attached region
+is not necessarily a small contour error: it can also fill the interior
+of a cable loop or connect to a large background patch. Empty-control
+results help reveal foreground predictions in scenes without annotated
+hazards, subject to the same recording-prop caveat.
+\input{error_types_table.tex}
+
+Figures~\ref{fig:extra-qualitative-a} and \ref{fig:extra-qualitative-b}
+show additional target-level successes and failures with model
+predictions. The selected examples distinguish newly recovered objects
+from boundary improvements, a fusion failure and a matched background
+change. Their captions report all-seed/repeat frequencies so that one
+chosen image does not imply a consistent effect.
+
+\clearpage
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth,page=1]{figures/qualitative_cases.pdf}
+\includegraphics[width=0.9\textwidth,page=2]{figures/qualitative_cases.pdf}
+\caption{Additional examples: recovery of a white cable at 2.5 m, and improved spatial localization of a black pawn that RGB already covers. The latter is a boundary-quality gain rather than a newly recovered object. Selected targets, raw depth and full prediction extents are identified in the panels.}
+\label{fig:extra-qualitative-a}
+\end{figure}
+
+\clearpage
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth,page=3]{figures/qualitative_cases.pdf}
+\includegraphics[width=0.9\textwidth,page=4]{figures/qualitative_cases.pdf}
+\caption{Additional examples: a black cable missed by fusion, and a target-specific floor/poster comparison for the flat white towel. The complete four-cloth comparison is shown in Fig.~\ref{fig:detection-examples}; this supplementary view focuses on one target. Coverage and spatial quality remain separate outcomes.}
+\label{fig:extra-qualitative-b}
+\end{figure}
+
+\clearpage
+\section{Inference Cost and the Direct SAM Baseline}\label{app:cost}
+
+Direct SAM is a strong accuracy baseline in Table~\ref{tab:shared-detection}.
+Training a smaller model is therefore a quality/compute tradeoff, not
+an assumption that the teacher cannot be used directly.
+Table~\ref{tab:inference-cost} compares the complete configured SAM and
+YOLO inference pipelines on the same three RGB images. Model loading and
+image-file reading are excluded; preprocessing, model execution,
+postprocessing and output transfer to CPU are included. SAM computes the
+image features once and reuses them for its three prompts.
+
+\input{inference_cost_table.tex}
+
+The CPU is an Intel Xeon Gold 6230 with eight allocated threads; both
+models use float32. The GPU is an NVIDIA H200 MIG 3g.71gb partition.
+Its practical inference configurations use float16 for YOLO and bfloat16
+for SAM. Different precision and preprocessing resolutions accompany the
+hardware change, so this is a deployment-configuration comparison rather
+than an isolated hardware-speedup experiment. CPU measurements have one
+warmup and three measured frames; GPU measurements have three warmups
+and 15 measured frames. GPU memory is peak PyTorch-allocated CUDA memory,
+not total driver reservation. CPU memory is peak process RSS, including
+runtime and loading allocations. The same fixed trained detector weights
+are used on both devices to control the hardware comparison.
+
+Under these configurations, SAM is about 392 times slower on server CPU
+and 45 times slower on GPU. It has 840.4 million parameters versus
+3.01 million for the box detector. The GPU gap is smaller because its
+acceleration benefits the large teacher substantially. These measurements
+explain the attraction of offline SAM labeling followed by a small model,
+while the stronger direct-SAM recovery argues for retaining the teacher
+when server compute and latency permit it. No on-robot or TensorRT timing
+is claimed; measuring the intended deployment platform remains necessary.

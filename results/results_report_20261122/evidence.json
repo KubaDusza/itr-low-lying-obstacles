@@ -65,55 +65,62 @@
   },
   "rgb_automatic": {
     "seeds": [
+      0,
       1,
       2
     ],
     "models": [
+      "rgb_sam_v2_s0_recovery_glaurung",
       "rgb_sam_v2_s1",
       "rgb_sam_v2_s2"
     ],
     "metrics": {
       "pixel_iou": {
-        "mean": 0.46788116760679055,
-        "sd": 0.030246363513875812,
-        "n": 2,
+        "mean": 0.46895762712824207,
+        "sd": 0.021468524593244175,
+        "n": 3,
         "values": [
+          0.4711105461711451,
           0.4892685763536855,
           0.44649375885989556
         ]
       },
       "coverage_recall50": {
-        "mean": 0.751908396946565,
-        "sd": 0.04318209350757542,
-        "n": 2,
+        "mean": 0.7814249363867685,
+        "sd": 0.05954850880940486,
+        "n": 3,
         "values": [
+          0.8404580152671756,
           0.7213740458015268,
           0.7824427480916031
         ]
       },
       "micro_localization_recall": {
-        "mean": 0.600763358778626,
-        "sd": 0.002159104675378712,
-        "n": 2,
+        "mean": 0.6033078880407124,
+        "sd": 0.004664199180616624,
+        "n": 3,
         "values": [
+          0.6083969465648855,
           0.6022900763358778,
           0.5992366412213741
         ]
       },
       "macro_recording_localization_recall": {
-        "mean": 0.6065277777777777,
-        "sd": 0.004674761497844406,
-        "n": 2,
+        "mean": 0.6095185185185185,
+        "sd": 0.006144940037611808,
+        "n": 3,
         "values": [
+          0.6155,
           0.6098333333333332,
           0.6032222222222221
         ]
       },
       "false_components_per_frame": {
-        "mean": 5.7625,
-        "sd": 0.8883028938656,
-        "n": 2,
+        "mean": 6.425,
+        "sd": 1.30815127780582,
+        "n": 3,
         "values": [
+          7.75,
           5.134375,
           6.390625
         ]
@@ -383,59 +390,59 @@
       2
     ],
     "models": [
-      "unet_full_reference_s0",
-      "unet_full_reference_s1",
-      "unet_full_reference_s2"
+      "unet_logged_reference_s0",
+      "unet_logged_reference_s1",
+      "unet_logged_reference_s2"
     ],
     "metrics": {
       "pixel_iou": {
-        "mean": 0.485475937797133,
-        "sd": 0.014975179745600803,
+        "mean": 0.48690682503693145,
+        "sd": 0.06356557482063699,
         "n": 3,
         "values": [
-          0.4945780730531578,
-          0.49365748022161277,
-          0.4681922601166284
+          0.4220603817427759,
+          0.5491090056374616,
+          0.48955108773055694
         ]
       },
       "coverage_recall50": {
-        "mean": 0.5203562340966922,
-        "sd": 0.01717698608828264,
+        "mean": 0.46361323155216283,
+        "sd": 0.0551223976359088,
         "n": 3,
         "values": [
-          0.5145038167938931,
-          0.5396946564885496,
-          0.5068702290076336
+          0.40458015267175573,
+          0.4725190839694656,
+          0.5137404580152671
         ]
       },
       "micro_localization_recall": {
-        "mean": 0.4440203562340967,
-        "sd": 0.015425388871478544,
+        "mean": 0.38625954198473283,
+        "sd": 0.04499933634561679,
         "n": 3,
         "values": [
-          0.4351145038167939,
-          0.4618320610687023,
-          0.4351145038167939
+          0.3366412213740458,
+          0.3977099236641221,
+          0.42442748091603055
         ]
       },
       "macro_recording_localization_recall": {
-        "mean": 0.4547037037037038,
-        "sd": 0.015300420930759897,
+        "mean": 0.39272222222222225,
+        "sd": 0.046793379557052386,
         "n": 3,
         "values": [
-          0.44488888888888894,
-          0.4723333333333333,
-          0.4468888888888889
+          0.3414444444444445,
+          0.40361111111111114,
+          0.4331111111111111
         ]
       },
       "false_components_per_frame": {
-        "mean": 3.1833333333333336,
-        "sd": 1.5361602818255435,
+        "mean": 2.3989583333333333,
+        "sd": 0.064068851311174,
         "n": 3,
         "values": [
-          2.0625,
-          2.553125,
-          4.934375
+          2.334375,
+          2.4,
+          2.4625
         ]
       }
     }
@@ -605,7 +612,7 @@
     "isod": "Only 30 reviewed test frames, 10/site, of the 300-frame test split; provisional evidence.",
     "instances": "GTE IDs include individuals and groups; not native instance AP.",
     "automatic": "RGB-only generation, but prompt development/validation used reviewed references.",
-    "new_corrections": "16 recent corrections are saved separately; running models used the frozen 70 reviewed + 1330 assisted reference labels."
+    "new_corrections": "Semantic runs use frozen 70 reviewed + 1330 assisted masks; the new box detector uses the updated 85 reviewed + 1315 assisted instance-derived reference source."
   },
   "source_analysis_completion": {
     "updated_at": "2026-11-22T08:39:29.375142+00:00",
@@ -637,6 +644,6 @@
     "runner_sha256": "2cc364b8c240305aae077055c8812ec75e28609d01d5befd2c5e31889983d972",
     "analysis_archive_sha256": "db7e392d3331a04246365c97809c088209b170caecd1db80f362529428a86de7"
   },
-  "source_summary_sha256": "72c2bcf185611306150775cb01c93c5a5864d53606835202464ef8491646055d",
+  "source_summary_sha256": "25e43fd45f422f2f6276c1fca79582477849d916e9ace693c32a6394fb57c789",
   "matched_reference_unit_recording_pairs": 262
 }

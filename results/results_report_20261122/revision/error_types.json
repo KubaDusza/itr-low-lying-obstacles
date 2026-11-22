@@ -1,0 +1,150 @@
+{
+  "definition": "An extra predicted pixel is isolated if its 8-connected predicted component touches no reference foreground; otherwise it is attached. Attached does not necessarily mean a narrow boundary error.",
+  "scope": "All 320 full GTE frames; recording props can contribute extra pixels.",
+  "runs": [
+    {
+      "model": "esanet_full_rgb_reference_s0",
+      "modality": "rgb",
+      "source": "reference",
+      "seed": 0,
+      "extra_pixels": 792800,
+      "isolated_extra_pixels": 120283,
+      "isolated_fraction": 0.15171922300706356,
+      "empty_frames": 20,
+      "empty_frames_with_foreground": 20,
+      "empty_foreground_pixels_per_frame": 418.75
+    },
+    {
+      "model": "esanet_full_rgb_reference_s1",
+      "modality": "rgb",
+      "source": "reference",
+      "seed": 1,
+      "extra_pixels": 822721,
+      "isolated_extra_pixels": 141236,
+      "isolated_fraction": 0.17166937515877193,
+      "empty_frames": 20,
+      "empty_frames_with_foreground": 20,
+      "empty_foreground_pixels_per_frame": 408.1
+    },
+    {
+      "model": "esanet_full_rgb_reference_s2",
+      "modality": "rgb",
+      "source": "reference",
+      "seed": 2,
+      "extra_pixels": 630425,
+      "isolated_extra_pixels": 155472,
+      "isolated_fraction": 0.24661458539873896,
+      "empty_frames": 20,
+      "empty_frames_with_foreground": 20,
+      "empty_foreground_pixels_per_frame": 530.35
+    },
+    {
+      "model": "rgb_sam_v2_s0_recovery_glaurung",
+      "modality": "rgb",
+      "source": "automatic",
+      "seed": 0,
+      "extra_pixels": 1037117,
+      "isolated_extra_pixels": 572731,
+      "isolated_fraction": 0.5522337402626705,
+      "empty_frames": 20,
+      "empty_frames_with_foreground": 20,
+      "empty_foreground_pixels_per_frame": 4045.35
+    },
+    {
+      "model": "rgb_sam_v2_s1",
+      "modality": "rgb",
+      "source": "automatic",
+      "seed": 1,
+      "extra_pixels": 826247,
+      "isolated_extra_pixels": 542517,
+      "isolated_fraction": 0.656603896897659,
+      "empty_frames": 20,
+      "empty_frames_with_foreground": 20,
+      "empty_foreground_pixels_per_frame": 1374.9
+    },
+    {
+      "model": "rgb_sam_v2_s2",
+      "modality": "rgb",
+      "source": "automatic",
+      "seed": 2,
+      "extra_pixels": 1284729,
+      "isolated_extra_pixels": 645386,
+      "isolated_fraction": 0.5023518578626309,
+      "empty_frames": 20,
+      "empty_frames_with_foreground": 20,
+      "empty_foreground_pixels_per_frame": 8500.1
+    },
+    {
+      "model": "rgbd_reference210_s0",
+      "modality": "rgbd",
+      "source": "reference",
+      "seed": 0,
+      "extra_pixels": 520634,
+      "isolated_extra_pixels": 74421,
+      "isolated_fraction": 0.1429430271553529,
+      "empty_frames": 20,
+      "empty_frames_with_foreground": 19,
+      "empty_foreground_pixels_per_frame": 157.85
+    },
+    {
+      "model": "rgbd_reference210_s1",
+      "modality": "rgbd",
+      "source": "reference",
+      "seed": 1,
+      "extra_pixels": 457502,
+      "isolated_extra_pixels": 88326,
+      "isolated_fraction": 0.19306145109748155,
+      "empty_frames": 20,
+      "empty_frames_with_foreground": 20,
+      "empty_foreground_pixels_per_frame": 289.5
+    },
+    {
+      "model": "rgbd_reference210_s2",
+      "modality": "rgbd",
+      "source": "reference",
+      "seed": 2,
+      "extra_pixels": 541705,
+      "isolated_extra_pixels": 38955,
+      "isolated_fraction": 0.07191183393175252,
+      "empty_frames": 20,
+      "empty_frames_with_foreground": 20,
+      "empty_foreground_pixels_per_frame": 265.35
+    },
+    {
+      "model": "rgbd_sam210_s0",
+      "modality": "rgbd",
+      "source": "automatic",
+      "seed": 0,
+      "extra_pixels": 936072,
+      "isolated_extra_pixels": 634514,
+      "isolated_fraction": 0.6778474305395311,
+      "empty_frames": 20,
+      "empty_frames_with_foreground": 20,
+      "empty_foreground_pixels_per_frame": 1072.5
+    },
+    {
+      "model": "rgbd_sam210_s1",
+      "modality": "rgbd",
+      "source": "automatic",
+      "seed": 1,
+      "extra_pixels": 666240,
+      "isolated_extra_pixels": 337084,
+      "isolated_fraction": 0.5059498078770414,
+      "empty_frames": 20,
+      "empty_frames_with_foreground": 20,
+      "empty_foreground_pixels_per_frame": 1059.75
+    },
+    {
+      "model": "rgbd_sam210_s2",
+      "modality": "rgbd",
+      "source": "automatic",
+      "seed": 2,
+      "extra_pixels": 952650,
+      "isolated_extra_pixels": 582549,
+      "isolated_fraction": 0.6115037002046921,
+      "empty_frames": 20,
+      "empty_frames_with_foreground": 20,
+      "empty_foreground_pixels_per_frame": 1060.15
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "status": "All six longer box runs and three logged U-Net reruns completed; all predictions retrieved locally",
+  "jobs": {
+    "unet_gate": "21773723",
+    "reference_boxes": "21773724",
+    "automatic_boxes": "21773725",
+    "unet_logged": "21773726",
+    "cpu_cost": "21774376",
+    "gpu_cost": "21774377"
+  },
+  "box_policy": {
+    "max_epochs": 200,
+    "patience": 20,
+    "criterion": "validation AP50:95",
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "label_sources": [
+      "reference",
+      "automatic"
+    ]
+  },
+  "unet_policy": {
+    "epochs": 15,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "same_objective_and_schedule": true,
+    "validation_loss_logged": true,
+    "criterion": "validation obstacle IoU"
+  },
+  "prior_runs_preserved": true,
+  "vpn_required_for_current_report": false,
+  "box_actual_epochs": {
+    "reference": [
+      72,
+      73,
+      65
+    ],
+    "automatic": [
+      67,
+      98,
+      84
+    ]
+  },
+  "inference_cost_complete": {
+    "cpu": true,
+    "gpu": true
+  }
+}

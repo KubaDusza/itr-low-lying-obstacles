@@ -1,69 +1,97 @@
 {
-  "updated_at": "2026-11-22T13:35:25.152273+00:00",
-  "deadline_supplied_by_user": "2026-11-22 17:59 Europe/Paris",
-  "format": "IEEEtran conference, two columns",
-  "combined_pages": 8,
+  "updated_at": "2026-11-22T15:54:26.364008+00:00",
+  "combined_pages": 21,
   "results_and_conclusion_pages": [
     5,
     6
   ],
+  "appendix_pages": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+  ],
+  "format": "IEEEtran conference",
+  "original_introduction_and_state_of_art_verbatim": true,
   "results_length_within_two_to_four_columns": true,
   "conclusion_or_future_work_present": true,
-  "original_introduction_and_state_of_art_verbatim": true,
-  "completed_experiments_and_label_sources_described": true,
   "all_figures_and_tables_referenced": true,
   "figure_table_labels": [
     "fig:pipeline",
     "fig:collection",
     "tab:collection",
     "tab:models",
-    "fig:objects",
-    "fig:detection-comparison",
-    "fig:native-boxes",
+    "tab:domain-results",
     "fig:range-size",
-    "fig:detection-examples"
+    "tab:object-sets",
+    "tab:shared-detection",
+    "fig:detection-examples",
+    "fig:objects",
+    "tab:experiment-matrix",
+    "tab:full-component",
+    "tab:domain-spread",
+    "tab:runtime",
+    "tab:per-item",
+    "fig:esanet-curves",
+    "fig:baseline-curves",
+    "fig:native-curves",
+    "fig:teacher-devval",
+    "fig:teacher-test",
+    "tab:cloth-repeat-counts",
+    "fig:cloth-seeds",
+    "tab:error-types",
+    "fig:extra-qualitative-a",
+    "fig:extra-qualitative-b",
+    "tab:inference-cost"
   ],
-  "captions_explain_units_colors_seeds_and_scope": true,
-  "graphs_and_tables_support_results": true,
-  "strengths_limits_and_future_work_present": true,
   "no_undefined_references": true,
   "no_overfull_boxes": true,
   "no_type3_fonts": true,
-  "review": "All pages rendered; changed methods and both results pages inspected at full resolution. Figure clipping and legend overlap corrected. Cloth and native box captions checked against saved predictions.",
-  "scientific_limits": [
-    "30 reviewed ISOD test frames, not all 300",
-    "Assisted reference labels, not fully manually annotated instances",
-    "Validation-informed prompt development",
-    "GTE recording props are unannotated; unmatched predictions are diagnostic",
-    "GTE IDs include annotated groups",
-    "One external room and five static repeats/recording",
-    "Automatic RGB semantic cohort uses two retrieved seeds",
-    "Native detector runs use a 20-epoch budget; five optima are at the last epoch"
-  ],
-  "native_box_experiment": {
-    "runs": 6,
-    "seeds": [
-      0,
-      1,
-      2
-    ],
-    "sources": [
-      "reference",
-      "automatic"
-    ],
-    "epochs": 20,
-    "task": "detect",
-    "matched_configuration_verified": true,
-    "local_remote_evaluation_exact": true,
-    "reference_frames": 1400,
-    "validation_frames": 300,
-    "gte_frames": 320,
-    "reference_unit_views": 1310
+  "learned_conditions_all_have_three_seeds": true,
+  "native_box_policy": {
+    "max_epochs": 200,
+    "patience": 20,
+    "actual_epochs": {
+      "reference": [
+        72,
+        73,
+        65
+      ],
+      "automatic": [
+        67,
+        98,
+        84
+      ]
+    },
+    "selection": "ISOD validation box AP50:95",
+    "gte_frames": 320
   },
+  "unet_validation_loss_logged_all_three_runs": true,
+  "standard_component_metric_and_separate_native_box_AP": true,
+  "cpu_gpu_cost_measured": true,
+  "gte_vpn_required": false,
+  "scientific_limits": [
+    "30 reviewed ISOD test frames, not the full 300-frame split",
+    "Assisted references and some grouped IDs",
+    "Validation-informed prompt development",
+    "Unannotated recording props",
+    "One external room, static repeats",
+    "Models differ in training targets and budgets",
+    "Hardware cost uses different optimized precisions; no robot timing"
+  ],
+  "visual_review": "All 21 pages rendered; main results, changed training curves, grouped cloth scenes and hardware table inspected.",
   "submission_status": "Not submitted; reviewable report",
-  "pdf_sha256": "d1462f83bc469c572747bef9de58245602130c9982a3782c70f73405179d36f5",
-  "main_tex_sha256": "3838e143df792c52dc9337f4938e373d92a841b1a76e7db7bb2c061f456569ae",
-  "results_tex_sha256": "0e02df6fd1ae4142196117481706e29c9556ad6ca54b7dfd8b697dd0256996e0",
-  "coverage_localization_and_native_box_detection_separated": true,
-  "standard_iou_precision_recall_equations_removed": true
+  "pdf_sha256": "fb6f5bc87cd43b11d9b3b40af928755be40f36148bfd269861afd9ec7a531067",
+  "main_tex_sha256": "2673af10c34d3c5f071185fdc1fe204483b550cf88fd4dce99e79719def3fb4f",
+  "results_tex_sha256": "3f211157c12ced8de182a1915d9769084be57570909837b7d24a6ab3ab027a6b"
 }

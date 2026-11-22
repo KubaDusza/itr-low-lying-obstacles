@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "task": "detect",
+    "model": "yolov8n.pt",
+    "source": "automatic",
+    "seed": 0,
+    "epochs": 200,
+    "early_stopping_patience": 20,
+    "pretrained_sha256": "f59b3d833e2ff32e194b5bb8e08d211dc7c5bdf144b90d2c8412c47ccfc83b36",
+    "reference_manifest_sha256": "25da2301112b5e0c20ebd3f2f13978f53b21605af95ec68985e21304d8f3a09f",
+    "automatic_manifest_sha256": "925c040a8ad9b3aecc9871e72066bbdb007ea7c565f9b9a9d84fb10ba2a3f7df",
+    "train_frames": 1400,
+    "validation_frames": 300,
+    "gate": false,
+    "torch": "2.10.0",
+    "ultralytics": "8.3.228",
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "slurm_job": "21774683",
+    "validation_selection": "shared ISOD reference-box validation mAP50:95",
+    "labels_quality": "assisted hazard-unit boxes; some targets are groups",
+    "code_sha256": "711d7d611a0bfa000a44aea698b253df7461370f3d98691a20533e94e44e2381",
+    "gte_domain": "full-frame diagnostic; props not exhaustively annotated"
+  },
+  "actual_epochs": 67,
+  "early_stopped": true,
+  "elapsed_seconds": 510.22767762898,
+  "selected_checkpoint": "best.pt",
+  "complete": true
+}

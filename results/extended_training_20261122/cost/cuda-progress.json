@@ -1,0 +1,72 @@
+[
+  {
+    "model": "YOLOv8n box detector",
+    "device": "cuda",
+    "hardware": "NVIDIA H200 MIG 3g.71gb",
+    "precision": "float16",
+    "parameters": 3011043,
+    "warmup": 3,
+    "measured_frames": 15,
+    "images": [
+      "OWN/h52_poster_rags_075/rgb/2.png",
+      "OWN/h25_floor_cables_250/rgb/2.png",
+      "OWN/h25_floor_random_150/rgb/2.png"
+    ],
+    "median_ms": 4.042782005853951,
+    "p90_ms": 4.345041606575251,
+    "times_ms": [
+      5.302388046402484,
+      4.525130032561719,
+      4.042782005853951,
+      3.7999030319042504,
+      3.6126720369793475,
+      3.5999189713038504,
+      3.6067479522898793,
+      3.6026290035806596,
+      3.6035439698025584,
+      3.5818100441247225,
+      4.074908967595547,
+      4.060138016939163,
+      4.073765012435615,
+      4.065630026161671,
+      4.054974007885903
+    ],
+    "peak_memory_GiB": 0.012525558471679688,
+    "memory_measure": "peak allocated CUDA memory"
+  },
+  {
+    "model": "SAM 3, three prompts with shared image features",
+    "device": "cuda",
+    "hardware": "NVIDIA H200 MIG 3g.71gb",
+    "precision": "bfloat16",
+    "parameters": 840376374,
+    "warmup": 3,
+    "measured_frames": 15,
+    "images": [
+      "OWN/h52_poster_rags_075/rgb/2.png",
+      "OWN/h25_floor_cables_250/rgb/2.png",
+      "OWN/h25_floor_random_150/rgb/2.png"
+    ],
+    "median_ms": 183.1444519921206,
+    "p90_ms": 193.14514421857893,
+    "times_ms": [
+      180.5600999505259,
+      180.5989799904637,
+      183.1158779677935,
+      182.2771150036715,
+      182.36446601804346,
+      203.5777569981292,
+      185.23291603196412,
+      183.9297820115462,
+      183.1444519921206,
+      183.1178849679418,
+      185.0265589891933,
+      184.5683249994181,
+      183.81057603983209,
+      182.58580699330196,
+      198.41996300965548
+    ],
+    "peak_memory_GiB": 2.01645565032959,
+    "memory_measure": "peak allocated CUDA memory"
+  }
+]

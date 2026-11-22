@@ -1,0 +1,17 @@
+{
+  "root": "/tmp/itr-extended-21773723.ipMmAw/unet",
+  "arch": "unet",
+  "encoder": "mobilenet_v2",
+  "epochs": 1,
+  "batch": 8,
+  "lr": 0.0003,
+  "train_masks": "/tmp/itr-extended-21773723.ipMmAw/unet/ISOD_reference_train_v1",
+  "val_masks": "/tmp/itr-extended-21773723.ipMmAw/unet/ISOD_reference_val_v1",
+  "test_masks": "/tmp/itr-extended-21773723.ipMmAw/unet/ISOD_reference_test_v1",
+  "output": "/tmp/itr-extended-21773723.ipMmAw/unet/fit",
+  "seed": 0,
+  "workers": 4,
+  "train_limit": 32,
+  "val_limit": 16,
+  "predict_all_test": false
+}

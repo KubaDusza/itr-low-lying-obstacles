@@ -1,93 +1,103 @@
-\section{Results and Discussion}\label{sec:results}
+\section{Results}\label{sec:results}
+
+\input{domain_table.tex}
 
 \begin{figure*}[!b]
-\centering
-\includegraphics[width=\textwidth]{figures/detection_comparison.pdf}
-\caption{Object recovery, localization, mask quality and excess predictions on all 320 GTE-Floor frames. Covered: at least half an annotated unit's pixels are predicted. Localized: adjusted IoU $\geq0.5$, including excess background. Points show seed means and bars show seed standard deviation; direct methods are fixed. Reference training uses three seeds; SAM training uses three except RGB ($n=2$). Colors distinguish RGB (black), D (gray) and RGB-D (blue). False components use a logarithmic axis and include recording props and unfiltered fragments. IDs include annotated groups; these are not native instance-AP scores.}
-\label{fig:detection-comparison}
-\end{figure*}
-
-\begin{figure*}[!b]
-\centering
-\includegraphics[width=\textwidth]{figures/native_box_detection.pdf}
-\caption{Separate YOLOv8n box-training experiment: reference versus RGB-only SAM instance labels, three seeds and 20 epochs each. Bars show means, error bars seed SD, and dots individual seeds. AP uses confidence-ranked native boxes; recall uses fixed confidence 0.25 and one-to-one box IoU $\geq0.5$ matching. Below: the poster cloth scene (frame 2, seed 0), with cyan reference boxes, green matches and red unmatched predictions. These scores concern annotated hazard units, including groups, and full-frame props remain unannotated.}
-\label{fig:native-boxes}
-\end{figure*}
-
-\subsection{Object recovery and localization}
-
-On GTE-Floor, covering an obstacle does not necessarily mean localizing
-it without excess foreground (Fig.~\ref{fig:detection-comparison}).
-Reference-supervised RGB-D covers 64.3\% of annotated units versus
-RGB's 62.8\%; localization rises from 45.4\% to 50.7\%. The larger IoU
-gain (0.486 to 0.554) therefore need not represent many newly recovered
-objects. Paired IoU changes range from $-6.3$ to $+20.3$ percentage
-points across seeds: fusion improves the average but is not consistently
-better across runs.
-
-\subsection{Native box detection}
-
-The box-trained models in Fig.~\ref{fig:native-boxes} yield mean AP50
-of 63.0\% with reference labels and 58.5\% with SAM labels. At fixed
-confidence, recall rises from 61.1\% to 64.4\%, while unmatched boxes
-increase from 1.44 to 2.19/frame. Automatic supervision trades more
-recovered targets for more excess predictions; box recall and mask
-coverage use different matching rules.
-
-\begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{figures/detection_by_distance_size.pdf}
-\caption{Reference-supervised ESANet object coverage and localization by distance, and coverage by apparent image size. Means and bars show three training seeds and their standard deviation. Distance summaries average five static repeats within each of 20 recordings per distance. Size-bin counts are annotated-unit/recording pairs, including explicit groups; repeats are averaged first. Area is reference foreground on the original $640\times362$ evaluation grid, not physical area. Distance, pixel size, category and viewpoint covary; the bins do not isolate a causal size effect.}
+\caption{Pixel IoU and object recall of reference-trained ESANet RGB (blue), D (gray) and RGB-D (orange). Points are three-seed means and whiskers seed standard deviations. Distance recall averages the five repeats within each of 20 recordings. Size is reference foreground area in pixels; counts are unit/recording pairs, with repeats averaged. Distance, size and category are confounded, so panel (c) is exploratory.}
 \label{fig:range-size}
 \end{figure*}
 
-\subsection{Distance, image size and depth}
+\subsection{Experiments carried out}
 
-Figure~\ref{fig:range-size} shows fewer objects recovered and localized at
-longer range. Recording-level localization recall falls between 0.75 and
-2.5 m from 58.5\% to 35.9\% for RGB, from 61.0\% to 43.1\% for RGB-D,
-and from 18.1\% to 2.6\% for D.
+This report covers three questions: whether depth helps find floor
+hazards, whether RGB-only SAM labels can replace assisted reference
+training labels, and how a box detector compares with mask prediction.
+We train ESANet with RGB, D and RGB-D, using both label sources and
+three seeds per condition (500 epochs). U-Net and YOLOv8n-seg provide
+reference-trained RGB baselines (15/20 epochs). The added YOLOv8n
+\emph{detector} learns one box per hazard unit, using both label sources,
+three seeds and validation-based early stopping (patience 20, maximum
+200 epochs). Table~\ref{tab:models} distinguishes their
+training targets. All are trained on ISOD and tested, without
+fine-tuning, on the 320 GTE-Floor frames.
 
-The provisional 30-frame ISOD test gives mean IoU 0.754 for RGB and
-0.753 for RGB-D. With RGB and weights fixed, missing depth reduces
-GTE localization from 50.7\% to 6.2\%; permuting depth within
-camera/background/distance configurations gives 49.2\%. Missing depth
-is out of distribution and permutation preserves scene geometry, so
-these checks do not establish precise object-depth use.
+\subsection{Quantitative comparison}
+
+\textbf{ISOD and GTE-Floor.} Both RGB and RGB-D transfer only partially
+(Table~\ref{tab:domain-results}). ISOD mask IoU is almost identical,
+whereas RGB-D has higher external IoU (0.554 versus 0.486).
+Precision and recall fall outside the training dataset. GTE object
+recall increases much less, from 0.628 to 0.643: better mask agreement
+does not necessarily mean many more objects found. Results vary across
+seeds, so the average gain is not a consistent advantage in every run.
+
+\textbf{Where the models differ.} RGB and RGB-D object recall fall at
+longer range (Fig.~\ref{fig:range-size}); small image regions remain
+hard for both. Depth alone is substantially weaker. Table~\ref{tab:object-sets}
+breaks the result down by object set rather than ranking a single best
+model. Category, distance and apparent size change together.
+
+\input{object_set_table.tex}
+\input{shared_detection_table.tex}
+
+\textbf{Masks versus boxes.} Table~\ref{tab:shared-detection} evaluates
+all outputs as obstacle regions, allowing useful splits and merges.
+Reference-trained YOLOv8n boxes recover 67.6\% of annotated units,
+versus 64.3\% for RGB-D masks, but their coarser spatial extent gives
+lower component F1. These are complete pipelines with different
+training targets and budgets, rather than an isolated architecture
+comparison. Native box AP and training details are in the appendix.
+
+\textbf{Automatic labels.} This experiment asks whether we can train a
+useful model without supplying the original ISOD masks during label
+generation. Changing only the label source within each model increases
+RGB-D object recall from 64.3\% to 75.3\%, but component F1 falls
+from 0.428 to 0.356. YOLO boxes show the same recall/precision tradeoff.
+For RGB and RGB-D ESANet, over half the extra foreground pixels under
+SAM supervision lie in isolated regions, compared with mostly attached
+errors under reference supervision (Appendix~\ref{app:failures}).
 
 \begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{figures/detection_examples.pdf}
-\caption{All four cloths on (a) bare floor and (b) a white poster, frame 2 and seed 0. First column: full scene and reference outlines; models and metrics use full images. IDs: 1 flat white towel, 2 crumpled white tissue, 3 flat pink cloth, 4 crumpled purple cloth. Yellow outlines references; green is correct foreground, blue missed, red extra. Covered requires at least 50\% reference pixels; localized additionally requires adjusted IoU $\geq0.5$. RGB and D find complementary items, but RGB-D misses all four on the poster. Camera-axis floor residuals share $[-50,50]$ mm (black unavailable), not object height.}
+\caption{Whole-scene cloth comparison at 0.75 m, frame 2 and seed 0. IDs: 1 flat white towel, 2 crumpled white tissue, 3 flat pink cloth, 4 crumpled purple cloth. Cyan/yellow outlines show references. Mask colors: green correct foreground, blue missed, red extra; ``covered'' lists IDs at least half covered. Final column shows native reference-trained YOLO boxes in orange; coverage uses their combined area. Seed 0 is a fusion failure on the poster, not a consistent result across seeds; Appendix~\ref{app:seed-consistency} shows all three. Depth panels show camera-axis floor residuals in $[-50,50]$ mm (black unavailable), not object height.}
 \label{fig:detection-examples}
 \end{figure*}
 
-\subsection{What is found and missed}
+\newpage
+\subsection{Qualitative analysis}
 
-Figure~\ref{fig:detection-examples} compares the whole cloth scene.
-RGB finds all four on bare floor, whereas D and RGB-D miss both flat
-items. On the poster, RGB finds colored cloths; D covers the crumpled
-white tissue, but imprecisely. RGB-D misses all four in this view.
-Fusion does not automatically retain the complementary detections of
-its input modalities. These matched cases illustrate behavior rather
-than establish its frequency.
+Figure~\ref{fig:detection-examples} shows why the aggregate scores need
+visual interpretation. On bare floor, RGB finds all four cloths in this
+view; D and RGB-D find the crumpled items but miss the flat ones. On the
+poster, RGB finds the colored cloths and D finds the crumpled white
+item. Fusion does not automatically retain both strengths: seed 0
+misses all four, while the other seeds recover several. The flat white
+towel on the poster is missed by all three modalities across all seeds.
 
-\subsection{Automatic labels and limitations}
+\subsection{Interpretation}
 
-SAM-supervised RGB-D raises coverage recall from 64.3\% to 75.3\% and
-localization from 50.7\% to 60.7\%, but false components increase from
-2.84 to 6.03/frame and IoU falls to 0.498
-(Fig.~\ref{fig:detection-comparison}).
-Teacher-mask pooled IoU is 0.604 on validation and 0.757 on the limited
-reviewed test subset; validation informed prompt development.
+The better model depends on the metric: locating a hazard, tracing its
+shape and separating individual instances are different outcomes.
+Component evaluation tolerates grouping differences; native box AP
+measures stricter instance localization. Direct SAM has the strongest
+recovery here, but costs 183 ms/image on an H200 GPU partition versus
+4 ms for YOLO boxes. The CPU/GPU measurements in
+Appendix~\ref{app:cost} make the tradeoff explicit: SAM is a valid direct
+choice when its compute cost is acceptable; smaller models target lower
+latency and memory use. With RGB and weights fixed,
+missing depth severely reduces RGB-D performance, while depth shuffled
+within similar camera setups has a much smaller effect. This shows
+reliance on depth inputs, not proof of precise object-depth use.
 
 \section{Conclusion and Future Work}\label{sec:conclusion}
 
-RGB is a strong baseline. Fusion improves average external localization
-with modest coverage gains and clear failures. Automatic supervision
-raises recall at an excess-prediction cost. Assisted references, grouped
-IDs and one external room limit generalization; recording props also
-confound false-alarm scores. Five box runs peak at the final epoch,
-so longer training could change that comparison. Next steps are expanded
-reviewed ISOD test coverage, verified instances, prop-aware evaluation,
-and physical-size analysis supported by calibration and measurements.
+RGB is a strong baseline; fusion improves average external mask quality
+with modest object-recovery gains. Box supervision is useful for finding
+objects, while mask prediction better describes their occupied area.
+SAM supervision increases RGB/RGB-D recovery at an excess-prediction cost.
+Assisted references, grouped IDs, recording props and one external room
+limit generalization. Next steps are broader reviewed ISOD testing,
+verified instances, prop-aware evaluation and evaluation on the intended robot hardware.

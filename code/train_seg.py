@@ -133,7 +133,7 @@ def main():
         checkpoint = run_dir / f"{name}.pt"
         out_root = Path(a.root) / "pred" / name
     hist = (run_dir / f"{name}_history.csv").open("w")
-    hist.write("epoch,train_loss,val_IoU,seconds\n")
+    hist.write("epoch,train_loss,val_loss,val_IoU,seconds\n")
     t_start = time.time()
     best = -1.0
     for ep in range(a.epochs):
@@ -151,14 +151,20 @@ def main():
             run += loss.item()
         net.eval()
         inter = union = 0
+        validation_loss = 0.0
+        validation_samples = 0
         with torch.no_grad(), torch.amp.autocast("cuda"):
             for x, y, w in va:
-                p = (torch.sigmoid(net(x.to(dev))[:, 0]) > 0.5).float().cpu() * w
+                logits = net(x.to(dev))
+                validation_loss += masked_loss(logits, y.to(dev), w.to(dev)).item() * len(x)
+                validation_samples += len(x)
+                p = (torch.sigmoid(logits[:, 0]) > 0.5).float().cpu() * w
                 inter += (p * y).sum().item()
                 union += ((p + y) > 0).float().sum().item()
-        print(f"epoch {ep + 1}/{a.epochs} loss={run / len(tr):.4f} val_IoU={inter / max(1, union):.4f}",
+        val_loss = validation_loss / validation_samples
+        print(f"epoch {ep + 1}/{a.epochs} loss={run / len(tr):.4f} val_loss={val_loss:.4f} val_IoU={inter / max(1, union):.4f}",
               flush=True)
-        hist.write(f"{ep + 1},{run / len(tr):.5f},{inter / max(1, union):.5f},{time.time() - t_start:.1f}\n")
+        hist.write(f"{ep + 1},{run / len(tr):.5f},{val_loss:.5f},{inter / max(1, union):.5f},{time.time() - t_start:.1f}\n")
         hist.flush()
         if a.output:
             state = dict(epoch=ep + 1, model=net.state_dict(), optimizer=opt.state_dict(),
@@ -170,6 +176,9 @@ def main():
         if a.output and inter / max(1, union) > best:
             best = inter / max(1, union)
             torch.save(net.state_dict(), checkpoint)
+            (run_dir / "selection.json").write_text(json.dumps(dict(
+                criterion="maximum pooled validation obstacle IoU",
+                epoch=ep + 1, validation_iou=best, checkpoint="best.pt"), indent=2) + "\n")
 
     hist.close()
     if a.output:

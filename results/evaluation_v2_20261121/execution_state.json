@@ -41,10 +41,10 @@
     "status": "COMPLETED, all three seeds exit 0"
   },
   "gte": {
-    "recovery_rgb_seed0_running": null,
+    "recovery_rgb_seed0_running": false,
     "cache_recovery_dependency": "after RGB recovery; same three prompts and pinned local SAM",
     "morgoth_unreachable": true,
-    "current_status": "Not checked: Georgia Tech VPN unavailable; last observed running"
+    "current_status": "Required report predictions and histories retrieved, including third RGB/SAM seed; no GTE VPN needed for current report"
   },
   "human_review_not_required_now": true,
   "new_instance_training_started": true,
@@ -82,15 +82,30 @@
   "keep_deployed_analysis_runner_unchanged_until_completion": true,
   "report": {
     "path": "results_report/REPORT.pdf",
-    "status": "Verified IEEE report; not submitted",
+    "status": "Verified 21-page IEEE report; 4-column main results, expanded appendices; not submitted",
     "results_pages": [
       5,
       6
     ],
     "rubric_check": "results_report/rubric_check.json",
-    "pdf_sha256": "d1462f83bc469c572747bef9de58245602130c9982a3782c70f73405179d36f5",
+    "pdf_sha256": "fb6f5bc87cd43b11d9b3b40af928755be40f36148bfd269861afd9ec7a531067",
     "coverage_and_localization_separated": true,
-    "native_box_runs_included": 6
+    "native_box_runs_included": 6,
+    "all_learned_conditions_three_seeds": true,
+    "box_actual_epochs": {
+      "reference": [
+        72,
+        73,
+        65
+      ],
+      "automatic": [
+        67,
+        98,
+        84
+      ]
+    },
+    "unet_validation_loss_fixed": true,
+    "gte_vpn_required": false
   },
   "remaining_scope": [
     "prop-aware/cropped-input inference",
@@ -127,5 +142,6 @@
     "local_remote_evaluation_exact": true,
     "requires_laptop_or_vpn": false,
     "updated_at": "2026-11-22T11:34:57.557413+00:00"
-  }
+  },
+  "extended_training": "results/extended_training_20261122/execution_state.json"
 }

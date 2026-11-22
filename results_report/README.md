@@ -1,20 +1,26 @@
 # Results report
 
-`REPORT.pdf` combines the approved bibliography survey, updated methodology, results and conclusion in the IEEE conference template. Introduction and State of the Art remain verbatim from the approved methodology source. The original methodology report is unchanged. The results and conclusion occupy pages 5–6 (four columns); references and the original collection appendix follow. The user-supplied deadline is November 22 at 17:59 Europe/Paris. Nothing has been submitted automatically.
+`REPORT.pdf` combines the approved bibliography survey, adapted methodology, results and conclusion in the IEEE conference template. Introduction and State of the Art remain verbatim from the approved methodology source; the original methodology report is unchanged. Results and conclusion occupy pages 5–6 (four columns), references page 7, and supporting appendices pages 8–21. Deadline: November 22, 17:59 Europe/Paris. Nothing has been submitted automatically.
 
-Build with `zsh build.sh`. The directory includes its own class, bibliography and image assets.
+Build with `zsh build.sh`. The directory includes its class, bibliography and figure assets.
 
-The main figures show semantic object coverage/localization, native box detection, distance/apparent-size effects, and all four cloths on bare floor versus poster. They use current predictions and seed variation. Matched qualitative views explicitly include fusion failures. The lab partner's emphasis on graphical comparisons and matched examples informed presentation; their earlier model results and statistics were not substituted for these experiments.
+The report preserves the teammate's experiment/quantitative/qualitative/interpretation structure, cross-dataset table, object-set breakdown and dot/whisker graph style. Numbers are recalculated from the current models and labels, rather than copied from the earlier experiments. Additional comparisons distinguish binary semantic masks, instance segmentation and box-only detection.
 
-The six new YOLOv8n detection runs are complete: reference/automatic instance labels x seeds 0/1/2, 20 epochs. They are separate from the older YOLOv8n-seg runs and the ESANet semantic comparison. Native box AP and one-to-one box recall are not interchangeable with semantic-mask coverage/localization. Automatic RGB semantic results retain their honest two-seed count; the missing Georgia Tech run has not been retrieved.
+All reported learned conditions have three seeds: 18 ESANet runs, three U-Net runs, three YOLOv8n-seg runs and six box-detector runs. ESANet histories contain 500 epochs. U-Net was rerun for 15 epochs with actual training and validation BCE+Dice loss logging. The six box detectors were retrained from the same COCO initialization with max 200 epochs and validation patience 20. Reference seeds stopped at 72/73/65 epochs; automatic seeds at 67/98/84. Checkpoints are selected on ISOD validation data, never GTE test scores. Longer training does not uniformly improve external generalization.
+
+The primary common comparison uses obstacle coverage and the published SegmentMeIfYouCan component metric, with explicit adaptations for supplied object/group IDs and rasterized native boxes. It tolerates useful splits and merges while penalizing excess foreground. Strict native box AP is a separate diagnostic. The appendix includes all training curves, component metrics, per-item scores, teacher examples, all-seed cloth comparisons, failure analysis and measured CPU/GPU inference cost.
 
 Evidence:
 
-- `results/instance_detection_20261122`: box labels, native detector configurations/histories, fixed-threshold scores, training curves, matched-configuration checks and remote artifact hashes.
-- `results/results_report_20261122`: semantic cohort/condition analyses, training curves, teacher-mask examples, and a supporting cable/fusion/boundary gallery.
-- `results/triton_20261121/production/analysis_final`: completed semantic evaluation and depth interventions.
-- `DATASET_CREATION.md`: reference assistance versus RGB-only automatic-label generation, human reviews and frozen versions.
+- `../results/extended_training_20261122`: longer box runs, logged U-Net reruns, saved predictions, native evaluation, CPU/GPU timings and execution state.
+- `../results/instance_detection_20261122/input`: unchanged frozen box-reference labels and manifest.
+- `../results/results_report_20261122/revision`: updated domain/category/component analyses and training audit.
+- `../results/results_report_20261122`: source-supervision analyses and automatic-label examples.
+- `../results/triton_20261121/production/analysis_final`: semantic evaluation and depth interventions.
+- `DATASET_CREATION.md`: reference assistance versus RGB-only automatic labels, human reviews and frozen snapshots.
 - `rubric_check.json`: current PDF integrity and rubric checks.
-- `source_assets.json`: approved source hashes and generated figure provenance.
+- `source_assets.json`: source and generated-figure hashes.
 
-GTE is one external room with five static repeats per recording. IDs include assisted groups and recording props are not exhaustively annotated, so full-frame unmatched predictions are diagnostic. ISOD test results cover 30 reviewed frames, not the entire 300-frame split. The short box experiment is not convergence-matched to ESANet; five validation optima occur at the last epoch. Physical dimensions are not invented from image area or unvalidated object depth. Prop-aware inference crops, expanded reviewed test coverage and verified physical-object evaluation remain future work.
+All GTE predictions and histories required for this report, including the third RGB/SAM semantic run, are local. No further GTE VPN connection is required for the current report. Large trained weights remain on their recorded servers; the repository contains labels, code, histories, scores and provenance rather than all weights.
+
+Limits: GTE is one external room with five static repeats per recording; reference IDs include groups and recording props are not exhaustively annotated. Full-frame extra-region scores are therefore diagnostic. ISOD test scores use 30 reviewed images, not the entire 300-frame test split. Semantic and box references are documented, distinct frozen versions. Physical dimensions are not inferred from unvalidated depth. Expanded reviewed testing, verified instances, prop-aware evaluation and robot-hardware timing remain future work.

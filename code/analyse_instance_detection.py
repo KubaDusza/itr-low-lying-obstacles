@@ -36,8 +36,9 @@ def write_csv(path,rows):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--base',type=Path,required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--allow-partial',action='store_true');a=p.parse_args();a.out.mkdir(parents=True,exist_ok=True)
-    if (a.base/'input/reference_manifest.json').exists():manifest=json.loads((a.base/'input/reference_manifest.json').read_text())
+    p=argparse.ArgumentParser();p.add_argument('--base',type=Path,required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--allow-partial',action='store_true');p.add_argument('--reference-manifest',type=Path);a=p.parse_args();a.out.mkdir(parents=True,exist_ok=True)
+    if a.reference_manifest:manifest=json.loads(a.reference_manifest.read_text())
+    elif (a.base/'input/reference_manifest.json').exists():manifest=json.loads((a.base/'input/reference_manifest.json').read_text())
     else:
         with tarfile.open(a.base/'reference_labels.tar.gz') as tar:manifest=json.load(tar.extractfile('reference_manifest.json'))
     truth={Path(r['image']).parent.parent.name+'_'+str(r['frame']):r for r in manifest['gte']}
@@ -49,7 +50,7 @@ def main():
             if not (run/'VERIFIED').exists():
                 assert a.allow_partial,f'Missing verified run: {run.name}'
                 continue
-            settings=json.loads((run/'settings.json').read_text());assert settings['task']=='detect' and settings['epochs']==20 and not settings['gate']
+            settings=json.loads((run/'settings.json').read_text());assert settings['task']=='detect' and settings['epochs']>=1 and not settings['gate']
             predictions=json.loads((run/'gte_boxes.json').read_text())['frames'];assert len(predictions)==320 and {r['image'] for r in predictions}==set(truth)
             total=defaultdict(int);empty=[]
             for pred in predictions:

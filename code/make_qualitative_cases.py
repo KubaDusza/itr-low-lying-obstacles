@@ -22,7 +22,7 @@ def gray(p):
 
 
 def main():
-    plt.rcParams.update({'font.size':9})
+    plt.rcParams.update({'font.size':9, 'font.family':'serif', 'font.serif':['STIXGeneral'], 'pdf.fonttype':42})
     units=list(csv.DictReader((OUT/'matched_units.csv').open()))
     observations=list(csv.DictReader((ANALYSIS/'gte_full_diagnostic/objects.csv').open()))
     inventory={r['item_id']:r['label'] for r in csv.DictReader((ROOT/'data_collection/items.csv').open())}

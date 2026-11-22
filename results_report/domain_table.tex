@@ -1,0 +1,21 @@
+\begin{table*}[!b]
+\caption{ESANet on ISOD and GTE-Floor.}
+\label{tab:domain-results}
+\centering\footnotesize
+\begin{tabular}{lrrrrrr}
+\toprule
+& \multicolumn{3}{c}{ISOD (30 frames)} & \multicolumn{3}{c}{GTE-Floor (320 frames)}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Metric & RGB & D & RGB-D & RGB & D & RGB-D\\
+\midrule
+Pixel IoU & 0.754 & 0.319 & 0.753 & 0.486 & 0.141 & 0.554\\
+Pixel precision & 0.799 & 0.423 & 0.799 & 0.574 & 0.189 & 0.666\\
+Pixel recall & 0.930 & 0.564 & 0.928 & 0.755 & 0.363 & 0.763\\
+Pixel F1 & 0.859 & 0.483 & 0.859 & 0.652 & 0.247 & 0.710\\
+Object recall & -- & -- & -- & 0.628 & 0.383 & 0.643\\
+FP pixels/frame & 2087 & 6853 & 2082 & 2340 & 6616 & 1583\\
+FN pixels/frame & 629 & 3895 & 641 & 1027 & 2667 & 993\\
+Empty scenes: predicted pixels/frame & -- & -- & -- & 452 & 7337 & 238\\
+\bottomrule
+\end{tabular}\par\smallskip{\footnotesize Three-seed means. Object recall uses annotated units, including groups. Pixel FP/FN are normalized per frame.}
+\end{table*}
